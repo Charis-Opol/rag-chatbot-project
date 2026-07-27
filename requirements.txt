@@ -17,8 +17,8 @@ openpyxl==3.1.5
 
 # RAG / embeddings / vector search
 sentence-transformers==3.1.1
-faiss-cpu==1.8.0.post1
-numpy==1.26.4
+faiss-cpu==1.9.0.post1
+numpy==2.1.3
 
 # Local LLM client (Ollama HTTP API)
 requests==2.32.3

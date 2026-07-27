@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ministry Knowledge Intelligence Assistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          charcoal: "#14171c",
+          "charcoal-2": "#1b1f26",
+          "charcoal-3": "#242a33",
+          ink: "#0b0d10",
+          paper: "#f7f7f5",
+          gold: "#c9a227",
+          "gold-light": "#e0c15a",
+          green: "#1f6f4a",
+          "green-light": "#2f9d68",
+          muted: "#6b7280",
+        },
+        fontFamily: {
+          display: ["Space Grotesk", "sans-serif"],
+          body: ["Inter", "sans-serif"],
+          mono: ["IBM Plex Mono", "monospace"],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body class="font-body bg-paper text-ink antialiased h-screen overflow-hidden">
+
+<!-- ===================== LOGIN VIEW ===================== -->
+<div id="login-view" class="h-screen w-screen flex items-center justify-center bg-charcoal px-4">
+  <div class="w-full max-w-md">
+    <div class="flex items-center gap-3 justify-center mb-8">
+      <div class="w-11 h-11 rounded-xl bg-gold flex items-center justify-center text-charcoal font-display font-bold text-xl">M</div>
+      <div class="text-left">
+        <h1 class="font-display font-semibold text-lg text-white leading-tight">Ministry Knowledge<br/>Intelligence Assistant</h1>
+      </div>
+    </div>
+    <form id="login-form" class="bg-charcoal-2 border border-white/10 rounded-2xl p-8 shadow-xl">
+      <h2 class="font-display text-xl text-white mb-1">Sign in</h2>
+      <p class="text-sm text-muted mb-6">Offline RAG platform for regulatory &amp; compliance standards.</p>
+      <div id="login-error" class="hidden mb-4 text-sm text-red-300 bg-red-500/10 border border-red-500/30 rounded-lg px-3 py-2"></div>
+      <label class="block text-xs font-medium uppercase tracking-wider text-muted mb-1.5">Email</label>
+      <input id="login-email" type="email" required autocomplete="username" class="w-full mb-4 bg-charcoal-3 border border-white/10 rounded-lg px-3 py-2.5 text-white placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-gold" placeholder="you@moict.go.ug"/>
+      <label class="block text-xs font-medium uppercase tracking-wider text-muted mb-1.5">Password</label>
+      <input id="login-password" type="password" required autocomplete="current-password" class="w-full mb-6 bg-charcoal-3 border border-white/10 rounded-lg px-3 py-2.5 text-white placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-gold" placeholder="••••••••••"/>
+      <button type="submit" id="login-submit" class="w-full bg-gold hover:bg-gold-light text-charcoal font-semibold rounded-lg py-2.5 transition-colors">Sign in</button>
+      <div class="mt-6 pt-5 border-t border-white/10 text-xs text-muted leading-relaxed">
+        <p class="font-semibold text-white/70 mb-1">Demo accounts</p>
+        <p>IT Officer: admin@moict.go.ug / ChangeMe123!</p>
+        <p>Staff: staff@moict.go.ug / StaffDemo123!</p>
+      </div>
+    </form>
+    <p id="backend-status" class="text-center text-xs text-muted mt-4"></p>
+  </div>
+</div>
+
+<!-- ===================== APP SHELL ===================== -->
+<div id="app-shell" class="hidden h-screen w-screen flex">
+  <!-- Sidebar -->
+  <aside class="w-64 shrink-0 bg-charcoal flex flex-col h-full py-6 px-4">
+    <div class="flex items-center gap-3 px-2 mb-8">
+      <div class="w-9 h-9 rounded-lg bg-gold flex items-center justify-center text-charcoal font-display font-bold">M</div>
+      <div class="min-w-0">
+        <h1 class="text-sm font-display font-semibold text-white leading-tight truncate">MoICT Assistant</h1>
+        <p class="text-[11px] text-muted truncate">Offline RAG Platform</p>
+      </div>
+    </div>
+    <nav class="flex-1 space-y-1 overflow-y-auto">
+      <button data-view="chat" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
+        <span class="material-symbols-outlined text-[20px]">chat</span> Chat
+      </button>
+      <button data-view="knowledge" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
+        <span class="material-symbols-outlined text-[20px]">database</span> Knowledge Base
+      </button>
+      <button data-view="assistant" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
+        <span class="material-symbols-outlined text-[20px]">description</span> Document Assistant
+      </button>
+      <button data-view="upload" data-admin-only class="nav-item hidden w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
+        <span class="material-symbols-outlined text-[20px]">upload_file</span> Upload Documents
+      </button>
+      <button data-view="admin" data-admin-only class="nav-item hidden w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
+        <span class="material-symbols-outlined text-[20px]">admin_panel_settings</span> Admin Panel
+      </button>
+    </nav>
+    <div class="mt-auto pt-4 border-t border-white/10">
+      <div class="flex items-center gap-3 px-2 py-2">
+        <div id="user-avatar" class="w-9 h-9 rounded-full bg-green/20 text-green-light flex items-center justify-center font-semibold text-sm shrink-0">?</div>
+        <div class="min-w-0 flex-1">
+          <p id="user-name" class="text-sm font-medium text-white truncate">—</p>
+          <p id="user-role" class="text-[11px] text-muted truncate">—</p>
+        </div>
+        <button id="logout-btn" title="Sign out" class="p-1.5 text-muted hover:text-white transition-colors">
+          <span class="material-symbols-outlined text-[20px]">logout</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="flex-1 min-w-0 h-full flex flex-col bg-paper">
+    <header class="h-16 px-6 flex items-center justify-between border-b border-black/10 bg-white shrink-0">
+      <h2 id="view-title" class="font-display font-semibold text-lg text-ink">Chat</h2>
+      <div id="mode-badge" class="hidden items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full border"></div>
+    </header>
+    <div class="flex-1 min-h-0 overflow-hidden relative">
+
+      <!-- ---------- CHAT VIEW ---------- -->
+      <section id="view-chat" class="view h-full hidden flex">
+        <div class="w-64 border-r border-black/10 bg-white flex flex-col shrink-0">
+          <div class="p-3">
+            <button id="new-chat-btn" class="w-full flex items-center justify-center gap-2 bg-charcoal text-white text-sm font-medium py-2 rounded-lg hover:bg-charcoal-2 transition-colors">
+              <span class="material-symbols-outlined text-[18px]">add</span> New chat
+            </button>
+          </div>
+          <div id="session-list" class="flex-1 overflow-y-auto px-2 pb-3 space-y-1 text-sm"></div>
+        </div>
+        <div class="flex-1 min-w-0 flex flex-col">
+          <div id="chat-messages" class="flex-1 overflow-y-auto px-6 py-8 space-y-6"></div>
+          <div class="border-t border-black/10 bg-white p-4">
+            <form id="chat-form" class="max-w-3xl mx-auto flex items-end gap-2 bg-paper border border-black/10 rounded-2xl p-2 focus-within:ring-2 focus-within:ring-gold">
+              <textarea id="chat-input" rows="1" placeholder="Ask about ICT regulations, compliance requirements, policies…" class="flex-1 resize-none bg-transparent px-3 py-2 text-sm focus:outline-none max-h-40"></textarea>
+              <button type="submit" class="w-9 h-9 shrink-0 rounded-xl bg-gold hover:bg-gold-light text-charcoal flex items-center justify-center transition-colors">
+                <span class="material-symbols-outlined text-[20px]">arrow_upward</span>
+              </button>
+            </form>
+            <p class="text-center text-[11px] text-muted mt-2">Answers are generated from indexed ministry documents. Verify critical decisions against the source document.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- KNOWLEDGE BASE VIEW ---------- -->
+      <section id="view-knowledge" class="view h-full hidden overflow-y-auto p-6">
+        <div class="max-w-5xl mx-auto">
+          <div class="flex items-center justify-between mb-4">
+            <p class="text-sm text-muted">Documents indexed in the offline knowledge base, grouped by category.</p>
+            <button id="kb-refresh" class="text-sm text-muted hover:text-ink flex items-center gap-1">
+              <span class="material-symbols-outlined text-[18px]">refresh</span> Refresh
+            </button>
+          </div>
+          <div id="kb-groups" class="space-y-8"></div>
+        </div>
+      </section>
+
+      <!-- ---------- AI DOCUMENT ASSISTANT VIEW ---------- -->
+      <section id="view-assistant" class="view h-full hidden overflow-y-auto p-6">
+        <div class="max-w-3xl mx-auto">
+          <div class="bg-white border border-black/10 rounded-2xl p-6 mb-6">
+            <h3 class="font-display font-semibold text-base mb-1">Analyze a one-off document</h3>
+            <p class="text-sm text-muted mb-4">Upload a file to get a summary, compliance-risk scan, or plain-language explanation. This is <strong>not</strong> added to the permanent knowledge base.</p>
+            <form id="assistant-form" class="space-y-4">
+              <input id="assistant-file" type="file" required accept=".pdf,.doc,.docx,.xls,.xlsx" class="block w-full text-sm border border-black/10 rounded-lg px-3 py-2"/>
+              <div class="flex gap-2">
+                <label class="flex-1"><input type="radio" name="mode" value="summarize" checked class="peer sr-only"/><div class="peer-checked:border-gold peer-checked:bg-gold/10 border border-black/10 rounded-lg px-3 py-2 text-sm text-center cursor-pointer">Summarize</div></label>
+                <label class="flex-1"><input type="radio" name="mode" value="risks" class="peer sr-only"/><div class="peer-checked:border-gold peer-checked:bg-gold/10 border border-black/10 rounded-lg px-3 py-2 text-sm text-center cursor-pointer">Compliance risks</div></label>
+                <label class="flex-1"><input type="radio" name="mode" value="simplify" class="peer sr-only"/><div class="peer-checked:border-gold peer-checked:bg-gold/10 border border-black/10 rounded-lg px-3 py-2 text-sm text-center cursor-pointer">Plain language</div></label>
+              </div>
+              <button type="submit" id="assistant-submit" class="bg-charcoal hover:bg-charcoal-2 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors">Analyze document</button>
+            </form>
+          </div>
+          <div id="assistant-result" class="hidden bg-white border border-black/10 rounded-2xl p-6"></div>
+        </div>
+      </section>
+
+      <!-- ---------- UPLOAD VIEW (admin) ---------- -->
+      <section id="view-upload" class="view h-full hidden overflow-y-auto p-6">
+        <div class="max-w-2xl mx-auto">
+          <div class="bg-white border border-black/10 rounded-2xl p-6 mb-6">
+            <h3 class="font-display font-semibold text-base mb-1">Upload &amp; index a document</h3>
+            <p class="text-sm text-muted mb-4">PDF, DOCX, or XLSX. Re-uploading a file with the same title archives the previous version automatically.</p>
+            <form id="upload-form" class="space-y-4">
+              <input id="upload-file" type="file" required accept=".pdf,.doc,.docx,.xls,.xlsx" class="block w-full text-sm border border-black/10 rounded-lg px-3 py-2"/>
+              <div class="grid grid-cols-2 gap-3">
+                <input id="upload-department" placeholder="Department" class="border border-black/10 rounded-lg px-3 py-2 text-sm"/>
+                <input id="upload-author" placeholder="Author" class="border border-black/10 rounded-lg px-3 py-2 text-sm"/>
+                <input id="upload-category" placeholder="Category" class="border border-black/10 rounded-lg px-3 py-2 text-sm"/>
+                <input id="upload-date" type="date" class="border border-black/10 rounded-lg px-3 py-2 text-sm"/>
+              </div>
+              <button type="submit" id="upload-submit" class="bg-gold hover:bg-gold-light text-charcoal font-semibold text-sm px-4 py-2.5 rounded-lg transition-colors">Upload &amp; index</button>
+            </form>
+            <div id="upload-result" class="hidden mt-4 text-sm rounded-lg px-3 py-2"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- ADMIN VIEW ---------- -->
+      <section id="view-admin" class="view h-full hidden overflow-y-auto p-6">
+        <div class="max-w-6xl mx-auto">
+          <div class="flex gap-2 mb-6 border-b border-black/10">
+            <button data-tab="stats" class="admin-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent">Overview</button>
+            <button data-tab="users" class="admin-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent">Users</button>
+            <button data-tab="logs" class="admin-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent">Audit Logs</button>
+            <button data-tab="insights" class="admin-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent">AI Insights</button>
+            <button data-tab="settings" class="admin-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent">Settings</button>
+          </div>
+
+          <div id="admin-panel-stats" class="admin-panel">
+            <div id="stats-cards" class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6"></div>
+            <button id="rebuild-index-btn" class="flex items-center gap-2 bg-charcoal hover:bg-charcoal-2 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors">
+              <span class="material-symbols-outlined text-[18px]">restart_alt</span> Rebuild knowledge base index
+            </button>
+            <span id="rebuild-status" class="ml-3 text-sm text-muted"></span>
+          </div>
+
+          <div id="admin-panel-users" class="admin-panel hidden">
+            <div class="bg-white border border-black/10 rounded-2xl overflow-hidden">
+              <table class="w-full text-sm">
+                <thead class="bg-paper text-left text-xs uppercase tracking-wider text-muted">
+                  <tr><th class="px-4 py-3">Name</th><th class="px-4 py-3">Email</th><th class="px-4 py-3">Role</th><th class="px-4 py-3">Status</th><th class="px-4 py-3">Actions</th></tr>
+                </thead>
+                <tbody id="users-table-body" class="divide-y divide-black/5"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="admin-panel-logs" class="admin-panel hidden">
+            <div class="bg-white border border-black/10 rounded-2xl overflow-hidden">
+              <table class="w-full text-sm">
+                <thead class="bg-paper text-left text-xs uppercase tracking-wider text-muted">
+                  <tr><th class="px-4 py-3">Time</th><th class="px-4 py-3">Action</th><th class="px-4 py-3">Tag</th></tr>
+                </thead>
+                <tbody id="logs-table-body" class="divide-y divide-black/5"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="admin-panel-insights" class="admin-panel hidden grid md:grid-cols-2 gap-6">
+            <div class="bg-white border border-black/10 rounded-2xl p-5">
+              <h4 class="font-display font-semibold text-sm mb-3">Most-asked questions</h4>
+              <div id="insights-top-questions" class="space-y-2 text-sm"></div>
+            </div>
+            <div class="bg-white border border-black/10 rounded-2xl p-5">
+              <h4 class="font-display font-semibold text-sm mb-3">Knowledge gaps</h4>
+              <div id="insights-gaps" class="space-y-2 text-sm"></div>
+            </div>
+            <div class="bg-white border border-black/10 rounded-2xl p-5 md:col-span-2">
+              <h4 class="font-display font-semibold text-sm mb-3">Recent activity</h4>
+              <div id="insights-activity" class="space-y-2 text-sm"></div>
+            </div>
+          </div>
+
+          <div id="admin-panel-settings" class="admin-panel hidden">
+            <div class="bg-white border border-black/10 rounded-2xl p-6 max-w-xl">
+              <h4 class="font-display font-semibold text-sm mb-4">External AI Gateway</h4>
+              <label class="flex items-center gap-3 mb-4">
+                <input id="settings-external-toggle" type="checkbox" class="w-4 h-4"/>
+                <span class="text-sm">Enable external AI gateway (off by default — ministry document content is never sent externally)</span>
+              </label>
+              <input id="settings-provider" placeholder="Provider name (optional)" class="w-full border border-black/10 rounded-lg px-3 py-2 text-sm mb-4"/>
+              <button id="settings-save-btn" class="bg-gold hover:bg-gold-light text-charcoal font-semibold text-sm px-4 py-2 rounded-lg transition-colors">Save settings</button>
+              <span id="settings-status" class="ml-3 text-sm text-muted"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<div id="toast" class="hidden fixed bottom-5 right-5 bg-charcoal text-white text-sm px-4 py-3 rounded-lg shadow-xl z-50 max-w-sm"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

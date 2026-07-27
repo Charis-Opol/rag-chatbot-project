@@ -40,9 +40,9 @@ def run():
             )
             db.add(admin)
             db.commit()
-            print(f"✔ Seeded default IT Officer account: {settings.DEFAULT_ADMIN_EMAIL} / {settings.DEFAULT_ADMIN_PASSWORD}")
+            print(f"[OK] Seeded default IT Officer account: {settings.DEFAULT_ADMIN_EMAIL} / {settings.DEFAULT_ADMIN_PASSWORD}")
         else:
-            print("✔ Default admin account already exists — skipped.")
+            print("[OK] Default admin account already exists — skipped.")
 
         # Seed demo staff account
         existing_staff = db.query(models.User).filter(models.User.email == settings.DEFAULT_STAFF_EMAIL).first()
@@ -55,11 +55,11 @@ def run():
             )
             db.add(staff)
             db.commit()
-            print(f"✔ Seeded demo Ministry Staff account: {settings.DEFAULT_STAFF_EMAIL} / {settings.DEFAULT_STAFF_PASSWORD}")
+            print(f"[OK] Seeded demo Ministry Staff account: {settings.DEFAULT_STAFF_EMAIL} / {settings.DEFAULT_STAFF_PASSWORD}")
         else:
-            print("✔ Demo staff account already exists — skipped.")
+            print("[OK] Demo staff account already exists — skipped.")
 
-        print("✔ Database initialized.")
+        print("[OK] Database initialized.")
     finally:
         db.close()
 
