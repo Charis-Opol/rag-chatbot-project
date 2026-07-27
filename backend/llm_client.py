@@ -1,19 +1,21 @@
 """
-Local LLM client (proposal §2.5, §2.9.2 step 7).
+LLM client (proposal §2.5, §2.9.2 step 7).
 
-Talks to Ollama's local HTTP API (https://github.com/ollama/ollama) —
-no request ever leaves the machine. This is the ONE file you touch to
-swap in a different pretrained model:
+Generation goes through one of two providers, chosen by LLM_PROVIDER in
+.env:
 
-  1. Install Ollama:            https://ollama.com
-  2. Pull a model:              ollama pull llama3        (or gemma2, mistral, phi3, ...)
-  3. Set OLLAMA_MODEL in .env   OLLAMA_MODEL=llama3
-  4. Make sure Ollama is running: `ollama serve` (it usually auto-starts)
+  - "ollama" — local model via Ollama's HTTP API (https://ollama.com).
+               Nothing ever leaves the machine.
+  - "google" — Google's Generative Language API (Gemini). Requires
+               GOOGLE_API_KEY in .env. NOTE: this sends the retrieved
+               document context + question to Google's servers — the
+               "100% offline / zero data leakage" property only holds
+               with LLM_PROVIDER=ollama.
 
-If Ollama is not reachable, `generate()` falls back to a simple
-extractive response built directly from the retrieved context, so the
-rest of the system (retrieval, citations, logging) can still be
-demoed and tested before the LLM is wired up.
+If the configured provider is not reachable (or GOOGLE_API_KEY is
+unset), `generate_answer()` falls back to a simple extractive response
+built directly from the retrieved context, so the rest of the system
+(retrieval, citations, logging) still works before an LLM is wired up.
 """
 import requests
 
@@ -36,6 +38,36 @@ def _call_ollama(prompt: str) -> str:
     response.raise_for_status()
     data = response.json()
     return data.get("response", "").strip()
+
+
+def _call_google(prompt: str) -> str:
+    if not settings.GOOGLE_API_KEY:
+        raise LLMUnavailableError("GOOGLE_API_KEY is not set")
+
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{settings.GOOGLE_MODEL}:generateContent"
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {"temperature": 0.2},
+    }
+    response = requests.post(
+        url, params={"key": settings.GOOGLE_API_KEY}, json=payload, timeout=settings.LLM_TIMEOUT_SECONDS,
+    )
+    response.raise_for_status()
+    data = response.json()
+
+    candidates = data.get("candidates") or []
+    if not candidates:
+        # Most commonly a prompt blocked by safety filters — data["promptFeedback"]
+        # has the reason, but we don't want to leak that verbatim to end users.
+        return ""
+    parts = candidates[0].get("content", {}).get("parts", [])
+    return "".join(p.get("text", "") for p in parts).strip()
+
+
+def _call_llm(prompt: str) -> str:
+    if settings.LLM_PROVIDER == "google":
+        return _call_google(prompt)
+    return _call_ollama(prompt)
 
 
 def _extractive_fallback(query: str, context_chunks: list[str]) -> str:

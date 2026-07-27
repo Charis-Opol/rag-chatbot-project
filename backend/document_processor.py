@@ -10,6 +10,7 @@ Each extractor returns a list of (location_label, text) tuples:
   - DOCX  -> location_label = heading/section title nearest the text
   - XLSX  -> location_label = sheet name
 """
+import re
 from pathlib import Path
 from typing import List, Tuple
 
@@ -18,11 +19,23 @@ from docx import Document as DocxDocument
 import openpyxl
 
 
+def _clean_pdf_text(text: str) -> str:
+    """pypdf's default text-extraction mode inserts spurious spaces inside
+    words on many PDFs (e.g. "Na tional", "wor k") because it infers word
+    boundaries from glyph positioning rather than the PDF's actual text
+    structure. extraction_mode="layout" (used below) avoids that, but can
+    still leave irregular run of spaces/blank lines from column layout —
+    normalize those without touching real content or citation excerpts."""
+    text = re.sub(r"[ \t]+", " ", text)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
+
+
 def extract_pdf(path: str) -> List[Tuple[str, str]]:
     reader = PdfReader(path)
     results = []
     for i, page in enumerate(reader.pages, start=1):
-        text = (page.extract_text() or "").strip()
+        text = _clean_pdf_text(page.extract_text(extraction_mode="layout") or "")
         if text:
             results.append((str(i), text))
     return results
