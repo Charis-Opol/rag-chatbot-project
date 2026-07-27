@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoICT&NG — Offline Regulatory Knowledge Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --navy-deep:#1C1B19;
+  --navy:#2E2B27;
+  --slate:#4A443C;
+  --slate-soft:#6B6259;
+  --gold:#C9A44C;
+  --gold-light:#E7CD8B;
+  --red:#A3283D;
+  --green:#2E7D5B;
+  --bg:#F7F5F0;
+  --card:#FFFFFF;
+  --border:#E4DFD5;
+  --text:#201E1B;
+  --text-dim:#6B6259;
+  --text-faint:#9C9388;
+  --font-display:'Space Grotesk','Avenir Next','Segoe UI',sans-serif;
+  --font-body:'Inter','Segoe UI',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono','Consolas',monospace;
+  --radius:10px;
+  --shadow-sm:0 1px 2px rgba(28,27,25,0.07), 0 1px 1px rgba(28,27,25,0.05);
+  --shadow-md:0 8px 24px rgba(28,27,25,0.11);
+  --shadow-lg:0 20px 48px rgba(28,27,25,0.20);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+}
+button{font-family:inherit;cursor:pointer;}
+input,select{font-family:inherit;}
+::selection{background:var(--gold-light);}
+:focus-visible{outline:2px solid var(--slate-soft);outline-offset:2px;}
+@media (prefers-reduced-motion: reduce){*{animation-duration:0.001ms !important;transition-duration:0.001ms !important;}}
+
+/* ============ SEAL ============ */
+.seal{display:block;}
+.seal .ring{fill:none;stroke:currentColor;stroke-width:1.4;}
+.seal .node{fill:currentColor;}
+
+/* ============ LOGIN SCREEN ============ */
+#login-screen{
+  position:fixed;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:
+    radial-gradient(1100px 700px at 20% 15%, rgba(74,68,60,0.5), transparent 60%),
+    radial-gradient(900px 600px at 85% 85%, rgba(201,164,76,0.14), transparent 55%),
+    linear-gradient(160deg, var(--navy-deep) 0%, #221F1B 55%, var(--navy) 100%);
+  padding:24px;
+  z-index:50;
+}
+.login-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size:42px 42px;
+  mask-image:radial-gradient(circle at 50% 40%, black, transparent 75%);
+}
+.login-card{
+  position:relative;
+  width:100%;max-width:428px;
+  background:rgba(255,255,255,0.98);
+  border-radius:16px;
+  box-shadow:var(--shadow-lg);
+  padding:40px 36px 32px;
+  animation:rise 0.6s cubic-bezier(.16,.8,.24,1) both;
+}
+@keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.login-head{display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:26px;}
+.login-head .seal{color:var(--navy);width:56px;height:56px;margin-bottom:14px;}
+.login-head h1{
+  font-family:var(--font-display);font-weight:700;font-size:18px;letter-spacing:0.01em;
+  color:var(--navy-deep);line-height:1.35;
+}
+.login-head p{font-size:12.5px;color:var(--text-dim);margin-top:6px;letter-spacing:0.02em;}
+.offline-badge{
+  display:inline-flex;align-items:center;gap:6px;margin-top:14px;
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.04em;color:var(--green);
+  background:rgba(46,125,91,0.08);border:1px solid rgba(46,125,91,0.25);
+  padding:5px 10px;border-radius:20px;
+}
+.offline-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(46,125,91,0.18);}
+
+.role-toggle{display:flex;background:var(--bg);border-radius:9px;padding:4px;gap:4px;margin-bottom:20px;border:1px solid var(--border);}
+.role-toggle button{
+  flex:1;border:none;background:transparent;padding:10px 8px;border-radius:6px;
+  font-size:12.5px;font-weight:600;color:var(--text-dim);transition:all .18s ease;
+}
+.role-toggle button.active{background:var(--navy-deep);color:#fff;box-shadow:var(--shadow-sm);}
+
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:11.5px;font-weight:600;color:var(--text-dim);margin-bottom:6px;letter-spacing:0.02em;text-transform:uppercase;}
+.field input{
+  width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:8px;
+  font-size:14px;color:var(--text);background:#fff;transition:border-color .15s ease;
+}
+.field input:focus{border-color:var(--slate-soft);}
+.field select{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;background:#fff;}
+
+.btn-primary{
+  width:100%;padding:12.5px;border:none;border-radius:8px;
+  background:linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+  color:#fff;font-weight:600;font-size:14px;letter-spacing:0.01em;
+  box-shadow:var(--shadow-sm);transition:transform .15s ease, box-shadow .15s ease;
+  margin-top:6px;
+}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:var(--shadow-md);}
+.btn-primary:active{transform:translateY(0);}
+
+.login-foot{margin-top:18px;padding-top:16px;border-top:1px solid var(--border);text-align:center;}
+.login-foot span{font-size:11px;color:var(--text-faint);font-family:var(--font-mono);}
+.login-error{
+  display:none;background:rgba(163,40,61,0.08);border:1px solid rgba(163,40,61,0.25);
+  color:var(--red);font-size:12px;padding:9px 11px;border-radius:7px;margin-bottom:14px;
+}
+
+/* ============ APP SHELL ============ */
+#app{display:none;height:100vh;flex-direction:column;}
+#app.show{display:flex;}
+
+.topbar{
+  height:56px;flex:0 0 auto;
+  background:var(--navy-deep);color:#fff;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px 0 16px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.12);
+  z-index:10;
+}
+.topbar-left{display:flex;align-items:center;gap:11px;}
+.topbar-left .seal{width:26px;height:26px;color:var(--gold-light);}
+.topbar-left .brand{display:flex;flex-direction:column;line-height:1.15;}
+.topbar-left .brand b{font-family:var(--font-display);font-size:13.5px;font-weight:700;letter-spacing:0.01em;}
+.topbar-left .brand small{font-size:10px;color:rgba(255,255,255,0.55);letter-spacing:0.03em;}
+.topbar-right{display:flex;align-items:center;gap:14px;}
+.topbar-status{
+  display:flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10.5px;
+  color:#8FD4B0;background:rgba(46,125,91,0.18);padding:5px 10px;border-radius:20px;
+}
+.topbar-status .dot{width:6px;height:6px;border-radius:50%;background:#4FD98B;}
+.user-chip{display:flex;align-items:center;gap:9px;padding:5px 6px 5px 5px;border-radius:20px;background:rgba(255,255,255,0.06);}
+.user-chip .avatar{
+  width:26px;height:26px;border-radius:50%;background:var(--gold);color:var(--navy-deep);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;font-family:var(--font-display);
+}
+.user-chip .who{display:flex;flex-direction:column;line-height:1.1;}
+.user-chip .who b{font-size:12px;font-weight:600;}
+.user-chip .who small{font-size:9.5px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.04em;}
+.logout-btn{
+  border:none;background:transparent;color:rgba(255,255,255,0.55);font-size:12px;
+  padding:6px 8px;border-radius:6px;transition:all .15s ease;
+}
+.logout-btn:hover{color:#fff;background:rgba(255,255,255,0.08);}
+
+.body-row{flex:1 1 auto;display:flex;min-height:0;}
+
+/* ============ SIDEBAR ============ */
+.sidebar{
+  width:236px;flex:0 0 auto;background:var(--navy);color:#fff;
+  display:flex;flex-direction:column;padding:16px 12px;
+  border-right:1px solid rgba(255,255,255,0.06);
+}
+.sidebar-section-label{font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.38);
+  padding:12px 10px 6px;font-weight:600;}
+.nav-item{
+  display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:7px;
+  font-size:13px;font-weight:500;color:rgba(255,255,255,0.72);margin-bottom:2px;
+  border:none;background:transparent;width:100%;text-align:left;transition:all .14s ease;
+}
+.nav-item svg{flex:0 0 auto;opacity:0.85;}
+.nav-item:hover{background:rgba(255,255,255,0.06);color:#fff;}
+.nav-item.active{background:rgba(201,164,76,0.16);color:var(--gold-light);}
+.nav-item.active svg{opacity:1;}
+.new-chat-btn{
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  background:var(--gold);color:var(--navy-deep);border:none;border-radius:8px;
+  padding:10px;font-size:12.5px;font-weight:700;margin-bottom:14px;transition:all .15s ease;
+}
+.new-chat-btn:hover{background:var(--gold-light);}
+
+.history-list{overflow-y:auto;flex:1;margin-top:4px;}
+.history-item{
+  padding:9px 10px;border-radius:7px;font-size:12px;color:rgba(255,255,255,0.55);
+  margin-bottom:2px;cursor:pointer;transition:all .14s ease;line-height:1.4;
+}
+.history-item b{display:block;color:rgba(255,255,255,0.85);font-weight:500;font-size:12.5px;margin-bottom:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.history-item:hover{background:rgba(255,255,255,0.06);}
+.history-item.active{background:rgba(255,255,255,0.09);}
+
+.sidebar-foot{padding:10px;border-top:1px solid rgba(255,255,255,0.08);margin-top:8px;}
+.sidebar-foot .kb-stat{display:flex;justify-content:space-between;font-size:10.5px;color:rgba(255,255,255,0.4);margin-bottom:3px;font-family:var(--font-mono);}
+.sidebar-foot .kb-stat b{color:rgba(255,255,255,0.7);font-weight:600;}
+
+/* ============ MAIN AREA ============ */
+.main{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;background:var(--bg);}
+.view{display:none;flex:1;min-height:0;flex-direction:column;}
+.view.active{display:flex;}
+
+/* ---- Chat view ---- */
+.chat-scroll{flex:1;overflow-y:auto;padding:26px 0 10px;}
+.chat-inner{max-width:760px;margin:0 auto;padding:0 24px;}
+
+.empty-state{max-width:640px;margin:6vh auto 0;text-align:center;padding:0 24px;}
+.empty-state .seal{width:46px;height:46px;color:var(--slate);margin:0 auto 18px;}
+.empty-state h2{font-family:var(--font-display);font-size:21px;font-weight:700;color:var(--navy-deep);margin-bottom:8px;}
+.empty-state p{font-size:13.5px;color:var(--text-dim);line-height:1.6;margin-bottom:26px;}
+.suggestion-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:left;}
+.suggestion-chip{
+  background:#fff;border:1px solid var(--border);border-radius:10px;padding:13px 14px;
+  font-size:12.5px;color:var(--text);line-height:1.45;transition:all .15s ease;box-shadow:var(--shadow-sm);
+}
+.suggestion-chip b{display:block;font-size:10px;color:var(--slate-soft);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;font-weight:700;}
+.suggestion-chip:hover{border-color:var(--slate-soft);transform:translateY(-1px);box-shadow:var(--shadow-md);}
+
+.quick-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.quick-action-chip{
+  display:inline-flex;align-items:center;gap:7px;background:var(--navy-deep);color:#fff;
+  border:none;border-radius:22px;padding:9px 16px;font-size:12.5px;font-weight:600;transition:all .15s ease;
+}
+.quick-action-chip:hover{background:var(--navy);transform:translateY(-1px);}
+.quick-action-chip svg{opacity:.85;flex:0 0 auto;}
+
+.msg-actions{display:flex;gap:5px;margin-top:9px;}
+.msg-action-btn{
+  display:inline-flex;align-items:center;gap:4px;border:1px solid var(--border);background:#fff;color:var(--text-faint);
+  border-radius:6px;padding:4px 8px;font-size:10.5px;font-weight:600;transition:all .15s ease;
+}
+.msg-action-btn:hover{border-color:var(--slate-soft);color:var(--slate);}
+.msg-action-btn.rated-up{color:var(--green);border-color:rgba(46,125,91,0.35);background:rgba(46,125,91,0.06);}
+.msg-action-btn.rated-down{color:var(--red);border-color:rgba(163,40,61,0.35);background:rgba(163,40,61,0.06);}
+
+.explorer-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.explorer-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow-sm);}
+.explorer-card h4{font-size:12.5px;font-weight:700;color:var(--navy-deep);margin-bottom:2px;}
+.explorer-card .count{font-size:10.5px;color:var(--text-faint);font-family:var(--font-mono);margin-bottom:10px;}
+.explorer-doc-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-top:1px solid var(--border);font-size:12px;}
+.explorer-doc-row:first-of-type{border-top:none;}
+.explorer-doc-row .v{font-family:var(--font-mono);font-size:10px;color:var(--text-faint);}
+
+.insight-item{padding:10px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12.5px;}
+.insight-item:last-child{border-bottom:none;}
+.insight-item .count-pill{font-family:var(--font-mono);font-size:10.5px;background:rgba(74,68,60,0.08);color:var(--slate);padding:2px 8px;border-radius:20px;}
+
+.assist-mode-row{display:flex;gap:8px;margin-bottom:16px;}
+.assist-mode-btn{flex:1;border:1.4px solid var(--border);background:#fff;border-radius:9px;padding:12px 10px;text-align:left;transition:all .15s ease;}
+.assist-mode-btn.active{border-color:var(--slate-soft);background:rgba(74,68,60,0.04);}
+.assist-mode-btn b{display:block;font-size:12.5px;color:var(--navy-deep);margin-bottom:2px;}
+.assist-mode-btn span{font-size:10.5px;color:var(--text-faint);}
+.assist-result{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px 18px;font-size:13px;line-height:1.7;color:var(--text);white-space:pre-wrap;}
+
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);}
+.toggle-row:last-child{border-bottom:none;}
+.toggle-row .label{font-size:13px;font-weight:600;color:var(--navy-deep);}
+.toggle-row .desc{font-size:11.5px;color:var(--text-dim);margin-top:2px;}
+.switch{position:relative;width:42px;height:24px;flex:0 0 auto;}
+.switch input{opacity:0;width:0;height:0;}
+.switch .track{position:absolute;inset:0;background:var(--border);border-radius:20px;cursor:pointer;transition:all .2s ease;}
+.switch .track::after{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:all .2s ease;box-shadow:var(--shadow-sm);}
+.switch input:checked + .track{background:var(--green);}
+.switch input:checked + .track::after{transform:translateX(18px);}
+
+.msg{display:flex;margin-bottom:22px;gap:12px;animation:fadein .35s ease both;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.msg.user{flex-direction:row-reverse;}
+.msg-avatar{
+  width:30px;height:30px;border-radius:8px;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:var(--font-display);
+}
+.msg.user .msg-avatar{background:var(--navy);color:#fff;}
+.msg.bot .msg-avatar{background:var(--navy-deep);color:var(--gold-light);}
+.msg-body{max-width:74%;}
+.msg.user .msg-body{display:flex;justify-content:flex-end;}
+.msg-bubble{
+  display:inline-block;padding:11px 15px;border-radius:12px;font-size:13.8px;line-height:1.62;
+}
+.msg.user .msg-bubble{background:var(--navy);color:#fff;border-bottom-right-radius:3px;}
+.msg.bot .msg-bubble{background:#fff;color:var(--text);border:1px solid var(--border);border-bottom-left-radius:3px;box-shadow:var(--shadow-sm);}
+.msg.bot .msg-bubble.nomatch{border-color:rgba(163,40,61,0.3);background:rgba(163,40,61,0.04);}
+
+.grounded-tag{
+  display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:0.03em;
+  color:var(--green);background:rgba(46,125,91,0.09);border:1px solid rgba(46,125,91,0.25);
+  padding:3px 8px;border-radius:20px;margin-bottom:9px;font-family:var(--font-mono);text-transform:uppercase;
+}
+.nomatch-tag{color:var(--red);background:rgba(163,40,61,0.07);border-color:rgba(163,40,61,0.22);}
+
+.citation-stamp{
+  margin-top:11px;border:1.4px dashed rgba(74,68,60,0.4);border-radius:9px;
+  padding:10px 12px;background:rgba(74,68,60,0.04);
+}
+.citation-stamp-head{display:flex;align-items:center;gap:8px;margin-bottom:2px;}
+.citation-stamp-head svg{color:var(--slate);flex:0 0 auto;}
+.citation-stamp-head .label{font-family:var(--font-mono);font-size:9.5px;letter-spacing:0.08em;color:var(--slate);text-transform:uppercase;font-weight:600;}
+.citation-ref{font-family:var(--font-mono);font-size:12px;color:var(--navy-deep);font-weight:600;margin-left:24px;}
+.citation-ref span{color:var(--text-dim);font-weight:400;}
+.excerpt-toggle{
+  margin-left:24px;margin-top:6px;background:none;border:none;font-size:11px;color:var(--slate-soft);
+  font-weight:600;padding:0;text-decoration:underline;text-underline-offset:2px;
+}
+.excerpt-box{
+  display:none;margin-left:24px;margin-top:7px;padding:9px 11px;background:#fff;border-left:3px solid var(--gold);
+  font-size:12px;color:var(--text-dim);line-height:1.55;border-radius:0 6px 6px 0;
+}
+.excerpt-box.show{display:block;}
+
+.typing-row{display:flex;gap:12px;margin-bottom:22px;}
+.typing-bubble{
+  background:#fff;border:1px solid var(--border);border-radius:12px;border-bottom-left-radius:3px;
+  padding:13px 16px;display:flex;align-items:center;gap:5px;box-shadow:var(--shadow-sm);
+}
+.typing-bubble span{width:6px;height:6px;border-radius:50%;background:var(--text-faint);animation:bounce 1.2s infinite ease-in-out;}
+.typing-bubble span:nth-child(2){animation-delay:.15s;}
+.typing-bubble span:nth-child(3){animation-delay:.3s;}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.5;}30%{transform:translateY(-4px);opacity:1;}}
+.typing-status{font-size:11px;color:var(--text-faint);font-family:var(--font-mono);margin-left:6px;}
+
+.composer{flex:0 0 auto;padding:14px 24px 20px;background:linear-gradient(180deg, transparent, var(--bg) 30%);}
+.composer-inner{max-width:760px;margin:0 auto;}
+.composer-box{
+  display:flex;align-items:flex-end;gap:8px;background:#fff;border:1.5px solid var(--border);
+  border-radius:14px;padding:9px 9px 9px 16px;box-shadow:var(--shadow-md);transition:border-color .15s ease;
+}
+.composer-box:focus-within{border-color:var(--slate-soft);}
+.composer-box textarea{
+  flex:1;border:none;resize:none;font-size:13.8px;font-family:inherit;color:var(--text);
+  max-height:120px;padding:6px 0;line-height:1.5;
+}
+.composer-box textarea:focus{outline:none;}
+.send-btn{
+  width:36px;height:36px;border-radius:10px;border:none;background:var(--navy-deep);color:#fff;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;transition:all .15s ease;
+}
+.send-btn:hover{background:var(--navy);}
+.send-btn:disabled{opacity:0.35;}
+.composer-hint{text-align:center;font-size:10.5px;color:var(--text-faint);margin-top:9px;font-family:var(--font-mono);}
+
+/* ---- Dashboard / generic views ---- */
+.view-scroll{flex:1;overflow-y:auto;padding:28px 32px 40px;}
+.view-header{max-width:1100px;margin:0 auto 24px;display:flex;justify-content:space-between;align-items:flex-end;}
+.view-header h1{font-family:var(--font-display);font-size:21px;font-weight:700;color:var(--navy-deep);}
+.view-header p{font-size:12.5px;color:var(--text-dim);margin-top:4px;}
+.view-max{max-width:1100px;margin:0 auto;}
+
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px;}
+.stat-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px;box-shadow:var(--shadow-sm);}
+.stat-card .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+.stat-card .icon{width:30px;height:30px;border-radius:8px;background:rgba(74,68,60,0.08);color:var(--slate);display:flex;align-items:center;justify-content:center;}
+.stat-card .val{font-family:var(--font-display);font-size:25px;font-weight:700;color:var(--navy-deep);}
+.stat-card .lbl{font-size:11.5px;color:var(--text-dim);margin-top:3px;}
+.stat-card .delta{font-size:10.5px;color:var(--green);font-family:var(--font-mono);}
+
+.panel{background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow-sm);margin-bottom:20px;overflow:hidden;}
+.panel-head{padding:15px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.panel-head h3{font-size:13.5px;font-weight:700;color:var(--navy-deep);}
+.panel-head span{font-size:11px;color:var(--text-faint);}
+
+.btn-ghost{
+  border:1.4px solid var(--border);background:#fff;color:var(--text);padding:8px 13px;border-radius:8px;
+  font-size:12px;font-weight:600;transition:all .15s ease;display:inline-flex;align-items:center;gap:6px;
+}
+.btn-ghost:hover{border-color:var(--slate-soft);color:var(--slate);}
+.btn-gold{
+  border:none;background:var(--gold);color:var(--navy-deep);padding:8px 14px;border-radius:8px;
+  font-size:12px;font-weight:700;transition:all .15s ease;display:inline-flex;align-items:center;gap:6px;
+}
+.btn-gold:hover{background:var(--gold-light);}
+
+table{width:100%;border-collapse:collapse;}
+th{
+  text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-faint);
+  padding:10px 18px;background:#FAFBFC;border-bottom:1px solid var(--border);font-weight:700;
+}
+td{padding:12px 18px;font-size:12.5px;color:var(--text);border-bottom:1px solid var(--border);}
+tr:last-child td{border-bottom:none;}
+.doc-title-cell{display:flex;align-items:center;gap:9px;}
+.doc-icon{width:26px;height:26px;border-radius:6px;background:rgba(74,68,60,0.08);color:var(--slate);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:0.03em;}
+.badge.active{background:rgba(46,125,91,0.1);color:var(--green);}
+.badge.archived{background:rgba(91,107,126,0.1);color:var(--text-dim);}
+.row-actions{display:flex;gap:6px;}
+.icon-btn{width:28px;height:28px;border:1px solid var(--border);background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--text-dim);transition:all .15s ease;}
+.icon-btn:hover{border-color:var(--red);color:var(--red);}
+
+/* Upload */
+.dropzone{
+  border:2px dashed var(--border);border-radius:12px;padding:36px 20px;text-align:center;
+  transition:all .18s ease;cursor:pointer;background:#FAFBFC;
+}
+.dropzone.drag{border-color:var(--slate-soft);background:rgba(74,68,60,0.05);}
+.dropzone svg{color:var(--slate-soft);margin-bottom:10px;}
+.dropzone h4{font-size:13.5px;font-weight:600;color:var(--navy-deep);margin-bottom:4px;}
+.dropzone p{font-size:11.5px;color:var(--text-faint);}
+.dropzone input{display:none;}
+
+.pipeline{padding:18px;}
+.pipeline-row{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.pipeline-row:last-child{margin-bottom:0;}
+.pipeline-step{
+  width:24px;height:24px;border-radius:50%;border:2px solid var(--border);flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text-faint);transition:all .2s ease;
+}
+.pipeline-step.done{background:var(--green);border-color:var(--green);color:#fff;}
+.pipeline-step.active{border-color:var(--slate-soft);color:var(--slate-soft);}
+.pipeline-step.active::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--slate-soft);animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.pipeline-label{font-size:12.5px;color:var(--text-dim);flex:1;}
+.pipeline-row.done .pipeline-label{color:var(--text);font-weight:500;}
+.pipeline-file{font-family:var(--font-mono);font-size:10.5px;color:var(--text-faint);}
+
+.log-entry{display:flex;gap:12px;padding:11px 18px;border-bottom:1px solid var(--border);font-size:12px;}
+.log-entry:last-child{border-bottom:none;}
+.log-time{font-family:var(--font-mono);color:var(--text-faint);flex:0 0 128px;}
+.log-actor{font-weight:600;color:var(--navy-deep);flex:0 0 130px;}
+.log-action{color:var(--text-dim);flex:1;}
+.log-tag{font-size:9.5px;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:20px;flex:0 0 auto;height:fit-content;}
+.log-tag.ok{background:rgba(46,125,91,0.1);color:var(--green);}
+.log-tag.warn{background:rgba(201,164,76,0.15);color:#8a6d1f;}
+.log-tag.deny{background:rgba(163,40,61,0.1);color:var(--red);}
+
+/* Toast */
+#toast-wrap{position:fixed;bottom:22px;right:22px;z-index:100;display:flex;flex-direction:column;gap:8px;}
+.toast{
+  background:var(--navy-deep);color:#fff;padding:12px 16px;border-radius:9px;font-size:12.5px;
+  box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:9px;min-width:240px;
+  animation:toastin .3s cubic-bezier(.16,.8,.24,1) both;
+}
+.toast.deny{background:var(--red);}
+.toast.ok{background:var(--green);}
+@keyframes toastin{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
+
+/* Scrollbars */
+::-webkit-scrollbar{width:9px;height:9px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(21,31,46,0.15);border-radius:20px;}
+::-webkit-scrollbar-thumb:hover{background:rgba(21,31,46,0.28);}
+
+@media (max-width:880px){
+  .sidebar{width:76px;}
+  .sidebar .nav-item span, .sidebar-section-label, .history-list, .sidebar-foot, .new-chat-btn span{display:none;}
+  .new-chat-btn{padding:10px 0;}
+  .stat-grid{grid-template-columns:1fr 1fr;}
+  .suggestion-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="login-screen">
+  <div class="login-grid"></div>
+  <div class="login-card">
+    <div class="login-head">
+      <svg class="seal" viewBox="0 0 64 64" fill="none">
+        <circle class="ring" cx="32" cy="32" r="29"/>
+        <circle class="ring" cx="32" cy="32" r="23"/>
+        <path d="M32 14 L38 26 L32 22 L26 26 Z" fill="currentColor"/>
+        <path d="M32 50 L26 38 L32 42 L38 38 Z" fill="currentColor"/>
+        <circle class="node" cx="32" cy="32" r="4.2"/>
+        <circle class="node" cx="18" cy="32" r="2.4"/>
+        <circle class="node" cx="46" cy="32" r="2.4"/>
+        <line class="ring" x1="22" y1="32" x2="27.5" y2="32"/>
+        <line class="ring" x1="36.5" y1="32" x2="43.5" y2="32"/>
+      </svg>
+      <h1>Ministry of ICT &amp; National Guidance</h1>
+      <p>Offline Regulatory &amp; Compliance Knowledge Assistant</p>
+      <div class="offline-badge"><span class="dot"></span>OFFLINE MODE · LOCAL NETWORK ONLY</div>
+    </div>
+
+    <div id="login-error" class="login-error">Invalid credentials. Use the demo password shown below the form.</div>
+
+    <div class="role-toggle">
+      <button type="button" class="active" data-role="staff">Ministry Staff</button>
+      <button type="button" data-role="admin">IT Officer (Admin)</button>
+    </div>
+
+    <div class="field" id="login-name-field">
+      <label>Full name</label>
+      <input id="login-name" type="text" placeholder="e.g. Faith Namutebi" value="Faith Namutebi">
+    </div>
+    <div class="field" id="login-email-field" style="display:none;">
+      <label>Email</label>
+      <input id="login-email" type="email" placeholder="you@moict.go.ug" value="staff@moict.go.ug">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input id="login-pass" type="password" placeholder="Enter password" value="demo">
+    </div>
+    <button class="btn-primary" onclick="handleLogin()">Sign in securely</button>
+
+    <div class="login-foot">
+      <span id="login-foot-hint">PROTOTYPE BUILD · demo password: <b>demo</b></span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= APP ================= -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-left">
+      <svg class="seal" viewBox="0 0 64 64" fill="none">
+        <circle class="ring" cx="32" cy="32" r="29"/>
+        <circle class="ring" cx="32" cy="32" r="23"/>
+        <path d="M32 14 L38 26 L32 22 L26 26 Z" fill="currentColor"/>
+        <path d="M32 50 L26 38 L32 42 L38 38 Z" fill="currentColor"/>
+        <circle class="node" cx="32" cy="32" r="4.2"/>
+        <circle class="node" cx="18" cy="32" r="2.4"/>
+        <circle class="node" cx="46" cy="32" r="2.4"/>
+      </svg>
+      <div class="brand"><b>MoICT&amp;NG Knowledge Assistant</b><small>Offline RAG · Regulatory &amp; Compliance</small></div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-status"><span class="dot"></span>OFFLINE · SECURE</div>
+      <div class="user-chip">
+        <div class="avatar" id="user-avatar">FN</div>
+        <div class="who"><b id="user-name">Faith Namutebi</b><small id="user-role">Ministry Staff</small></div>
+      </div>
+      <button class="logout-btn" onclick="handleLogout()">Sign out</button>
+    </div>
+  </div>
+
+  <div class="body-row">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <button class="new-chat-btn" onclick="newChat()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        <span>New question</span>
+      </button>
+
+      <div id="nav-staff">
+        <div class="sidebar-section-label">Assistant</div>
+        <button class="nav-item active" onclick="switchView('chat', this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Chat</span>
+        </button>
+        <button class="nav-item" onclick="switchView('explorer', this); loadExplorer();">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <span>Knowledge Explorer</span>
+        </button>
+        <button class="nav-item" onclick="switchView('docassist', this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg>
+          <span>AI Document Assistant</span>
+        </button>
+        <div class="sidebar-section-label">Recent</div>
+        <div class="history-list" id="history-list"></div>
+      </div>
+
+      <div id="nav-admin" style="display:none;">
+        <div class="sidebar-section-label">Administration</div>
+        <button class="nav-item" onclick="switchView('overview', this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+          <span>Overview</span>
+        </button>
+        <button class="nav-item" onclick="switchView('library', this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span>Document library</span>
+        </button>
+        <button class="nav-item" onclick="switchView('upload', this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+          <span>Upload documents</span>
+        </button>
+        <button class="nav-item" onclick="switchView('explorer', this); loadExplorer();">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <span>Knowledge Explorer</span>
+        </button>
+        <button class="nav-item" onclick="switchView('insights', this); loadInsights();">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+          <span>AI Insights</span>
+        </button>
+        <button class="nav-item" onclick="switchView('users', this); loadUsers();">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.5 3-6 6.5-6s6.5 2.5 6.5 6"/><path d="M16.5 4.5c1.4.4 2.5 1.7 2.5 3.2s-1.1 2.8-2.5 3.2M21.5 20c0-2.8-2-5-4.8-5.7"/></svg>
+          <span>User management</span>
+        </button>
+        <button class="nav-item" onclick="switchView('logs', this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+          <span>System logs</span>
+        </button>
+        <button class="nav-item" onclick="switchView('settings', this); loadSettings();">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Settings</span>
+        </button>
+        <div class="sidebar-section-label">Test as</div>
+        <button class="nav-item" onclick="switchView('chat', this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Staff chat view</span>
+        </button>
+      </div>
+
+      <div class="sidebar-foot">
+        <div class="kb-stat"><span>Documents indexed</span><b id="kb-docs">6</b></div>
+        <div class="kb-stat"><span>Chunks embedded</span><b id="kb-chunks">21</b></div>
+        <div class="kb-stat"><span>Index status</span><b style="color:#4FD98B;">Up to date</b></div>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+      <!-- CHAT VIEW -->
+      <div class="view active" id="view-chat">
+        <div class="chat-scroll" id="chat-scroll">
+          <div class="chat-inner" id="chat-inner">
+            <div class="empty-state" id="empty-state">
+              <svg class="seal" viewBox="0 0 64 64" fill="none">
+                <circle class="ring" cx="32" cy="32" r="29"/><circle class="ring" cx="32" cy="32" r="23"/>
+                <path d="M32 14 L38 26 L32 22 L26 26 Z" fill="currentColor"/><path d="M32 50 L26 38 L32 42 L38 38 Z" fill="currentColor"/>
+                <circle class="node" cx="32" cy="32" r="4.2"/><circle class="node" cx="18" cy="32" r="2.4"/><circle class="node" cx="46" cy="32" r="2.4"/>
+              </svg>
+              <h2 id="welcome-heading">Welcome to the Ministry Knowledge Intelligence Assistant</h2>
+              <p id="welcome-sub">Answers are generated only from indexed ministry documents and every response is returned with a document, page and section reference. Nothing leaves this network.</p>
+              <div class="quick-actions" id="quick-actions"></div>
+              <div class="sidebar-section-label" style="text-align:left;padding-left:2px;margin-top:22px;">Suggested questions</div>
+              <div class="suggestion-grid" id="suggestion-grid"></div>
+            </div>
+          </div>
+        </div>
+        <div class="composer">
+          <div class="composer-inner">
+            <div class="composer-box">
+              <textarea id="chat-input" rows="1" placeholder="Ask a question about ministry regulations, policy or compliance…" onkeydown="handleComposerKey(event)" oninput="autoGrow(this)"></textarea>
+              <button class="send-btn" id="send-btn" onclick="sendMessage()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>
+              </button>
+            </div>
+            <div class="composer-hint">Responses are grounded in the indexed knowledge base — the assistant will say so if it cannot find an answer. · <a href="#" onclick="exportConversation();return false;" style="color:var(--slate);text-decoration:underline;">Export conversation</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADMIN OVERVIEW -->
+      <div class="view" id="view-overview">
+        <div class="view-scroll">
+          <div class="view-header">
+            <div><h1>Knowledge base overview</h1><p>System health, indexing status, and usage for the offline RAG chatbot.</p></div>
+            <button class="btn-gold" onclick="rebuildIndex()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+              Rebuild knowledge base
+            </button>
+          </div>
+          <div class="view-max">
+            <div class="stat-grid">
+              <div class="stat-card"><div class="top"><div class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div></div><div class="val" id="stat-docs">6</div><div class="lbl">Documents indexed</div></div>
+              <div class="stat-card"><div class="top"><div class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18"/></svg></div></div><div class="val" id="stat-chunks">21</div><div class="lbl">Chunks embedded</div></div>
+              <div class="stat-card"><div class="top"><div class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div></div><div class="val" id="stat-queries">0</div><div class="lbl">Queries this session</div><div class="delta">avg 1.8s response</div></div>
+              <div class="stat-card"><div class="top"><div class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div></div><div class="val">18</div><div class="lbl">Active ministry accounts</div></div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head"><h3>Retrieval engine</h3><span>FAISS · local index</span></div>
+              <div style="padding:16px 18px;font-size:12.5px;color:var(--text-dim);display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div><b style="color:var(--navy-deep);">Embedding model</b><br>sentence-transformers/all-MiniLM (local)</div>
+                <div><b style="color:var(--navy-deep);">LLM runtime</b><br>Ollama · Llama 3 8B (local)</div>
+                <div><b style="color:var(--navy-deep);">Vector store</b><br>FAISS flat index, cosine similarity</div>
+                <div><b style="color:var(--navy-deep);">Network</b><br>No outbound connections — ministry LAN only</div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head"><h3>Recent activity</h3><span>Live session log</span></div>
+              <div id="overview-log"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DOCUMENT LIBRARY -->
+      <div class="view" id="view-library">
+        <div class="view-scroll">
+          <div class="view-header">
+            <div><h1>Document library</h1><p>Official regulatory and compliance documents indexed into the knowledge base.</p></div>
+            <button class="btn-gold" onclick="switchViewById('upload')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+              Upload document
+            </button>
+          </div>
+          <div class="view-max">
+            <div class="panel">
+              <table>
+                <thead><tr><th>Document</th><th>Category</th><th>Type</th><th>Version</th><th>Uploaded by</th><th>Date</th><th>Status</th><th></th></tr></thead>
+                <tbody id="doc-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UPLOAD -->
+      <div class="view" id="view-upload">
+        <div class="view-scroll">
+          <div class="view-header"><div><h1>Upload &amp; index documents</h1><p>Add official documents to the offline knowledge base. Supported: PDF, Word, Excel.</p></div></div>
+          <div class="view-max" style="max-width:640px;">
+            <div class="panel" style="margin-bottom:16px;">
+              <div class="panel-head"><h3>Document metadata</h3><span>Optional — helps the Knowledge Explorer and audit trail</span></div>
+              <div style="padding:16px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div class="field" style="margin-bottom:0;"><label>Department</label><input id="meta-department" type="text" placeholder="e.g. ICT Directorate"></div>
+                <div class="field" style="margin-bottom:0;"><label>Author</label><input id="meta-author" type="text" placeholder="e.g. S. Okello"></div>
+                <div class="field" style="margin-bottom:0;"><label>Category</label><input id="meta-category" type="text" placeholder="e.g. Cybersecurity"></div>
+                <div class="field" style="margin-bottom:0;"><label>Date published</label><input id="meta-date" type="date"></div>
+              </div>
+            </div>
+            <div class="dropzone" id="dropzone" onclick="document.getElementById('file-input').click()">
+              <input type="file" id="file-input" multiple accept=".pdf,.doc,.docx,.xls,.xlsx" onchange="handleFiles(this.files)">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+              <h4>Drop files here or click to browse</h4>
+              <p>PDF, DOCX or XLSX · processed entirely on the local server · uploading again with the same title creates a new version</p>
+            </div>
+            <div class="panel" id="pipeline-panel" style="display:none;margin-top:18px;">
+              <div class="panel-head"><h3>Indexing pipeline</h3><span id="pipeline-filename"></span></div>
+              <div class="pipeline" id="pipeline-steps"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SYSTEM LOGS -->
+      <div class="view" id="view-logs">
+        <div class="view-scroll">
+          <div class="view-header"><div><h1>System logs</h1><p>Audit trail of authentication, document, and query activity.</p></div></div>
+          <div class="view-max">
+            <div class="panel"><div id="logs-full"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KNOWLEDGE EXPLORER -->
+      <div class="view" id="view-explorer">
+        <div class="view-scroll">
+          <div class="view-header"><div><h1>Knowledge Explorer</h1><p>Browse indexed documents by category and department.</p></div></div>
+          <div class="view-max">
+            <div class="explorer-grid">
+              <div class="panel" style="margin-bottom:0;">
+                <div class="panel-head"><h3>By category</h3></div>
+                <div style="padding:14px 16px;" id="explorer-category"></div>
+              </div>
+              <div class="panel" style="margin-bottom:0;">
+                <div class="panel-head"><h3>By department</h3></div>
+                <div style="padding:14px 16px;" id="explorer-department"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI DOCUMENT ASSISTANT -->
+      <div class="view" id="view-docassist">
+        <div class="view-scroll">
+          <div class="view-header"><div><h1>AI Document Assistant</h1><p>Upload a document for one-off analysis — it is not added to the Ministry knowledge base.</p></div></div>
+          <div class="view-max" style="max-width:680px;">
+            <div class="assist-mode-row">
+              <button class="assist-mode-btn active" data-mode="summarize" onclick="setAssistMode(this)"><b>Summarize</b><span>4-6 sentence overview</span></button>
+              <button class="assist-mode-btn" data-mode="risks" onclick="setAssistMode(this)"><b>Compliance risks</b><span>Flag potential issues</span></button>
+              <button class="assist-mode-btn" data-mode="simplify" onclick="setAssistMode(this)"><b>Explain simply</b><span>Plain-language version</span></button>
+            </div>
+            <div class="dropzone" id="assist-dropzone" onclick="document.getElementById('assist-file-input').click()">
+              <input type="file" id="assist-file-input" accept=".pdf,.doc,.docx,.xls,.xlsx" onchange="handleAssistFile(this.files)">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+              <h4>Drop a document here or click to browse</h4>
+              <p>PDF, DOCX or XLSX · processed for this request only</p>
+            </div>
+            <div id="assist-result-wrap" style="display:none;margin-top:18px;">
+              <div class="panel-head" style="padding-left:0;border:none;"><h3 id="assist-result-title">Result</h3></div>
+              <div class="assist-result" id="assist-result"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI INSIGHTS (admin) -->
+      <div class="view" id="view-insights">
+        <div class="view-scroll">
+          <div class="view-header"><div><h1>AI Insights</h1><p>What staff are asking, and where the knowledge base has gaps.</p></div></div>
+          <div class="view-max">
+            <div class="panel">
+              <div class="panel-head"><h3>Most frequently asked questions</h3></div>
+              <div id="insights-top-questions"></div>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><h3>Knowledge gaps</h3><span>Questions with no matching document</span></div>
+              <div id="insights-gaps"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- USER MANAGEMENT (admin) -->
+      <div class="view" id="view-users">
+        <div class="view-scroll">
+          <div class="view-header">
+            <div><h1>User management</h1><p>Create accounts, assign roles, and manage access.</p></div>
+            <button class="btn-gold" onclick="openCreateUser()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+              New user
+            </button>
+          </div>
+          <div class="view-max">
+            <div class="panel" id="create-user-panel" style="display:none;">
+              <div class="panel-head"><h3>Create user</h3></div>
+              <div style="padding:16px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div class="field" style="margin-bottom:0;"><label>Full name</label><input id="nu-name" type="text"></div>
+                <div class="field" style="margin-bottom:0;"><label>Email</label><input id="nu-email" type="email"></div>
+                <div class="field" style="margin-bottom:0;"><label>Temporary password</label><input id="nu-pass" type="text" value="TempPass123!"></div>
+                <div class="field" style="margin-bottom:0;">
+                  <label>Role</label>
+                  <select id="nu-role"><option value="staff">Ministry Staff</option><option value="admin">IT Officer (Admin)</option></select>
+                </div>
+              </div>
+              <div style="padding:0 18px 16px;"><button class="btn-gold" onclick="createUser()">Create account</button></div>
+            </div>
+            <div class="panel">
+              <table>
+                <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th></th></tr></thead>
+                <tbody id="users-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS (admin) -->
+      <div class="view" id="view-settings">
+        <div class="view-scroll">
+          <div class="view-header"><div><h1>Settings</h1><p>System-wide configuration and optional integrations.</p></div></div>
+          <div class="view-max" style="max-width:640px;">
+            <div class="panel">
+              <div class="panel-head"><h3>External AI gateway</h3><span>Optional</span></div>
+              <div class="toggle-row">
+                <div><div class="label">Enable external AI for general questions</div>
+                  <div class="desc">Only questions outside the Ministry knowledge base may use this. Confidential documents are never sent externally.</div>
+                </div>
+                <label class="switch"><input type="checkbox" id="setting-external-ai" onchange="saveSettings()"><span class="track"></span></label>
+              </div>
+              <div style="padding:14px 18px;">
+                <div class="field" style="margin-bottom:0;">
+                  <label>Provider label (for display only — no key is stored client-side)</label>
+                  <input id="setting-provider" type="text" placeholder="e.g. none configured" onblur="saveSettings()">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="toast-wrap"></div>
+
+<script>
+/* ============================================================
+   MOCK KNOWLEDGE BASE — simulates indexed ministry documents
+   ============================================================ */
+const KB = [
+  { doc:"National Data Protection & Privacy Policy (2023)", type:"PDF", page:12, section:"§3.2 Data Handling",
+    keywords:["data","protection","privacy","personal","confidential","breach","consent","information security"],
+    text:"All personal data collected or processed by ministry systems must be handled under the principle of purpose limitation: data may only be used for the specific purpose for which it was collected. Any suspected data breach must be reported to the Data Protection Office within 24 hours of discovery." },
+  { doc:"National Data Protection & Privacy Policy (2023)", type:"PDF", page:19, section:"§4.1 Consent & Access",
+    keywords:["consent","access","subject","rights","request","data subject"],
+    text:"Data subjects have the right to request access to, correction of, or deletion of their personal data held by the ministry, subject to statutory retention requirements. Requests must be processed within 14 working days." },
+  { doc:"ICT Circular No. 07/2022 — Remote Work & Device Security", type:"PDF", page:4, section:"§2.1 Device Security",
+    keywords:["remote","device","security","laptop","password","vpn","encryption","work from home"],
+    text:"Staff accessing ministry systems remotely must use ministry-issued, encrypted devices with an active VPN connection. Personal devices are not authorized for accessing regulatory or compliance document repositories." },
+  { doc:"ICT Circular No. 07/2022 — Remote Work & Device Security", type:"PDF", page:7, section:"§3.4 Password Policy",
+    keywords:["password","authentication","login","credentials","account"],
+    text:"Passwords must be a minimum of 12 characters, changed every 90 days, and must not be reused across the previous 5 cycles. Multi-factor authentication is mandatory for administrator accounts." },
+  { doc:"Public Service Standing Orders — ICT Sections", type:"DOCX", page:41, section:"§6.3 Procurement of ICT Equipment",
+    keywords:["procurement","purchase","equipment","tender","vendor","asset"],
+    text:"Procurement of ICT equipment exceeding UGX 20,000,000 must be routed through the Contracts Committee and accompanied by a technical specification approved by the ICT Directorate." },
+  { doc:"Public Service Standing Orders — ICT Sections", type:"DOCX", page:44, section:"§6.7 Staff Conduct",
+    keywords:["conduct","discipline","misuse","misconduct","ethics","behaviour"],
+    text:"Any misuse of government ICT resources, including unauthorized installation of software or use of ministry systems for personal commercial activity, constitutes misconduct under the Standing Orders and may result in disciplinary action." },
+  { doc:"National Cybersecurity Strategy 2022–2027", type:"PDF", page:23, section:"§5.2 Incident Response",
+    keywords:["cybersecurity","incident","attack","response","threat","hacking","malware"],
+    text:"All government institutions must maintain an Incident Response Plan and report cybersecurity incidents to the National Computer Emergency Response Team (CERT.UG) within 24 hours of detection." },
+  { doc:"National Cybersecurity Strategy 2022–2027", type:"PDF", page:31, section:"§6.1 Critical Infrastructure",
+    keywords:["infrastructure","network","critical","protection","system"],
+    text:"ICT systems supporting service delivery are classified as critical infrastructure and must undergo an annual security audit conducted by an accredited assessor." },
+  { doc:"e-Government Procurement Guidelines", type:"PDF", page:9, section:"§2.3 Vendor Onboarding",
+    keywords:["vendor","procurement","onboarding","supplier","contract","e-government"],
+    text:"Vendors seeking to supply ICT goods or services to government must be registered on the e-Government Procurement Portal and hold a valid tax clearance certificate before contract award." },
+  { doc:"Records & Information Management Policy", type:"DOCX", page:6, section:"§1.4 Retention Schedule",
+    keywords:["records","retention","archive","disposal","documents","filing"],
+    text:"Regulatory and compliance documents classified as permanent records must be retained indefinitely and archived in both physical and digital form; operational records are retained for a minimum of seven years." },
+  { doc:"Records & Information Management Policy", type:"DOCX", page:15, section:"§3.1 Document Classification",
+    keywords:["classification","confidential","restricted","public","sensitivity"],
+    text:"Documents are classified as Public, Restricted, Confidential, or Secret. Confidential and Secret documents may only be accessed by staff with the corresponding clearance level and must not be transmitted over unsecured channels." },
+];
+
+const SUGGESTIONS = [
+  { eyebrow:"Data protection", q:"What should I do if I suspect a data breach?" },
+  { eyebrow:"Remote access", q:"What are the password requirements for staff accounts?" },
+  { eyebrow:"Procurement", q:"When does ICT equipment procurement need Contracts Committee approval?" },
+  { eyebrow:"Cybersecurity", q:"Who do we report a cybersecurity incident to, and within what timeframe?" },
+];
+
+const QUICK_ACTIONS = [
+  { label:"Search ICT regulations", icon:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>', action:'search' },
+  { label:"Find compliance requirements", icon:'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>', action:'compliance' },
+  { label:"Summarize a policy document", icon:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>', action:'summarize' },
+  { label:"Explain a guideline", icon:'<circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 3.5M12 17h.01"/>', action:'explain' },
+  { label:"Compare regulations", icon:'<path d="M8 3v18M16 3v18"/><path d="M3 8h5M16 8h5M3 16h5M16 16h5"/>', action:'compare' },
+];
+
+/* ============================================================
+   BACKEND INTEGRATION
+   ------------------------------------------------------------
+   This file works standalone (DEMO_MODE, mock data, no server)
+   AND against the real FastAPI backend in ../backend when it's
+   reachable (LIVE_MODE). It auto-detects which one to use.
+   ============================================================ */
+const API_BASE = window.location.origin.startsWith('file://') || !window.location.origin.startsWith('http')
+  ? 'http://localhost:8000'
+  : window.location.origin;
+
+let LIVE_MODE = false;
+let authToken = null;
+
+async function detectBackend(){
+  try{
+    const res = await fetch(API_BASE + '/api/health', { method:'GET', signal: AbortSignal.timeout(1500) });
+    LIVE_MODE = res.ok;
+  }catch(e){
+    LIVE_MODE = false;
+  }
+  applyModeToLoginScreen();
+}
+
+function applyModeToLoginScreen(){
+  const nameField = document.getElementById('login-name-field');
+  const emailField = document.getElementById('login-email-field');
+  const hint = document.getElementById('login-foot-hint');
+  if(LIVE_MODE){
+    nameField.style.display = 'none';
+    emailField.style.display = 'block';
+    hint.innerHTML = 'CONNECTED TO LOCAL API · use the seeded account for your role, or one created by the IT Officer';
+    prefillLiveCredentials(document.querySelector('.role-toggle button.active').dataset.role);
+  } else {
+    nameField.style.display = 'block';
+    emailField.style.display = 'none';
+    hint.innerHTML = 'OFFLINE DEMO MODE (no backend detected) · demo password: <b>demo</b>';
+  }
+}
+function prefillLiveCredentials(role){
+  const email = document.getElementById('login-email');
+  const pass = document.getElementById('login-pass');
+  if(role === 'admin'){ email.value = 'admin@moict.go.ug'; pass.value = 'ChangeMe123!'; }
+  else { email.value = 'staff@moict.go.ug'; pass.value = 'StaffDemo123!'; }
+}
+
+async function apiFetch(path, options={}){
+  const headers = options.headers || {};
+  if(authToken) headers['Authorization'] = 'Bearer ' + authToken;
+  const res = await fetch(API_BASE + path, { ...options, headers });
+  if(!res.ok){
+    const body = await res.json().catch(()=>({detail:res.statusText}));
+    throw new Error(body.detail || 'Request failed');
+  }
+  return res.status === 204 ? null : res.json();
+}
+
+/* ============================================================
+   APP STATE
+   ============================================================ */
+const state = {
+  role: "staff",
+  name: "Faith Namutebi",
+  loggedIn: false,
+  queries: 0,
+  logs: [],
+  docs: [
+    { title:"National Data Protection & Privacy Policy (2023)", type:"PDF", by:"S. Okello", date:"2026-02-11", status:"active" },
+    { title:"ICT Circular No. 07/2022 — Remote Work & Device Security", type:"PDF", by:"S. Okello", date:"2026-02-14", status:"active" },
+    { title:"Public Service Standing Orders — ICT Sections", type:"DOCX", by:"S. Okello", date:"2026-03-02", status:"active" },
+    { title:"National Cybersecurity Strategy 2022–2027", type:"PDF", by:"IT Officer", date:"2026-03-18", status:"active" },
+    { title:"e-Government Procurement Guidelines", type:"PDF", by:"IT Officer", date:"2026-04-05", status:"active" },
+    { title:"Records & Information Management Policy", type:"DOCX", by:"S. Okello", date:"2026-04-22", status:"active" },
+  ],
+  chatHistory: []
+};
+
+function nowTime(){
+  const d = new Date();
+  return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+}
+function addLog(actor, action, tag){
+  state.logs.unshift({ time: nowTime(), actor, action, tag: tag || "ok" });
+  renderLogs();
+}
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
+document.querySelectorAll('.role-toggle button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.role-toggle button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    state.role = btn.dataset.role;
+    if(LIVE_MODE) prefillLiveCredentials(state.role);
+  });
+});
+
+async function handleLogin(){
+  const err = document.getElementById('login-error');
+  err.style.display = 'none';
+
+  if(LIVE_MODE){
+    const email = document.getElementById('login-email').value.trim();
+    const pass = document.getElementById('login-pass').value;
+    try{
+      const form = new URLSearchParams();
+      form.set('username', email);
+      form.set('password', pass);
+      const res = await fetch(API_BASE + '/auth/login', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: form });
+      if(!res.ok){
+        const body = await res.json().catch(()=>({detail:'Invalid credentials'}));
+        err.textContent = body.detail || 'Invalid credentials.';
+        err.style.display = 'block';
+        return;
+      }
+      const data = await res.json();
+      authToken = data.access_token;
+      state.name = data.user.full_name;
+      state.role = data.user.role_name;
+      completeLogin();
+      await Promise.all([loadDocsLive(), loadStatsLive(), loadLogsLive()]);
+    }catch(e){
+      err.textContent = 'Could not reach the backend. Falling back to offline demo mode.';
+      err.style.display = 'block';
+      LIVE_MODE = false;
+    }
+    return;
+  }
+
+  // ---- Offline demo mode (no backend) ----
+  const pass = document.getElementById('login-pass').value;
+  const name = document.getElementById('login-name').value.trim() || "Ministry Staff";
+  if(pass !== 'demo'){
+    err.textContent = 'Invalid credentials. Use the demo password shown below the form.';
+    err.style.display = 'block';
+    return;
+  }
+  state.name = name;
+  completeLogin();
+  renderDocTable();
+}
+
+function completeLogin(){
+  state.loggedIn = true;
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').classList.add('show');
+
+  const initials = initialsOf(state.name);
+  document.getElementById('user-avatar').textContent = initials || "MS";
+  document.getElementById('user-name').textContent = state.name;
+  document.getElementById('user-role').textContent = state.role === 'admin' ? 'IT Officer · Admin' : 'Ministry Staff';
+
+  document.getElementById('nav-staff').style.display = state.role === 'admin' ? 'none' : 'block';
+  document.getElementById('nav-admin').style.display = state.role === 'admin' ? 'block' : 'none';
+
+  const statusEl = document.querySelector('.topbar-status');
+  statusEl.innerHTML = LIVE_MODE
+    ? '<span class="dot"></span>LIVE · CONNECTED TO LOCAL RAG ENGINE'
+    : '<span class="dot"></span>OFFLINE DEMO · NO BACKEND DETECTED';
+
+  addLog(state.name, state.role === 'admin' ? 'Signed in as IT Officer (Admin)' : 'Signed in as Ministry Staff', 'ok');
+
+  if(state.role === 'admin'){
+    switchViewById('overview');
+    setActiveNav('nav-admin');
+  } else {
+    switchViewById('chat');
+  }
+  renderSuggestions();
+}
+
+function handleLogout(){
+  if(!LIVE_MODE) addLog(state.name, 'Signed out', 'ok');
+  authToken = null;
+  currentSessionId = null;
+  document.getElementById('app').classList.remove('show');
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('login-error').style.display = 'none';
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+function switchView(id, el){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+function switchViewById(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+id).classList.add('active');
+}
+function setActiveNav(containerId){
+  const first = document.querySelector('#'+containerId+' .nav-item');
+  if(first){
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    first.classList.add('active');
+  }
+}
+
+/* ============================================================
+   CHAT — retrieval + generation simulation
+   ============================================================ */
+function renderSuggestions(){
+  const grid = document.getElementById('suggestion-grid');
+  grid.innerHTML = SUGGESTIONS.map(s=>
+    `<button class="suggestion-chip" onclick="askSuggested(this)"><b>${s.eyebrow}</b>${s.q}</button>`
+  ).join('');
+  renderQuickActions();
+}
+function renderQuickActions(){
+  const wrap = document.getElementById('quick-actions');
+  if(!wrap) return;
+  wrap.innerHTML = QUICK_ACTIONS.map(a=>
+    `<button class="quick-action-chip" onclick="runQuickAction('${a.action}')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${a.icon}</svg>${a.label}</button>`
+  ).join('');
+  const heading = document.getElementById('welcome-heading');
+  if(heading) heading.textContent = `Welcome, ${state.name.split(' ')[0]} — how can I assist you today?`;
+}
+function runQuickAction(action){
+  if(action === 'summarize'){
+    switchView('docassist');
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    return;
+  }
+  const starters = {
+    search: 'Search ICT regulations related to: ',
+    compliance: 'What are the compliance requirements for ',
+    explain: 'Explain this guideline in simple terms: ',
+    compare: 'Compare the regulations for ',
+  };
+  const input = document.getElementById('chat-input');
+  input.value = starters[action] || '';
+  input.focus();
+  autoGrow(input);
+}
+function askSuggested(el){
+  document.getElementById('chat-input').value = el.textContent.replace(el.querySelector('b').textContent,'').trim();
+  sendMessage();
+}
+
+function autoGrow(el){
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+function handleComposerKey(e){
+  if(e.key === 'Enter' && !e.shiftKey){
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+function newChat(){
+  document.getElementById('chat-inner').innerHTML = '';
+  document.getElementById('chat-inner').appendChild(document.getElementById('empty-state'));
+  document.getElementById('empty-state').style.display = 'block';
+  switchViewById('chat');
+  setActiveNav('nav-staff');
+}
+
+function tokenize(str){
+  return str.toLowerCase().replace(/[^\w\s]/g,'').split(/\s+/).filter(Boolean);
+}
+
+function retrieve(query){
+  const qTokens = tokenize(query);
+  let scored = KB.map(chunk=>{
+    let score = 0;
+    chunk.keywords.forEach(kw=>{
+      kw.toLowerCase().split(' ').forEach(kwPart=>{
+        if(qTokens.includes(kwPart)) score += 1;
+      });
+      if(query.toLowerCase().includes(kw.toLowerCase())) score += 2;
+    });
+    return { chunk, score };
+  }).filter(s=>s.score>0).sort((a,b)=>b.score-a.score);
+  return scored.slice(0,2).map(s=>s.chunk);
+}
+
+function generateAnswer(query, matches){
+  if(matches.length === 0) return null;
+  const primary = matches[0];
+  let opener = "Based on ministry documentation, ";
+  let sentence = primary.text;
+  let answer = opener + sentence.charAt(0).toLowerCase() + sentence.slice(1);
+  if(matches.length > 1){
+    answer += " " + matches[1].text;
+  }
+  return answer;
+}
+
+let currentSessionId = null;
+
+async function sendMessage(){
+  const input = document.getElementById('chat-input');
+  const query = input.value.trim();
+  if(!query) return;
+  input.value = '';
+  autoGrow(input);
+
+  document.getElementById('empty-state').style.display = 'none';
+  appendUserMessage(query);
+  addToHistory(query);
+  state.queries++;
+  updateOverviewStats();
+
+  if(!LIVE_MODE){
+    addLog(state.name, `Asked: "${query.slice(0,60)}${query.length>60?'…':''}"`, 'ok');
+  }
+
+  showTyping();
+
+  if(LIVE_MODE){
+    try{
+      const data = await apiFetch('/chat/ask', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ message: query, session_id: currentSessionId })
+      });
+      currentSessionId = data.session_id;
+      hideTyping();
+      const matches = data.sources.map(s=>({ doc:s.document, page:s.page, section:s.section, text:s.excerpt }));
+      appendBotMessage(data.grounded ? data.answer : null, matches, data.mock_mode, data.message_id);
+      await loadStatsLive();
+      await loadLogsLive();
+      return;
+    }catch(e){
+      hideTyping();
+      showToast('Backend request failed — showing local fallback answer.', 'deny');
+    }
+  }
+
+  const delay = LIVE_MODE ? 0 : 900 + Math.random()*700;
+  setTimeout(()=>{
+    if(!LIVE_MODE) hideTyping();
+    const matches = retrieve(query);
+    const answer = generateAnswer(query, matches);
+    appendBotMessage(answer, matches, false, null);
+  }, delay);
+}
+
+function appendUserMessage(text){
+  const wrap = document.getElementById('chat-inner');
+  const div = document.createElement('div');
+  div.className = 'msg user';
+  div.innerHTML = `
+    <div class="msg-avatar">${initialsOf(state.name)}</div>
+    <div class="msg-body"><div class="msg-bubble">${escapeHtml(text)}</div></div>`;
+  wrap.appendChild(div);
+  scrollChatBottom();
+}
+
+function appendBotMessage(answer, matches, mockMode, messageId){
+  const wrap = document.getElementById('chat-inner');
+  const div = document.createElement('div');
+  div.className = 'msg bot';
+
+  if(!answer){
+    div.innerHTML = `
+      <div class="msg-avatar">AI</div>
+      <div class="msg-body">
+        <div class="nomatch-tag grounded-tag">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          No match in knowledge base
+        </div>
+        <div class="msg-bubble nomatch">I couldn't find this in the indexed documents. Try rephrasing your question, or ask the IT Officer to upload the relevant regulation so it can be indexed.</div>
+      </div>`;
+  } else {
+    const cid = 'exc-' + Math.random().toString(36).slice(2,8);
+    const mid = 'msg-' + Math.random().toString(36).slice(2,8);
+    const stampList = matches.map((m,i)=>`
+      <div class="citation-stamp-head" style="${i>0?'margin-top:10px;':''}">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <span class="label">Source ${matches.length>1 ? (i+1) : ''}</span>
+      </div>
+      <div class="citation-ref">${m.doc} <span>· p.${m.page} · ${m.section}</span></div>
+      <button class="excerpt-toggle" onclick="toggleExcerpt('${cid}-${i}')">View excerpt</button>
+      <div class="excerpt-box" id="${cid}-${i}">"${m.text}"</div>
+    `).join('');
+
+    div.innerHTML = `
+      <div class="msg-avatar">AI</div>
+      <div class="msg-body">
+        <div class="grounded-tag">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>
+          Grounded response
+        </div>
+        ${mockMode ? `<div style="font-size:10.5px;color:#8a6d1f;background:rgba(201,164,76,0.12);border:1px solid rgba(201,164,76,0.3);padding:4px 9px;border-radius:20px;display:inline-block;margin-bottom:8px;font-family:var(--font-mono);">⚠ Local LLM not detected — showing extractive fallback from retrieved text</div>` : ''}
+        <div class="msg-bubble" id="${mid}">${escapeHtml(answer)}
+          <div class="citation-stamp">${stampList}</div>
+        </div>
+        <div class="msg-actions">
+          <button class="msg-action-btn" onclick="copyMessage('${mid}', this)">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy
+          </button>
+          ${messageId ? `
+          <button class="msg-action-btn" id="rate-up-${messageId}" onclick="rateMessage(${messageId}, 1, this)">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10v12M15 5.88 14 10h6.29a2 2 0 0 1 1.94 2.5l-2.44 9A2 2 0 0 1 17.86 23H7a2 2 0 0 1-2-2V12a2 2 0 0 1 2-2h1.31a2 2 0 0 0 1.79-1.11L14 3v0a2 2 0 0 1 2 2z"/></svg>
+          </button>
+          <button class="msg-action-btn" id="rate-down-${messageId}" onclick="rateMessage(${messageId}, -1, this)">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 14V2M9 18.12 10 14H3.71a2 2 0 0 1-1.94-2.5l2.44-9A2 2 0 0 1 6.14 1H17a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.31a2 2 0 0 0-1.79 1.11L10 21v0a2 2 0 0 1-2-2z"/></svg>
+          </button>` : ''}
+        </div>
+      </div>`;
+  }
+  wrap.appendChild(div);
+  scrollChatBottom();
+}
+
+function copyMessage(id, btn){
+  const text = document.getElementById(id).childNodes[0].textContent.trim();
+  navigator.clipboard.writeText(text).then(()=>{
+    const original = btn.innerHTML;
+    btn.innerHTML = 'Copied';
+    setTimeout(()=>{ btn.innerHTML = original; }, 1400);
+  }).catch(()=> showToast('Could not copy to clipboard.', 'deny'));
+}
+
+async function rateMessage(messageId, rating, btn){
+  document.getElementById(`rate-up-${messageId}`)?.classList.remove('rated-up');
+  document.getElementById(`rate-down-${messageId}`)?.classList.remove('rated-down');
+  btn.classList.add(rating > 0 ? 'rated-up' : 'rated-down');
+  if(!LIVE_MODE){ showToast('Thanks for the feedback.', 'ok'); return; }
+  try{
+    await apiFetch(`/chat/messages/${messageId}/rate`, {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ rating })
+    });
+  }catch(e){ showToast('Could not save rating.', 'deny'); }
+}
+
+function toggleExcerpt(id){
+  document.getElementById(id).classList.toggle('show');
+}
+
+function showTyping(){
+  const wrap = document.getElementById('chat-inner');
+  const div = document.createElement('div');
+  div.className = 'typing-row';
+  div.id = 'typing-indicator';
+  div.innerHTML = `
+    <div class="msg-avatar" style="background:var(--navy-deep);color:var(--gold-light);">AI</div>
+    <div class="typing-bubble"><span></span><span></span><span></span></div>
+    <div class="typing-status" id="typing-status">Searching knowledge base…</div>`;
+  wrap.appendChild(div);
+  scrollChatBottom();
+  setTimeout(()=>{ const el=document.getElementById('typing-status'); if(el) el.textContent='Generating grounded response…'; }, 500);
+}
+function hideTyping(){
+  const el = document.getElementById('typing-indicator');
+  if(el) el.remove();
+}
+
+function scrollChatBottom(){
+  const s = document.getElementById('chat-scroll');
+  s.scrollTop = s.scrollHeight;
+}
+function initialsOf(name){
+  return name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+}
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+function addToHistory(query){
+  state.chatHistory.unshift({ q: query, t: nowTime() });
+  renderHistory();
+}
+function renderHistory(){
+  const list = document.getElementById('history-list');
+  list.innerHTML = state.chatHistory.slice(0,12).map(h=>
+    `<div class="history-item"><b>${escapeHtml(h.q)}</b>${h.t}</div>`
+  ).join('') || `<div class="history-item" style="opacity:.5;">No questions yet this session</div>`;
+}
+
+/* ============================================================
+   ADMIN — overview, docs, upload, logs
+   ============================================================ */
+function updateOverviewStats(){
+  const q = document.getElementById('stat-queries');
+  if(q && !LIVE_MODE) q.textContent = state.queries;
+}
+
+async function loadDocsLive(){
+  if(!LIVE_MODE) return;
+  try{
+    const docs = await apiFetch('/documents/all');
+    state.docs = docs.map(d=>({
+      title:d.title, type:d.file_type, by:'user #'+d.uploaded_by,
+      date:(d.upload_date||'').slice(0,10), status:d.status, id:d.document_id,
+      category:d.category, department:d.department, version:d.version,
+    }));
+    renderDocTable();
+    const activeCount = state.docs.filter(d=>d.status==='active').length;
+    document.getElementById('kb-docs').textContent = activeCount;
+  }catch(e){ /* leave mock docs in place */ }
+}
+
+async function loadStatsLive(){
+  if(!LIVE_MODE) return;
+  try{
+    const s = await apiFetch('/admin/stats');
+    const dEl = document.getElementById('stat-docs'); if(dEl) dEl.textContent = s.documents_indexed;
+    const cEl = document.getElementById('stat-chunks'); if(cEl) cEl.textContent = s.chunks_embedded;
+    const qEl = document.getElementById('stat-queries'); if(qEl) qEl.textContent = s.total_queries;
+    document.getElementById('kb-docs').textContent = s.documents_indexed;
+    document.getElementById('kb-chunks').textContent = s.chunks_embedded;
+  }catch(e){ /* ignore */ }
+}
+
+async function loadLogsLive(){
+  if(!LIVE_MODE) return;
+  try{
+    const logs = await apiFetch('/admin/logs');
+    state.logs = logs.map(l=>({ time:new Date(l.timestamp).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}), actor:'user #'+(l.user_id ?? '—'), action:l.action, tag:l.tag }));
+    renderLogs();
+  }catch(e){ /* admin-only; ignore for staff */ }
+}
+
+function renderDocTable(){
+  const body = document.getElementById('doc-table-body');
+  if(!body) return;
+  body.innerHTML = state.docs.map((d,i)=>`
+    <tr>
+      <td><div class="doc-title-cell"><div class="doc-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>${escapeHtml(d.title)}</div></td>
+      <td>${d.category ? escapeHtml(d.category) : '<span style="color:var(--text-faint);">—</span>'}</td>
+      <td>${d.type}</td>
+      <td>v${d.version || 1}</td>
+      <td>${d.by}</td>
+      <td>${d.date}</td>
+      <td><span class="badge ${d.status}">${d.status}</span></td>
+      <td><div class="row-actions">
+        <button class="icon-btn" title="Archive" onclick="toggleArchive(${i})"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8M10 13h4"/></svg></button>
+      </div></td>
+    </tr>`).join('');
+}
+async function toggleArchive(i){
+  if(LIVE_MODE && state.docs[i].id){
+    try{
+      await apiFetch(`/documents/${state.docs[i].id}/archive`, { method:'PATCH' });
+      await loadDocsLive();
+      await loadLogsLive();
+      showToast(`Document ${state.docs[i].status === 'active' ? 'archived' : 'reactivated'}.`, 'ok');
+      return;
+    }catch(e){ showToast('Could not update document on the server.', 'deny'); return; }
+  }
+  state.docs[i].status = state.docs[i].status === 'active' ? 'archived' : 'active';
+  renderDocTable();
+  addLog(state.name, `${state.docs[i].status === 'archived' ? 'Archived' : 'Reactivated'} document "${state.docs[i].title}"`, 'warn');
+  showToast(`Document ${state.docs[i].status}.`, 'ok');
+}
+
+async function rebuildIndex(){
+  if(LIVE_MODE){
+    showToast('Rebuilding FAISS index from active documents…');
+    try{
+      const res = await apiFetch('/admin/rebuild-index', { method:'POST' });
+      showToast(`Knowledge base rebuilt: ${res.chunks_indexed} chunks from ${res.documents_processed} documents.`, 'ok');
+      await loadStatsLive();
+      await loadLogsLive();
+    }catch(e){ showToast('Rebuild failed — check the backend logs.', 'deny'); }
+    return;
+  }
+  addLog(state.name, 'Triggered knowledge base rebuild', 'ok');
+  showToast('Rebuilding FAISS index from active documents…');
+  setTimeout(()=>showToast('Knowledge base rebuilt successfully.', 'ok'), 1600);
+}
+
+/* Upload pipeline */
+const dropzone = document.getElementById('dropzone');
+dropzone.addEventListener('dragover', e=>{ e.preventDefault(); dropzone.classList.add('drag'); });
+dropzone.addEventListener('dragleave', ()=> dropzone.classList.remove('drag'));
+dropzone.addEventListener('drop', e=>{
+  e.preventDefault(); dropzone.classList.remove('drag');
+  if(e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
+});
+
+const PIPELINE_STAGES = ['Extracting text','Splitting into chunks','Generating embeddings','Writing to FAISS index','Indexing complete'];
+
+function handleFiles(files){
+  if(!files || !files.length) return;
+  const file = files[0];
+  const panel = document.getElementById('pipeline-panel');
+  const stepsWrap = document.getElementById('pipeline-steps');
+  document.getElementById('pipeline-filename').textContent = file.name;
+  panel.style.display = 'block';
+  stepsWrap.innerHTML = PIPELINE_STAGES.map((s,i)=>`
+    <div class="pipeline-row" id="pl-row-${i}">
+      <div class="pipeline-step" id="pl-step-${i}">${i+1}</div>
+      <div class="pipeline-label">${s}</div>
+    </div>`).join('');
+
+  if(!LIVE_MODE) addLog(state.name, `Uploaded "${file.name}" for indexing`, 'ok');
+
+  const liveUploadPromise = LIVE_MODE ? uploadFileLive(file) : null;
+
+  let i = 0;
+  function stepThrough(){
+    if(i>0){
+      document.getElementById('pl-row-'+(i-1)).classList.add('done');
+      document.getElementById('pl-step-'+(i-1)).classList.remove('active');
+      document.getElementById('pl-step-'+(i-1)).classList.add('done');
+      document.getElementById('pl-step-'+(i-1)).innerHTML = '✓';
+    }
+    if(i < PIPELINE_STAGES.length - (LIVE_MODE ? 1 : 0)){
+      document.getElementById('pl-step-'+i).classList.add('active');
+      i++;
+      setTimeout(stepThrough, 650 + Math.random()*400);
+    } else if(!LIVE_MODE){
+      state.docs.unshift({ title:file.name.replace(/\.[^.]+$/,''), type:file.name.split('.').pop().toUpperCase(), by: state.name, date: new Date().toISOString().slice(0,10), status:'active' });
+      renderDocTable();
+      document.getElementById('kb-docs').textContent = state.docs.filter(d=>d.status==='active').length;
+      document.getElementById('stat-docs').textContent = state.docs.filter(d=>d.status==='active').length;
+      showToast(`"${file.name}" indexed successfully.`, 'ok');
+      addLog(state.name, `Indexing complete for "${file.name}"`, 'ok');
+    } else {
+      liveUploadPromise.finally(()=>{
+        document.getElementById('pl-row-'+i).classList.add('done');
+        document.getElementById('pl-step-'+i).classList.add('done');
+        document.getElementById('pl-step-'+i).innerHTML = '✓';
+      });
+    }
+  }
+  stepThrough();
+}
+
+async function uploadFileLive(file){
+  const formData = new FormData();
+  formData.append('file', file);
+  const department = document.getElementById('meta-department')?.value.trim();
+  const author = document.getElementById('meta-author')?.value.trim();
+  const category = document.getElementById('meta-category')?.value.trim();
+  const datePublished = document.getElementById('meta-date')?.value;
+  if(department) formData.append('department', department);
+  if(author) formData.append('author', author);
+  if(category) formData.append('category', category);
+  if(datePublished) formData.append('date_published', datePublished);
+  try{
+    const res = await fetch(API_BASE + '/documents/upload', {
+      method:'POST',
+      headers:{ 'Authorization': 'Bearer ' + authToken },
+      body: formData,
+    });
+    if(!res.ok){
+      const body = await res.json().catch(()=>({detail:'Upload failed'}));
+      throw new Error(body.detail || 'Upload failed');
+    }
+    const data = await res.json();
+    showToast(`"${file.name}" indexed — ${data.chunks_indexed} chunks embedded.`, 'ok');
+    await loadDocsLive();
+    await loadStatsLive();
+    await loadLogsLive();
+  }catch(e){
+    showToast(`Upload failed: ${e.message}`, 'deny');
+  }
+}
+
+/* Logs */
+function renderLogs(){
+  const compact = state.logs.slice(0,6).map(logRow).join('');
+  const overview = document.getElementById('overview-log');
+  if(overview) overview.innerHTML = compact || emptyLogRow();
+  const full = document.getElementById('logs-full');
+  if(full) full.innerHTML = state.logs.map(logRow).join('') || emptyLogRow();
+}
+function logRow(l){
+  return `<div class="log-entry">
+    <div class="log-time">${l.time}</div>
+    <div class="log-actor">${escapeHtml(l.actor)}</div>
+    <div class="log-action">${escapeHtml(l.action)}</div>
+    <div class="log-tag ${l.tag}">${l.tag === 'ok' ? 'OK' : l.tag === 'deny' ? 'DENIED' : 'NOTE'}</div>
+  </div>`;
+}
+function emptyLogRow(){
+  return `<div class="log-entry"><div class="log-action" style="color:var(--text-faint);">No activity recorded yet this session.</div></div>`;
+}
+
+/* Toast */
+function showToast(msg, type){
+  const wrap = document.getElementById('toast-wrap');
+  const el = document.createElement('div');
+  el.className = 'toast' + (type ? ' '+type : '');
+  el.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>${msg}`;
+  wrap.appendChild(el);
+  setTimeout(()=>{ el.style.opacity='0'; el.style.transform='translateX(20px)'; setTimeout(()=>el.remove(),300); }, 3200);
+}
+
+/* ============================================================
+   EXPORT CONVERSATION
+   ============================================================ */
+function exportConversation(){
+  const nodes = document.querySelectorAll('#chat-inner .msg');
+  if(!nodes.length){ showToast('No conversation to export yet.', 'deny'); return; }
+  let lines = [`Ministry Knowledge Intelligence Assistant — conversation export`, `Generated ${new Date().toLocaleString()}`, ''];
+  nodes.forEach(n=>{
+    const isUser = n.classList.contains('user');
+    const bubble = n.querySelector('.msg-bubble');
+    if(!bubble) return;
+    const text = bubble.childNodes[0].textContent.trim();
+    lines.push(`${isUser ? 'You' : 'Assistant'}: ${text}`);
+    const refs = n.querySelectorAll('.citation-ref');
+    refs.forEach(r=> lines.push(`  Source: ${r.textContent.trim()}`));
+    lines.push('');
+  });
+  const blob = new Blob([lines.join('\n')], { type:'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `conversation-${Date.now()}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* ============================================================
+   KNOWLEDGE EXPLORER
+   ============================================================ */
+async function loadExplorer(){
+  const catEl = document.getElementById('explorer-category');
+  const deptEl = document.getElementById('explorer-department');
+  if(!LIVE_MODE){
+    const groups = {};
+    state.docs.filter(d=>d.status==='active').forEach(d=>{
+      const key = d.category || 'General Regulations';
+      groups[key] = groups[key] || [];
+      groups[key].push(d);
+    });
+    catEl.innerHTML = renderExplorerGroups(Object.entries(groups).map(([key,documents])=>({key,count:documents.length,documents})));
+    deptEl.innerHTML = `<p style="font-size:12px;color:var(--text-faint);">Connect the backend to browse by department.</p>`;
+    return;
+  }
+  try{
+    const data = await apiFetch('/documents/explorer');
+    catEl.innerHTML = renderExplorerGroups(data.by_category);
+    deptEl.innerHTML = renderExplorerGroups(data.by_department);
+  }catch(e){ showToast('Could not load the Knowledge Explorer.', 'deny'); }
+}
+function renderExplorerGroups(groups){
+  if(!groups.length) return `<p style="font-size:12px;color:var(--text-faint);">No documents indexed yet.</p>`;
+  return groups.map(g=>`
+    <div class="explorer-card" style="margin-bottom:10px;">
+      <h4>${escapeHtml(g.key)}</h4>
+      <div class="count">${g.count} document${g.count===1?'':'s'}</div>
+      ${g.documents.map(d=>`
+        <div class="explorer-doc-row">
+          <span>${escapeHtml(d.title)}</span>
+          <span class="v">v${d.version||1}</span>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+/* ============================================================
+   AI DOCUMENT ASSISTANT
+   ============================================================ */
+let assistMode = 'summarize';
+function setAssistMode(el){
+  document.querySelectorAll('.assist-mode-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  assistMode = el.dataset.mode;
+}
+async function handleAssistFile(files){
+  if(!files || !files.length) return;
+  const file = files[0];
+  const wrap = document.getElementById('assist-result-wrap');
+  const resultEl = document.getElementById('assist-result');
+  const titleEl = document.getElementById('assist-result-title');
+  wrap.style.display = 'block';
+  titleEl.textContent = `Analyzing "${file.name}"…`;
+  resultEl.textContent = '';
+
+  if(!LIVE_MODE){
+    setTimeout(()=>{
+      titleEl.textContent = `Result — ${file.name}`;
+      resultEl.textContent = 'Connect the backend to run this document through the AI Document Assistant. In offline demo mode this is a preview only.';
+    }, 700);
+    return;
+  }
+
+  try{
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('mode', assistMode);
+    const res = await fetch(API_BASE + '/assistant/summarize', {
+      method:'POST', headers:{ 'Authorization':'Bearer ' + authToken }, body: formData,
+    });
+    if(!res.ok){ const body = await res.json().catch(()=>({detail:'Request failed'})); throw new Error(body.detail); }
+    const data = await res.json();
+    titleEl.textContent = `Result — ${file.name}${data.mock_mode ? ' (local LLM not detected — extractive preview)' : ''}`;
+    resultEl.textContent = data.result;
+  }catch(e){
+    titleEl.textContent = 'Could not analyze this document';
+    resultEl.textContent = e.message || 'Unknown error.';
+  }
+}
+
+/* ============================================================
+   AI INSIGHTS (admin)
+   ============================================================ */
+async function loadInsights(){
+  const topEl = document.getElementById('insights-top-questions');
+  const gapsEl = document.getElementById('insights-gaps');
+  if(!LIVE_MODE){
+    topEl.innerHTML = `<div class="insight-item" style="color:var(--text-faint);">Connect the backend to see real usage insights.</div>`;
+    gapsEl.innerHTML = '';
+    return;
+  }
+  try{
+    const data = await apiFetch('/admin/insights');
+    topEl.innerHTML = data.top_questions.length
+      ? data.top_questions.map(q=>`<div class="insight-item"><span>${escapeHtml(q.question)}</span><span class="count-pill">${q.count}×</span></div>`).join('')
+      : `<div class="insight-item" style="color:var(--text-faint);">No questions asked yet.</div>`;
+    gapsEl.innerHTML = data.knowledge_gaps.length
+      ? data.knowledge_gaps.map(g=>`<div class="insight-item"><span>${escapeHtml(g.question)}</span><span class="count-pill" style="color:var(--red);">no match</span></div>`).join('')
+      : `<div class="insight-item" style="color:var(--text-faint);">No knowledge gaps detected.</div>`;
+  }catch(e){ showToast('Could not load insights.', 'deny'); }
+}
+
+/* ============================================================
+   USER MANAGEMENT (admin)
+   ============================================================ */
+function openCreateUser(){
+  const panel = document.getElementById('create-user-panel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+}
+async function loadUsers(){
+  const body = document.getElementById('users-table-body');
+  if(!LIVE_MODE){
+    body.innerHTML = `<tr><td colspan="5" style="color:var(--text-faint);">Connect the backend to manage real accounts.</td></tr>`;
+    return;
+  }
+  try{
+    const users = await apiFetch('/admin/users');
+    body.innerHTML = users.map(u=>`
+      <tr>
+        <td>${escapeHtml(u.full_name)}</td>
+        <td>${escapeHtml(u.email)}</td>
+        <td><span class="badge ${u.role_name==='admin'?'active':'archived'}">${u.role_name}</span></td>
+        <td><span class="badge ${u.is_active?'active':'archived'}">${u.is_active?'active':'disabled'}</span></td>
+        <td><div class="row-actions">
+          <button class="icon-btn" title="Toggle access" onclick="toggleUserActive(${u.user_id})">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </button>
+          <button class="icon-btn" title="Reset password" onclick="resetUserPassword(${u.user_id})">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </button>
+        </div></td>
+      </tr>`).join('');
+  }catch(e){ showToast('Could not load users.', 'deny'); }
+}
+async function createUser(){
+  const full_name = document.getElementById('nu-name').value.trim();
+  const email = document.getElementById('nu-email').value.trim();
+  const password = document.getElementById('nu-pass').value;
+  const role = document.getElementById('nu-role').value;
+  if(!full_name || !email || !password){ showToast('Fill in all fields.', 'deny'); return; }
+  if(!LIVE_MODE){ showToast('Connect the backend to create real accounts.', 'deny'); return; }
+  try{
+    await apiFetch('/auth/register', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ full_name, email, password, role }) });
+    showToast(`Account created for ${full_name}.`, 'ok');
+    document.getElementById('create-user-panel').style.display = 'none';
+    await loadUsers();
+  }catch(e){ showToast(e.message || 'Could not create user.', 'deny'); }
+}
+async function toggleUserActive(userId){
+  try{
+    await apiFetch(`/admin/users/${userId}/toggle-active`, { method:'PATCH' });
+    await loadUsers();
+    showToast('Account access updated.', 'ok');
+  }catch(e){ showToast(e.message || 'Could not update user.', 'deny'); }
+}
+async function resetUserPassword(userId){
+  const newPass = prompt('Enter a temporary password for this user:');
+  if(!newPass) return;
+  try{
+    await apiFetch(`/admin/users/${userId}/reset-password`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ new_password: newPass }) });
+    showToast('Password reset.', 'ok');
+  }catch(e){ showToast(e.message || 'Could not reset password.', 'deny'); }
+}
+
+/* ============================================================
+   SETTINGS (admin) — external AI gateway toggle
+   ============================================================ */
+async function loadSettings(){
+  if(!LIVE_MODE) return;
+  try{
+    const s = await apiFetch('/admin/settings');
+    document.getElementById('setting-external-ai').checked = s.external_ai_enabled;
+    document.getElementById('setting-provider').value = s.external_ai_provider || '';
+  }catch(e){ /* admin-only; ignore */ }
+}
+async function saveSettings(){
+  if(!LIVE_MODE){ showToast('Connect the backend to save settings.', 'deny'); return; }
+  const external_ai_enabled = document.getElementById('setting-external-ai').checked;
+  const external_ai_provider = document.getElementById('setting-provider').value.trim();
+  try{
+    await apiFetch('/admin/settings', { method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ external_ai_enabled, external_ai_provider }) });
+    showToast('Settings saved.', 'ok');
+  }catch(e){ showToast('Could not save settings.', 'deny'); }
+}
+
+/* Init */
+renderHistory();
+renderLogs();
+detectBackend();
+</script>
+</body>
+</html>
