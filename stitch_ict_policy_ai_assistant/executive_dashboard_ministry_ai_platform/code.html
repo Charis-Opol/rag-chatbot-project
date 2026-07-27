@@ -1,0 +1,522 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>GovAI Analytics | Executive Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Design System Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#eff1f3",
+                    "outline": "#737780",
+                    "surface-tint": "#3b5f92",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-border": "#E2E8F0",
+                    "on-tertiary-fixed-variant": "#004a79",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#7a9ed4",
+                    "primary-fixed": "#d4e3ff",
+                    "primary-container": "#023464",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-fixed": "#ffdbca",
+                    "secondary-container": "#fd761a",
+                    "outline-variant": "#c3c6d0",
+                    "surface-container-highest": "#e0e3e5",
+                    "background": "#f7f9fb",
+                    "on-secondary-container": "#5c2400",
+                    "tertiary-fixed": "#d0e4ff",
+                    "surface-container": "#eceef0",
+                    "primary": "#001f40",
+                    "primary-fixed-dim": "#a6c8ff",
+                    "on-background": "#191c1e",
+                    "inverse-surface": "#2d3133",
+                    "inverse-primary": "#a6c8ff",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb690",
+                    "on-tertiary-container": "#5ba1e4",
+                    "secondary": "#9d4300",
+                    "tertiary-container": "#00365b",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f7f9fb",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-variant": "#e0e3e5",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#001d34",
+                    "surface-dim": "#d8dadc",
+                    "success-green": "#10B981",
+                    "on-surface-variant": "#43474f",
+                    "on-primary-fixed": "#001c3b",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#783200",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#204778",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "tertiary": "#002039",
+                    "slate-dark": "#0F172A",
+                    "on-secondary-fixed": "#341100",
+                    "on-surface": "#191c1e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max-width": "1440px",
+                    "page-margin-desktop": "32px",
+                    "gutter": "24px",
+                    "section-gap": "64px",
+                    "page-margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-xl": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #F8FAFC;
+      }
+      .card-shadow {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        transition: box-shadow 0.2s ease;
+      }
+      .card-shadow:hover {
+        box-shadow: 0 10px 15px -3px rgba(2, 52, 100, 0.05);
+      }
+      .chart-container {
+        position: relative;
+        overflow: hidden;
+      }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="bg-surface-container-lowest flex justify-between items-center px-page-margin-desktop h-16 w-full sticky top-0 z-50 shadow-sm border-b border-surface-border">
+<div class="flex items-center gap-4">
+<span class="text-headline-lg font-headline-lg font-bold text-primary">GovAI Analytics</span>
+</div>
+<div class="flex-1 max-w-md mx-8 hidden md:block">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary-container font-body-md text-body-md" placeholder="Search analytics..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors">notifications</button>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors">settings</button>
+<div class="flex items-center gap-3 pl-6 border-l border-surface-border">
+<div class="text-right hidden sm:block">
+<p class="font-label-md text-label-md text-primary">Administrator</p>
+<p class="text-label-sm font-label-sm text-outline">Ministry of ICT</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="A professional headshot of a government administrator in business attire, clean corporate lighting, soft background blur, high-end professional photography style, minimal jewelry, confident and authoritative expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9ufvYjNpVmeF_8H6lMOki7WVcJ4nXT-X7LAVcfHWCsERO-nZJYMHKD6Fw1oxMC3MlbEQ3V-qFQT-9GdVsy605ijATi_pB0O5ZSeGjkdw3LHpv2hpIwxPBkXVOYRVhM3Nv4hVPP6hru-RR7NP3WNrsk3sqFO7XuteqIt8D0UUI8g9NkuuXuIoSP5T8VdMN7DDBP5KwM--df1ggcfFPq9XlR4HBNqqmnBXsuNBN78KvBg49pHZB7Iy_9w">
+</div>
+</div>
+</header>
+<div class="flex min-h-screen">
+<!-- Side Navigation Bar -->
+<aside class="h-screen w-64 flex flex-col fixed left-0 top-16 bg-surface-container-low border-r border-surface-border py-6 px-4 gap-4 z-40 hidden md:flex">
+<div class="mb-6 px-2">
+<p class="font-headline-lg text-headline-lg font-bold text-primary">Ministry of ICT</p>
+<p class="font-label-md text-label-md text-outline">Enterprise AI Platform</p>
+</div>
+<nav class="space-y-1 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container font-bold rounded-lg group transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label-md text-label-md">AI Usage</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">search_insights</span>
+<span class="font-label-md text-label-md">Search Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</nav>
+<div class="mt-auto space-y-4">
+<div class="bg-primary-container p-4 rounded-xl text-on-primary-container">
+<p class="font-label-sm text-label-sm mb-1 uppercase tracking-wider opacity-80">Storage Usage</p>
+<div class="w-full bg-primary/20 rounded-full h-1.5 mb-2">
+<div class="bg-on-primary-container h-1.5 rounded-full" style="width: 65%"></div>
+</div>
+<button class="w-full py-2 bg-on-primary-container text-primary font-bold rounded-lg text-label-sm hover:bg-on-tertiary-container transition-colors">Upgrade Analytics</button>
+</div>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">help</span>
+                        Help Center
+                    </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+                        System Status
+                    </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 p-page-margin-desktop bg-background min-w-0">
+<!-- Header Section -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-primary mb-2">Executive Overview</h1>
+<p class="font-body-md text-body-md text-outline">Real-time performance metrics for the National AI Infrastructure.</p>
+</div>
+<div class="flex items-center gap-3 bg-white p-1 rounded-xl border border-surface-border shadow-sm">
+<button class="px-4 py-2 rounded-lg bg-primary text-white font-label-md text-label-md">30D</button>
+<button class="px-4 py-2 rounded-lg text-outline hover:bg-surface-container-low font-label-md text-label-md">7D</button>
+<button class="px-4 py-2 rounded-lg text-outline hover:bg-surface-container-low font-label-md text-label-md">Today</button>
+<div class="w-px h-6 bg-surface-border mx-1"></div>
+<button class="flex items-center gap-2 px-4 py-2 text-primary hover:bg-surface-container-low font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                        Download Report
+                    </button>
+</div>
+</section>
+<!-- KPI Grid -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-8">
+<div class="bg-white p-6 rounded-xl border border-surface-border card-shadow">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary-container/10 rounded-lg text-primary">
+<span class="material-symbols-outlined">smart_toy</span>
+</div>
+<span class="text-success-green font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +12.4%
+                        </span>
+</div>
+<p class="text-outline font-label-md text-label-md mb-1">Total AI Queries</p>
+<h3 class="text-headline-lg font-headline-lg text-primary">1,284,592</h3>
+</div>
+<div class="bg-white p-6 rounded-xl border border-surface-border card-shadow">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-secondary-container/10 rounded-lg text-secondary">
+<span class="material-symbols-outlined">group</span>
+</div>
+<span class="text-success-green font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +8.1%
+                        </span>
+</div>
+<p class="text-outline font-label-md text-label-md mb-1">Active Users</p>
+<h3 class="text-headline-lg font-headline-lg text-primary">45,210</h3>
+</div>
+<div class="bg-white p-6 rounded-xl border border-surface-border card-shadow">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-tertiary-container/10 rounded-lg text-on-tertiary-container">
+<span class="material-symbols-outlined">database</span>
+</div>
+<span class="text-success-green font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +2.3GB
+                        </span>
+</div>
+<p class="text-outline font-label-md text-label-md mb-1">Knowledge Growth</p>
+<h3 class="text-headline-lg font-headline-lg text-primary">14.8 TB</h3>
+</div>
+<div class="bg-white p-6 rounded-xl border border-surface-border card-shadow">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-error-container/10 rounded-lg text-error">
+<span class="material-symbols-outlined">speed</span>
+</div>
+<span class="text-error font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_down</span> -0.4s
+                        </span>
+</div>
+<p class="text-outline font-label-md text-label-md mb-1">Avg. Response Time</p>
+<h3 class="text-headline-lg font-headline-lg text-primary">1.2s</h3>
+</div>
+</section>
+<!-- Main Analytics Section: Bento Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-gutter">
+<!-- Trend Chart Area -->
+<div class="lg:col-span-8 bg-white p-8 rounded-xl border border-surface-border card-shadow flex flex-col h-[400px]">
+<div class="flex justify-between items-center mb-8">
+<h4 class="font-headline-lg text-headline-lg text-primary">Platform Adoption Trend</h4>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="font-label-sm text-label-sm text-outline">Total Requests</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary-container"></span>
+<span class="font-label-sm text-label-sm text-outline">Unique Users</span>
+</div>
+</div>
+</div>
+<div class="flex-1 flex items-end gap-2 relative">
+<!-- Simulated Chart Grid -->
+<div class="absolute inset-0 flex flex-col justify-between py-2 pointer-events-none">
+<div class="w-full border-t border-surface-container h-0"></div>
+<div class="w-full border-t border-surface-container h-0"></div>
+<div class="w-full border-t border-surface-container h-0"></div>
+<div class="w-full border-t border-surface-container h-0"></div>
+</div>
+<!-- Simulated Bars -->
+<div class="flex-1 bg-primary/20 hover:bg-primary/40 rounded-t h-[40%] transition-all"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary/40 rounded-t h-[60%] transition-all"></div>
+<div class="flex-1 bg-primary hover:bg-primary/90 rounded-t h-[80%] transition-all"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary/40 rounded-t h-[55%] transition-all"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary/40 rounded-t h-[75%] transition-all"></div>
+<div class="flex-1 bg-primary hover:bg-primary/90 rounded-t h-[95%] transition-all"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary/40 rounded-t h-[65%] transition-all"></div>
+<div class="flex-1 bg-primary hover:bg-primary/90 rounded-t h-[85%] transition-all"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary/40 rounded-t h-[50%] transition-all"></div>
+<div class="flex-1 bg-primary hover:bg-primary/90 rounded-t h-[70%] transition-all"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary/40 rounded-t h-[60%] transition-all"></div>
+<div class="flex-1 bg-primary hover:bg-primary/90 rounded-t h-[90%] transition-all"></div>
+</div>
+<div class="flex justify-between pt-4 font-label-sm text-label-sm text-outline">
+<span>JAN</span><span>FEB</span><span>MAR</span><span>APR</span><span>MAY</span><span>JUN</span><span>JUL</span><span>AUG</span><span>SEP</span><span>OCT</span><span>NOV</span><span>DEC</span>
+</div>
+</div>
+<!-- Usage Distribution Pie -->
+<div class="lg:col-span-4 bg-white p-8 rounded-xl border border-surface-border card-shadow flex flex-col justify-between h-[400px]">
+<h4 class="font-headline-lg text-headline-lg text-primary mb-6">Sector-wise Distribution</h4>
+<div class="relative flex-1 flex items-center justify-center">
+<!-- Custom Donut Chart -->
+<svg class="w-48 h-48 -rotate-90">
+<circle cx="96" cy="96" fill="transparent" r="70" stroke="#E2E8F0" stroke-width="24"></circle>
+<circle cx="96" cy="96" fill="transparent" r="70" stroke="#001f40" stroke-dasharray="440" stroke-dashoffset="120" stroke-width="24"></circle>
+<circle cx="96" cy="96" fill="transparent" r="70" stroke="#fd761a" stroke-dasharray="440" stroke-dashoffset="380" stroke-width="24"></circle>
+<circle cx="96" cy="96" fill="transparent" r="70" stroke="#70B5F9" stroke-dasharray="440" stroke-dashoffset="420" stroke-width="24"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="text-headline-lg font-bold text-primary">100%</span>
+<span class="text-label-sm text-outline">Platform Total</span>
+</div>
+</div>
+<div class="space-y-3 mt-6">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span class="font-label-md text-label-md text-on-surface-variant">ICT &amp; Governance</span>
+</div>
+<span class="font-bold text-primary">42%</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-container"></span>
+<span class="font-label-md text-label-md text-on-surface-variant">Healthcare Services</span>
+</div>
+<span class="font-bold text-primary">28%</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-on-tertiary-container"></span>
+<span class="font-label-md text-label-md text-on-surface-variant">Agri-Tech Programs</span>
+</div>
+<span class="font-bold text-primary">15%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Executive Summary Section -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-gutter">
+<div class="lg:col-span-12">
+<div class="bg-white rounded-xl border border-surface-border card-shadow overflow-hidden">
+<div class="bg-primary px-8 py-4 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h4 class="font-headline-lg text-headline-lg text-white">AI-Generated Executive Summary</h4>
+</div>
+<span class="text-primary-fixed-dim font-label-sm text-label-sm">Updated 2 mins ago</span>
+</div>
+<div class="p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="space-y-4">
+<div class="flex items-center gap-2 text-primary font-bold">
+<span class="material-symbols-outlined">trending_up</span>
+                                    Efficiency Growth
+                                </div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                                    Machine learning optimization has reduced system latency by <span class="font-bold text-primary">22%</span> across national portals, directly improving citizen engagement scores by 14 points this quarter.
+                                </p>
+</div>
+<div class="space-y-4 border-x border-surface-border px-8">
+<div class="flex items-center gap-2 text-primary font-bold">
+<span class="material-symbols-outlined">warning</span>
+                                    Critical Bottlenecks
+                                </div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                                    Peak query volume at 11:00 AM EAT is approaching cluster capacity. Recommendation: <span class="underline decoration-secondary-container underline-offset-4">Auto-scale primary compute nodes</span> before next Friday's public census launch.
+                                </p>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-2 text-primary font-bold">
+<span class="material-symbols-outlined">lightbulb</span>
+                                    Strategic Insight
+                                </div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                                    Semantic search patterns indicate high demand for local-language integration. Prioritizing <span class="font-bold text-primary">Luganda NLP modules</span> could unlock access for 3.5M additional rural users.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Data Table (Alternative Layout for Rich Content) -->
+<section class="bg-white rounded-xl border border-surface-border card-shadow overflow-hidden">
+<div class="px-8 py-6 border-b border-surface-border flex justify-between items-center">
+<h4 class="font-headline-lg text-headline-lg text-primary">Recent Ministry Activity</h4>
+<button class="text-primary font-label-md text-label-md hover:underline">View All Activities</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-8 py-4 font-label-sm text-label-sm text-outline uppercase tracking-wider">Department</th>
+<th class="px-8 py-4 font-label-sm text-label-sm text-outline uppercase tracking-wider">AI Toolset</th>
+<th class="px-8 py-4 font-label-sm text-label-sm text-outline uppercase tracking-wider">Usage Status</th>
+<th class="px-8 py-4 font-label-sm text-label-sm text-outline uppercase tracking-wider">Efficiency Index</th>
+<th class="px-8 py-4 font-label-sm text-label-sm text-outline uppercase tracking-wider">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-border">
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-8 py-5 flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-primary-container/10 flex items-center justify-center text-primary font-bold">ED</div>
+<div>
+<p class="font-label-md text-label-md text-primary">Ministry of Education</p>
+<p class="text-label-sm text-outline">Central Region</p>
+</div>
+</td>
+<td class="px-8 py-5 font-body-md text-body-md">Personalized Learning LLM</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full bg-success-green/10 text-success-green font-label-sm text-label-sm">High Priority</span>
+</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-2">
+<div class="flex-1 w-24 bg-surface-container rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 88%"></div>
+</div>
+<span class="font-label-sm text-label-sm">88%</span>
+</div>
+</td>
+<td class="px-8 py-5">
+<button class="material-symbols-outlined text-outline hover:text-primary">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-8 py-5 flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-secondary-container/10 flex items-center justify-center text-secondary font-bold">HL</div>
+<div>
+<p class="font-label-md text-label-md text-primary">Ministry of Health</p>
+<p class="text-label-sm text-outline">Western Region</p>
+</div>
+</td>
+<td class="px-8 py-5 font-body-md text-body-md">Diagnostic Imaging Assist</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full bg-secondary-container/10 text-secondary font-label-sm text-label-sm">In Pilot</span>
+</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-2">
+<div class="flex-1 w-24 bg-surface-container rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 62%"></div>
+</div>
+<span class="font-label-sm text-label-sm">62%</span>
+</div>
+</td>
+<td class="px-8 py-5">
+<button class="material-symbols-outlined text-outline hover:text-primary">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-8 py-5 flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-tertiary-container/10 flex items-center justify-center text-on-tertiary-container font-bold">AG</div>
+<div>
+<p class="font-label-md text-label-md text-primary">Ministry of Agriculture</p>
+<p class="text-label-sm text-outline">Northern Region</p>
+</div>
+</td>
+<td class="px-8 py-5 font-body-md text-body-md">Climate Predictive Modeling</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full bg-primary-container/10 text-primary font-label-sm text-label-sm">Standard</span>
+</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-2">
+<div class="flex-1 w-24 bg-surface-container rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 45%"></div>
+</div>
+<span class="font-label-sm text-label-sm">45%</span>
+</div>
+</td>
+<td class="px-8 py-5">
+<button class="material-symbols-outlined text-outline hover:text-primary">more_vert</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<footer class="mt-section-gap pt-12 pb-8 border-t border-surface-border text-center">
+<div class="flex flex-col items-center gap-4">
+<img class="h-12 w-auto mb-2" data-alt="A stylized digital emblem for the Ministry of ICT and National Guidance, minimalist vector style, sophisticated blue and gold colors, clean geometric shapes representing connectivity and national progress, high-end governmental branding." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJgXa97fEATaTD8aO5T2-4VY0bkskaKaJcX-EVqKYqjvSYwQ7R1V0zRHKeqXCiGF5JscCC-SM3uekXDqmm2yDDRgy-P1bXvI20CGzhAXSNr8LGHrlbuse86zNKED_O76by2ErPbfWT3mXgLHLSjUJ2JZ_83cyDiYmq7uheY1pvbRWifhYj1PYdHtZZjOuJaqqz_rdd8R4TEYzsCaqIIFAT7S0CpkDizJfKoduvqgf5BCr180tsKrMGIA">
+<p class="font-label-md text-label-md text-outline">© 2026 Ministry of ICT and National Guidance. All Rights Reserved.</p>
+<div class="flex gap-6">
+<a class="text-label-sm font-label-sm text-primary hover:underline" href="#">Privacy Policy</a>
+<a class="text-label-sm font-label-sm text-primary hover:underline" href="#">Accessibility</a>
+<a class="text-label-sm font-label-sm text-primary hover:underline" href="#">Support Portal</a>
+</div>
+</div>
+</footer>
+</main>
+</div>
+<!-- Micro-interaction Scripts -->
+<script>
+        // Subtle hover effects for cards
+        document.querySelectorAll('.card-shadow').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0px)';
+            });
+        });
+
+        // Simple tab switching logic for date range picker
+        const dateButtons = document.querySelectorAll('.flex.items-center.gap-3.bg-white button:not(.flex)');
+        dateButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                dateButtons.forEach(b => {
+                    b.classList.remove('bg-primary', 'text-white');
+                    b.classList.add('text-outline', 'hover:bg-surface-container-low');
+                });
+                btn.classList.add('bg-primary', 'text-white');
+                btn.classList.remove('text-outline', 'hover:bg-surface-container-low');
+            });
+        });
+    </script>
+</body></html>

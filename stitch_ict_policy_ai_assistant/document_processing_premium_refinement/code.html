@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KMS Admin - Document Processing Monitor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .status-dot-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .4; }
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #023464;
+        }
+    </style>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-container-highest": "#e0e3e5",
+                "background": "#f7f9fb",
+                "secondary-container": "#fd761a",
+                "outline-variant": "#c3c6d0",
+                "tertiary-fixed": "#d0e4ff",
+                "on-secondary-container": "#5c2400",
+                "primary-fixed-dim": "#a6c8ff",
+                "on-background": "#191c1e",
+                "primary": "#001f40",
+                "surface-container": "#eceef0",
+                "inverse-surface": "#2d3133",
+                "inverse-primary": "#a6c8ff",
+                "on-tertiary": "#ffffff",
+                "primary-fixed": "#d4e3ff",
+                "on-primary-container": "#7a9ed4",
+                "primary-container": "#023464",
+                "secondary-fixed": "#ffdbca",
+                "surface-bright": "#f7f9fb",
+                "surface-border": "#E2E8F0",
+                "on-tertiary-fixed-variant": "#004a79",
+                "inverse-on-surface": "#eff1f3",
+                "surface-container-high": "#e6e8ea",
+                "surface-tint": "#3b5f92",
+                "outline": "#737780",
+                "on-primary": "#ffffff",
+                "tertiary-fixed-dim": "#9bcbff",
+                "slate-dark": "#0F172A",
+                "tertiary": "#002039",
+                "on-surface": "#191c1e",
+                "on-secondary-fixed": "#341100",
+                "success-green": "#10B981",
+                "on-surface-variant": "#43474f",
+                "on-primary-fixed": "#001c3b",
+                "on-error-container": "#93000a",
+                "on-secondary-fixed-variant": "#783200",
+                "error": "#ba1a1a",
+                "on-primary-fixed-variant": "#204778",
+                "on-error": "#ffffff",
+                "surface-variant": "#e0e3e5",
+                "surface-container-low": "#f2f4f6",
+                "tertiary-container": "#00365b",
+                "surface-container-lowest": "#ffffff",
+                "surface": "#f7f9fb",
+                "error-container": "#ffdad6",
+                "surface-dim": "#d8dadc",
+                "on-tertiary-fixed": "#001d34",
+                "on-secondary": "#ffffff",
+                "secondary": "#9d4300",
+                "secondary-fixed-dim": "#ffb690",
+                "on-tertiary-container": "#5ba1e4"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "section-gap": "64px",
+                "page-margin-mobile": "16px",
+                "container-max-width": "1440px",
+                "page-margin-desktop": "32px",
+                "gutter": "24px"
+        },
+        "fontFamily": {
+                "label-sm": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Inter"
+                ],
+                "display-lg": [
+                        "Inter"
+                ],
+                "body-xl": [
+                        "Inter"
+                ],
+                "label-md": [
+                        "Inter"
+                ],
+                "headline-xl": [
+                        "Inter"
+                ],
+                "body-md": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg": [
+                        "30px",
+                        {
+                                "lineHeight": "38px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-xl": [
+                        "20px",
+                        {
+                                "lineHeight": "30px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-xl": [
+                        "36px",
+                        {
+                                "lineHeight": "44px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar (Predicted Component) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 z-40 bg-primary dark:bg-primary-container docked left-0 h-screen w-64 shadow-xl">
+<div class="px-8 mb-10">
+<h1 class="text-xl font-bold text-on-primary">KMS Admin</h1>
+<p class="text-[10px] text-on-primary/60 uppercase tracking-widest mt-1 font-semibold">Institutional AI Node</p>
+</div>
+<nav class="flex-grow flex flex-col gap-2 overflow-y-auto px-4">
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Overview</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="description">description</span>
+<span class="font-label-md text-label-md">Document Library</span>
+</a>
+<!-- Active Tab: Ingestion Queue (Mapping to Document Processing Monitor) -->
+<a class="flex items-center gap-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg px-4 py-3 transition-colors shadow-sm" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="queue">queue</span>
+<span class="font-label-md text-label-md">Ingestion Queue</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings_input_component">settings_input_component</span>
+<span class="font-label-md text-label-md">Embedding Config</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="database">database</span>
+<span class="font-label-md text-label-md">Vector Stores</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md">System Health</span>
+</a>
+</nav>
+<div class="px-4 mt-auto pt-6">
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="contact_support">contact_support</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow md:ml-64 min-h-screen flex flex-col relative">
+<!-- TopNavBar (Predicted Component) -->
+<header class="flex justify-between items-center w-full px-8 h-16 sticky top-0 z-30 bg-surface/90 backdrop-blur-md dark:bg-inverse-surface/90 border-b border-surface-border dark:border-outline-variant">
+<div class="flex items-center gap-10">
+<span class="text-[16px] font-bold text-primary dark:text-primary-fixed tracking-tight">RAG Knowledge Hub</span>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary transition-colors font-label-md" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary transition-colors font-label-md" href="#">Workflows</a>
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary py-5 font-label-md" href="#">Logs</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary transition-colors font-label-md" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-5">
+<button class="text-outline hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+<span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-secondary rounded-full border-2 border-surface"></span>
+</button>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-surface-border">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a Knowledge Management Officer in business attire, clean lighting, minimalist background, corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQIqw7GKfBbXu7oiN01TGdLDZDHu8IPzGLE0wtNoPoW8NS3xScIAJDvH6ALIO0yag5CLgKWrJ3OD35z86yX9aI_3az9ahl3db31YFEiwYx26jLFzITImIIna7wxWdmzaxnEPi7IN3bp0Ih4oAFEoo4AXBr-X30-Njwmdwdo79sudzlnvWgTed19NN3sgXjoMfOArCs2H3RTMttd2WdG2PK-eVOu-7JO32dCmxqyMe8zpKtiBfFkjDthw"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-8 space-y-10 max-w-[1600px] mx-auto w-full">
+<!-- Header Section -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+<div>
+<h2 class="text-[32px] font-bold text-primary tracking-tight leading-tight">Ingestion Pipeline Monitor</h2>
+<p class="text-on-surface-variant mt-2 text-[15px]">Real-time status of document conversion, chunking, and vector indexing operations.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="bg-surface-container-high/50 px-5 py-2.5 rounded-lg flex items-center gap-3 border border-surface-border">
+<span class="w-2.5 h-2.5 rounded-full bg-success-green status-dot-pulse"></span>
+<span class="font-label-md text-label-md text-primary">Pipeline Active: 24.2 MB/s</span>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-label-md flex items-center gap-2 hover:bg-primary/90 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                        New Ingestion
+                    </button>
+</div>
+</div>
+<!-- Dashboard Quick Stats -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-white p-8 rounded-2xl border border-surface-border shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-shadow">
+<p class="text-[11px] font-bold text-outline uppercase tracking-[0.1em] mb-4">Total In Queue</p>
+<div class="flex items-end justify-between">
+<span class="text-[40px] font-bold text-primary leading-none">1,284</span>
+<span class="material-symbols-outlined text-outline/20 text-[40px] leading-none" data-icon="all_inbox">all_inbox</span>
+</div>
+</div>
+<div class="bg-white p-8 rounded-2xl border border-surface-border shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-shadow">
+<p class="text-[11px] font-bold text-outline uppercase tracking-[0.1em] mb-4">Processing</p>
+<div class="flex items-end justify-between">
+<span class="text-[40px] font-bold text-secondary leading-none">42</span>
+<span class="material-symbols-outlined text-secondary/20 text-[40px] leading-none" data-icon="sync">sync</span>
+</div>
+</div>
+<div class="bg-white p-8 rounded-2xl border border-surface-border shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-shadow">
+<p class="text-[11px] font-bold text-outline uppercase tracking-[0.1em] mb-4">Completed (24h)</p>
+<div class="flex items-end justify-between">
+<span class="text-[40px] font-bold text-success-green leading-none">892</span>
+<span class="material-symbols-outlined text-success-green/20 text-[40px] leading-none" data-icon="check_circle">check_circle</span>
+</div>
+</div>
+<div class="bg-white p-8 rounded-2xl border border-surface-border shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-shadow">
+<p class="text-[11px] font-bold text-outline uppercase tracking-[0.1em] mb-4">Failures</p>
+<div class="flex items-end justify-between">
+<span class="text-[40px] font-bold text-error leading-none">7</span>
+<span class="material-symbols-outlined text-error/20 text-[40px] leading-none" data-icon="error_outline">error_outline</span>
+</div>
+</div>
+</div>
+<!-- Main Pipeline Table -->
+<section class="bg-white rounded-2xl border border-surface-border shadow-[0_2px_10px_rgba(0,0,0,0.02)] overflow-hidden">
+<div class="px-8 py-6 border-b border-surface-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-surface-bright/50">
+<h3 class="text-[18px] font-semibold text-primary">Active Documents</h3>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-[20px]" data-icon="search">search</span>
+<input class="bg-white border border-surface-border rounded-lg pl-11 pr-4 py-2.5 text-[14px] text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary w-[300px] shadow-sm" placeholder="Search by document name..." type="text"/>
+</div>
+<button class="p-2.5 border border-surface-border rounded-lg text-outline hover:text-primary hover:bg-surface-container-low transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[20px]" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="border-b border-surface-border bg-surface-bright/30">
+<th class="px-8 py-5 text-left text-[12px] font-semibold text-outline tracking-wider uppercase">Document Name</th>
+<th class="px-8 py-5 text-left text-[12px] font-semibold text-outline tracking-wider uppercase">OCR</th>
+<th class="px-8 py-5 text-left text-[12px] font-semibold text-outline tracking-wider uppercase w-[20%]">Chunking</th>
+<th class="px-8 py-5 text-left text-[12px] font-semibold text-outline tracking-wider uppercase">Embedding</th>
+<th class="px-8 py-5 text-left text-[12px] font-semibold text-outline tracking-wider uppercase">Indexing</th>
+<th class="px-8 py-5 text-right text-[12px] font-semibold text-outline tracking-wider uppercase">Last Update</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-border">
+<!-- Row 1: Active -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group bg-white">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="picture_as_pdf">picture_as_pdf</span>
+</div>
+<div>
+<p class="font-semibold text-primary text-[14px] mb-1 group-hover:text-secondary transition-colors">National_ICT_Policy_2026.pdf</p>
+<p class="text-[12px] text-outline">4.2 MB • System Upload</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-success-green text-[18px]" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-[11px] font-bold text-success-green uppercase tracking-wider">Complete</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<div class="flex flex-col gap-2">
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[65%] rounded-full"></div>
+</div>
+<div class="flex justify-between items-center text-[11px] text-outline font-medium">
+<span>65%</span>
+<span>4,201 chunks</span>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-surface-container text-outline text-[10px] font-bold uppercase tracking-wider">Pending</span>
+</td>
+<td class="px-8 py-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-surface-container text-outline text-[10px] font-bold uppercase tracking-wider">Pending</span>
+</td>
+<td class="px-8 py-6 text-right">
+<p class="text-[13px] text-on-surface-variant font-medium">2 mins ago</p>
+</td>
+</tr>
+<!-- Row 2: Failed -->
+<tr class="hover:bg-error-container/5 transition-colors group border-l-[3px] border-l-error bg-white">
+<td class="px-8 py-6 pl-[29px]">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-error-container/30 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-error" data-icon="article">article</span>
+</div>
+<div>
+<p class="font-semibold text-primary text-[14px] mb-1">Rural_Connectivity_Report_Q3.docx</p>
+<p class="text-[12px] text-outline">12.8 MB • Manual Import</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[18px]" data-icon="error" data-weight="fill" style="font-variation-settings: 'FILL' 1;">error</span>
+<span class="text-[11px] font-bold text-error uppercase tracking-wider">Failed</span>
+</div>
+</td>
+<td class="px-8 py-6 text-center">
+<span class="text-outline/40 font-bold">—</span>
+</td>
+<td class="px-8 py-6 text-center">
+<span class="text-outline/40 font-bold">—</span>
+</td>
+<td class="px-8 py-6 text-center">
+<span class="text-outline/40 font-bold">—</span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="bg-error hover:bg-error/90 text-white px-4 py-1.5 rounded-md text-[12px] font-semibold transition-colors shadow-sm">Retry</button>
+</td>
+</tr>
+<!-- Row 3: Completed -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group bg-white">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="description">description</span>
+</div>
+<div>
+<p class="font-semibold text-primary text-[14px] mb-1 group-hover:text-secondary transition-colors">Infrastructure_Audit_Uganda_2025.pdf</p>
+<p class="text-[12px] text-outline">2.1 MB • API Ingest</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="material-symbols-outlined text-success-green text-[20px]" data-icon="check_circle">check_circle</span>
+</td>
+<td class="px-8 py-6">
+<span class="material-symbols-outlined text-success-green text-[20px]" data-icon="check_circle">check_circle</span>
+</td>
+<td class="px-8 py-6">
+<span class="material-symbols-outlined text-success-green text-[20px]" data-icon="check_circle">check_circle</span>
+</td>
+<td class="px-8 py-6">
+<span class="material-symbols-outlined text-success-green text-[20px]" data-icon="check_circle">check_circle</span>
+</td>
+<td class="px-8 py-6 text-right">
+<p class="text-[13px] text-on-surface-variant font-medium">15 mins ago</p>
+</td>
+</tr>
+<!-- Row 4: Processing -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group bg-white">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="table_chart">table_chart</span>
+</div>
+<div>
+<p class="font-semibold text-primary text-[14px] mb-1 group-hover:text-secondary transition-colors">E-Government_Usage_Stats.csv</p>
+<p class="text-[12px] text-outline">1.5 MB • Data Lake Sync</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="material-symbols-outlined text-success-green text-[20px]" data-icon="check_circle">check_circle</span>
+</td>
+<td class="px-8 py-6">
+<span class="material-symbols-outlined text-success-green text-[20px]" data-icon="check_circle">check_circle</span>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 rounded-full border-2 border-primary/20 border-t-primary animate-spin"></div>
+<span class="text-[12px] font-semibold text-primary">Embedding...</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-surface-container text-outline text-[10px] font-bold uppercase tracking-wider">Pending</span>
+</td>
+<td class="px-8 py-6 text-right">
+<p class="text-[13px] text-on-surface-variant font-medium">Just now</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Error Logs & Health Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<section class="lg:col-span-2 bg-[#0A1128] text-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-slate-800">
+<div class="px-6 py-4 bg-[#111A3A] flex items-center justify-between border-b border-slate-700/50">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error text-[20px]" data-icon="terminal">terminal</span>
+<h3 class="text-[15px] font-semibold tracking-wide">System Error Logs</h3>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-[10px] bg-error/20 text-error border border-error/30 px-2.5 py-1 rounded-md uppercase font-bold tracking-wider">7 Failures</span>
+<button class="p-1.5 hover:bg-white/10 rounded-md transition-colors text-slate-400 hover:text-white"><span class="material-symbols-outlined text-[18px]" data-icon="download">download</span></button>
+</div>
+</div>
+<div class="flex-grow p-6 font-mono text-[13px] overflow-y-auto max-h-[320px] bg-[#0A1128] space-y-3">
+<div class="flex gap-4 py-2 border-b border-slate-800/50 group">
+<span class="text-slate-500 shrink-0">[14:22:01]</span>
+<span class="text-error shrink-0 font-bold">[ERROR]</span>
+<span class="text-slate-300 leading-relaxed">Failed to process 'Rural_Connectivity_Report_Q3.docx': Timeout during OCR phase at page 42. Memory limit exceeded.</span>
+<button class="ml-auto opacity-0 group-hover:opacity-100 text-secondary hover:text-white transition-all text-[11px] font-sans font-bold tracking-wider shrink-0 bg-secondary/10 px-2 py-1 rounded">RETRY_NODE</button>
+</div>
+<div class="flex gap-4 py-2 border-b border-slate-800/50 group">
+<span class="text-slate-500 shrink-0">[14:19:55]</span>
+<span class="text-error shrink-0 font-bold">[ERROR]</span>
+<span class="text-slate-300 leading-relaxed">Connection refused by Pinecone Vector DB (Index: 'knowledge-base-v1'). Retrying in 30s.</span>
+</div>
+<div class="flex gap-4 py-2 border-b border-slate-800/50 group">
+<span class="text-secondary shrink-0">[14:15:32]</span>
+<span class="text-secondary shrink-0 font-bold">[WARN] </span>
+<span class="text-slate-300 leading-relaxed">Chunking module detected high overlap (0.8) in document 'Audit_2025'. Quality may be degraded.</span>
+</div>
+<div class="flex gap-4 py-2 border-b border-transparent group">
+<span class="text-slate-500 shrink-0">[14:12:10]</span>
+<span class="text-error shrink-0 font-bold">[ERROR]</span>
+<span class="text-slate-300 leading-relaxed">Invalid character encoding detected in 'User_Feedback_raw.csv' at line 14,021. Ingestion aborted.</span>
+<button class="ml-auto opacity-0 group-hover:opacity-100 text-secondary hover:text-white transition-all text-[11px] font-sans font-bold tracking-wider shrink-0 bg-secondary/10 px-2 py-1 rounded">RETRY_NODE</button>
+</div>
+</div>
+</section>
+<section class="bg-white rounded-2xl border border-surface-border shadow-[0_2px_10px_rgba(0,0,0,0.02)] p-8 flex flex-col justify-between">
+<div>
+<h3 class="text-[18px] font-semibold text-primary mb-8">Pipeline Health</h3>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between items-end mb-2">
+<span class="text-[13px] font-medium text-outline">OCR Engine Load</span>
+<span class="text-[14px] font-bold text-primary">88%</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[88%] rounded-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-end mb-2">
+<span class="text-[13px] font-medium text-outline">Embedding Throughput</span>
+<span class="text-[14px] font-bold text-primary">94%</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-success-green w-[94%] rounded-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-end mb-2">
+<span class="text-[13px] font-medium text-outline">Vector DB Latency</span>
+<span class="text-[14px] font-bold text-primary">12ms</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[15%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 p-5 rounded-xl bg-primary-container text-on-primary-container border border-primary/20">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary text-[24px]" data-icon="auto_awesome">auto_awesome</span>
+<div>
+<p class="text-[13px] font-bold mb-1.5">AI Recommendation</p>
+<p class="text-[12px] leading-relaxed opacity-80">OCR Load is reaching capacity. Consider scaling the processing cluster or scheduling heavy PDF tasks during off-peak hours (GMT+3 02:00).</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Footer Padding -->
+<div class="h-16"></div>
+</main>
+<!-- Contextual FAB (Predicted Component Suppressed on Details/Settings, but shown here for primary action) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-secondary text-white rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform z-50 md:hidden">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<script>
+        // Micro-interaction for simulated real-time updates
+        document.addEventListener('DOMContentLoaded', () => {
+            const rows = document.querySelectorAll('tbody tr');
+            
+            // Randomly update a progress bar to simulate life
+            setInterval(() => {
+                const activeRow = rows[0]; // National ICT Policy
+                const bar = activeRow.querySelector('.bg-secondary');
+                if (bar) {
+                    let currentWidth = parseInt(bar.style.width || '65');
+                    if (currentWidth < 95) {
+                        currentWidth += Math.floor(Math.random() * 2);
+                        bar.style.width = currentWidth + '%';
+                        activeRow.querySelector('.text-outline.font-medium').innerHTML = `<span>${currentWidth}%</span><span>4,201 chunks</span>`;
+                    }
+                }
+            }, 3000);
+
+            // Pulse effect for healthy systems
+            const healthDots = document.querySelectorAll('.status-dot-pulse');
+            healthDots.forEach(dot => {
+                dot.classList.add('transition-opacity', 'duration-1000');
+            });
+        });
+    </script>
+</body></html>

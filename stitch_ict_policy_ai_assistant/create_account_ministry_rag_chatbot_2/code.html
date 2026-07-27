@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Register | Ministry of ICT &amp; National Guidance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#5c2400",
+                    "tertiary-fixed": "#d0e4ff",
+                    "surface-container-highest": "#e0e3e5",
+                    "background": "#f7f9fb",
+                    "secondary-container": "#fd761a",
+                    "outline-variant": "#c3c6d0",
+                    "inverse-surface": "#2d3133",
+                    "inverse-primary": "#a6c8ff",
+                    "primary-fixed-dim": "#a6c8ff",
+                    "on-background": "#191c1e",
+                    "surface-container": "#eceef0",
+                    "primary": "#001f40",
+                    "primary-fixed": "#d4e3ff",
+                    "on-primary-container": "#7a9ed4",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed": "#ffdbca",
+                    "surface-bright": "#f7f9fb",
+                    "primary-container": "#023464",
+                    "surface-border": "#E2E8F0",
+                    "on-tertiary-fixed-variant": "#004a79",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-container-high": "#e6e8ea",
+                    "outline": "#737780",
+                    "surface-tint": "#3b5f92",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed": "#341100",
+                    "slate-dark": "#0F172A",
+                    "tertiary": "#002039",
+                    "on-error-container": "#93000a",
+                    "success-green": "#10B981",
+                    "on-surface-variant": "#43474f",
+                    "on-primary-fixed": "#001c3b",
+                    "on-primary-fixed-variant": "#204778",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed-variant": "#783200",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-variant": "#e0e3e5",
+                    "tertiary-container": "#00365b",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-fixed": "#001d34",
+                    "surface-dim": "#d8dadc",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#9d4300",
+                    "secondary-fixed-dim": "#ffb690",
+                    "on-tertiary-container": "#5ba1e4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "page-margin-mobile": "16px",
+                    "section-gap": "64px",
+                    "page-margin-desktop": "32px",
+                    "gutter": "24px",
+                    "container-max-width": "1440px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-xl": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .form-input-focus:focus {
+            outline: none;
+            border-color: #023464;
+            box-shadow: 0 0 0 2px rgba(2, 52, 100, 0.1);
+        }
+        .glass-effect {
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+<main class="flex-grow flex flex-col md:flex-row">
+<!-- Sidebar Info Section -->
+<section class="hidden md:flex md:w-5/12 lg:w-1/3 bg-primary relative overflow-hidden p-12 lg:p-16 flex-col justify-between text-on-primary border-r border-surface-border shadow-xl z-10">
+<!-- Background Decoration -->
+<div class="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none">
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-4 mb-16">
+<span class="material-symbols-outlined text-4xl text-on-primary-container" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+<h1 class="text-headline-lg font-headline-lg text-white tracking-tight">Ministry of ICT</h1>
+</div>
+<div class="space-y-8">
+<h2 class="text-display-lg font-display-lg text-white leading-tight">Securing Uganda's Digital Future.</h2>
+<p class="text-body-xl text-on-primary-container leading-relaxed">Welcome to the Unified Staff Portal. This platform streamlines administrative workflows, national guidance initiatives, and inter-departmental collaboration for the Ministry's workforce.</p>
+</div>
+</div>
+<div class="relative z-10 space-y-8 mt-16">
+<div class="flex items-start gap-4">
+<div class="bg-primary-container/40 p-3 rounded-xl border border-primary-container/50">
+<span class="material-symbols-outlined text-white" data-icon="security">security</span>
+</div>
+<div>
+<h4 class="text-base font-semibold text-white mb-1">Institutional Security</h4>
+<p class="text-sm text-on-primary-container font-normal leading-relaxed">Encrypted authentication for all government personnel.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="bg-primary-container/40 p-3 rounded-xl border border-primary-container/50">
+<span class="material-symbols-outlined text-white" data-icon="hub">hub</span>
+</div>
+<div>
+<h4 class="text-base font-semibold text-white mb-1">Centralized Knowledge</h4>
+<p class="text-sm text-on-primary-container font-normal leading-relaxed">Access policy documents, research data, and internal tools.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Registration Form Section -->
+<section class="flex-grow flex items-center justify-center p-6 md:p-12 lg:p-24 bg-surface">
+<div class="w-full max-w-2xl bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-surface-border">
+<!-- Mobile Logo -->
+<div class="md:hidden flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-3xl text-primary" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+<h1 class="text-headline-lg-mobile font-headline-lg-mobile text-primary tracking-tight">Ministry of ICT</h1>
+</div>
+<div class="mb-12">
+<h2 class="text-headline-xl font-headline-xl text-primary mb-3">Create Staff Account</h2>
+<p class="text-lg text-on-surface-variant">Please provide your official credentials to request portal access.</p>
+</div>
+<form class="space-y-8">
+<!-- Full Name -->
+<div class="space-y-3">
+<label class="block text-sm font-semibold text-on-surface" for="full_name">Full Name</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="person">person</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-low border border-surface-border rounded-xl text-body-md form-input-focus transition-all" id="full_name" placeholder="John Doe" required="" type="text"/>
+</div>
+</div>
+<!-- Ministry Email -->
+<div class="space-y-3">
+<label class="block text-sm font-semibold text-on-surface" for="email">Ministry Email</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="mail">mail</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-low border border-surface-border rounded-xl text-body-md form-input-focus transition-all" id="email" placeholder="name@ict.go.ug" required="" type="email"/>
+</div>
+<p class="text-xs text-on-surface-variant px-1 italic">Only @ict.go.ug or related governmental domains are accepted.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Department Dropdown -->
+<div class="space-y-3">
+<label class="block text-sm font-semibold text-on-surface" for="department">Department</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="corporate_fare">corporate_fare</span>
+<select class="w-full pl-12 pr-4 py-4 bg-surface-container-low border border-surface-border rounded-xl text-body-md form-input-focus transition-all appearance-none" id="department" required="">
+<option disabled="" selected="" value="">Select Department</option>
+<option value="ict_infrastructure">ICT Infrastructure</option>
+<option value="national_guidance">National Guidance</option>
+<option value="finance_admin">Finance &amp; Administration</option>
+<option value="e_government">E-Government Services</option>
+<option value="innovation">Research &amp; Innovation</option>
+</select>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined pointer-events-none text-outline" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Job Title -->
+<div class="space-y-3">
+<label class="block text-sm font-semibold text-on-surface" for="job_title">Job Title</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="badge">badge</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-low border border-surface-border rounded-xl text-body-md form-input-focus transition-all" id="job_title" placeholder="Senior Analyst" required="" type="text"/>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Password -->
+<div class="space-y-3">
+<label class="block text-sm font-semibold text-on-surface" for="password">Password</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="lock">lock</span>
+<input class="w-full pl-12 pr-12 py-4 bg-surface-container-low border border-surface-border rounded-xl text-body-md form-input-focus transition-all" id="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="visibility" type="button">visibility</button>
+</div>
+</div>
+<!-- Confirm Password -->
+<div class="space-y-3">
+<label class="block text-sm font-semibold text-on-surface" for="confirm_password">Confirm Password</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="lock_clock">lock_clock</span>
+<input class="w-full pl-12 pr-12 py-4 bg-surface-container-low border border-surface-border rounded-xl text-body-md form-input-focus transition-all" id="confirm_password" placeholder="••••••••" required="" type="password"/>
+</div>
+</div>
+</div>
+<!-- Accept Terms -->
+<div class="flex items-start gap-4 py-4">
+<div class="flex items-center h-6">
+<input class="w-5 h-5 text-primary border-outline-variant rounded focus:ring-primary focus:ring-2 transition-all cursor-pointer" id="terms" required="" type="checkbox"/>
+</div>
+<label class="text-sm font-medium text-on-surface-variant leading-relaxed cursor-pointer" for="terms">
+                            I accept the <a class="text-secondary font-semibold hover:underline" href="#">Staff Terms of Service</a> and confirm that I am an authorized employee of the Ministry of ICT &amp; National Guidance.
+                        </label>
+</div>
+<!-- Register Button -->
+<button class="w-full py-4 mt-2 bg-primary-container hover:bg-primary text-white font-semibold rounded-xl text-lg shadow-lg shadow-primary-container/20 transition-all active:scale-[0.98] flex items-center justify-center gap-3" type="submit">
+<span>Register Account</span>
+<span class="material-symbols-outlined text-[24px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<p class="text-center text-sm font-medium text-on-surface-variant mt-10">
+                        Already have an account? <a class="text-primary font-bold hover:underline" href="#">Staff Login</a>
+</p>
+</form>
+</div>
+</section>
+</main>
+<!-- Simple Footer -->
+<footer class="bg-surface-container-low border-t border-surface-border">
+<div class="max-w-container-max-width mx-auto px-page-margin-desktop py-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-4">
+<p class="text-label-sm font-label-sm text-on-surface-variant">© 2026 Ministry of ICT &amp; National Guidance. All Rights Reserved.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+<script>
+        // Password visibility toggle
+        document.querySelector('[data-icon="visibility"]').addEventListener('click', function() {
+            const pwdInput = document.getElementById('password');
+            if (pwdInput.type === 'password') {
+                pwdInput.type = 'text';
+                this.textContent = 'visibility_off';
+            } else {
+                pwdInput.type = 'password';
+                this.textContent = 'visibility';
+            }
+        });
+
+        // Simple form validation visual feedback
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            
+            btn.disabled = true;
+            btn.innerHTML = `<span class="animate-spin inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2"></span> Processing...`;
+            
+            setTimeout(() => {
+                btn.innerHTML = `<span class="material-symbols-outlined text-[20px]" data-icon="check_circle">check_circle</span> Request Submitted`;
+                btn.classList.replace('bg-primary-container', 'bg-success-green');
+                btn.classList.replace('hover:bg-primary', 'hover:bg-success-green');
+                
+                // Show success message logic would go here
+                alert("Account request submitted. Please check your ministry email for verification.");
+            }, 1500);
+        });
+    </script>
+</body></html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profile Settings | MoICT Staff Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#a6c8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary": "#ffffff",
+                    "primary": "#001f40",
+                    "surface-container-high": "#e6e8ea",
+                    "on-tertiary-fixed": "#001d34",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface": "#f7f9fb",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#d0e4ff",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "on-tertiary-fixed-variant": "#004a79",
+                    "on-primary-fixed": "#001c3b",
+                    "background": "#f7f9fb",
+                    "on-secondary-container": "#5c2400",
+                    "on-secondary-fixed-variant": "#783200",
+                    "inverse-primary": "#a6c8ff",
+                    "primary-container": "#023464",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#d4e3ff",
+                    "on-tertiary-container": "#5ba1e4",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-fixed-dim": "#ffb690",
+                    "outline-variant": "#c3c6d0",
+                    "on-error-container": "#93000a",
+                    "surface-border": "#E2E8F0",
+                    "on-surface": "#191c1e",
+                    "surface-variant": "#e0e3e5",
+                    "outline": "#737780",
+                    "on-surface-variant": "#43474f",
+                    "surface-tint": "#3b5f92",
+                    "surface-dim": "#d8dadc",
+                    "secondary-fixed": "#ffdbca",
+                    "slate-dark": "#0F172A",
+                    "success-green": "#10B981",
+                    "tertiary-container": "#00365b",
+                    "surface-container": "#eceef0",
+                    "on-primary-fixed-variant": "#204778",
+                    "tertiary": "#002039",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-background": "#191c1e",
+                    "on-primary-container": "#7a9ed4",
+                    "secondary-container": "#fd761a",
+                    "on-secondary-fixed": "#341100",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f2f4f6",
+                    "secondary": "#9d4300"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "32px",
+                    "section-gap": "80px",
+                    "container-max-width": "1440px",
+                    "page-margin-mobile": "20px",
+                    "page-margin-desktop": "48px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-xl": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "18px", "letterSpacing": "0.06em", "fontWeight": "600"}],
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+                    "display-lg": ["52px", {"lineHeight": "60px", "letterSpacing": "-0.03em", "fontWeight": "800"}],
+                    "label-md": ["14px", {"lineHeight": "22px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}],
+                    "body-xl": ["20px", {"lineHeight": "32px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        .executive-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05); }
+        .hairline-border { border: 0.5px solid rgba(203, 213, 225, 0.6); }
+        .active-indicator { border-left: 4px solid #023464; }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- TopNavBar -->
+<nav class="bg-white dark:bg-inverse-surface w-full h-20 sticky top-0 z-50 border-b hairline-border executive-shadow flex justify-between items-center px-page-desktop">
+<div class="flex items-center gap-12">
+<h1 class="text-headline-lg font-bold text-primary tracking-tight">MoICT Staff Portal</h1>
+<div class="hidden md:flex items-center bg-surface-container-low dark:bg-surface-container-highest px-6 py-2 rounded-full border hairline-border">
+<span class="material-symbols-outlined text-outline mr-3">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-md font-label-md w-80 placeholder:text-outline" placeholder="Search portal resources..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="p-2.5 rounded-full hover:bg-surface-container-low transition-colors material-symbols-outlined text-primary-container">notifications</button>
+<button class="p-2.5 rounded-full hover:bg-surface-container-low transition-colors material-symbols-outlined text-primary-container">help</button>
+<div class="flex items-center gap-4 ml-4 cursor-pointer hover:opacity-90 transition-opacity">
+<div class="w-10 h-10 rounded-full overflow-hidden border hairline-border shadow-sm">
+<img class="w-full h-full object-cover" data-alt="User headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9WYm5FHpF67-WnWB48RUmg23RyicehQwN5EsjMb6LXSnPUd2_gnr_xV1J7rv7tcQ-ESvGC051mhAKMalGpYw4vC6yxpWXxlW6BWq_cMBMzDyTzZ8yZ9kIpIFhDwslwckdcWW9ddrWCcjOqSvWXJ8gWSONB6YY7Zi-t9w_XMYysz57tk1jxjXsXxXD1pa1Cv1JRoFLqpTsWeJANtUCYhV3tFJaloPLyiE9QPmrQvEQvIn43231L_bQbw"/>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-label-md text-primary leading-tight">M. Samuel</span>
+<span class="text-[10px] text-outline uppercase tracking-widest font-semibold">Settings</span>
+</div>
+</div>
+</div>
+</nav>
+<div class="flex min-h-[calc(100vh-80px)]">
+<!-- SideNavBar -->
+<aside class="h-full w-80 flex-shrink-0 flex flex-col p-10 gap-6 bg-white border-r hairline-border">
+<div class="mb-10">
+<h2 class="text-headline-lg-mobile font-bold text-primary">Profile Settings</h2>
+<p class="text-label-md text-on-surface-variant mt-1">Institutional account control</p>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="bg-surface-container-low text-primary-container active-indicator rounded-lg flex items-center gap-4 px-5 py-4 transition-all font-semibold text-label-md shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span>General Profile</span>
+</a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-lg flex items-center gap-4 px-5 py-4 transition-all font-medium text-label-md" href="#">
+<span class="material-symbols-outlined">security</span>
+<span>Security &amp; Login</span>
+</a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-lg flex items-center gap-4 px-5 py-4 transition-all font-medium text-label-md" href="#">
+<span class="material-symbols-outlined">notifications_active</span>
+<span>Portal Notifications</span>
+</a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-lg flex items-center gap-4 px-5 py-4 transition-all font-medium text-label-md" href="#">
+<span class="material-symbols-outlined">help_center</span>
+<span>Technical Support</span>
+</a>
+</nav>
+<div class="mt-auto pt-8 border-t hairline-border">
+<button class="w-full flex items-center gap-4 px-5 py-4 text-error font-semibold text-label-md hover:bg-error-container/5 rounded-lg transition-colors">
+<span class="material-symbols-outlined">logout</span>
+<span>Sign Out Account</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow p-page-desktop max-w-[1400px] mx-auto w-full">
+<header class="mb-16">
+<h1 class="text-headline-xl text-primary font-bold">Personal Account</h1>
+<p class="text-body-xl text-on-surface-variant mt-2 max-w-2xl">Refine your professional identity and ensure your ministry credentials are up to date for integrated portal access.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Left Column -->
+<div class="lg:col-span-8 flex flex-col gap-12">
+<!-- Personal Info Card -->
+<section class="bg-white rounded-2xl hairline-border p-10 executive-shadow">
+<div class="flex justify-between items-center mb-10">
+<h3 class="text-headline-lg-mobile font-bold text-primary">Personal Information</h3>
+<button class="text-primary-container font-semibold text-label-md flex items-center gap-2 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">edit</span> Edit Details
+                        </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<div class="flex flex-col gap-3">
+<label class="text-label-sm uppercase tracking-widest text-outline">Full Legal Name</label>
+<div class="bg-surface-container-lowest hairline-border px-5 py-4 rounded-xl font-body-md text-primary">Mugisha Samuel</div>
+</div>
+<div class="flex flex-col gap-3">
+<label class="text-label-sm uppercase tracking-widest text-outline">Employee ID Number</label>
+<div class="bg-surface-container-lowest hairline-border px-5 py-4 rounded-xl font-body-md text-primary">UG-ICT-2024-0892</div>
+</div>
+<div class="flex flex-col gap-3 md:col-span-2">
+<label class="text-label-sm uppercase tracking-widest text-outline">Ministry Email Address</label>
+<div class="bg-surface-container-lowest hairline-border px-5 py-4 rounded-xl font-body-md text-primary">samuel.mugisha@ict.go.ug</div>
+</div>
+</div>
+</section>
+<!-- Ministry Details Card -->
+<section class="bg-white rounded-2xl hairline-border p-10 executive-shadow">
+<h3 class="text-headline-lg-mobile font-bold text-primary mb-10">Institutional Placement</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="flex flex-col gap-4">
+<div class="w-14 h-14 rounded-xl bg-primary-container/5 border hairline-border flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container scale-110">lan</span>
+</div>
+<div>
+<label class="text-label-sm text-outline uppercase tracking-tighter">Department</label>
+<p class="text-body-md font-bold text-primary mt-1">IT Infrastructure</p>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="w-14 h-14 rounded-xl bg-primary-container/5 border hairline-border flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container scale-110">badge</span>
+</div>
+<div>
+<label class="text-label-sm text-outline uppercase tracking-tighter">Position</label>
+<p class="text-body-md font-bold text-primary mt-1">Senior Systems Analyst</p>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="w-14 h-14 rounded-xl bg-primary-container/5 border hairline-border flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container scale-110">location_on</span>
+</div>
+<div>
+<label class="text-label-sm text-outline uppercase tracking-tighter">Office Location</label>
+<p class="text-body-md font-bold text-primary mt-1">MoICT HQ - Level 4</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column -->
+<div class="lg:col-span-4 flex flex-col gap-12">
+<!-- Profile Photo Area -->
+<section class="bg-white rounded-2xl hairline-border p-12 executive-shadow flex flex-col items-center text-center">
+<div class="relative mb-8 group">
+<div class="w-40 h-40 rounded-full overflow-hidden border-4 border-surface-container p-1 bg-white executive-shadow transition-transform group-hover:scale-[1.02]">
+<img class="w-full h-full rounded-full object-cover" data-alt="3D Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3uOTOOrmVCVv7WBQYZJsTGdjojzs-eTSk7VfbaVTkXxQfLPqLM70CZw9jOr4pL6Z9hBVvP2cisAXgaHBVtwFhrKpUTTI-oLT7M8czDqUy1FJ-tAOI4Ph7JtGG4v5l1gVlGhh0RuZPxPJaT2jpYnJ2x-_j8d-K5IN55vJ5GiMFSpxJpVctTtxhx3_ETgBIuE1r758bnS5jyGwva2J8auvPoFV8-I9fW5b3fW60nrW8hcU87YZCM04DXw"/>
+</div>
+<button class="absolute bottom-1 right-3 bg-primary-container text-white p-3 rounded-full shadow-lg hover:brightness-110 transition-all border-2 border-white">
+<span class="material-symbols-outlined text-lg">photo_camera</span>
+</button>
+</div>
+<h4 class="text-headline-lg-mobile font-bold text-primary">Mugisha Samuel</h4>
+<p class="text-label-md text-on-surface-variant font-medium mt-1">Senior Systems Analyst</p>
+<div class="w-full flex flex-col gap-3 mt-10">
+<button class="w-full py-3.5 bg-primary-container text-white rounded-xl font-bold text-label-md hover:shadow-lg transition-all">Upload Photo</button>
+<button class="w-full py-3.5 text-on-surface-variant font-semibold text-label-md border hairline-border rounded-xl hover:bg-surface-container-low transition-all">Remove</button>
+</div>
+</section>
+<!-- Activity Summary -->
+<section class="bg-primary-container text-white rounded-2xl p-10 executive-shadow relative overflow-hidden">
+<div class="absolute inset-0 opacity-5 pointer-events-none">
+<svg height="100%" width="100%"><pattern height="60" id="exec-grid" patternunits="userSpaceOnUse" width="60"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" stroke-width="0.5"></path></pattern><rect fill="url(#exec-grid)" height="100%" width="100%"></rect></svg>
+</div>
+<h3 class="text-headline-lg-mobile font-bold mb-10 relative z-10">Activity Summary</h3>
+<div class="space-y-8 relative z-10">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary-fixed-dim">description</span>
+<span class="text-label-md font-medium">Documents Contributed</span>
+</div>
+<span class="text-2xl font-bold">128</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary-fixed-dim">smart_toy</span>
+<span class="text-label-md font-medium">AI Insights Query</span>
+</div>
+<span class="text-2xl font-bold">42</span>
+</div>
+<div class="pt-8 border-t border-white/10 mt-4">
+<div class="flex flex-col gap-2">
+<label class="text-[10px] uppercase tracking-widest text-primary-fixed-dim font-bold">Last Portal Engagement</label>
+<p class="text-body-md font-medium">Today, 08:45 AM (UTC+3)</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Footer / Support Section -->
+<section class="mt-section-gap mb-20 bg-white hairline-border rounded-2xl p-12 executive-shadow flex flex-col md:flex-row items-center justify-between gap-10">
+<div class="max-w-2xl">
+<h4 class="text-headline-lg-mobile font-bold text-primary">Credential Management</h4>
+<p class="text-body-md text-on-surface-variant mt-2">For modifications to official department placement or employee identification data, please initiate a formal request through the IT Governance Helpdesk.</p>
+</div>
+<div class="flex flex-shrink-0 gap-4">
+<button class="bg-white px-8 py-3.5 border-2 border-primary-container text-primary-container rounded-xl font-bold text-label-md hover:bg-surface-container-low transition-all">Submit Ticket</button>
+<button class="bg-primary-container px-8 py-3.5 text-white rounded-xl font-bold text-label-md hover:brightness-110 shadow-lg transition-all">Consult Support</button>
+</div>
+</section>
+</main>
+</div>
+<script>
+    document.querySelectorAll('section').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            if(!card.classList.contains('bg-primary-container')) {
+                card.style.transform = 'translateY(-4px)';
+                card.style.boxShadow = '0 12px 20px -5px rgba(0, 0, 0, 0.08)';
+                card.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+            }
+        });
+        card.addEventListener('mouseleave', () => {
+            if(!card.classList.contains('bg-primary-container')) {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05)';
+            }
+        });
+    });
+</script>
+</body></html>

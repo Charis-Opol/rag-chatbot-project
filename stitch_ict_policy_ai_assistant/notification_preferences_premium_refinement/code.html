@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Notification Preferences | MoICT Staff Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#001f40",
+                    "primary-institutional": "#023464",
+                    "surface": "#F8FAFC",
+                    "surface-container": "#FFFFFF",
+                    "surface-border": "#E2E8F0",
+                    "on-surface": "#0F172A",
+                    "on-surface-variant": "#475569",
+                    "outline": "#94A3B8",
+                    "error": "#BE123C",
+                    "success": "#10B981"
+            },
+            "borderRadius": {
+                    "DEFAULT": "4px",
+                    "lg": "8px",
+                    "xl": "12px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "32px",
+                    "section-gap": "80px",
+                    "container-max-width": "1200px",
+                    "page-margin-mobile": "20px",
+                    "page-margin-desktop": "48px"
+            },
+            "fontFamily": {
+                    "sans": ["Inter", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        background-color: #F8FAFC;
+        font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .hairline-border {
+        border: 1px solid rgba(226, 232, 240, 0.8);
+      }
+      .executive-shadow {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 4px 12px rgba(0,0,0,0.03);
+      }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- TopNavBar -->
+<header class="bg-white w-full h-20 sticky top-0 z-50 border-b border-surface-border/60 flex justify-between items-center px-page-desktop">
+<div class="flex items-center gap-12">
+<h1 class="text-[22px] font-bold text-primary tracking-tight">MoICT Staff Portal</h1>
+<nav class="hidden lg:flex items-center gap-8">
+<span class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors cursor-pointer">Dashboard</span>
+<span class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors cursor-pointer">Knowledge Base</span>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative flex items-center bg-slate-50 rounded-lg px-4 py-2 border border-slate-200/60 w-80">
+<span class="material-symbols-outlined text-slate-400 text-xl mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full p-0 placeholder-slate-400" placeholder="Search resources..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<div class="w-9 h-9 rounded-full bg-primary-institutional/10 overflow-hidden ring-1 ring-slate-200 cursor-pointer">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP1CGgTLb6jzUF4egjO1v2qANFJM8vAi7fVqK4QUJ-ysumzY4mtU2dNXYPnd8o7rxbRPQDg0GashWb4l42jHvCquqnK7vBrd-TgVMObHuJdS9Myf929tavCWxmMDXONfKKGQLlgyxHwQvIhDfCrPJriJeAe5n_ngQ5juIGhVUqA7pek2o18HLEkEyrg-I4YewRZBfKqsHAkzfJuC9Nqjck9z1lehwo8EABSIpm5gquISJ9lRgcx-rXPQ"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex min-h-[calc(100vh-80px)] max-w-[1600px] mx-auto">
+<!-- SideNavBar -->
+<aside class="w-72 flex-shrink-0 flex flex-col p-8 gap-8 border-r border-surface-border/40 bg-white/50">
+<div>
+<h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Account Settings</h2>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-on-surface-variant hover:bg-slate-100 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined text-xl">person</span>
+<span>General</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-on-surface-variant hover:bg-slate-100 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined text-xl">security</span>
+<span>Security</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white text-primary-institutional executive-shadow ring-1 ring-slate-200/60 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+<span class="font-bold">Notifications</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-on-surface-variant hover:bg-slate-100 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined text-xl">help_center</span>
+<span>Support</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto">
+<button class="flex items-center gap-3 px-4 py-3 text-sm font-bold text-error/80 w-full hover:bg-error/5 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-xl">logout</span>
+<span>Sign Out</span>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-page-desktop overflow-y-auto">
+<div class="max-w-4xl">
+<header class="mb-12">
+<h2 class="text-4xl font-bold text-primary tracking-tight mb-4">Notification Preferences</h2>
+<p class="text-lg text-on-surface-variant/80 font-normal leading-relaxed">Customize your communication channels for national ICT projects and system administration updates.</p>
+</header>
+<div class="space-y-12">
+<!-- Global Toggle Card -->
+<div class="bg-primary-institutional p-8 rounded-xl text-white executive-shadow relative overflow-hidden flex items-center justify-between">
+<div class="relative z-10">
+<h3 class="text-xl font-bold mb-1">Global Communications</h3>
+<p class="text-blue-100/70 text-sm">Master switch for all notification streams</p>
+</div>
+<div class="flex gap-10 relative z-10">
+<div class="flex flex-col items-center">
+<span class="text-[11px] font-bold uppercase tracking-widest text-blue-200/60 mb-3">Email</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-12 h-6 bg-white/20 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-success"></div>
+</label>
+</div>
+<div class="flex flex-col items-center">
+<span class="text-[11px] font-bold uppercase tracking-widest text-blue-200/60 mb-3">In-App</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-12 h-6 bg-white/20 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-success"></div>
+</label>
+</div>
+</div>
+</div>
+<!-- Category: Document Updates -->
+<section class="bg-white rounded-xl hairline-border executive-shadow overflow-hidden">
+<div class="px-8 py-6 border-b border-surface-border/60 bg-slate-50/50 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-institutional">description</span>
+<h3 class="text-lg font-bold text-primary">Strategic Documents</h3>
+</div>
+<div class="divide-y divide-surface-border/40">
+<!-- Preference Row -->
+<div class="p-8 flex items-center justify-between hover:bg-slate-50/30 transition-colors">
+<div class="max-w-lg">
+<h4 class="text-base font-semibold text-on-surface mb-1">New Version Releases</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Notification of official updates to national strategy or legislative policy drafts.</p>
+</div>
+<div class="flex items-center gap-10">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 rounded border-slate-300 text-primary-institutional focus:ring-primary-institutional/20" type="checkbox"/>
+<span class="text-sm font-medium text-slate-600 group-hover:text-primary">Email</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 rounded border-slate-300 text-primary-institutional focus:ring-primary-institutional/20" type="checkbox"/>
+<span class="text-sm font-medium text-slate-600 group-hover:text-primary">In-App</span>
+</label>
+</div>
+</div>
+<!-- Preference Row -->
+<div class="p-8 flex items-center justify-between hover:bg-slate-50/30 transition-colors">
+<div class="max-w-lg">
+<h4 class="text-base font-semibold text-on-surface mb-1">Collaboration &amp; Feedback</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Activity alerts for comments or reviews on shared institutional projects.</p>
+</div>
+<div class="flex items-center gap-10">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded border-slate-300 text-primary-institutional focus:ring-primary-institutional/20" type="checkbox"/>
+<span class="text-sm font-medium text-slate-600 group-hover:text-primary">Email</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 rounded border-slate-300 text-primary-institutional focus:ring-primary-institutional/20" type="checkbox"/>
+<span class="text-sm font-medium text-slate-600 group-hover:text-primary">In-App</span>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- Category: AI & Analytics -->
+<section class="bg-white rounded-xl hairline-border executive-shadow overflow-hidden">
+<div class="px-8 py-6 border-b border-surface-border/60 bg-slate-50/50 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-institutional">analytics</span>
+<h3 class="text-lg font-bold text-primary">Intelligence &amp; Analytics</h3>
+</div>
+<div class="divide-y divide-surface-border/40">
+<div class="p-8 flex items-center justify-between hover:bg-slate-50/30 transition-colors">
+<div class="max-w-lg">
+<h4 class="text-base font-semibold text-on-surface mb-1">Insight Generation Reports</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Alerts for completed data mining cycles or complex institutional AI analytics.</p>
+</div>
+<div class="flex items-center gap-10">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 rounded border-slate-300 text-primary-institutional focus:ring-primary-institutional/20" type="checkbox"/>
+<span class="text-sm font-medium text-slate-600 group-hover:text-primary">Email</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 rounded border-slate-300 text-primary-institutional focus:ring-primary-institutional/20" type="checkbox"/>
+<span class="text-sm font-medium text-slate-600 group-hover:text-primary">In-App</span>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- Category: Critical Systems -->
+<section class="bg-white rounded-xl hairline-border border-red-100 executive-shadow overflow-hidden">
+<div class="px-8 py-6 border-b border-red-50 bg-red-50/30 flex items-center gap-3">
+<span class="material-symbols-outlined text-error">gpp_maybe</span>
+<h3 class="text-lg font-bold text-error">Infrastructure &amp; Security</h3>
+</div>
+<div class="divide-y divide-surface-border/40">
+<div class="p-8 flex items-center justify-between hover:bg-slate-50/30 transition-colors">
+<div class="max-w-lg">
+<h4 class="text-base font-semibold text-on-surface mb-1">System Maintenance</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Advance notifications of scheduled downtime for national databases.</p>
+</div>
+<div class="flex items-center gap-10">
+<label class="flex items-center gap-3 cursor-pointer">
+<input checked="" class="w-5 h-5 rounded border-slate-300 text-primary-institutional focus:ring-primary-institutional/20" type="checkbox"/>
+<span class="text-sm font-medium text-slate-600">Email</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer">
+<input checked="" class="w-5 h-5 rounded border-slate-300 text-primary-institutional focus:ring-primary-institutional/20" type="checkbox"/>
+<span class="text-sm font-medium text-slate-600">In-App</span>
+</label>
+</div>
+</div>
+<div class="p-8 flex items-center justify-between bg-red-50/10">
+<div class="max-w-lg">
+<h4 class="text-base font-bold text-error flex items-center gap-3 mb-1">
+                                    Security Enforcement
+                                    <span class="bg-error text-white text-[9px] px-2 py-0.5 rounded font-black uppercase tracking-wider">Mandatory</span>
+</h4>
+<p class="text-sm text-error/80 leading-relaxed">High-priority alerts concerning unauthorized access or critical security patches.</p>
+</div>
+<div class="flex items-center gap-10 opacity-40">
+<label class="flex items-center gap-3 cursor-not-allowed">
+<input checked="" class="w-5 h-5 rounded border-error/50 text-error focus:ring-0" disabled="" type="checkbox"/>
+<span class="text-sm font-bold text-error/70">Email</span>
+</label>
+<label class="flex items-center gap-3 cursor-not-allowed">
+<input checked="" class="w-5 h-5 rounded border-error/50 text-error focus:ring-0" disabled="" type="checkbox"/>
+<span class="text-sm font-bold text-error/70">In-App</span>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- Action Footer -->
+<div class="flex items-center justify-end gap-6 pt-8 pb-16">
+<button class="px-8 py-3 rounded-lg border border-slate-300 font-bold text-sm text-slate-600 hover:bg-slate-50 hover:border-slate-400 transition-all">
+                        Reset to Defaults
+                    </button>
+<button class="px-12 py-3 rounded-lg bg-primary-institutional text-white font-bold text-sm executive-shadow hover:brightness-110 active:scale-[0.98] transition-all">
+                        Apply Changes
+                    </button>
+</div>
+</div>
+<!-- Contextual Information -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10 opacity-60">
+<div class="p-8 rounded-xl border border-dashed border-slate-300 flex gap-5 items-start">
+<div class="w-10 h-10 rounded bg-slate-100 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary-institutional">mail_outline</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-primary mb-1">Daily Executive Digest</h4>
+<p class="text-[13px] text-on-surface-variant leading-normal">Consolidated brief of all ICT notifications delivered every business day at 08:00 AM.</p>
+</div>
+</div>
+<div class="p-8 rounded-xl border border-dashed border-slate-300 flex gap-5 items-start">
+<div class="w-10 h-10 rounded bg-slate-100 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary-institutional">phone_iphone</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-primary mb-1">Push Protocol</h4>
+<p class="text-[13px] text-on-surface-variant leading-normal">Manage device-level delivery settings within the MoICT Mobile application suite.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

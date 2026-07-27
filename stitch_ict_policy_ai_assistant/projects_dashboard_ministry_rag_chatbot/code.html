@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Projects Dashboard | Ministry of ICT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#001c3b",
+                    "primary-fixed": "#d4e3ff",
+                    "surface-dim": "#d8dadc",
+                    "inverse-primary": "#a6c8ff",
+                    "surface-container-low": "#f2f4f6",
+                    "primary-fixed-dim": "#a6c8ff",
+                    "secondary-fixed-dim": "#ffb690",
+                    "tertiary-container": "#00365b",
+                    "on-tertiary": "#ffffff",
+                    "secondary-container": "#fd761a",
+                    "slate-dark": "#0F172A",
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-background": "#191c1e",
+                    "outline-variant": "#c3c6d0",
+                    "tertiary-fixed": "#d0e4ff",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#2d3133",
+                    "secondary-fixed": "#ffdbca",
+                    "on-secondary-container": "#5c2400",
+                    "on-tertiary-fixed-variant": "#004a79",
+                    "surface-variant": "#e0e3e5",
+                    "secondary": "#9d4300",
+                    "on-error-container": "#93000a",
+                    "surface-bright": "#f7f9fb",
+                    "primary": "#001f40",
+                    "background": "#f7f9fb",
+                    "error": "#ba1a1a",
+                    "surface-border": "#E2E8F0",
+                    "success-green": "#10B981",
+                    "on-secondary-fixed": "#341100",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#002039",
+                    "on-surface": "#191c1e",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-surface-variant": "#43474f",
+                    "on-primary-container": "#7a9ed4",
+                    "surface-container": "#eceef0",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "on-primary-fixed-variant": "#204778",
+                    "surface-tint": "#3b5f92",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-container": "#5ba1e4",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-tertiary-fixed": "#001d34",
+                    "primary-container": "#023464",
+                    "surface": "#f7f9fb",
+                    "surface-container-high": "#e6e8ea",
+                    "outline": "#737780",
+                    "on-secondary-fixed-variant": "#783200"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap": "64px",
+                    "page-margin-desktop": "32px",
+                    "container-max-width": "1440px",
+                    "page-margin-mobile": "16px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-xl": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-xl": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; color: #191C1E; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-header { backdrop-filter: blur(8px); }
+        .project-card-shadow { box-shadow: 0 10px 15px -3px rgba(2, 52, 100, 0.05); }
+        .sidebar-transition { transition: all 0.3s ease; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar -->
+<header class="bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md sticky top-0 z-50 border-b border-surface-border dark:border-outline-variant shadow-sm w-full h-16">
+<div class="flex justify-between items-center w-full px-page-margin-desktop max-w-container-max-width mx-auto h-full">
+<div class="flex items-center gap-8">
+<span class="text-body-xl font-bold text-primary dark:text-primary-fixed tracking-tight">Ministry of ICT</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="#">Features</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="#">About</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="#">FAQ</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-1.5 text-label-md focus:ring-2 focus:ring-primary/20 w-64" placeholder="Search resources..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full text-label-md font-bold transition-all hover:opacity-90 active:scale-95 shadow-md">
+                    Staff Access
+                </button>
+</div>
+</div>
+</header>
+<div class="flex h-[calc(100vh-64px)] overflow-hidden">
+<!-- SideNavBar -->
+<aside class="bg-surface-container-lowest dark:bg-surface-container-low border-r border-surface-border dark:border-outline-variant h-full w-64 flex flex-col py-6 px-4 gap-y-2 sidebar-transition">
+<div class="mb-6 px-2">
+<h2 class="text-headline-xl font-headline-xl text-primary">ICT Admin</h2>
+<p class="text-label-md font-label-md text-on-surface-variant">Staff Portal</p>
+</div>
+<button class="flex items-center gap-3 w-full bg-primary-container text-on-primary-container p-3 rounded-lg font-semibold mb-4 hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="text-label-md font-label-md">New Chat</span>
+</button>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-body-md font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="text-body-md font-body-md">Chat</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">database</span>
+<span class="text-body-md font-body-md">Knowledge Base</span>
+</a>
+<a class="flex items-center gap-3 p-3 bg-primary-container text-on-primary-container rounded-lg font-semibold transition-transform hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="text-body-md font-body-md">Projects</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="text-body-md font-body-md">Admin Tools</span>
+</a>
+</nav>
+<!-- Tags Filter Section -->
+<div class="pt-6 border-t border-surface-border/50">
+<h3 class="px-2 text-label-sm font-label-sm text-outline uppercase tracking-widest mb-3">Project Tags</h3>
+<div class="space-y-1">
+<button class="flex items-center justify-between w-full p-2 text-label-md text-on-surface-variant hover:bg-surface-container-high rounded-md">
+<span>#Cybersecurity</span>
+<span class="bg-surface-container-highest px-2 py-0.5 rounded text-[10px]">12</span>
+</button>
+<button class="flex items-center justify-between w-full p-2 text-label-md text-on-surface-variant hover:bg-surface-container-high rounded-md">
+<span>#Infrastructure</span>
+<span class="bg-surface-container-highest px-2 py-0.5 rounded text-[10px]">8</span>
+</button>
+<button class="flex items-center justify-between w-full p-2 text-label-md text-on-surface-variant hover:bg-surface-container-high rounded-md">
+<span>#GovCloud</span>
+<span class="bg-surface-container-highest px-2 py-0.5 rounded text-[10px]">5</span>
+</button>
+</div>
+</div>
+<div class="mt-auto space-y-1 pt-6">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-body-md font-body-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-body-md font-body-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto bg-surface p-8">
+<div class="max-w-6xl mx-auto space-y-10">
+<!-- Dashboard Header Actions -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-1">
+<h1 class="text-headline-xl font-headline-xl text-primary">Projects Dashboard</h1>
+<p class="text-body-md text-on-surface-variant">Oversee and manage Uganda's digital infrastructure initiatives.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="bg-surface-container-lowest border border-surface-border rounded-xl pl-10 pr-4 py-2.5 text-label-md focus:ring-2 focus:ring-primary/20 w-64 shadow-sm" placeholder="Search projects..." type="text"/>
+</div>
+<div class="flex bg-surface-container-low p-1 rounded-xl">
+<button class="p-2 bg-surface-container-lowest shadow-sm rounded-lg text-primary">
+<span class="material-symbols-outlined">grid_view</span>
+</button>
+<button class="p-2 text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">list</span>
+</button>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-xl text-label-md font-bold flex items-center gap-2 shadow-lg transition-all hover:opacity-95 active:scale-95">
+<span class="material-symbols-outlined text-base">add</span>
+                            Create New Project
+                        </button>
+</div>
+</div>
+<!-- Favorite Projects -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-headline-lg font-headline-lg text-on-surface">Favorite Projects</h3>
+<button class="text-label-md font-bold text-primary hover:underline">View All Favorites</button>
+</div>
+<div class="flex gap-6 overflow-x-auto pb-4 hide-scrollbar snap-x">
+<!-- Project Card 1 -->
+<div class="min-w-[320px] bg-surface-container-lowest border border-surface-border rounded-xl p-5 project-card-shadow snap-start group relative">
+<button class="absolute top-4 right-4 text-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<div class="space-y-4">
+<div class="flex flex-col gap-2">
+<span class="bg-primary-container/10 text-primary px-2 py-1 rounded text-[10px] font-bold w-fit uppercase tracking-wider">Cybersecurity</span>
+<h4 class="text-body-xl font-bold text-on-surface leading-tight">National SOC Upgrade 2.0</h4>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant text-label-md">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">forum</span>
+<span>24 Chats</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">description</span>
+<span>12 Docs</span>
+</div>
+</div>
+<div class="pt-4 border-t border-surface-border flex items-center justify-between">
+<span class="text-label-sm text-outline">Updated 2h ago</span>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center text-[10px] font-bold">AK</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-primary-fixed flex items-center justify-center text-[10px] font-bold text-primary">JN</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="min-w-[320px] bg-surface-container-lowest border border-surface-border rounded-xl p-5 project-card-shadow snap-start group relative">
+<button class="absolute top-4 right-4 text-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<div class="space-y-4">
+<div class="flex flex-col gap-2">
+<span class="bg-on-tertiary-fixed-variant/10 text-on-tertiary-fixed-variant px-2 py-1 rounded text-[10px] font-bold w-fit uppercase tracking-wider">Infrastructure</span>
+<h4 class="text-body-xl font-bold text-on-surface leading-tight">Last-Mile Fiber Expansion</h4>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant text-label-md">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">forum</span>
+<span>15 Chats</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">description</span>
+<span>8 Docs</span>
+</div>
+</div>
+<div class="pt-4 border-t border-surface-border flex items-center justify-between">
+<span class="text-label-sm text-outline">Updated 5h ago</span>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-300"></div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-secondary-fixed"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Project Card 3 -->
+<div class="min-w-[320px] bg-surface-container-lowest border border-surface-border rounded-xl p-5 project-card-shadow snap-start group relative">
+<button class="absolute top-4 right-4 text-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<div class="space-y-4">
+<div class="flex flex-col gap-2">
+<span class="bg-secondary/10 text-secondary px-2 py-1 rounded text-[10px] font-bold w-fit uppercase tracking-wider">GovCloud</span>
+<h4 class="text-body-xl font-bold text-on-surface leading-tight">Citizen Identity Gateway</h4>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant text-label-md">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">forum</span>
+<span>42 Chats</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">description</span>
+<span>31 Docs</span>
+</div>
+</div>
+<div class="pt-4 border-t border-surface-border flex items-center justify-between">
+<span class="text-label-sm text-outline">Updated 1d ago</span>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-tertiary-fixed"></div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-400"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- All Projects -->
+<section class="space-y-6 pb-12">
+<div class="flex items-center justify-between border-b border-surface-border pb-4">
+<h3 class="text-headline-lg font-headline-lg text-on-surface">All Projects</h3>
+<div class="flex items-center gap-4 text-label-md">
+<button class="text-primary font-bold">Recent</button>
+<button class="text-outline hover:text-on-surface">Popular</button>
+<button class="text-outline hover:text-on-surface">Alphabetical</button>
+</div>
+</div>
+<!-- Projects Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Project List Item 1 -->
+<div class="bg-surface-container-lowest border border-surface-border rounded-xl p-6 hover:border-primary/30 transition-all group">
+<div class="flex items-start justify-between">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-lg bg-primary-container/5 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">cloud_done</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<h4 class="text-body-md font-bold text-on-surface">Ministry Data Center Cooling</h4>
+<span class="bg-surface-container text-on-surface-variant px-2 py-0.5 rounded text-[10px] font-medium">Facilities</span>
+</div>
+<div class="flex items-center gap-3 text-label-sm text-outline">
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">forum</span> 5</div>
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">description</span> 2</div>
+<span>•</span>
+<span>Last update: Oct 12, 2025</span>
+</div>
+</div>
+</div>
+<button class="text-outline hover:text-secondary-container transition-colors">
+<span class="material-symbols-outlined">star</span>
+</button>
+</div>
+</div>
+<!-- Project List Item 2 -->
+<div class="bg-surface-container-lowest border border-surface-border rounded-xl p-6 hover:border-primary/30 transition-all group">
+<div class="flex items-start justify-between">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-lg bg-secondary/5 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl">smart_toy</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<h4 class="text-body-md font-bold text-on-surface">AI Policy Framework 2026</h4>
+<span class="bg-surface-container text-on-surface-variant px-2 py-0.5 rounded text-[10px] font-medium">Policy</span>
+</div>
+<div class="flex items-center gap-3 text-label-sm text-outline">
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">forum</span> 89</div>
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">description</span> 14</div>
+<span>•</span>
+<span>Last update: 15 mins ago</span>
+</div>
+</div>
+</div>
+<button class="text-outline hover:text-secondary-container transition-colors">
+<span class="material-symbols-outlined">star</span>
+</button>
+</div>
+</div>
+<!-- Project List Item 3 -->
+<div class="bg-surface-container-lowest border border-surface-border rounded-xl p-6 hover:border-primary/30 transition-all group">
+<div class="flex items-start justify-between">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-lg bg-tertiary-fixed-dim/20 flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined text-3xl">shield</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<h4 class="text-body-md font-bold text-on-surface">Regional Data Protection Audit</h4>
+<span class="bg-surface-container text-on-surface-variant px-2 py-0.5 rounded text-[10px] font-medium">Compliance</span>
+</div>
+<div class="flex items-center gap-3 text-label-sm text-outline">
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">forum</span> 12</div>
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">description</span> 5</div>
+<span>•</span>
+<span>Last update: 3 days ago</span>
+</div>
+</div>
+</div>
+<button class="text-outline hover:text-secondary-container transition-colors">
+<span class="material-symbols-outlined">star</span>
+</button>
+</div>
+</div>
+<!-- Project List Item 4 -->
+<div class="bg-surface-container-lowest border border-surface-border rounded-xl p-6 hover:border-primary/30 transition-all group">
+<div class="flex items-start justify-between">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-lg bg-success-green/10 flex items-center justify-center text-success-green">
+<span class="material-symbols-outlined text-3xl">wifi_tethering</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<h4 class="text-body-md font-bold text-on-surface">Village Broadband Initiative</h4>
+<span class="bg-surface-container text-on-surface-variant px-2 py-0.5 rounded text-[10px] font-medium">Infrastructure</span>
+</div>
+<div class="flex items-center gap-3 text-label-sm text-outline">
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">forum</span> 204</div>
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">description</span> 45</div>
+<span>•</span>
+<span>Last update: Oct 20, 2025</span>
+</div>
+</div>
+</div>
+<button class="text-outline hover:text-secondary-container transition-colors">
+<span class="material-symbols-outlined">star</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-center pt-8">
+<nav class="flex items-center gap-2">
+<button class="w-10 h-10 rounded-lg border border-surface-border flex items-center justify-center hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-lg bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 rounded-lg border border-surface-border flex items-center justify-center hover:bg-surface-container transition-colors">2</button>
+<button class="w-10 h-10 rounded-lg border border-surface-border flex items-center justify-center hover:bg-surface-container transition-colors">3</button>
+<span class="px-2 text-outline">...</span>
+<button class="w-10 h-10 rounded-lg border border-surface-border flex items-center justify-center hover:bg-surface-container transition-colors">12</button>
+<button class="w-10 h-10 rounded-lg border border-surface-border flex items-center justify-center hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</nav>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-tertiary-container w-full py-8 px-page-margin-desktop border-t border-surface-border">
+<div class="max-w-container-max-width mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex flex-col items-center md:items-start gap-2">
+<span class="text-label-md font-bold text-primary">Ministry of ICT</span>
+<p class="text-label-sm font-label-sm text-on-surface-variant dark:text-on-tertiary-container opacity-80">© 2026 Ministry of ICT &amp; National Guidance. All Rights Reserved.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.classList.add('scale-95');
+                setTimeout(() => el.classList.remove('scale-95'), 150);
+            });
+        });
+
+        // Hover tilt effect for project cards
+        const cards = document.querySelectorAll('.project-card-shadow');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+    </script>
+</body></html>

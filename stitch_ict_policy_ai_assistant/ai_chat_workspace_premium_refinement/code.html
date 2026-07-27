@@ -1,0 +1,387 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>AI Chat Workspace - ICT Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed-dim": "#68dba9",
+                      "on-primary-fixed-variant": "#204778",
+                      "surface-tint": "#3b5f92",
+                      "on-background": "#191c1e",
+                      "on-secondary": "#ffffff",
+                      "surface-container-highest": "#e0e3e5",
+                      "on-surface-variant": "#43474f",
+                      "on-primary-container": "#7a9ed4",
+                      "secondary-container": "#dbe2fa",
+                      "surface-container": "#eceef0",
+                      "on-primary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "primary-container": "#023464",
+                      "inverse-surface": "#2d3133",
+                      "surface": "#f7f9fb",
+                      "surface-container-high": "#e6e8ea",
+                      "secondary-fixed": "#dbe2fa",
+                      "outline": "#737780",
+                      "on-secondary-fixed-variant": "#3f4759",
+                      "on-secondary-container": "#5d6478",
+                      "outline-variant": "#c3c6d0",
+                      "on-tertiary-container": "#36b080",
+                      "tertiary-fixed": "#85f8c4",
+                      "inverse-on-surface": "#eff1f3",
+                      "on-error": "#ffffff",
+                      "on-tertiary-fixed": "#002114",
+                      "on-error-container": "#93000a",
+                      "primary": "#001f40",
+                      "surface-bright": "#f7f9fb",
+                      "background": "#f7f9fb",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed": "#001c3b",
+                      "primary-fixed": "#d4e3ff",
+                      "on-tertiary-fixed-variant": "#005137",
+                      "surface-dim": "#d8dadc",
+                      "surface-variant": "#e0e3e5",
+                      "secondary": "#575e72",
+                      "inverse-primary": "#a6c8ff",
+                      "on-surface": "#191c1e",
+                      "tertiary": "#002416",
+                      "primary-fixed-dim": "#a6c8ff",
+                      "secondary-fixed-dim": "#bfc6dd",
+                      "tertiary-container": "#003c28",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-low": "#f2f4f6",
+                      "on-secondary-fixed": "#141b2c",
+                      "surface-container-lowest": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "xl": "80px",
+                      "container-max": "1280px",
+                      "sm": "12px",
+                      "gutter": "24px",
+                      "md": "24px",
+                      "lg": "48px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "title-lg": ["Inter"],
+                      "title-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for inner chat areas to maintain clean look */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #c3c6d0; /* outline-variant */
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background flex h-screen overflow-hidden font-body-md text-body-md antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- SideNavBar (Shared Component JSON Blueprint) -->
+<!-- Applying structural logic and exact style strings from JSON -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-surface-container-high dark:border-outline-variant bg-surface-container-low dark:bg-surface-dim flex flex-col p-md gap-base z-50 hidden md:flex">
+<!-- Header -->
+<div class="flex items-center gap-sm mb-lg">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+<div>
+<h1 class="font-title-lg text-title-lg font-bold text-on-surface dark:text-on-surface">Ministry of ICT</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">AI Governance Portal</p>
+</div>
+</div>
+<!-- CTA -->
+<button class="w-full bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container transition-colors font-label-md text-label-md rounded-lg py-sm px-md flex items-center justify-center gap-sm mb-md scale-98 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">add</span>
+            New Project
+        </button>
+<!-- Main Navigation -->
+<nav class="flex-1 flex flex-col gap-xs">
+<!-- ACTIVE TAB: Dashboard (matches intent of a workspace) -->
+<a class="bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary font-semibold rounded-lg flex items-center gap-sm px-sm py-sm cursor-pointer transition-all duration-200 scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<!-- INACTIVE TABS -->
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-colors flex items-center gap-sm px-sm py-sm cursor-pointer transition-all duration-200 rounded-lg scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+                Knowledge Base
+            </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-colors flex items-center gap-sm px-sm py-sm cursor-pointer transition-all duration-200 rounded-lg scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">assignment</span>
+                Projects
+            </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-colors flex items-center gap-sm px-sm py-sm cursor-pointer transition-all duration-200 rounded-lg scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+                Admin Tools
+            </a>
+</nav>
+<!-- Footer Navigation -->
+<div class="mt-auto flex flex-col gap-xs pt-md border-t border-surface-container-high">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-colors flex items-center gap-sm px-sm py-sm cursor-pointer transition-all duration-200 rounded-lg scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-colors flex items-center gap-sm px-sm py-sm cursor-pointer transition-all duration-200 rounded-lg scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content Wrapper (Accounts for fixed sidenav on desktop) -->
+<div class="flex-1 flex flex-col min-w-0 md:ml-64 relative">
+<!-- TopNavBar (Shared Component JSON Blueprint) -->
+<header class="w-full h-16 border-b border-surface-container-high dark:border-outline-variant bg-surface-container-lowest dark:bg-surface flex justify-between items-center px-gutter max-w-container-max mx-auto shrink-0 z-40 relative shadow-sm">
+<!-- Left Side: Mobile Menu Toggle & Search -->
+<div class="flex items-center gap-md">
+<button class="md:hidden text-on-surface-variant p-sm rounded-full hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<!-- Search Bar (on_left as per JSON) -->
+<div class="hidden sm:flex items-center bg-surface-container-low border border-surface-container-high rounded-full px-sm py-[6px] focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent transition-all w-64 lg:w-96">
+<span class="material-symbols-outlined text-on-surface-variant ml-xs mr-sm text-[20px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-full p-0 text-on-surface placeholder:text-outline h-full" placeholder="Search queries, documents..." type="text">
+</div>
+</div>
+<!-- Brand Logo (Visible on mobile where sidenav is hidden, or centered if preferred, but following JSON structure it's here) -->
+<div class="md:hidden font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim absolute left-1/2 -translate-x-1/2">
+                ICT AI Platform
+            </div>
+<!-- Right Side: Trailing Actions & Profile -->
+<div class="flex items-center gap-sm">
+<!-- JSON Actions -->
+<button class="text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors cursor-pointer w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-low">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors cursor-pointer w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-low hidden sm:flex">
+<span class="material-symbols-outlined">help</span>
+</button>
+<!-- Profile Image -->
+<div class="w-10 h-10 rounded-full border border-surface-container-high overflow-hidden ml-xs cursor-pointer ml-sm">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a government official in a modern, well-lit office environment, wearing a neat navy blue suit. The lighting is soft and corporate, creating a clean light-mode aesthetic against a pale grey background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4q2dWf7MZP1gePip3oiZ3BIFaf0PaaGbt2rORRTD60Gjhu4TPWFKboeJ__tcsrqSgp4jBKHJ3r66qu4kzQvOUpiA9qGXFwZ5h4q7H5sSU7xtKR3NflfQpLi4Goha5Mb1MpvXyF-mGFUIzdJTDW_juI7umzAFiCZ8pktuK_qQbMPZs22xp9NOEe2DzMJewProMXhkWEQo1NaucXHdeYvx042C9LSm9QlRpWiylbZ2jtcEn5ZESALpl3A">
+</div>
+</div>
+</header>
+<!-- Main Workspace Area -->
+<main class="flex-1 overflow-hidden p-sm md:p-gutter flex flex-col lg:flex-row gap-gutter max-w-container-max mx-auto w-full">
+<!-- Center: Active Chat Window (Bento-style card) -->
+<section class="flex-1 flex flex-col bg-surface-container-lowest rounded-xl border border-surface-container-high shadow-[0_12px_32px_rgba(2,52,100,0.08)] overflow-hidden relative">
+<!-- Chat Header -->
+<header class="px-md py-sm border-b border-surface-container-high flex justify-between items-center bg-surface-container-lowest/95 backdrop-blur z-10 shrink-0">
+<div>
+<h2 class="font-title-md text-title-md text-on-surface">Data Privacy Assessment</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary-container inline-block"></span>
+                            Model: GovLLM Secure v2
+                        </p>
+</div>
+<div class="flex gap-xs">
+<button class="p-xs rounded hover:bg-surface-container-highest text-on-surface-variant transition-colors" title="Export Thread">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+<button class="p-xs rounded hover:bg-surface-container-highest text-on-surface-variant transition-colors" title="Clear Context">
+<span class="material-symbols-outlined text-[20px]">delete_sweep</span>
+</button>
+</div>
+</header>
+<!-- Chat History Area -->
+<div class="flex-1 overflow-y-auto p-md flex flex-col gap-xl custom-scrollbar scroll-smooth">
+<!-- AI Greeting -->
+<div class="flex flex-col gap-xs max-w-[90%]">
+<div class="flex items-center gap-sm mb-xs">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary-container text-[18px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">System</span>
+</div>
+<div class="bg-surface-container-low text-on-surface p-md rounded-xl rounded-tl-sm border border-surface-container-high font-body-md text-body-md shadow-sm">
+<p>Good morning. I am ready to assist with the Data Privacy Assessment for the new civic engagement portal. Please provide the specific policy documents or data flow diagrams you'd like me to analyze against current compliance standards.</p>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex flex-col gap-xs max-w-[85%] self-end">
+<div class="flex items-center gap-sm mb-xs justify-end">
+<span class="font-label-md text-label-md text-on-surface-variant">You</span>
+<div class="w-8 h-8 rounded-full border border-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A small, generic profile thumbnail icon depicting a minimalist silhouette of a person, colored in subtle grey tones, suitable for a professional enterprise interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhbLKsVsYHmINB5SnoY7X1kNUGE9iBdhywqFNziyvj9rOhlbx2N0I2bgLKGHulubbTRXie2Uu3OPiVvQOJjNB15qERUv4QT72xn595w6CeUaiVnNFswc84GFF6FtpDlWFBJIs2f9CvoHAfSAmOqBb61e36sKLmWhYQm2Gg5OjvBiPXhihX0H8fHgZQjYar-mUaToQCQ2hzbxiDwMYhV-spsS0rYuM__lkFFU2Wv8VIf3MBuj6RlTTtLQ">
+</div>
+</div>
+<div class="bg-primary-container text-on-primary-container p-md rounded-xl rounded-tr-sm shadow-sm font-body-md text-body-md">
+<p>Can you review the attached draft for the 'Citizen Feedback Module' and flag any potential non-compliance with the National Data Protection Act Section 4 regarding data retention?</p>
+<!-- Attached Document Chip in User Message -->
+<div class="mt-sm inline-flex items-center gap-sm bg-surface-container-highest/20 p-xs pr-sm rounded border border-on-primary-container/20">
+<span class="material-symbols-outlined text-[16px]">description</span>
+<span class="font-label-md text-label-md">draft_feedback_specs_v3.pdf</span>
+</div>
+</div>
+</div>
+<!-- AI Response -->
+<div class="flex flex-col gap-xs max-w-[95%]">
+<div class="flex items-center gap-sm mb-xs">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary-container text-[18px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">GovLLM</span>
+</div>
+<div class="bg-surface-container-low text-on-surface p-md rounded-xl rounded-tl-sm border border-surface-container-high shadow-sm font-body-md text-body-md">
+<!-- Confidence Badge -->
+<div class="inline-flex items-center gap-xs px-sm py-[2px] bg-tertiary-container text-on-tertiary-container rounded-full mb-md border border-tertiary/20">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-md text-label-md tracking-wide">98% Confidence - Verified Source</span>
+</div>
+<p class="mb-sm">Based on my analysis of <strong>draft_feedback_specs_v3.pdf</strong> against the <strong>National Data Protection Act (NDPA) Section 4</strong>, I have identified two primary areas requiring attention to ensure full compliance regarding data retention.</p>
+<ol class="list-decimal list-outside ml-md space-y-sm text-on-surface-variant">
+<li><strong>Indefinite Retention Default:</strong> Page 12 of the draft specifies that user telemetry data is kept "indefinitely for historical analysis." Section 4.2 of the NDPA mandates a maximum retention period of 36 months for non-critical telemetry unless explicitly authorized by user consent.</li>
+<li><strong>Lack of Automated Purge Mechanism:</strong> The technical specifications do not define a cron job or scheduled task for anonymizing or deleting records past the statutory limit, which violates the "Privacy by Design" mandate in Section 4.5.</li>
+</ol>
+<div class="mt-md p-sm bg-surface rounded border-l-4 border-primary">
+<p class="font-title-sm text-title-sm font-semibold mb-xs">Recommendation:</p>
+<p class="text-body-sm">Implement a rolling 24-month deletion protocol for telemetry and explicitly request opt-in consent during the onboarding flow if historical retention is required.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area (Sticky Bottom) -->
+<div class="p-md bg-surface-container-lowest border-t border-surface-container-high shrink-0 z-10">
+<!-- Suggested Follow-up Chips -->
+<div class="flex gap-sm mb-sm overflow-x-auto custom-scrollbar pb-xs">
+<button class="shrink-0 inline-flex items-center gap-xs px-sm py-xs border border-outline-variant rounded-full text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">edit_document</span>
+                            Draft revision for Section 4.2
+                        </button>
+<button class="shrink-0 inline-flex items-center gap-xs px-sm py-xs border border-outline-variant rounded-full text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">policy</span>
+                            Show NDPA Section 4 text
+                        </button>
+<button class="shrink-0 inline-flex items-center gap-xs px-sm py-xs border border-outline-variant rounded-full text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">summarize</span>
+                            Summarize remaining compliance risks
+                        </button>
+</div>
+<!-- Input Field -->
+<div class="relative flex items-end gap-sm bg-surface border border-surface-container-high rounded-xl p-xs focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent transition-all shadow-sm">
+<div class="flex items-center gap-xs p-xs">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-xs rounded-lg hover:bg-surface-container-highest" title="Attach file">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+</div>
+<textarea class="w-full bg-transparent border-none focus:ring-0 resize-none py-sm px-xs font-body-md text-on-surface placeholder:text-outline max-h-32 min-h-[44px] custom-scrollbar" placeholder="Ask a follow-up question or provide instructions..." rows="1"></textarea>
+<div class="flex items-center gap-xs p-xs">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-xs rounded-lg hover:bg-surface-container-highest" title="Voice Input">
+<span class="material-symbols-outlined">mic</span>
+</button>
+<button class="bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container transition-colors p-xs rounded-lg shadow-sm flex items-center justify-center w-10 h-10 ml-xs" title="Send Message">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+<div class="mt-xs text-center">
+<span class="font-label-md text-label-md text-outline text-[10px] uppercase tracking-wider">AI-generated content may contain errors. Verify critical policy decisions.</span>
+</div>
+</div>
+</section>
+<!-- Right Pane: Source Citations & Context (Hidden on smaller screens) -->
+<aside class="w-80 lg:flex flex-col bg-surface-container-lowest rounded-xl border border-surface-container-high shadow-[0_12px_32px_rgba(2,52,100,0.08)] overflow-hidden shrink-0 hidden">
+<header class="p-md border-b border-surface-container-high bg-surface-container-low/50">
+<h3 class="font-title-md text-title-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">library_books</span>
+                        Active Context
+                    </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Referenced materials and datasets</p>
+</header>
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<!-- Citation Card 1 -->
+<div class="p-md border-b border-surface-container-high hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-start justify-between mb-xs">
+<span class="font-label-md text-label-md text-on-primary-container bg-primary-container/20 px-xs py-[2px] rounded inline-block">Primary Document</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors text-[18px]">open_in_new</span>
+</div>
+<h4 class="font-title-sm text-title-sm text-on-surface mb-xs leading-tight">draft_feedback_specs_v3.pdf</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Technical specifications for the Citizen Feedback Module, outlining data flow, telemetry hooks, and API endpoints.</p>
+<div class="mt-sm flex items-center gap-sm font-label-md text-label-md text-outline">
+<span class="flex items-center gap-[2px]"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Oct 24, 2023</span>
+</div>
+</div>
+<!-- Citation Card 2 -->
+<div class="p-md border-b border-surface-container-high hover:bg-surface-container-low transition-colors cursor-pointer group relative overflow-hidden">
+<!-- Subtle indicator for verified source -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary-container"></div>
+<div class="flex items-start justify-between mb-xs pl-xs">
+<span class="font-label-md text-label-md text-on-tertiary-container bg-tertiary-container/20 px-xs py-[2px] rounded inline-flex items-center gap-xs">
+<span class="material-symbols-outlined text-[12px]">gavel</span>
+                                Regulatory DB
+                            </span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors text-[18px]">open_in_new</span>
+</div>
+<h4 class="font-title-sm text-title-sm text-on-surface mb-xs leading-tight pl-xs">National Data Protection Act (NDPA)</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3 pl-xs">Section 4: Data Retention Limitations. "Personal data processed for any purpose or purposes shall not be kept for longer than is necessary..."</p>
+<div class="mt-sm flex items-center gap-sm font-label-md text-label-md text-outline pl-xs">
+<span class="flex items-center gap-[2px]"><span class="material-symbols-outlined text-[14px]">assured_workload</span> Ministry of Justice</span>
+</div>
+</div>
+<!-- Action Button at bottom of list -->
+<div class="p-md text-center">
+<button class="font-label-md text-label-md text-primary hover:text-primary-container transition-colors flex items-center justify-center gap-xs mx-auto">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+                            Add Document to Context
+                        </button>
+</div>
+</div>
+</aside>
+</main>
+</div>
+<!-- Optional: Inline script for auto-resizing textarea to feel premium -->
+<script>
+        const tx = document.getElementsByTagName("textarea");
+        for (let i = 0; i < tx.length; i++) {
+            tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+            tx[i].addEventListener("input", OnInput, false);
+        }
+        function OnInput() {
+            this.style.height = "auto";
+            this.style.height = (this.scrollHeight) + "px";
+        }
+    </script>
+</body></html>

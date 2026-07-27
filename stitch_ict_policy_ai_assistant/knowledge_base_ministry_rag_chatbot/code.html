@@ -1,0 +1,513 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Knowledge Base | Ministry of ICT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#d4e3ff",
+                    "surface-dim": "#d8dadc",
+                    "on-tertiary-container": "#5ba1e4",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "secondary-fixed-dim": "#ffb690",
+                    "success-green": "#10B981",
+                    "surface-container-low": "#f2f4f6",
+                    "outline": "#737780",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#001d34",
+                    "on-secondary-fixed": "#341100",
+                    "on-secondary-container": "#5c2400",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "tertiary-fixed": "#d0e4ff",
+                    "background": "#f7f9fb",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#191c1e",
+                    "surface": "#f7f9fb",
+                    "outline-variant": "#c3c6d0",
+                    "secondary-container": "#fd761a",
+                    "surface-tint": "#3b5f92",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-surface-variant": "#43474f",
+                    "surface-border": "#E2E8F0",
+                    "tertiary-container": "#00365b",
+                    "error": "#ba1a1a",
+                    "primary-container": "#023464",
+                    "inverse-surface": "#2d3133",
+                    "on-error": "#ffffff",
+                    "on-background": "#191c1e",
+                    "tertiary": "#002039",
+                    "secondary-fixed": "#ffdbca",
+                    "on-primary": "#ffffff",
+                    "secondary": "#9d4300",
+                    "on-primary-fixed-variant": "#204778",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-primary": "#a6c8ff",
+                    "primary": "#001f40",
+                    "slate-dark": "#0F172A",
+                    "on-primary-container": "#7a9ed4",
+                    "primary-fixed-dim": "#a6c8ff",
+                    "surface-variant": "#e0e3e5",
+                    "on-tertiary-fixed-variant": "#004a79",
+                    "surface-bright": "#f7f9fb",
+                    "on-secondary-fixed-variant": "#783200",
+                    "on-primary-fixed": "#001c3b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "page-margin-desktop": "32px",
+                    "page-margin-mobile": "16px",
+                    "gutter": "24px",
+                    "section-gap": "64px",
+                    "container-max-width": "1440px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter", "sans-serif"],
+                    "label-sm": ["Inter", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "headline-xl": ["Inter", "sans-serif"],
+                    "label-md": ["Inter", "sans-serif"],
+                    "display-lg": ["Inter", "sans-serif"],
+                    "body-xl": ["Inter", "sans-serif"]
+            },
+            "fontSize": {
+                    "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "600" }],
+                    "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                    "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                    "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                    "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                    "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "body-xl": ["20px", { "lineHeight": "30px", "fontWeight": "400" }]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+            color: #191c1e;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+</head>
+<body class="overflow-hidden h-screen flex">
+<!-- SideNavBar Component -->
+<aside class="hidden md:flex flex-col h-screen left-0 w-64 bg-surface-container-lowest border-r border-surface-border py-6 px-4 gap-y-2 shrink-0">
+<div class="mb-8 px-2">
+<h1 class="text-headline-xl font-headline-xl text-primary tracking-tight">ICT Admin</h1>
+<p class="text-label-md font-label-md text-on-surface-variant">Staff Portal</p>
+</div>
+<button class="mb-6 w-full flex items-center justify-center gap-2 bg-primary-container text-white py-3 rounded-lg font-semibold hover:scale-[1.02] transition-transform duration-150 active:scale-95">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+<span class="text-label-md">New Chat</span>
+</button>
+<nav class="flex flex-col gap-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+<span class="text-label-md font-label-md">Chat</span>
+</a>
+<!-- Active Tab: Knowledge Base -->
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg font-semibold shadow-sm" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span class="text-label-md font-label-md">Knowledge Base</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="text-label-md font-label-md">Projects</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span class="text-label-md font-label-md">Admin Tools</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-surface-border flex flex-col gap-y-1">
+<div class="flex items-center gap-3 px-2 py-4 mb-2">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Professional studio portrait of a Ugandan civil servant in corporate attire, soft bright office lighting, high-end digital photography, sharp focus, clean executive aesthetic, Ministry of ICT brand colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfZK-kOXptYv3R8M53sFZGK_yD7sq2-Uxp-xWKS4j_arzVWxunQ-Zj3IP2mEG4-uFib3VCwAMxQsz7maYsTO3I9Wr7YaMVX_YsG0hElm4wbYpas5e-D-CKBsx4XJzpmpEEcGKHlsCoQbpeGS3DFr0SPfndy_dShvd23-MGllTKzxSgqQPf9rdS-UlqPCO72LjYJTTB0vadQ3K1lBKj52W1pwT0dlKnnWFHFrybHUGwTDaQqTFHq_ybrg">
+</div>
+<div>
+<p class="text-label-md font-bold text-primary">K. Mukasa</p>
+<p class="text-label-sm text-on-surface-variant">Policy Analyst</p>
+</div>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- Header / Top Bar -->
+<header class="h-16 px-page-margin-desktop bg-surface/80 backdrop-blur-md border-b border-surface-border flex justify-between items-center z-10">
+<nav class="flex items-center gap-2 text-label-sm text-on-surface-variant">
+<span>Home</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Knowledge Base</span>
+</nav>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-label-md w-72 focus:ring-2 focus:ring-primary-container focus:bg-white transition-all" placeholder="Search regulations, policies, or standards..." type="text">
+</div>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Canvas -->
+<div class="flex-1 overflow-y-auto p-page-margin-desktop custom-scrollbar bg-surface">
+<div class="max-w-6xl mx-auto space-y-8">
+<!-- Page Title -->
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Regulatory Knowledge Base</h2>
+<p class="text-body-md text-on-surface-variant mt-1">Access and manage the central repository of Uganda's digital infrastructure regulations.</p>
+</div>
+<!-- Category Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest border border-surface-border p-5 rounded-xl hover:shadow-lg transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-lg bg-primary-fixed flex items-center justify-center text-primary-container mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+</div>
+<h3 class="text-label-md font-bold text-primary">Legal &amp; Regulatory</h3>
+<p class="text-label-sm text-on-surface-variant mt-1">Statutory instruments and laws.</p>
+<div class="mt-4 flex items-center gap-2 text-primary font-semibold text-label-sm">
+<span>124 Docs</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-surface-border p-5 rounded-xl hover:shadow-lg transition-all cursor-pointer group border-l-4 border-l-secondary-container">
+<div class="w-12 h-12 rounded-lg bg-secondary-fixed flex items-center justify-center text-secondary mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+</div>
+<h3 class="text-label-md font-bold text-primary">ICT Standards</h3>
+<p class="text-label-sm text-on-surface-variant mt-1">Technical specifications and protocols.</p>
+<div class="mt-4 flex items-center gap-2 text-primary font-semibold text-label-sm">
+<span>82 Docs</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest border border-surface-border p-5 rounded-xl hover:shadow-lg transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-lg bg-tertiary-fixed flex items-center justify-center text-tertiary mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="shopping_cart_checkout">shopping_cart_checkout</span>
+</div>
+<h3 class="text-label-md font-bold text-primary">Procurement Guidelines</h3>
+<p class="text-label-sm text-on-surface-variant mt-1">Standard bidding and acquisition docs.</p>
+<div class="mt-4 flex items-center gap-2 text-primary font-semibold text-label-sm">
+<span>45 Docs</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest border border-surface-border p-5 rounded-xl hover:shadow-lg transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-lg bg-success-green/10 flex items-center justify-center text-success-green mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="policy">policy</span>
+</div>
+<h3 class="text-label-md font-bold text-primary">National Policies</h3>
+<p class="text-label-sm text-on-surface-variant mt-1">Broadband, AI, and e-Gov strategies.</p>
+<div class="mt-4 flex items-center gap-2 text-primary font-semibold text-label-sm">
+<span>218 Docs</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Document Table Section -->
+<div class="bg-surface-container-lowest border border-surface-border rounded-xl shadow-sm overflow-hidden">
+<div class="p-6 border-b border-surface-border flex justify-between items-center">
+<div class="flex items-center gap-4">
+<h3 class="text-body-xl font-bold text-primary">Document Registry</h3>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-label-sm text-on-surface-variant border border-outline-variant">Latest First</span>
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-label-sm text-on-surface-variant border border-outline-variant">All Categories</span>
+</div>
+</div>
+<button class="flex items-center gap-2 text-primary text-label-md font-semibold hover:bg-surface-container-high px-4 py-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+                            Advanced Filters
+                        </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant text-label-sm uppercase tracking-wider">
+<th class="px-6 py-4 font-semibold">Document Name</th>
+<th class="px-6 py-4 font-semibold">Category</th>
+<th class="px-6 py-4 font-semibold">Version</th>
+<th class="px-6 py-4 font-semibold">Last Updated</th>
+<th class="px-6 py-4 font-semibold">Status</th>
+<th class="px-6 py-4 font-semibold text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-border">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer" onclick="togglePreview()">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary/60" data-icon="description">description</span>
+<span class="text-label-md font-bold text-on-surface">National Broadband Policy 2023</span>
+</div>
+</td>
+<td class="px-6 py-5"><span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-[12px] font-semibold">ICT Standards</span></td>
+<td class="px-6 py-5 text-label-md text-on-surface-variant">v2.1</td>
+<td class="px-6 py-5 text-label-md text-on-surface-variant">Jan 12, 2024</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5 text-success-green">
+<span class="w-2 h-2 rounded-full bg-success-green"></span>
+<span class="text-label-sm font-semibold">Indexed</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 text-primary hover:bg-primary-fixed rounded-lg transition-all" title="Ask AI">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" title="Preview">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" title="Download">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary/60" data-icon="article">article</span>
+<span class="text-label-md font-bold text-on-surface">Data Protection Regulations (Draft)</span>
+</div>
+</td>
+<td class="px-6 py-5"><span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed-variant rounded-full text-[12px] font-semibold">Legal &amp; Regulatory</span></td>
+<td class="px-6 py-5 text-label-md text-on-surface-variant">v0.9</td>
+<td class="px-6 py-5 text-label-md text-on-surface-variant">Feb 05, 2024</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5 text-secondary">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="text-label-sm font-semibold">Processing</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 opacity-30 cursor-not-allowed text-primary">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary/60" data-icon="description">description</span>
+<span class="text-label-md font-bold text-on-surface">e-Government Interoperability Framework</span>
+</div>
+</td>
+<td class="px-6 py-5"><span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-[12px] font-semibold">ICT Standards</span></td>
+<td class="px-6 py-5 text-label-md text-on-surface-variant">v4.0</td>
+<td class="px-6 py-5 text-label-md text-on-surface-variant">Dec 18, 2023</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5 text-success-green">
+<span class="w-2 h-2 rounded-full bg-success-green"></span>
+<span class="text-label-sm font-semibold">Indexed</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 text-primary hover:bg-primary-fixed rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary/60" data-icon="description">description</span>
+<span class="text-label-md font-bold text-on-surface">Digital Uganda Vision 2040</span>
+</div>
+</td>
+<td class="px-6 py-5"><span class="px-3 py-1 bg-success-green/10 text-success-green rounded-full text-[12px] font-semibold">National Policies</span></td>
+<td class="px-6 py-5 text-label-md text-on-surface-variant">v1.2</td>
+<td class="px-6 py-5 text-label-md text-on-surface-variant">Jan 02, 2024</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5 text-success-green">
+<span class="w-2 h-2 rounded-full bg-success-green"></span>
+<span class="text-label-sm font-semibold">Indexed</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 text-primary hover:bg-primary-fixed rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-surface-container-low flex justify-between items-center text-label-sm text-on-surface-variant">
+<span>Showing 1-4 of 469 documents</span>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary-container text-white font-bold">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors">3</button>
+<span class="px-2">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors">47</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Document Preview Sidebar (Slide-out) -->
+<aside class="fixed right-0 top-0 h-screen w-96 bg-white shadow-2xl border-l border-surface-border translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col" id="previewSidebar">
+<div class="p-6 border-b border-surface-border flex justify-between items-center">
+<h3 class="text-body-xl font-bold text-primary">Document Details</h3>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full" onclick="togglePreview()">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+<div class="space-y-2">
+<div class="w-full h-40 rounded-xl bg-surface-container-low border border-surface-border relative overflow-hidden flex items-center justify-center">
+<img class="w-full h-full object-cover opacity-80" data-alt="A clean, professional PDF document cover for a government policy, titled National Broadband Policy 2023, with Ministry of ICT logo, architectural line art of Uganda's technological landscape, in a minimalist high-contrast corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEG85p1WXu0FO1HW0GSFtoI7Sn9nzw0D4bPOhFrQv86QABF1YDvyrt8maJF_2h_2-8g1R81am44atXJzRYQalK_5GzwCaXKbAnF9-IJcLzzvvidG354suIdIpgvBuXZgIvXe3--8b-IQY7WK4R8HSwyJcf6-8Hq1kcYOFxsxaadqxp-B_sArSB1v5BUQcx9Akq5pIH2b1y2o7nHuZHzYq-YqaVc08rKr3nnGcDAVomYa3wCZI_5RWphA">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
+<span class="absolute material-symbols-outlined text-4xl text-primary/40">picture_as_pdf</span>
+</div>
+<h4 class="text-headline-lg font-bold text-primary leading-tight mt-4">National Broadband Policy 2023</h4>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-3 bg-surface-container-low rounded-lg">
+<p class="text-label-sm text-on-surface-variant">Version</p>
+<p class="text-label-md font-bold text-primary">2.1 (Stable)</p>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg">
+<p class="text-label-sm text-on-surface-variant">File Size</p>
+<p class="text-label-md font-bold text-primary">4.2 MB</p>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg">
+<p class="text-label-sm text-on-surface-variant">Author</p>
+<p class="text-label-md font-bold text-primary">Dept. Infrastructure</p>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg">
+<p class="text-label-sm text-on-surface-variant">ID</p>
+<p class="text-label-md font-bold text-primary">KB-POL-2023-01</p>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<h5 class="text-label-md font-bold uppercase tracking-wider">AI Executive Summary</h5>
+</div>
+<div class="bg-primary-fixed/30 p-4 rounded-xl border border-primary-fixed text-body-md text-primary leading-relaxed italic">
+                        "This policy outlines the strategic framework for universal broadband access in Uganda. Key objectives include 100% fiber connectivity to district headquarters, regulatory incentives for private ISPs, and a national spectrum management roadmap for 5G deployment. It introduces the 'Connect Uganda' tax rebate for rural infrastructure investment."
+                    </div>
+</div>
+<div class="space-y-4">
+<h5 class="text-label-md font-bold text-on-surface-variant uppercase tracking-wider">Attached Tags</h5>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-label-sm text-primary border border-outline-variant">Infrastructure</span>
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-label-sm text-primary border border-outline-variant">5G</span>
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-label-sm text-primary border border-outline-variant">Connectivity</span>
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-label-sm text-primary border border-outline-variant">Regulatory Framework</span>
+</div>
+</div>
+</div>
+<div class="p-6 border-t border-surface-border bg-surface-container-lowest space-y-3">
+<button class="w-full flex items-center justify-center gap-2 bg-primary-container text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+                    Chat about this document
+                </button>
+<button class="w-full flex items-center justify-center gap-2 bg-surface-container-high text-primary py-3 rounded-lg font-semibold border border-surface-border hover:bg-surface-container-highest transition-all">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                    Full Document Access
+                </button>
+</div>
+</aside>
+</main>
+<script>
+        function togglePreview() {
+            const sidebar = document.getElementById('previewSidebar');
+            sidebar.classList.toggle('translate-x-full');
+        }
+
+        // Add micro-interactions for rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('click', (e) => {
+                // Ignore if clicked on a button
+                if (e.target.closest('button')) return;
+                
+                // Remove active highlight from others
+                document.querySelectorAll('tbody tr').forEach(r => r.classList.remove('bg-primary-fixed/20'));
+                // Highlight active
+                row.classList.add('bg-primary-fixed/20');
+            });
+        });
+    </script>
+</body></html>

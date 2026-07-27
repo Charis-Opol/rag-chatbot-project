@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Document Version History | RAG Knowledge Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-container-highest": "#e0e3e5",
+                "background": "#f7f9fb",
+                "secondary-container": "#fd761a",
+                "outline-variant": "#c3c6d0",
+                "tertiary-fixed": "#d0e4ff",
+                "on-secondary-container": "#5c2400",
+                "primary-fixed-dim": "#a6c8ff",
+                "on-background": "#191c1e",
+                "primary": "#001f40",
+                "surface-container": "#eceef0",
+                "inverse-surface": "#2d3133",
+                "inverse-primary": "#a6c8ff",
+                "on-tertiary": "#ffffff",
+                "primary-fixed": "#d4e3ff",
+                "on-primary-container": "#7a9ed4",
+                "primary-container": "#023464",
+                "secondary-fixed": "#ffdbca",
+                "surface-bright": "#f7f9fb",
+                "surface-border": "#E2E8F0",
+                "on-tertiary-fixed-variant": "#004a79",
+                "inverse-on-surface": "#eff1f3",
+                "surface-container-high": "#e6e8ea",
+                "surface-tint": "#3b5f92",
+                "outline": "#737780",
+                "on-primary": "#ffffff",
+                "tertiary-fixed-dim": "#9bcbff",
+                "slate-dark": "#0F172A",
+                "tertiary": "#002039",
+                "on-surface": "#191c1e",
+                "on-secondary-fixed": "#341100",
+                "success-green": "#10B981",
+                "on-surface-variant": "#43474f",
+                "on-primary-fixed": "#001c3b",
+                "on-error-container": "#93000a",
+                "on-secondary-fixed-variant": "#783200",
+                "error": "#ba1a1a",
+                "on-primary-fixed-variant": "#204778",
+                "on-error": "#ffffff",
+                "surface-variant": "#e0e3e5",
+                "surface-container-low": "#f2f4f6",
+                "tertiary-container": "#00365b",
+                "surface-container-lowest": "#ffffff",
+                "surface": "#f7f9fb",
+                "error-container": "#ffdad6",
+                "surface-dim": "#d8dadc",
+                "on-tertiary-fixed": "#001d34",
+                "on-secondary": "#ffffff",
+                "secondary": "#9d4300",
+                "secondary-fixed-dim": "#ffb690",
+                "on-tertiary-container": "#5ba1e4"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "section-gap": "64px",
+                "page-margin-mobile": "16px",
+                "container-max-width": "1440px",
+                "page-margin-desktop": "32px",
+                "gutter": "24px"
+        },
+        "fontFamily": {
+                "label-sm": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Inter"
+                ],
+                "display-lg": [
+                        "Inter"
+                ],
+                "body-xl": [
+                        "Inter"
+                ],
+                "label-md": [
+                        "Inter"
+                ],
+                "headline-xl": [
+                        "Inter"
+                ],
+                "body-md": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg": [
+                        "30px",
+                        {
+                                "lineHeight": "38px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-xl": [
+                        "20px",
+                        {
+                                "lineHeight": "30px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-xl": [
+                        "36px",
+                        {
+                                "lineHeight": "44px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 10px; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .diff-added { color: #065f46; border-left: 2px solid #10B981; }
+        .diff-removed { color: #991b1b; border-left: 2px solid #ba1a1a; text-decoration: line-through; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- Top Navigation Bar (Shared Component Strategy) -->
+<header class="flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-50 bg-surface dark:bg-inverse-surface border-b border-surface-border dark:border-outline-variant shadow-sm">
+<div class="flex items-center gap-6">
+<span class="text-body-md font-bold text-primary dark:text-primary-fixed">RAG Knowledge Hub</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary transition-colors text-label-md" href="#">Dashboard</a>
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary pb-1 text-label-md" href="#">Workflows</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary transition-colors text-label-md" href="#">Logs</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary transition-colors text-label-md" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-secondary-container rounded-full"></span>
+</div>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors">help_outline</span>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a Knowledge Management Officer for a high-tier government enterprise. The person is dressed in modern business attire, looking confident and approachable. The background is a soft-focus, minimalist office with subtle blue and orange branding elements from the Ministry of ICT." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6FZK5qczbnnEPmtZyzvXw2o5y7K-5zqoy_ZYnFLK-pq7fZhYf3mEndFqNnEEA6wGAhzBy22xXry_5sGgDEwn_W5q7tl9IvEIAZgMjmt3D_vCnKysH9rKwvJaB4CYQIQfYp1CGxwMrSquCvVd4IdeWFd6FmDsXmtm-nidwFBSsBuILzWXHRKS8X7Nl4h0yTZQxk999Il6cOZc857tiJNLcrdLmO0_CAmZLOKjF9kd8hVNq5slTpAQNFg"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- Sidebar Navigation (Shared Component Strategy) -->
+<aside class="w-64 bg-primary flex flex-col py-6 z-40 h-full shadow-lg shrink-0">
+<div class="px-6 mb-8">
+<h2 class="text-on-primary text-body-md font-bold uppercase tracking-wider">KMS Admin</h2>
+<p class="text-on-primary/70 text-label-sm">Institutional AI Node</p>
+</div>
+<nav class="flex-1 space-y-2">
+<div class="flex items-center gap-3 text-on-primary/70 px-6 py-3 hover:bg-primary-container transition-colors cursor-pointer text-label-md">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Overview</span>
+</div>
+<div class="flex items-center gap-3 bg-secondary-container text-on-secondary-container px-6 py-3 transition-transform text-label-md">
+<span class="material-symbols-outlined">description</span>
+<span>Document Library</span>
+</div>
+<div class="flex items-center gap-3 text-on-primary/70 px-6 py-3 hover:bg-primary-container transition-colors cursor-pointer text-label-md">
+<span class="material-symbols-outlined">queue</span>
+<span>Ingestion Queue</span>
+</div>
+<div class="flex items-center gap-3 text-on-primary/70 px-6 py-3 hover:bg-primary-container transition-colors cursor-pointer text-label-md">
+<span class="material-symbols-outlined">database</span>
+<span>Vector Stores</span>
+</div>
+<div class="flex items-center gap-3 text-on-primary/70 px-6 py-3 hover:bg-primary-container transition-colors cursor-pointer text-label-md">
+<span class="material-symbols-outlined">analytics</span>
+<span>System Health</span>
+</div>
+</nav>
+<div class="mt-auto px-6 py-4 border-t border-on-primary/10">
+<div class="flex items-center gap-3 text-on-primary/70 py-3 hover:bg-primary-container transition-colors cursor-pointer text-label-md">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area: Version History -->
+<main class="flex-1 overflow-hidden flex bg-background">
+<!-- Left Panel: Version List -->
+<section class="w-80 border-r border-surface-border flex flex-col h-full bg-surface-container-lowest shrink-0">
+<div class="p-8 border-b border-surface-border bg-surface-bright">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-body-xl font-medium text-primary">Versions</h3>
+<span class="bg-surface-container text-on-surface-variant text-label-sm px-3 py-1.5 rounded-full font-medium">6 Total</span>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 text-label-md border border-surface-border bg-surface-container-lowest rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Search versions..." type="text"/>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<!-- Active Version -->
+<div class="p-6 bg-surface border-l-4 border-primary cursor-pointer relative transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="text-label-md font-bold text-primary">v2.4 (Current)</span>
+<span class="text-[10px] uppercase font-bold text-success-green tracking-wider">Live</span>
+</div>
+<p class="text-label-sm text-outline mb-4">Oct 12, 2026 • 14:20</p>
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full overflow-hidden bg-surface-container border border-surface-border">
+<img class="w-full h-full object-cover" data-alt="A small avatar of a male African professional in a minimalist corporate style, wearing a navy blue blazer. High key lighting, clean studio background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdYG6QjqjUOJV41gFhNjz0aO5QSlo0E_arVZndANGcUBC4iooCAamPYcljfkaWu_HU5rcCQQOHZVbvH2oogaGzF9VHkzerkUgD6Q3cEOQZbB8tGNTqf23BZcEUYCN4-lH2yYxn6MU4KYaMQkaac_RwgvDtl3fcyTJFPo47fsQ12-HXY0P6QEVqT6VbgRBNncGfo9ECnG0h0F9XILPkCcxs9fo5YZfy7QqdotMp_lsj3djfIdityZIbDg"/>
+</div>
+<span class="text-label-sm text-on-surface-variant">S. Okello</span>
+</div>
+</div>
+<!-- Previous Versions -->
+<div class="p-6 hover:bg-surface-container-low transition-colors cursor-pointer border-b border-surface-border">
+<div class="flex justify-between items-start mb-2">
+<span class="text-label-md font-medium text-on-surface">v2.3</span>
+</div>
+<p class="text-label-sm text-outline mb-4">Oct 10, 2026 • 09:45</p>
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full overflow-hidden bg-surface-container border border-surface-border">
+<img class="w-full h-full object-cover" data-alt="A small avatar of a female African professional in a minimalist corporate style, wearing a crisp white blouse. Clean composition, professional lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAVCIgTyzMCXe5zFN4FrIU8X1InQ-uOUZcCZnNADS_m6dCShJeSu-ZshkPJgFyzWNJgVjSz0R-9_UxPqjGyjqA1tvDT6FxkjYeNP28ybSZ5QfUVm5k_x4sHFMfUav-C2P5bGvi8-ktdhkN8mJi0GH1858T3wgUDfCHAia_rNe3x8nojIEsKdhTWkEw8coO86gHg9z_UZmo8QYjATYN0WRssiI49gTglzRYEDouivR_mBdex62DITbszA"/>
+</div>
+<span class="text-label-sm text-on-surface-variant">J. Namatovu</span>
+</div>
+</div>
+<div class="p-6 hover:bg-surface-container-low transition-colors cursor-pointer border-b border-surface-border">
+<div class="flex justify-between items-start mb-2">
+<span class="text-label-md font-medium text-on-surface">v2.2</span>
+</div>
+<p class="text-label-sm text-outline mb-4">Oct 05, 2026 • 16:30</p>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[24px] text-outline">account_circle</span>
+<span class="text-label-sm text-on-surface-variant">Admin System</span>
+</div>
+</div>
+<div class="p-6 hover:bg-surface-container-low transition-colors cursor-pointer border-b border-surface-border">
+<div class="flex justify-between items-start mb-2">
+<span class="text-label-md font-medium text-on-surface">v2.1</span>
+</div>
+<p class="text-label-sm text-outline mb-4">Sep 28, 2026 • 11:12</p>
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full overflow-hidden bg-surface-container border border-surface-border">
+<img class="w-full h-full object-cover" data-alt="A small avatar of a male professional in a modern office, minimalist style, African heritage, soft daylight lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUCojZ2nUw2RwqGeWas-LASYmuL6g2CUm099D7hAvieiyXVSDxuIpMKwgtSx_JAN0dAg5FaZ--Dh7LPyAl87gvyfFF5AxcVBZDVoFsQpqTXJ-PSi5CibGT8RO9h1YRaJtZnjG6EhYqC5gJUvjtqlwKG7GKMq6cMsuHFMPC079kesPl_HdvxEVHey21cFEk4MGp1cBKl7EfDKcTSQiZzV5IRRfWkQMidqx66z6GTZVhG15r4LyqL8ciSw"/>
+</div>
+<span class="text-label-sm text-on-surface-variant">M. Kato</span>
+</div>
+</div>
+<div class="p-6 hover:bg-surface-container-low transition-colors cursor-pointer border-b border-surface-border">
+<div class="flex justify-between items-start mb-2">
+<span class="text-label-md font-medium text-on-surface">v1.0 (Initial)</span>
+</div>
+<p class="text-label-sm text-outline mb-4">Aug 15, 2026 • 08:00</p>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[24px] text-outline">account_circle</span>
+<span class="text-label-sm text-on-surface-variant">System Root</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Center/Right Content Area -->
+<section class="flex-1 overflow-y-auto p-page-margin-desktop custom-scrollbar space-y-10">
+<!-- Header Actions -->
+<div class="flex items-center justify-between">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-primary mb-3">Version Comparison: v2.4 vs v2.3</h1>
+<nav class="flex gap-2 text-label-md">
+<span class="text-outline">Document Library</span>
+<span class="text-outline">/</span>
+<span class="text-primary font-bold">Policy_Framework_v2.4.pdf</span>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-6 py-3 rounded-lg border border-surface-border bg-surface-container-lowest text-primary font-medium hover:bg-surface-container-low transition-all text-label-md shadow-sm">
+<span class="material-symbols-outlined text-[20px]">compare_arrows</span>
+                            Compare Versions
+                        </button>
+<button class="flex items-center gap-2 px-6 py-3 rounded-lg bg-primary-container text-on-primary-container font-medium hover:opacity-90 transition-all text-label-md shadow-sm">
+<span class="material-symbols-outlined text-[20px]">history</span>
+                            Rollback to this version
+                        </button>
+</div>
+</div>
+<!-- Comparison Bento Grid -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Meta Metadata Card -->
+<div class="col-span-12 xl:col-span-4 flex flex-col gap-8">
+<div class="bg-surface-container-lowest rounded-2xl border border-surface-border p-8 shadow-sm">
+<h4 class="text-[11px] font-bold text-outline uppercase tracking-widest mb-8">Metadata Details</h4>
+<div class="space-y-6">
+<div class="flex flex-col gap-1">
+<span class="text-[11px] text-outline uppercase font-bold tracking-wider">Editor Name</span>
+<span class="text-body-md text-primary">Samuel Okello</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[11px] text-outline uppercase font-bold tracking-wider">Department</span>
+<span class="text-body-md text-primary">ICT Policy &amp; Governance</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[11px] text-outline uppercase font-bold tracking-wider">Reason for Change</span>
+<span class="text-body-md text-primary leading-relaxed">Updated Article 14.2 regarding Data Residency requirements per new cabinet directive.</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[11px] text-outline uppercase font-bold tracking-wider">Vector Status</span>
+<span class="flex items-center gap-2 text-success-green font-medium text-label-md mt-1">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+                                        Re-indexed successfully
+                                    </span>
+</div>
+</div>
+</div>
+<!-- Impact Analysis -->
+<div class="bg-primary-container text-on-primary-container rounded-2xl p-8 shadow-sm">
+<h4 class="text-[11px] font-bold text-on-primary-container/60 uppercase tracking-widest mb-6">Version Analytics</h4>
+<div class="flex items-center justify-between mb-4">
+<span class="text-label-md opacity-90">Similarity Score</span>
+<span class="text-headline-sm font-bold">92.4%</span>
+</div>
+<div class="w-full bg-white/10 h-2 rounded-full overflow-hidden mb-6">
+<div class="bg-secondary-container h-full w-[92.4%] rounded-full"></div>
+</div>
+<p class="text-label-sm opacity-80 leading-relaxed font-normal">Minor adjustments in wording. Knowledge base retrieval accuracy increased by 1.2% after this version update.</p>
+</div>
+</div>
+<!-- Change History Log / Diff Card -->
+<div class="col-span-12 xl:col-span-8 flex flex-col gap-8">
+<div class="bg-surface-container-lowest rounded-2xl border border-surface-border shadow-sm flex flex-col overflow-hidden">
+<div class="p-8 border-b border-surface-border flex items-center justify-between bg-surface-bright">
+<h4 class="text-label-md font-bold text-primary">Visual Diff Analysis</h4>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-success-green"></span>
+<span class="text-label-sm text-outline font-medium">Added</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-error"></span>
+<span class="text-label-sm text-outline font-medium">Removed</span>
+</div>
+</div>
+</div>
+<div class="p-8 space-y-10">
+<div class="space-y-4">
+<span class="text-[11px] font-bold text-outline tracking-wider">SECTION 4.1: DATA RESIDENCY</span>
+<div class="p-6 rounded-xl border border-surface-border text-body-md leading-loose bg-surface-container-lowest shadow-sm">
+                                    All sovereign data <span class="diff-removed px-1.5 py-0.5 rounded-md bg-error-container/30">must be stored physically within the Kampala Central Data Center</span> <span class="diff-added px-1.5 py-0.5 rounded-md bg-success-green/10">must reside within the borders of Uganda, utilizing Tier-3 certified sovereign cloud infrastructure</span>. Access logs should be maintained for a period of <span class="diff-removed px-1.5 py-0.5 rounded-md bg-error-container/30">3 years</span> <span class="diff-added px-1.5 py-0.5 rounded-md bg-success-green/10">5 years</span>.
+                                </div>
+</div>
+<div class="space-y-4">
+<span class="text-[11px] font-bold text-outline tracking-wider">SECTION 14.2: COMPLIANCE</span>
+<div class="p-6 rounded-xl border border-surface-border text-body-md leading-loose bg-surface-container-lowest shadow-sm">
+                                    Non-compliance will result in <span class="diff-added px-1.5 py-0.5 rounded-md bg-success-green/10">automatic suspension of the AI Node and a mandatory audit by the Ministry technical team</span>. The previous clause concerning <span class="diff-removed px-1.5 py-0.5 rounded-md bg-error-container/30">30-day grace periods</span> has been deprecated in favor of immediate remediation.
+                                </div>
+</div>
+<div class="space-y-4">
+<span class="text-[11px] font-bold text-outline tracking-wider">NEW APPENDED CLAUSE: GENERATIVE AI OVERSIGHT</span>
+<div class="p-6 rounded-xl border border-success-green/30 text-body-md leading-loose bg-success-green/5 shadow-sm">
+                                    The Ministry shall oversee all RAG (Retrieval-Augmented Generation) pipelines to ensure no PII (Personally Identifiable Information) leaks into shared embedding spaces.
+                                </div>
+</div>
+</div>
+</div>
+<!-- Activity Timeline Footer inside Main Area -->
+<div class="bg-surface-container-lowest rounded-2xl border border-surface-border p-8 shadow-sm">
+<h5 class="text-[11px] font-bold text-outline uppercase tracking-widest mb-8">Version Event Log</h5>
+<div class="space-y-8">
+<div class="flex items-start gap-5 relative">
+<div class="absolute left-1.5 top-3 bottom-[-2rem] w-px bg-surface-border"></div>
+<div class="w-3 h-3 rounded-full bg-primary mt-1.5 shrink-0 z-10 ring-4 ring-surface-container-lowest"></div>
+<div class="flex-1">
+<p class="text-body-md text-on-surface mb-1">Version v2.4 committed by Samuel Okello</p>
+<p class="text-[11px] text-outline uppercase tracking-wider">Today at 14:20</p>
+</div>
+</div>
+<div class="flex items-start gap-5">
+<div class="w-3 h-3 rounded-full bg-outline-variant mt-1.5 shrink-0 z-10 ring-4 ring-surface-container-lowest"></div>
+<div class="flex-1">
+<p class="text-body-md text-on-surface mb-1">Security Scan Passed: No vulnerabilities found</p>
+<p class="text-[11px] text-outline uppercase tracking-wider">Today at 14:25</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Micro-interaction JS -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const versionItems = document.querySelectorAll('.custom-scrollbar > div');
+            versionItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    versionItems.forEach(v => {
+                        v.classList.remove('bg-surface', 'border-l-4', 'border-primary');
+                        v.classList.add('hover:bg-surface-container-low');
+                        // Reset badges
+                        const badge = v.querySelector('.text-success-green');
+                        if (badge && !v.innerText.includes('v2.4')) badge.classList.add('hidden');
+                    });
+                    
+                    item.classList.add('bg-surface', 'border-l-4', 'border-primary');
+                    item.classList.remove('hover:bg-surface-container-low');
+                    
+                    // Simple tactile feedback
+                    item.style.transform = 'scale(0.99)';
+                    setTimeout(() => {
+                        item.style.transform = 'scale(1)';
+                    }, 100);
+                });
+            });
+        });
+    </script>
+</body></html>

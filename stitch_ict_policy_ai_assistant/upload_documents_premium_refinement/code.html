@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Upload Documents | RAG Knowledge Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#737780",
+                    "success-green": "#10B981",
+                    "tertiary-fixed": "#d0e4ff",
+                    "on-surface-variant": "#43474f",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-surface": "#2d3133",
+                    "surface-container-lowest": "#ffffff",
+                    "slate-dark": "#0F172A",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "outline-variant": "#c3c6d0",
+                    "on-error-container": "#93000a",
+                    "surface-bright": "#f7f9fb",
+                    "primary-container": "#023464",
+                    "on-secondary-fixed-variant": "#783200",
+                    "primary-fixed-dim": "#a6c8ff",
+                    "on-surface": "#191c1e",
+                    "on-secondary-container": "#5c2400",
+                    "on-background": "#191c1e",
+                    "tertiary-container": "#00365b",
+                    "surface-container-low": "#f2f4f6",
+                    "on-tertiary-fixed": "#001d34",
+                    "on-tertiary": "#ffffff",
+                    "secondary-container": "#fd761a",
+                    "on-primary-container": "#7a9ed4",
+                    "primary-fixed": "#d4e3ff",
+                    "on-primary-fixed": "#001c3b",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#ffb690",
+                    "on-tertiary-container": "#5ba1e4",
+                    "secondary": "#9d4300",
+                    "surface-container-highest": "#e0e3e5",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "surface-variant": "#e0e3e5",
+                    "on-primary": "#ffffff",
+                    "primary": "#001f40",
+                    "surface": "#f7f9fb",
+                    "background": "#f7f9fb",
+                    "surface-border": "#E2E8F0",
+                    "on-secondary-fixed": "#341100",
+                    "tertiary": "#002039",
+                    "on-primary-fixed-variant": "#204778",
+                    "surface-dim": "#d8dadc",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-tint": "#3b5f92",
+                    "inverse-primary": "#a6c8ff",
+                    "secondary-fixed": "#ffdbca",
+                    "on-tertiary-fixed-variant": "#004a79",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#eceef0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "page-margin-desktop": "32px",
+                    "section-gap": "64px",
+                    "page-margin-mobile": "16px",
+                    "container-max-width": "1440px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-xl": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #E2E8F0;
+        }
+        .drag-active {
+            border-color: #023464;
+            background-color: #F1F5F9;
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- TopNavBar Implementation -->
+<nav class="flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-50 bg-surface dark:bg-inverse-surface border-b border-surface-border dark:border-outline-variant shadow-sm">
+<div class="flex items-center gap-8">
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed">RAG Knowledge Hub</span>
+<div class="hidden md:flex gap-6">
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Dashboard</a>
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary pb-1" href="#">Workflows</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Logs</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Analytics</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-surface-border">
+<img class="w-full h-full object-cover" data-alt="Close-up professional portrait of a Knowledge Management Officer in a bright, modern corporate office environment. The person has a friendly but authoritative expression, representing institutional expertise. The background features soft bokeh of a high-tech government office in Uganda, with subtle blue and orange accents reflecting the Ministry of ICT brand colors. The lighting is crisp and clean, emphasizing a digital-first leadership aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCefKWnAE7LLOZXvpGQBMoYhISfyy7HNTOHoPqURz_33UefqXC8Aro0Yz5eQx95TRbv_CvJSSFIgEEEeF-m6as0ySSh54R88Ia5enL_ialEHlplv74zAa0ArebvyG16Xkimv08pqZJ7Z-5-43dsAfDrC_QVENSUAwyvkzgDMTdFDODPGVEpRudukVzg0G-CtAU3gdQHWwY6g6-0DYfO1o3DQqIyxUnzEZMKJKA2m8K20MmSX7doQFy7XA"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar Implementation -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-6 z-40 bg-primary dark:bg-primary-container shadow-lg w-64 hidden lg:flex">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3 mb-1">
+<div class="w-8 h-8 bg-secondary-container rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+<span class="text-headline-sm font-headline-sm font-black text-on-primary">KMS Admin</span>
+</div>
+<p class="text-on-primary/60 text-xs tracking-wider uppercase font-bold">Institutional AI Node</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Overview</span>
+</a>
+<a class="flex items-center gap-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg px-4 py-3 mx-2 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="description" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="font-label-md text-label-md">Document Library</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="queue">queue</span>
+<span class="font-label-md text-label-md">Ingestion Queue</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+<span class="font-label-md text-label-md">Embedding Config</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span class="font-label-md text-label-md">Vector Stores</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md">System Health</span>
+</a>
+</nav>
+<div class="px-4 mt-auto pt-6 border-t border-on-primary/10">
+<a class="flex items-center gap-3 text-on-primary/70 px-4 py-3 mb-1 hover:bg-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 px-4 py-3 hover:bg-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-64 p-gutter md:p-page-margin-desktop bg-background min-h-screen">
+<header class="mb-12">
+<h1 class="text-headline-xl font-headline-xl text-primary-container mb-3">Upload Documents</h1>
+<p class="text-body-md text-on-surface-variant max-w-2xl">Ingest new datasets into the RAG Knowledge Hub. Ensure metadata is accurately captured for optimal vector search performance.</p>
+</header>
+<!-- Bento Grid Layout for Upload & Queue -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-10 items-start">
+<!-- Left Column: Upload & Metadata -->
+<div class="xl:col-span-8 space-y-10">
+<!-- Drag & Drop Area -->
+<section class="bg-surface-container-lowest border border-dashed border-outline-variant rounded-2xl p-20 text-center transition-all hover:border-primary-container group cursor-pointer" id="drop-zone">
+<div class="flex flex-col items-center gap-6">
+<div class="w-20 h-20 bg-surface-container-high rounded-full flex items-center justify-center text-primary-container transition-transform group-hover:scale-105">
+<span class="material-symbols-outlined text-5xl" style="font-variation-settings: 'wght' 200;">cloud_upload</span>
+</div>
+<div>
+<h3 class="text-headline-sm font-headline-sm text-primary-container">Drag &amp; Drop Files Here</h3>
+<p class="text-body-md text-on-surface-variant mt-2">or <span class="text-secondary font-semibold hover:underline">browse files</span> from your computer</p>
+<p class="text-xs text-outline mt-4">PDF, DOCX, TXT, and Markdown supported (Max 50MB per file)</p>
+</div>
+</div>
+<input class="hidden" id="file-input" multiple="" type="file"/>
+</section>
+<!-- Metadata Form Card -->
+<section class="bg-white rounded-2xl border border-surface-border p-10 shadow-sm">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">sell</span>
+<h2 class="text-headline-sm font-headline-sm text-primary-container">Global Metadata</h2>
+</div>
+<form class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+<!-- Category Dropdown -->
+<div class="space-y-3">
+<label class="text-label-md font-label-md text-on-surface">Category</label>
+<select class="w-full bg-[#F1F5F9] border-0 focus:ring-2 focus:ring-primary-container rounded-lg p-3 text-body-md">
+<option>National Policy</option>
+<option>ICT Infrastructure</option>
+<option>Digital Transformation</option>
+<option>Legislative Documents</option>
+<option>Public Advisories</option>
+</select>
+</div>
+<!-- Department Dropdown -->
+<div class="space-y-3">
+<label class="text-label-md font-label-md text-on-surface">Department</label>
+<select class="w-full bg-[#F1F5F9] border-0 focus:ring-2 focus:ring-primary-container rounded-lg p-3 text-body-md">
+<option>National Guidance</option>
+<option>IT Infrastructure</option>
+<option>E-Government Services</option>
+<option>Communication &amp; PR</option>
+</select>
+</div>
+<!-- Classification Level -->
+<div class="space-y-3">
+<label class="text-label-md font-label-md text-on-surface">Classification Level</label>
+<div class="flex gap-4">
+<label class="flex-1 border border-surface-border rounded-lg p-3 flex items-center justify-center gap-2 cursor-pointer hover:bg-surface-container transition-colors">
+<input checked="" class="text-primary focus:ring-primary" name="class" type="radio"/>
+<span class="text-label-md">Official</span>
+</label>
+<label class="flex-1 border border-surface-border rounded-lg p-3 flex items-center justify-center gap-2 cursor-pointer hover:bg-surface-container transition-colors">
+<input class="text-primary focus:ring-primary" name="class" type="radio"/>
+<span class="text-label-md">Secret</span>
+</label>
+<label class="flex-1 border border-surface-border rounded-lg p-3 flex items-center justify-center gap-2 cursor-pointer hover:bg-surface-container transition-colors">
+<input class="text-primary focus:ring-primary" name="class" type="radio"/>
+<span class="text-label-md">Top Secret</span>
+</label>
+</div>
+</div>
+<!-- Version Number -->
+<div class="space-y-3">
+<label class="text-label-md font-label-md text-on-surface">Version Number</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-outline text-label-md">v</span>
+<input class="w-full bg-[#F1F5F9] border-0 focus:ring-2 focus:ring-primary-container rounded-lg p-3 pl-7 text-body-md" placeholder="1.0.0" type="text"/>
+</div>
+</div>
+<!-- Tags Pills Input -->
+<div class="md:col-span-2 space-y-3">
+<label class="text-label-md font-label-md text-on-surface">Tags</label>
+<div class="w-full bg-[#F1F5F9] border-0 rounded-lg p-3 flex flex-wrap gap-2 min-h-[56px] items-center">
+<span class="bg-primary-container text-on-primary text-label-sm px-3 py-1.5 rounded-full flex items-center gap-1">
+                                    Strategic
+                                    <button class="material-symbols-outlined text-[14px]">close</button>
+</span>
+<span class="bg-primary-container text-on-primary text-label-sm px-3 py-1.5 rounded-full flex items-center gap-1">
+                                    2026-Vision
+                                    <button class="material-symbols-outlined text-[14px]">close</button>
+</span>
+<span class="bg-primary-container text-on-primary text-label-sm px-3 py-1.5 rounded-full flex items-center gap-1">
+                                    Infrastructure
+                                    <button class="material-symbols-outlined text-[14px]">close</button>
+</span>
+<input class="bg-transparent border-0 focus:ring-0 text-body-md p-0 flex-1 min-w-[100px]" placeholder="Add tag..." type="text"/>
+</div>
+<p class="text-xs text-outline">Press Enter or comma to add tags.</p>
+</div>
+</form>
+<div class="mt-12 pt-8 border-t border-surface-border flex justify-end gap-4">
+<button class="px-8 py-3 border border-primary-container text-primary-container font-bold rounded-lg hover:bg-surface-container transition-colors">Clear All</button>
+<button class="px-10 py-3 bg-primary-container text-on-primary font-bold rounded-lg shadow-sm hover:opacity-90 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">publish</span>
+                            Finalize &amp; Process
+                        </button>
+</div>
+</section>
+</div>
+<!-- Right Column: Upload Queue -->
+<aside class="xl:col-span-4 space-y-8">
+<section class="bg-white rounded-2xl border border-surface-border shadow-sm overflow-hidden sticky top-24">
+<div class="p-8 border-b border-surface-border flex justify-between items-center bg-surface-container-lowest">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">list_alt</span>
+<h2 class="text-label-md font-bold text-primary-container uppercase tracking-wider">Active Queue</h2>
+</div>
+<span class="bg-secondary-container text-on-secondary-container text-label-sm px-3 py-1 rounded-full">3 Files</span>
+</div>
+<div class="p-8 space-y-6 max-h-[600px] overflow-y-auto">
+<!-- Queue Item 1: Uploading -->
+<div class="space-y-4 p-5 border border-primary-container/20 rounded-xl bg-surface-container-low">
+<div class="flex justify-between items-start">
+<div class="flex gap-4">
+<div class="w-12 h-12 bg-primary-container/10 text-primary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div>
+<h4 class="text-label-md font-bold text-on-surface truncate max-w-[140px]">National_ICT_Roadmap_2024.pdf</h4>
+<p class="text-xs text-outline mt-1">4.2 MB • <span class="text-primary-container font-medium">Uploading</span></p>
+</div>
+</div>
+<button class="text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]">cancel</span>
+</button>
+</div>
+<div class="space-y-2">
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full transition-all duration-500" style="width: 65%;"></div>
+</div>
+<div class="flex justify-between text-[11px] font-bold text-outline">
+<span>65% complete</span>
+<span>1.2 MB/s</span>
+</div>
+</div>
+</div>
+<!-- Queue Item 2: Queued -->
+<div class="space-y-4 p-5 border border-surface-border rounded-xl opacity-70">
+<div class="flex justify-between items-start">
+<div class="flex gap-4">
+<div class="w-12 h-12 bg-surface-container-high text-outline rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div>
+<h4 class="text-label-md font-bold text-on-surface truncate max-w-[140px]">Budget_Analysis_FY26.docx</h4>
+<p class="text-xs text-outline mt-1">12.8 MB • <span class="text-outline font-medium">Queued</span></p>
+</div>
+</div>
+<button class="text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full"></div>
+</div>
+<!-- Queue Item 3: Queued -->
+<div class="space-y-4 p-5 border border-surface-border rounded-xl opacity-70">
+<div class="flex justify-between items-start">
+<div class="flex gap-4">
+<div class="w-12 h-12 bg-surface-container-high text-outline rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">data_table</span>
+</div>
+<div>
+<h4 class="text-label-md font-bold text-on-surface truncate max-w-[140px]">Fiber_Optic_Audit.csv</h4>
+<p class="text-xs text-outline mt-1">2.1 MB • <span class="text-outline font-medium">Queued</span></p>
+</div>
+</div>
+<button class="text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full"></div>
+</div>
+</div>
+<div class="p-8 bg-surface-container-lowest border-t border-surface-border">
+<div class="flex justify-between items-center mb-4">
+<span class="text-label-sm font-bold text-outline uppercase tracking-wider">Total Progress</span>
+<span class="text-label-sm font-bold text-primary-container">24%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 24%;"></div>
+</div>
+<button class="w-full mt-8 py-3 text-label-md font-bold text-primary-container hover:bg-surface-container transition-colors rounded-lg">
+                            Pause All Tasks
+                        </button>
+</div>
+</section>
+<!-- Help/Guidance Card -->
+<div class="p-8 bg-primary-container rounded-2xl border border-primary-fixed text-on-primary shadow-lg">
+<h3 class="flex items-center gap-3 font-bold mb-3 text-[16px]">
+<span class="material-symbols-outlined text-secondary-fixed">lightbulb</span>
+                        KMO Best Practice
+                    </h3>
+<p class="text-[13px] leading-relaxed opacity-90 text-on-primary-fixed">
+                        When uploading legislative documents, always select the 'Top Secret' classification if it involves pending parliamentary resolutions. This restricts AI training access to authorized personnel only.
+                    </p>
+</div>
+</aside>
+</div>
+</main>
+<!-- Success Toast (Hidden by default) -->
+<div class="fixed bottom-8 right-8 translate-y-20 opacity-0 transition-all duration-500 bg-slate-dark text-white p-4 rounded-xl shadow-2xl flex items-center gap-4 z-[100]" id="toast">
+<div class="w-8 h-8 bg-success-green rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-sm">check</span>
+</div>
+<div>
+<p class="text-label-md font-bold">Metadata Updated</p>
+<p class="text-[10px] opacity-70">Applied settings to all queued items.</p>
+</div>
+<button class="ml-4 opacity-50 hover:opacity-100" onclick="toggleToast(false)">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+<script>
+        // Micro-interactions for Drag & Drop
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+
+        dropZone.onclick = () => fileInput.click();
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropZone.classList.add('drag-active');
+                dropZone.classList.add('ring-4', 'ring-primary-container/20');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('drag-active');
+                dropZone.classList.remove('ring-4', 'ring-primary-container/20');
+            }, false);
+        });
+
+        // Toast Toggle Interaction
+        function toggleToast(show) {
+            const toast = document.getElementById('toast');
+            if(show) {
+                toast.classList.remove('translate-y-20', 'opacity-0');
+            } else {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }
+        }
+
+        // Simulate a successful action after 2 seconds
+        setTimeout(() => {
+            toggleToast(true);
+            setTimeout(() => toggleToast(false), 5000);
+        }, 2000);
+    </script>
+</body></html>

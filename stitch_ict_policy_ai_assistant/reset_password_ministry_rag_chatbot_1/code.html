@@ -1,0 +1,282 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Account Recovery | Ministry of ICT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .step-transition {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-effect {
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-container": "#5c2400",
+                      "tertiary-fixed": "#d0e4ff",
+                      "surface-container-highest": "#e0e3e5",
+                      "background": "#f7f9fb",
+                      "secondary-container": "#fd761a",
+                      "outline-variant": "#c3c6d0",
+                      "inverse-surface": "#2d3133",
+                      "inverse-primary": "#a6c8ff",
+                      "primary-fixed-dim": "#a6c8ff",
+                      "on-background": "#191c1e",
+                      "surface-container": "#eceef0",
+                      "primary": "#001f40",
+                      "primary-fixed": "#d4e3ff",
+                      "on-primary-container": "#7a9ed4",
+                      "on-tertiary": "#ffffff",
+                      "secondary-fixed": "#ffdbca",
+                      "surface-bright": "#f7f9fb",
+                      "primary-container": "#023464",
+                      "surface-border": "#E2E8F0",
+                      "on-tertiary-fixed-variant": "#004a79",
+                      "inverse-on-surface": "#eff1f3",
+                      "surface-container-high": "#e6e8ea",
+                      "outline": "#737780",
+                      "surface-tint": "#3b5f92",
+                      "tertiary-fixed-dim": "#9bcbff",
+                      "on-primary": "#ffffff",
+                      "on-surface": "#191c1e",
+                      "on-secondary-fixed": "#341100",
+                      "slate-dark": "#0F172A",
+                      "tertiary": "#002039",
+                      "on-error-container": "#93000a",
+                      "success-green": "#10B981",
+                      "on-surface-variant": "#43474f",
+                      "on-primary-fixed": "#001c3b",
+                      "on-primary-fixed-variant": "#204778",
+                      "error": "#ba1a1a",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed-variant": "#783200",
+                      "error-container": "#ffdad6",
+                      "surface-container-low": "#f2f4f6",
+                      "surface-variant": "#e0e3e5",
+                      "tertiary-container": "#00365b",
+                      "surface-container-lowest": "#ffffff",
+                      "surface": "#f7f9fb",
+                      "on-tertiary-fixed": "#001d34",
+                      "surface-dim": "#d8dadc",
+                      "on-secondary": "#ffffff",
+                      "secondary": "#9d4300",
+                      "secondary-fixed-dim": "#ffb690",
+                      "on-tertiary-container": "#5ba1e4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "page-margin-mobile": "16px",
+                      "section-gap": "64px",
+                      "page-margin-desktop": "32px",
+                      "gutter": "24px",
+                      "container-max-width": "1440px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-xl": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-surface flex flex-col min-h-screen">
+<!-- TopNavBar (Suppressed for focused task, but kept for Brand Consistency) -->
+<header class="bg-surface/80 backdrop-blur-md sticky top-0 z-50 border-b border-surface-border">
+<div class="flex justify-between items-center w-full px-page-margin-desktop max-w-container-max-width mx-auto h-16">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-sm" data-icon="account_balance">account_balance</span>
+</div>
+<span class="text-body-xl font-bold text-primary tracking-tight">Ministry of ICT</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant hover:text-primary font-label-md text-label-md" href="#">Support</a>
+<a class="text-on-surface-variant hover:text-primary font-label-md text-label-md" href="#">Privacy</a>
+</div>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center relative overflow-hidden py-12 px-page-margin-mobile">
+<!-- Background Animation -->
+
+<!-- Multi-Step Authentication Card -->
+<div class="relative w-full max-w-md">
+<div class="bg-surface-container-lowest rounded-xl border border-surface-border shadow-xl overflow-hidden glass-effect">
+<!-- Progress Indicator -->
+<div class="h-1.5 w-full bg-surface-container flex">
+<div class="h-full bg-secondary-container transition-all duration-500 w-1/3" id="progress-bar"></div>
+</div>
+<div class="p-8 md:p-10">
+<!-- Step 1: Forgot Password (Email Entry) -->
+<div class="step-transition" id="step-1">
+<div class="mb-8">
+<h1 class="text-headline-xl font-headline-xl text-primary mb-2">Forgot password?</h1>
+<p class="text-on-surface-variant text-body-md font-body-md">No worries, we'll send you reset instructions. Please enter your registered email address.</p>
+</div>
+<form id="form-step-1" onsubmit="event.preventDefault(); goToStep(2);">
+<div class="space-y-6">
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface block" for="recovery-email">Email Address</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline" data-icon="mail">mail</span>
+</div>
+<input class="w-full bg-surface-container-low border-0 border-b-2 border-transparent focus:border-primary focus:ring-0 rounded-lg pl-10 py-3 transition-all placeholder:text-outline" id="recovery-email" placeholder="name@ict.go.ug" required="" type="email">
+</div>
+</div>
+<button class="w-full py-4 bg-primary text-on-primary rounded-lg font-label-md text-label-md shadow-sm hover:shadow-md active:scale-95 transition-all flex justify-center items-center gap-2" type="submit">
+                                    Reset Password
+                                    <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<a class="flex items-center justify-center gap-2 text-primary font-label-md text-label-md hover:underline group" href="#">
+<span class="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform" data-icon="keyboard_backspace">keyboard_backspace</span>
+                                    Back to Login
+                                </a>
+</div>
+</form>
+</div>
+<!-- Step 2: New Password (Reset) -->
+<div class="step-transition hidden opacity-0 translate-x-8" id="step-2">
+<div class="mb-8">
+<h1 class="text-headline-xl font-headline-xl text-primary mb-2">Create new password</h1>
+<p class="text-on-surface-variant text-body-md font-body-md">Your new password must be different from previous used passwords.</p>
+</div>
+<form id="form-step-2" onsubmit="event.preventDefault(); goToStep(3);">
+<div class="space-y-6">
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface block" for="new-password">Password</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline" data-icon="lock">lock</span>
+</div>
+<input class="w-full bg-surface-container-low border-0 border-b-2 border-transparent focus:border-primary focus:ring-0 rounded-lg pl-10 py-3 transition-all" id="new-password" placeholder="Min. 8 characters" required="" type="password">
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface block" for="confirm-password">Confirm Password</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline" data-icon="lock_reset">lock_reset</span>
+</div>
+<input class="w-full bg-surface-container-low border-0 border-b-2 border-transparent focus:border-primary focus:ring-0 rounded-lg pl-10 py-3 transition-all" id="confirm-password" placeholder="Repeat your password" required="" type="password">
+</div>
+</div>
+<button class="w-full py-4 bg-primary text-on-primary rounded-lg font-label-md text-label-md shadow-sm hover:shadow-md active:scale-95 transition-all" type="submit">
+                                    Update Password
+                                </button>
+</div>
+</form>
+</div>
+<!-- Step 3: Success Confirmation -->
+<div class="step-transition hidden opacity-0 translate-x-8 text-center" id="step-3">
+<div class="mb-8 flex flex-col items-center">
+<div class="w-20 h-20 bg-success-green/10 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-success-green text-5xl" data-icon="check_circle" data-weight="fill">check_circle</span>
+</div>
+<h1 class="text-headline-xl font-headline-xl text-primary mb-2">Password reset</h1>
+<p class="text-on-surface-variant text-body-md font-body-md">Your password has been successfully reset. You can now use your new password to sign in.</p>
+</div>
+<div class="space-y-6">
+<a class="block w-full py-4 bg-primary text-on-primary rounded-lg font-label-md text-label-md shadow-sm hover:shadow-md active:scale-95 transition-all" href="#">
+                                Back to Login
+                            </a>
+</div>
+</div>
+</div>
+</div>
+<!-- Security Footer Message -->
+<div class="mt-8 flex items-center justify-center gap-2 text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined text-sm" data-icon="shield">shield</span>
+<span class="text-label-sm font-label-sm">Secure AES-256 encrypted authentication system</span>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest border-t border-surface-border">
+<div class="w-full py-8 px-page-margin-desktop max-w-container-max-width mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="text-label-md font-bold text-primary">Ministry of ICT</div>
+<p class="text-on-surface-variant text-label-sm font-label-sm text-center md:text-left">© 2026 Ministry of ICT &amp; National Guidance. All Rights Reserved.</p>
+<div class="flex gap-6">
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+<script>
+        function goToStep(stepNumber) {
+            const steps = [1, 2, 3];
+            const progressBar = document.getElementById('progress-bar');
+            
+            // Handle Progress Bar
+            const progressMap = {
+                1: 'w-1/3',
+                2: 'w-2/3',
+                3: 'w-full'
+            };
+            progressBar.className = `h-full bg-secondary-container transition-all duration-500 ${progressMap[stepNumber]}`;
+
+            // Handle Visibility
+            steps.forEach(s => {
+                const stepEl = document.getElementById(`step-${s}`);
+                if (s === stepNumber) {
+                    stepEl.classList.remove('hidden');
+                    // Trigger reflow for animation
+                    setTimeout(() => {
+                        stepEl.classList.remove('opacity-0', 'translate-x-8');
+                        stepEl.classList.add('opacity-100', 'translate-x-0');
+                    }, 50);
+                } else {
+                    stepEl.classList.add('opacity-0', 'translate-x-8');
+                    // Delay hiding for smooth exit
+                    setTimeout(() => {
+                        if (s !== stepNumber) stepEl.classList.add('hidden');
+                    }, 400);
+                }
+            });
+        }
+
+        // Initialize state
+        document.addEventListener('DOMContentLoaded', () => {
+            // Force light mode
+            document.documentElement.classList.remove('dark');
+        });
+    </script>
+</body></html>

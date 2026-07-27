@@ -1,0 +1,329 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Staff Dashboard - ICT AI Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#68dba9",
+                    "on-primary-fixed-variant": "#204778",
+                    "surface-tint": "#3b5f92",
+                    "on-background": "#191c1e",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-surface-variant": "#43474f",
+                    "on-primary-container": "#7a9ed4",
+                    "secondary-container": "#dbe2fa",
+                    "surface-container": "#eceef0",
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#023464",
+                    "inverse-surface": "#2d3133",
+                    "surface": "#f7f9fb",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-fixed": "#dbe2fa",
+                    "outline": "#737780",
+                    "on-secondary-fixed-variant": "#3f4759",
+                    "on-secondary-container": "#5d6478",
+                    "outline-variant": "#c3c6d0",
+                    "on-tertiary-container": "#36b080",
+                    "tertiary-fixed": "#85f8c4",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#002114",
+                    "on-error-container": "#93000a",
+                    "primary": "#001f40",
+                    "surface-bright": "#f7f9fb",
+                    "background": "#f7f9fb",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed": "#001c3b",
+                    "primary-fixed": "#d4e3ff",
+                    "on-tertiary-fixed-variant": "#005137",
+                    "surface-dim": "#d8dadc",
+                    "surface-variant": "#e0e3e5",
+                    "secondary": "#575e72",
+                    "inverse-primary": "#a6c8ff",
+                    "on-surface": "#191c1e",
+                    "tertiary": "#002416",
+                    "primary-fixed-dim": "#a6c8ff",
+                    "secondary-fixed-dim": "#bfc6dd",
+                    "tertiary-container": "#003c28",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f2f4f6",
+                    "on-secondary-fixed": "#141b2c",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "xl": "80px",
+                    "container-max": "1280px",
+                    "sm": "12px",
+                    "gutter": "24px",
+                    "md": "24px",
+                    "lg": "48px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "title-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        .ambient-shadow {
+            box-shadow: 0 12px 32px rgba(2, 52, 100, 0.08);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex font-body-md text-body-md">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-dim text-primary dark:text-primary-fixed-dim font-label-md text-label-md h-screen w-64 fixed left-0 top-0 border-r border-surface-container-high dark:border-outline-variant flat no shadows flex flex-col h-full p-md gap-base z-20 hidden md:flex">
+<div class="mb-lg">
+<div class="flex items-center gap-sm mb-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-title-md">
+<img class="w-full h-full rounded-full object-cover" data-alt="A clean, modern, abstract minimalist logo representing a digital government institution, rendered in precise vector style against a crisp white background. The logo utilizes deep institutional blue tones (#001f40) and conveys authority and technological advancement through geometric clarity and sharp lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlSKgaUOSulIwlguY_WGp8TzseED6bwIuFzdpWq6Q_drGp8dD-ibOIU40DKlfFCKzV7kqrK4R830lrlwJckiotQacWpv5-darNlxYtMN7j46WaqpAWEYWS0mUTl_f_92BVaedul97e2Pu5K_z7xl2xDL0Kew0EglvLNXnW4FUPx3mTvkWIQcSn8bLKq0NOJUC4kiCmp6WAlCsk-USaQTJfNF0nnQFt-1hWjOyS0Cap0zKr-mliXkeboQ">
+</div>
+<div>
+<h1 class="font-title-lg text-title-lg font-bold text-on-surface dark:text-on-surface">Ministry of ICT</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">AI Governance Portal</p>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-sm px-gutter rounded-lg font-title-md text-title-md flex items-center justify-center gap-sm hover:bg-on-primary-fixed-variant transition-colors mt-md cursor-pointer scale-98 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+                New Project
+            </button>
+</div>
+<ul class="flex-1 flex flex-col gap-sm">
+<li>
+<a class="flex items-center gap-sm p-sm bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary font-semibold rounded-lg hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-colors scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                    Dashboard
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-colors rounded-lg scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+                    Knowledge Base
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-colors rounded-lg scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">assignment</span>
+                    Projects
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-colors rounded-lg scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+                    Admin Tools
+                </a>
+</li>
+</ul>
+<div class="mt-auto border-t border-surface-container-high pt-md flex flex-col gap-sm">
+<a class="flex items-center gap-sm p-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-colors rounded-lg scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-colors rounded-lg scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-0 md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar (Mobile Only / Responsive Adjustment) -->
+<header class="bg-surface-container-lowest dark:bg-surface text-primary dark:text-primary-fixed-dim font-body-md text-body-md w-full h-16 border-b border-surface-container-high dark:border-outline-variant flat no shadows flex justify-between items-center px-gutter max-w-container-max mx-auto md:hidden z-10 sticky top-0">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary dark:hover:text-primary-fixed-dim transition-colors">menu</span>
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">ICT AI Platform</span>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary dark:hover:text-primary-fixed-dim transition-colors">search</span>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary dark:hover:text-primary-fixed-dim transition-colors">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary dark:hover:text-primary-fixed-dim transition-colors">help</span>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="A professional headshot avatar of a government staff member, subtly styled in a modern corporate aesthetic with soft white lighting and a muted background, ensuring high clarity and focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApAVWyp5H2yxffVtUnxVZyAiFm86dxPAtaQqAwlFLgdFyOth3U2okU8TqavptqwcY3J6P0vCga5Um2Dfp_de_3UV6hkeCfVXTAlTDvTXWRIH0lcuDaYsCoif5iJo4IcUwxERMQ8PWSrtfneXf8FPZRv3Kw-4GDLRF_ws_8A6_dwA5WH7uYk_YQFJ98-oZNm0c-G_82Pkbp3PH7xDexUIMjkavERgVxmztvJMnN1L3AJJpDXcMCCcHzpQ">
+</div>
+</div>
+</div>
+</header>
+<!-- Desktop Top App Bar Area (Search & Profile) -->
+<header class="hidden md:flex justify-between items-center h-20 px-xl max-w-container-max mx-auto w-full sticky top-0 bg-background/80 backdrop-blur-sm z-10">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-sm top-1/2 transform -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-lg pr-sm py-sm bg-surface-container-lowest border border-surface-container-high rounded-DEFAULT text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Search knowledge base, projects..." type="text">
+</div>
+<div class="flex items-center gap-md text-on-surface-variant">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">help</span>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-surface-container-high cursor-pointer hover:border-primary transition-colors">
+<img class="w-full h-full object-cover" data-alt="A professional headshot avatar of a government staff member, subtly styled in a modern corporate aesthetic with soft white lighting and a muted background, ensuring high clarity and focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVTILbbhgdYx6NH8JKT0gw2UShUgXYgZPAumif6UsfaTeNxsi1u6S6LNA7Yx9DfYKzAAv7VXqBPAc8KvavDjLrexSyo2aIP6Bik3mSTxLvItXf22jDwMWNc2V2eZaz1a1Ur7WW0qRsYCzrA3zWRhEIYWIzNkvQknH_dg4h-egWUV--ukyWY5hNOuP3OfE3UVKmNb1Xwk66RZs3jVOhZtsKXbAb-K7fcSPDcwE_d_Bq-DgCnFJ_V-oTXw">
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="flex-1 p-md md:p-xl max-w-container-max mx-auto w-full flex flex-col gap-xl">
+<!-- Welcome Section -->
+<section class="flex flex-col gap-base">
+<h2 class="font-display-lg text-display-lg text-on-background">Good Morning, Alex.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Here is a quick overview of your AI tools and recent activity within the Ministry.</p>
+</section>
+<!-- Quick Actions Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Action 1 -->
+<div class="bg-surface-container-lowest border border-surface-container-high rounded-xl p-md flex flex-col justify-between hover:ambient-shadow transition-shadow cursor-pointer group">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center mb-md group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-title-lg" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-background mb-xs">New Chat Session</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Start a new secure conversation with the internal AI assistant.</p>
+</div>
+</div>
+<!-- Action 2 -->
+<div class="bg-surface-container-lowest border border-surface-container-high rounded-xl p-md flex flex-col justify-between hover:ambient-shadow transition-shadow cursor-pointer group">
+<div class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-md group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-title-lg" style="font-variation-settings: 'FILL' 1;">library_books</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-background mb-xs">Browse Knowledge Base</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Access officially vetted documents, policies, and guidelines.</p>
+</div>
+</div>
+<!-- Action 3 -->
+<div class="bg-surface-container-lowest border border-surface-container-high rounded-xl p-md flex flex-col justify-between hover:ambient-shadow transition-shadow cursor-pointer group">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center mb-md group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-title-lg">upload_file</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-background mb-xs">Upload Document</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ingest new files securely into the ministerial data pool.</p>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-xl">
+<!-- Main Content Column -->
+<div class="lg:col-span-2 flex flex-col gap-xl">
+<!-- Recent Conversations -->
+<section class="bg-surface-container-lowest border border-surface-container-high rounded-xl flex flex-col overflow-hidden">
+<div class="px-md py-sm border-b border-surface-container-high flex justify-between items-center bg-surface-bright">
+<h3 class="font-title-md text-title-md text-on-background">Recent Conversations</h3>
+<button class="font-label-md text-label-md text-primary hover:underline">View All</button>
+</div>
+<div class="flex flex-col">
+<!-- Item 1 -->
+<div class="px-md py-sm border-b border-surface-container-high flex justify-between items-center hover:bg-surface-container-low transition-colors min-h-[56px]">
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-background">Policy Document Review - Draft 3</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Last active: 2 hours ago</span>
+</div>
+<button class="bg-surface-container-medium px-sm py-xs rounded-DEFAULT font-label-md text-label-md text-on-background hover:bg-surface-container-highest transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-body-sm">arrow_forward</span>
+                                    Jump to Chat
+                                </button>
+</div>
+<!-- Item 2 -->
+<div class="px-md py-sm border-b border-surface-container-high flex justify-between items-center hover:bg-surface-container-low transition-colors min-h-[56px]">
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-background">Data Privacy Compliance Query</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Last active: Yesterday</span>
+</div>
+<button class="bg-surface-container-medium px-sm py-xs rounded-DEFAULT font-label-md text-label-md text-on-background hover:bg-surface-container-highest transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-body-sm">arrow_forward</span>
+                                    Jump to Chat
+                                </button>
+</div>
+<!-- Item 3 -->
+<div class="px-md py-sm flex justify-between items-center hover:bg-surface-container-low transition-colors min-h-[56px]">
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-background">Q3 Budget Allocation Analysis</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Last active: Oct 12, 2023</span>
+</div>
+<button class="bg-surface-container-medium px-sm py-xs rounded-DEFAULT font-label-md text-label-md text-on-background hover:bg-surface-container-highest transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-body-sm">arrow_forward</span>
+                                    Jump to Chat
+                                </button>
+</div>
+</div>
+</section>
+</div>
+<!-- Sidebar Column -->
+<div class="flex flex-col gap-xl">
+<!-- System Health -->
+<section class="bg-surface-container-lowest border border-surface-container-high rounded-xl p-md flex flex-col gap-sm">
+<h3 class="font-title-md text-title-md text-on-background mb-xs flex items-center gap-sm">
+<span class="material-symbols-outlined text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            System Health
+                        </h3>
+<div class="flex justify-between items-center py-xs border-b border-surface-container-high">
+<span class="font-body-sm text-body-sm text-on-surface-variant">LLM API Status</span>
+<span class="font-label-md text-label-md bg-tertiary-fixed text-on-tertiary-fixed px-xs py-[2px] rounded-DEFAULT">Operational</span>
+</div>
+<div class="flex justify-between items-center py-xs border-b border-surface-container-high">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Database Latency</span>
+<span class="font-body-sm text-body-sm text-on-background">42ms</span>
+</div>
+<div class="flex justify-between items-center py-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Active Sessions</span>
+<span class="font-body-sm text-body-sm text-on-background">1,248</span>
+</div>
+</section>
+<!-- Trending Topics -->
+<section class="bg-surface-container-lowest border border-surface-container-high rounded-xl p-md flex flex-col gap-sm">
+<h3 class="font-title-md text-title-md text-on-background mb-xs flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary">trending_up</span>
+                            Trending Across Ministry
+                        </h3>
+<div class="flex flex-wrap gap-xs">
+<span class="bg-surface-container-low border border-surface-container-high text-on-surface-variant font-label-md text-label-md px-sm py-xs rounded-full cursor-pointer hover:bg-surface-container-highest transition-colors">#CyberSecurity2024</span>
+<span class="bg-surface-container-low border border-surface-container-high text-on-surface-variant font-label-md text-label-md px-sm py-xs rounded-full cursor-pointer hover:bg-surface-container-highest transition-colors">#ProcurementGuidelines</span>
+<span class="bg-surface-container-low border border-surface-container-high text-on-surface-variant font-label-md text-label-md px-sm py-xs rounded-full cursor-pointer hover:bg-surface-container-highest transition-colors">#AI_Ethics</span>
+<span class="bg-surface-container-low border border-surface-container-high text-on-surface-variant font-label-md text-label-md px-sm py-xs rounded-full cursor-pointer hover:bg-surface-container-highest transition-colors">#HR_Policies</span>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+</body></html>

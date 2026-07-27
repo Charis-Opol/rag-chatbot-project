@@ -1,0 +1,224 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Ministry of ICT AI Governance Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#68dba9",
+                        "on-primary-fixed-variant": "#204778",
+                        "surface-tint": "#3b5f92",
+                        "on-background": "#191c1e",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-surface-variant": "#43474f",
+                        "on-primary-container": "#7a9ed4",
+                        "secondary-container": "#dbe2fa",
+                        "surface-container": "#eceef0",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#023464",
+                        "inverse-surface": "#2d3133",
+                        "surface": "#f7f9fb",
+                        "surface-container-high": "#e6e8ea",
+                        "secondary-fixed": "#dbe2fa",
+                        "outline": "#737780",
+                        "on-secondary-fixed-variant": "#3f4759",
+                        "on-secondary-container": "#5d6478",
+                        "outline-variant": "#c3c6d0",
+                        "on-tertiary-container": "#36b080",
+                        "tertiary-fixed": "#85f8c4",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#002114",
+                        "on-error-container": "#93000a",
+                        "primary": "#001f40",
+                        "surface-bright": "#f7f9fb",
+                        "background": "#f7f9fb",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#001c3b",
+                        "primary-fixed": "#d4e3ff",
+                        "on-tertiary-fixed-variant": "#005137",
+                        "surface-dim": "#d8dadc",
+                        "surface-variant": "#e0e3e5",
+                        "secondary": "#575e72",
+                        "inverse-primary": "#a6c8ff",
+                        "on-surface": "#191c1e",
+                        "tertiary": "#002416",
+                        "primary-fixed-dim": "#a6c8ff",
+                        "secondary-fixed-dim": "#bfc6dd",
+                        "tertiary-container": "#003c28",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "on-secondary-fixed": "#141b2c",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "xl": "80px",
+                        "container-max": "1280px",
+                        "sm": "12px",
+                        "gutter": "24px",
+                        "md": "24px",
+                        "lg": "48px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "title-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .ambient-shadow { box-shadow: 0 12px 32px rgba(2, 52, 100, 0.08); }
+        .hairline-border { border: 1px solid #E2E8F0; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest w-full h-16 border-b border-surface-container-high hidden md:block">
+<div class="flex justify-between items-center px-gutter max-w-container-max mx-auto h-full">
+<div class="font-headline-md text-headline-md font-bold text-primary">ICT AI Platform</div>
+<div class="flex items-center gap-md">
+<nav class="flex gap-lg">
+<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary py-4 cursor-pointer transition-all duration-200" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-4 cursor-pointer" href="#">Knowledge Base</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-4 cursor-pointer" href="#">Projects</a>
+</nav>
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors" data-icon="help">help</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden ml-sm cursor-pointer border border-surface-container-high">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a government official or administrator, shot in bright, even studio lighting. The individual is wearing formal business attire suitable for a ministry position. The background is a clean, neutral white or light grey, reinforcing a modern, trustworthy, and authoritative aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4hRn-yAbjRyH3BjRMz14WXpNL42oSnzDhSmAMdXKTbEcpyyo9BZOm_m-1mRqbaKHpJWbO8Ygt8E6dJZeSiunTD4HWDq9q2fBCc19jj76aS56nEnE3uum-ppoJn6c4cdBIpw59sSHtesftOkbP-34lUGVwH-5TQh0mQ2rDUjqoYWYQqA4VyArQftYTM4XctuXfWXtiSxNs8EbVLZjBX3tAqMCgnBUjYMxiz7fBOwVvgWYcCYfyjKgI_A">
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-gutter md:px-lg py-xl">
+<!-- Hero Section -->
+<section class="flex flex-col md:flex-row items-center gap-xl mb-xl">
+<div class="flex-1 space-y-md">
+<h1 class="font-display-lg text-display-lg text-primary">Secure Intelligence for National Governance</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                    Deploy policy-compliant AI models within a sovereign cloud infrastructure. Built for absolute data sovereignty, rigorous auditing, and seamless inter-agency collaboration.
+                </p>
+<div class="flex gap-md pt-sm">
+<button class="bg-primary text-on-primary px-gutter py-sm rounded font-title-md text-title-md hover:bg-on-primary-fixed-variant transition-colors">Request Access</button>
+<button class="bg-surface-container-high text-on-surface px-gutter py-sm rounded font-title-md text-title-md hover:bg-surface-variant transition-colors">Documentation</button>
+</div>
+</div>
+<div class="flex-1 w-full relative">
+<div class="absolute inset-0 bg-primary-fixed-dim/20 rounded-xl blur-3xl"></div>
+<div class="relative w-full aspect-video rounded-xl overflow-hidden ambient-shadow hairline-border bg-surface-container-lowest">
+<img alt="AI Architecture Visualization" class="w-full h-full object-cover" data-alt="A highly abstract, modern visualization of data flow and cloud security architecture. The image features sleek, glowing blue lines connecting translucent geometric nodes in a pristine, bright white space. The style is ultra-minimalist, suggesting high-end technology, government security, and advanced AI systems without using cluttered elements. Lighting is soft, high-key, and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARIqLh25n-3mNXs4s0z3cQrM7KeCrTTM5ZygTCcCaG8-eG-e1-ERpeHuk6X8bG53mdTvt04_awgzcGwm9zkgGH306pe1keb2A1hGjBiQt6wmiw7CgE8QraxneLFLGLaAX6gLylawQMWS-tx6KP4JA3el_ZTRNM6B9NLBRP728AacBUwRNYVCsXuW8kxiSEGCVPt31-o2aZuEm0aXR52QWmFr9pom7qLSLwAtlyrmzLWlQZoBdwZGtRnA">
+</div>
+</div>
+</section>
+<!-- Authorized Entities -->
+<section class="py-xl border-y border-surface-container-high mb-xl">
+<h2 class="font-label-md text-label-md text-outline text-center uppercase tracking-widest mb-lg">Authorized Ministry Entities</h2>
+<div class="flex flex-wrap justify-center gap-xl opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+<img alt="Entity Logo 1" class="h-12 w-auto" data-alt="A minimalist, monochromatic logo representing a government security agency. The design is stark and geometric, featuring a stylized shield or crest symbol. It is rendered in deep navy or charcoal grey against a pure white background, ensuring high contrast and professional authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEzry6WYO3-vqd80qaefNSgGEnGAyVjzhEVBmQXeXe-1lHPm3eUlnfGt4eL3vEjkJVjf68Jtb8XqPnUG9-faR00H6OmKBZQhSXnM2yuUGYG5Qnn6309QWx8NdxuKx6eT15baKzwUxd-WFa9LnPxRXi52jEZCfXTINhnsjwy7ZAVG4yXSuSC9S8xVrqz6um1dxGiQ4_xUr53Wm9GBl1u-A2cG05DOREB1IG2enL2WFn61wK4IdWApY4hA">
+<img alt="Entity Logo 2" class="h-12 w-auto" data-alt="A clean, abstract logo for a national data administration office. The design incorporates subtle grid or node motifs to signify data structures, utilizing sharp, clean lines in a monochromatic palette on a white background. It projects a modern, bureaucratic efficiency." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwU-IBMKhS-dVQ_XxOgPmin4e0oco6sKDOgMR6HYKy-sQn5HZb6KtsOSSCffSoIQ4mDRULMhzKYsazzt-vrFBVRhVsIINTOBI-YRHo9fJVvB-FdqIrZ77FqNoMvtoAVRiaMjpAVjvd4ARQgZjBuPbd2Uome9ortNfr0m_4c_Jpg5jV3R7VRzBkAQ-Q1uhPXn_UCj-OKmoRzNfL9t_NQ86H9LhHwaVsXyLzOyjJfQAy_VlPcnEJ-3Cl5w">
+<img alt="Entity Logo 3" class="h-12 w-auto" data-alt="A premium, simple logo for a health ministry technology division. The imagery hints at a cross or medical emblem merged with a digital network icon. Rendered in flat, dark grey tones on a white canvas, it looks official, modern, and highly legible." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0ccI8TzubxouagyRP5TucvZzFT73T61Rl8BVo9fo0Rug2n24uejoa68LBRNYiaFwzUqCViLxfQxmn_IDozKWBh8g9NOUhbgueMMG4RNN5zAr0pObTejerh1R9dL61dXfZqZHFkHRSm8hJK_mFilNm9Bp71l24vkCiOpSge1DHxmfdF134T7qKiyIHtY1SBcwT7Oq-is3yd2h84D5-zk3l9aOCKYN4kB3eVhOXwNGdd5GdJqV0Hx8KXw">
+<img alt="Entity Logo 4" class="h-12 w-auto" data-alt="A sophisticated government emblem logo intended for an infrastructure department. The design features strong structural elements, perhaps a bridge or architectural lines, styled with modern minimalism. It is strictly monochromatic, stark against a white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz65YjcFN0L0cez8ZaEOMYcCwveFRSRxWOSkX6K0UjVDN2QwlF1vtirv8X8ETPr9_KQHrhjkVXoGxfsN8FJ95Flivp0SX_tYIcWDdGMp_af79kKitNABF1L5qvYIOH84oWZ_kgA2lASB2bHazJ1gAm6VwideS4vqgZ4uUWqwamJ1lIbYHarah-6UGBkynLUKsodpPQkHhKp-oI2NxJ9L8RgclSmbjmrHUuvQBeZ-4rvOvYCTpaC5qUDw">
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-primary text-center mb-xl">Precision Engineering for Policy</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Main Feature -->
+<div class="md:col-span-2 md:row-span-2 bg-surface-container-lowest rounded-xl p-lg ambient-shadow hairline-border flex flex-col justify-between group">
+<div>
+<span class="material-symbols-outlined text-4xl text-primary mb-md" data-icon="policy">policy</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-sm">Automated Compliance Auditing</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md max-w-md">Every AI inference and model update is immutably logged and mapped against current legislative frameworks, ensuring zero friction during regulatory reviews.</p>
+</div>
+<div class="w-full h-48 bg-surface-container-low rounded-lg mt-lg overflow-hidden relative">
+<img alt="Compliance Dashboard UI" class="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A crisp, conceptual UI mockup showing a compliance dashboard. The screen displays clean charts, green checkmarks indicating 'pass' status, and lines of structured data logs. The interface is light-mode, minimalist, utilizing exact shades of blue, white, and subtle grey. It looks like a highly secure, modern government software tool." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFIYypbziO94r0nge5b-EX8CwfCtL-ysxzZthgaMm2zB4ScDAdvjIdKye1-YN2k0nR1Yt221YYxi0scvcThmlf_x-IMnfpuIIiwrp4sJm2UwyWvkOy6wTPDfY4IBkmgaCOXR7_3o9i5RMOJFi01AyM1nng4X8U1052VKhbacsRVWjt0wYF7WeOln9X15DHQ4GSqXmqg_hFmceJkp3WVJkxIr5GgR2DAby5CHSApoqWwa5Y9QQi7LKfTg">
+</div>
+</div>
+<!-- Secondary Feature 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-md ambient-shadow hairline-border">
+<span class="material-symbols-outlined text-3xl text-primary mb-sm" data-icon="dns">dns</span>
+<h3 class="font-title-lg text-title-lg text-primary mb-sm">Sovereign Data Silos</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Data never leaves the national border. Full hardware-level isolation for classified datasets.</p>
+</div>
+<!-- Secondary Feature 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-md ambient-shadow hairline-border">
+<span class="material-symbols-outlined text-3xl text-primary mb-sm" data-icon="model_training">model_training</span>
+<h3 class="font-title-lg text-title-lg text-primary mb-sm">Pre-vetted Model Library</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Deploy instantly from a repository of AI models rigorously tested for bias and accuracy by the Ministry.</p>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="bg-surface-container-low rounded-xl p-xl mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-center text-primary mb-lg">Empowering the Ministry Core</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-lg text-center">
+<div>
+<div class="font-display-lg text-display-lg text-primary mb-xs">99.9%</div>
+<div class="font-label-md text-label-md text-outline uppercase">Uptime Guarantee</div>
+</div>
+<div>
+<div class="font-display-lg text-display-lg text-primary mb-xs">0</div>
+<div class="font-label-md text-label-md text-outline uppercase">Data Breaches</div>
+</div>
+<div>
+<div class="font-display-lg text-display-lg text-primary mb-xs">45+</div>
+<div class="font-label-md text-label-md text-outline uppercase">Agencies Onboarded</div>
+</div>
+<div>
+<div class="font-display-lg text-display-lg text-primary mb-xs">&lt;10ms</div>
+<div class="font-label-md text-label-md text-outline uppercase">Inference Latency</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="text-center py-xl">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-md">Ready to streamline ICT policy?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-lg max-w-2xl mx-auto">Initiate a secure workspace or contact our technical liaison for a demonstration of sovereign capabilities.</p>
+<div class="flex justify-center gap-md">
+<button class="bg-primary text-on-primary px-lg py-md rounded font-title-lg text-title-lg hover:bg-on-primary-fixed-variant transition-colors shadow-lg shadow-primary/20">Initialize Workspace</button>
+</div>
+</section>
+</main>
+</body></html>

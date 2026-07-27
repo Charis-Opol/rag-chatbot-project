@@ -1,0 +1,452 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Knowledge Base Reports | GovAI Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#eff1f3",
+                    "outline": "#737780",
+                    "surface-tint": "#3b5f92",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-border": "#E2E8F0",
+                    "on-tertiary-fixed-variant": "#004a79",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#7a9ed4",
+                    "primary-fixed": "#d4e3ff",
+                    "primary-container": "#023464",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-fixed": "#ffdbca",
+                    "secondary-container": "#fd761a",
+                    "outline-variant": "#c3c6d0",
+                    "surface-container-highest": "#e0e3e5",
+                    "background": "#f7f9fb",
+                    "on-secondary-container": "#5c2400",
+                    "tertiary-fixed": "#d0e4ff",
+                    "surface-container": "#eceef0",
+                    "primary": "#001f40",
+                    "primary-fixed-dim": "#a6c8ff",
+                    "on-background": "#191c1e",
+                    "inverse-surface": "#2d3133",
+                    "inverse-primary": "#a6c8ff",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb690",
+                    "on-tertiary-container": "#5ba1e4",
+                    "secondary": "#9d4300",
+                    "tertiary-container": "#00365b",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f7f9fb",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-variant": "#e0e3e5",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#001d34",
+                    "surface-dim": "#d8dadc",
+                    "success-green": "#10B981",
+                    "on-surface-variant": "#43474f",
+                    "on-primary-fixed": "#001c3b",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#783200",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#204778",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "tertiary": "#002039",
+                    "slate-dark": "#0F172A",
+                    "on-secondary-fixed": "#341100",
+                    "on-surface": "#191c1e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max-width": "1440px",
+                    "page-margin-desktop": "32px",
+                    "gutter": "24px",
+                    "section-gap": "64px",
+                    "page-margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-xl": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #F8FAFC;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #E2E8F0;
+        border-radius: 10px;
+      }
+      .glass-effect {
+        backdrop-filter: blur(8px);
+        background: rgba(255, 255, 255, 0.85);
+      }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="bg-surface-container-lowest dark:bg-inverse-surface border-b border-surface-border dark:border-outline-variant shadow-sm flex justify-between items-center px-page-margin-desktop h-16 w-full sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<span class="text-headline-lg font-headline-lg font-bold text-primary dark:text-primary-fixed-dim">GovAI Analytics</span>
+<nav class="hidden md:flex gap-6 items-center h-full">
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline hover:bg-surface-container-low transition-colors duration-200" href="#">Dashboard</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline hover:bg-surface-container-low transition-colors duration-200" href="#">AI Usage</a>
+<a class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors duration-200">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors duration-200">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-surface-border">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-primary-container flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a government administrator in a high-tech office setting. The lighting is crisp and natural, with soft blue accents from nearby monitors. The style is clean, corporate photography with shallow depth of field, reflecting the Ministry of ICT's modern enterprise identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3T8BG1HV0abxjf4mJzFwIV4vuhSXEdREe5HnoL3SOaWELPsM26mksBVsoWmaEUVm3Admzq6camp1u75XBpGR1QdBceblSC_t7k7dOgs--CN1NoF7h14p5o5nDtBpp9aL0p-akWM0nbC0mGgZVmZeV-dg_qAD4824sLarnY5Zb7fvh_CwFxfkiADqVl9QiCAqnGOehPn1oRFSI0qu82A46eE5d2luMjDiTI3fUb6QzUrIXgCxJATvQRA">
+</div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Profile</span>
+</div>
+</div>
+</header>
+<div class="flex">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 flex flex-col fixed left-0 top-16 bg-surface-container-low dark:bg-surface-dim border-r border-surface-border dark:border-outline-variant hidden md:flex">
+<div class="flex flex-col h-full py-6 px-4 gap-4">
+<div class="mb-4">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+<div>
+<p class="font-headline-lg text-[16px] font-bold text-primary">Ministry of ICT</p>
+<p class="font-body-md text-[12px] text-outline">Enterprise AI Platform</p>
+</div>
+</div>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 cursor-pointer active:scale-95 rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 cursor-pointer active:scale-95 rounded-lg" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label-md text-label-md">AI Usage</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 cursor-pointer active:scale-95 rounded-lg" href="#">
+<span class="material-symbols-outlined">search_insights</span>
+<span class="font-label-md text-label-md">Search Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container font-bold rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+<div class="mt-auto pt-6 flex flex-col gap-2">
+<button class="bg-secondary text-white font-label-md py-3 px-4 rounded-xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity mb-4">
+<span class="material-symbols-outlined">upgrade</span>
+                        Upgrade Analytics
+                    </button>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="font-label-md">System Status</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 md:ml-64 p-page-margin-desktop bg-background min-h-screen">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-primary mb-2">Knowledge Base Reports</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Comprehensive analysis of national ICT document indexing and AI retrieval performance.</p>
+</div>
+<button class="flex items-center gap-2 bg-primary px-6 py-3 rounded-xl text-white font-label-md hover:shadow-lg transition-shadow">
+<span class="material-symbols-outlined">download</span>
+                    Monthly PDF Report
+                </button>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Indexing Health (Hero Card) -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-surface-border rounded-xl p-6 shadow-sm flex flex-col gap-6">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-lg text-[20px] text-primary">Indexing Health &amp; Success Rates</h3>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-success-green/10 text-success-green text-label-sm rounded-full flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-success-green rounded-full"></span> Healthy
+                            </span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-6">
+<div class="bg-surface-container-low p-4 rounded-xl">
+<p class="font-label-sm text-outline uppercase mb-1">Total Documents</p>
+<p class="font-display-lg text-[32px] text-primary">12,482</p>
+<p class="text-success-green text-label-sm mt-1">+12% vs last month</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl">
+<p class="font-label-sm text-outline uppercase mb-1">Success Rate</p>
+<p class="font-display-lg text-[32px] text-primary">99.2%</p>
+<p class="text-on-surface-variant text-label-sm mt-1">102 failures tracked</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl">
+<p class="font-label-sm text-outline uppercase mb-1">Avg. Processing</p>
+<p class="font-display-lg text-[32px] text-primary">1.4s</p>
+<p class="text-success-green text-label-sm mt-1">8% faster optimization</p>
+</div>
+</div>
+<div class="h-48 w-full mt-4 flex items-end justify-between gap-2 px-2">
+<!-- Simulated Bar Chart -->
+<div class="w-full bg-primary/10 rounded-t-lg relative group h-[40%]">
+<div class="absolute inset-x-0 bottom-0 bg-primary rounded-t-lg h-[80%] transition-all duration-500 group-hover:h-full"></div>
+</div>
+<div class="w-full bg-primary/10 rounded-t-lg relative group h-[60%]">
+<div class="absolute inset-x-0 bottom-0 bg-primary rounded-t-lg h-[75%] transition-all duration-500 group-hover:h-full"></div>
+</div>
+<div class="w-full bg-primary/10 rounded-t-lg relative group h-[90%]">
+<div class="absolute inset-x-0 bottom-0 bg-primary rounded-t-lg h-[92%] transition-all duration-500 group-hover:h-full"></div>
+</div>
+<div class="w-full bg-primary/10 rounded-t-lg relative group h-[70%]">
+<div class="absolute inset-x-0 bottom-0 bg-primary rounded-t-lg h-[85%] transition-all duration-500 group-hover:h-full"></div>
+</div>
+<div class="w-full bg-primary/10 rounded-t-lg relative group h-[100%]">
+<div class="absolute inset-x-0 bottom-0 bg-secondary rounded-t-lg h-[95%] transition-all duration-500 group-hover:h-full"></div>
+</div>
+<div class="w-full bg-primary/10 rounded-t-lg relative group h-[85%]">
+<div class="absolute inset-x-0 bottom-0 bg-primary rounded-t-lg h-[88%] transition-all duration-500 group-hover:h-full"></div>
+</div>
+<div class="w-full bg-primary/10 rounded-t-lg relative group h-[95%]">
+<div class="absolute inset-x-0 bottom-0 bg-primary rounded-t-lg h-[98%] transition-all duration-500 group-hover:h-full"></div>
+</div>
+</div>
+</div>
+<!-- Coverage Categories -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest border border-surface-border rounded-xl p-6 shadow-sm">
+<h3 class="font-headline-lg text-[20px] text-primary mb-6">Document Categories</h3>
+<div class="space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between font-label-md">
+<span class="text-on-surface">Policy Documents</span>
+<span class="text-outline">45%</span>
+</div>
+<div class="h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[45%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between font-label-md">
+<span class="text-on-surface">Technical Manuals</span>
+<span class="text-outline">32%</span>
+</div>
+<div class="h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-on-tertiary-container w-[32%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between font-label-md">
+<span class="text-on-surface">Financial Reports</span>
+<span class="text-outline">18%</span>
+</div>
+<div class="h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[18%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between font-label-md">
+<span class="text-on-surface">Others</span>
+<span class="text-outline">5%</span>
+</div>
+<div class="h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-outline w-[5%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 p-4 bg-primary-container rounded-xl text-white">
+<p class="font-label-sm opacity-80 uppercase tracking-wider mb-1">Knowledge Density</p>
+<p class="font-body-md">Policy coverage has expanded by <span class="font-bold text-secondary-fixed">2.4k docs</span> this quarter following the Digital Uganda Vision update.</p>
+</div>
+</div>
+<!-- Document Age & Frequency -->
+<div class="col-span-12 lg:col-span-5 bg-surface-container-lowest border border-surface-border rounded-xl p-6 shadow-sm relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="font-headline-lg text-[20px] text-primary">Age &amp; Refresh Frequency</h3>
+<p class="font-body-md text-label-sm text-outline">Recency of indexed data</p>
+</div>
+<span class="material-symbols-outlined text-primary/20 scale-150">history</span>
+</div>
+<div class="flex items-center justify-center py-4">
+<!-- Custom Gauge/Semi-circle visualization using CSS -->
+<div class="relative w-48 h-24 overflow-hidden">
+<div class="absolute top-0 w-48 h-48 rounded-full border-[12px] border-surface-container-high"></div>
+<div class="absolute top-0 w-48 h-48 rounded-full border-[12px] border-primary border-b-transparent border-r-transparent transform rotate-[45deg]"></div>
+<div class="absolute bottom-0 inset-x-0 text-center">
+<span class="font-display-lg text-[28px] text-primary">68%</span>
+<p class="font-label-sm text-outline">Fresh (&lt; 30 days)</p>
+</div>
+</div>
+</div>
+<ul class="mt-6 space-y-3">
+<li class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+<span class="font-label-md">Last 24 Hours</span>
+<span class="font-label-md font-bold text-primary">142 docs</span>
+</li>
+<li class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+<span class="font-label-md">Last 7 Days</span>
+<span class="font-label-md font-bold text-primary">894 docs</span>
+</li>
+<li class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+<span class="font-label-md">Stale (&gt; 180 Days)</span>
+<span class="font-label-md font-bold text-error">1,202 docs</span>
+</li>
+</ul>
+</div>
+<!-- Most Referenced Documents -->
+<div class="col-span-12 lg:col-span-7 bg-surface-container-lowest border border-surface-border rounded-xl p-6 shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-lg text-[20px] text-primary">Most Referenced in AI Responses</h3>
+<a class="text-primary font-label-sm hover:underline" href="#">View All</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full">
+<thead>
+<tr class="text-left border-b border-surface-border">
+<th class="pb-3 font-label-sm text-outline uppercase">Document Name</th>
+<th class="pb-3 font-label-sm text-outline uppercase">References</th>
+<th class="pb-3 font-label-sm text-outline uppercase">Last Used</th>
+<th class="pb-3 font-label-sm text-outline uppercase">Trend</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-border">
+<tr>
+<td class="py-4 font-label-md text-primary">National Data Privacy Policy 2024</td>
+<td class="py-4 font-label-md">4,821</td>
+<td class="py-4 font-label-md text-outline">2 mins ago</td>
+<td class="py-4"><span class="text-success-green material-symbols-outlined">trending_up</span></td>
+</tr>
+<tr>
+<td class="py-4 font-label-md text-primary">ICT Infrastructure Guidelines v2.1</td>
+<td class="py-4 font-label-md">3,105</td>
+<td class="py-4 font-label-md text-outline">15 mins ago</td>
+<td class="py-4"><span class="text-success-green material-symbols-outlined">trending_up</span></td>
+</tr>
+<tr>
+<td class="py-4 font-label-md text-primary">Citizen Digital Literacy Roadmap</td>
+<td class="py-4 font-label-md">2,442</td>
+<td class="py-4 font-label-md text-outline">1 hr ago</td>
+<td class="py-4"><span class="text-secondary material-symbols-outlined">trending_flat</span></td>
+</tr>
+<tr>
+<td class="py-4 font-label-md text-primary">Ministry Annual Budget Report 2023</td>
+<td class="py-4 font-label-md">1,890</td>
+<td class="py-4 font-label-md text-outline">4 hrs ago</td>
+<td class="py-4"><span class="text-error material-symbols-outlined">trending_down</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Missing Knowledge Gap Identification -->
+<div class="col-span-12 bg-primary text-white rounded-xl p-8 relative overflow-hidden">
+<!-- Subtle background pattern/decoration -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+<div class="absolute bottom-0 left-0 w-48 h-48 bg-on-tertiary-container/20 rounded-full blur-2xl transform -translate-x-1/4 translate-y-1/4"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center gap-10">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+<h3 class="font-headline-lg text-white">Knowledge Gap Analysis</h3>
+</div>
+<p class="font-body-xl text-primary-fixed-dim mb-6">AI analysis has identified several recurring citizen queries that lack authoritative source documentation in the current knowledge base.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-white/5 border border-white/10 p-4 rounded-xl flex items-start gap-4">
+<div class="p-2 bg-error/20 rounded-lg"><span class="material-symbols-outlined text-error">priority_high</span></div>
+<div>
+<p class="font-label-md text-white">Regional 5G Deployment timelines</p>
+<p class="font-label-sm text-primary-fixed-dim">Found in 15% of unanswered queries</p>
+</div>
+</div>
+<div class="bg-white/5 border border-white/10 p-4 rounded-xl flex items-start gap-4">
+<div class="p-2 bg-secondary/20 rounded-lg"><span class="material-symbols-outlined text-secondary">analytics</span></div>
+<div>
+<p class="font-label-md text-white">BPO Incentive Tax Framework</p>
+<p class="font-label-sm text-primary-fixed-dim">Specific sectoral tax data missing</p>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full md:w-auto">
+<button class="w-full bg-white text-primary px-8 py-4 rounded-xl font-bold font-label-md hover:bg-primary-fixed transition-colors shadow-xl">
+                                Generate Gap Resolution Task
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Ministry Branding -->
+<footer class="mt-section-gap pt-8 border-t border-surface-border flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-4">
+<img class="h-10 opacity-80" data-alt="A small, elegant version of the Uganda National Coat of Arms rendered in a minimalist vector style. The colors are muted golds and deep blues to fit the Ministry of ICT corporate branding. It sits beside the text 'Ministry of ICT and National Guidance' in a clean sans-serif font." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHKqV2zyPAakcFY3jtCHcIRwmPDhi9pMZDf-GdknuVaDvRAJlTzTtPhSdKECnEbwize6oYlvhA5sklGNnzwUBs3ylsanPMsQZiKdNOaRM3oQH5yGqk6WcKAp_1e1-IUpUihj8hs56TjG8Tn181bpTjT53WUeyKEPQ1VU9ZxJNZhppcb581Cvy8qOJfH5T0ODzPVmg5S6He2Uai78-u93dzDwEiEhkssYuDmTsL7qRRsAobGT8FmLevyw">
+<div class="h-8 w-px bg-surface-border"></div>
+<p class="font-label-sm text-outline">Republic of Uganda<br>© 2026 Ministry of ICT &amp; National Guidance</p>
+</div>
+<div class="flex gap-8">
+<a class="font-label-sm text-on-surface-variant hover:text-primary" href="#">Data Policy</a>
+<a class="font-label-sm text-on-surface-variant hover:text-primary" href="#">Compliance</a>
+<a class="font-label-sm text-on-surface-variant hover:text-primary" href="#">API Access</a>
+</div>
+</footer>
+</main>
+</div>
+<!-- Micro-interaction script -->
+<script>
+        document.querySelectorAll('.group').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                // Potential for adding tooltips or dynamic data reveal
+            });
+        });
+    </script>
+</body></html>

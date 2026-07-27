@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>System Settings | Ministry of ICT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-primary-fixed": "#001c3b",
+                "surface-container-lowest": "#ffffff",
+                "primary": "#001f40",
+                "tertiary-container": "#00365b",
+                "surface-border": "#E2E8F0",
+                "surface-container-high": "#e6e8ea",
+                "inverse-on-surface": "#eff1f3",
+                "error": "#ba1a1a",
+                "primary-container": "#023464",
+                "secondary-fixed": "#ffdbca",
+                "on-error": "#ffffff",
+                "tertiary-fixed": "#d0e4ff",
+                "surface-container-low": "#f2f4f6",
+                "primary-fixed": "#d4e3ff",
+                "tertiary": "#002039",
+                "surface": "#f7f9fb",
+                "on-error-container": "#93000a",
+                "tertiary-fixed-dim": "#9bcbff",
+                "on-surface-variant": "#43474f",
+                "on-primary-container": "#7a9ed4",
+                "on-secondary-fixed-variant": "#783200",
+                "on-secondary-container": "#5c2400",
+                "outline": "#737780",
+                "on-tertiary": "#ffffff",
+                "primary-fixed-dim": "#a6c8ff",
+                "on-primary-fixed-variant": "#204778",
+                "background": "#f7f9fb",
+                "on-tertiary-fixed": "#001d34",
+                "on-surface": "#191c1e",
+                "surface-tint": "#3b5f92",
+                "success-green": "#10B981",
+                "on-secondary-fixed": "#341100",
+                "surface-container-highest": "#e0e3e5",
+                "secondary-container": "#fd761a",
+                "secondary": "#9d4300",
+                "on-primary": "#ffffff",
+                "on-tertiary-container": "#5ba1e4",
+                "slate-dark": "#0F172A",
+                "inverse-surface": "#2d3133",
+                "surface-variant": "#e0e3e5",
+                "surface-dim": "#d8dadc",
+                "surface-container": "#eceef0",
+                "on-secondary": "#ffffff",
+                "on-tertiary-fixed-variant": "#004a79",
+                "error-container": "#ffdad6",
+                "surface-bright": "#f7f9fb",
+                "secondary-fixed-dim": "#ffb690",
+                "inverse-primary": "#a6c8ff",
+                "outline-variant": "#c3c6d0",
+                "on-background": "#191c1e"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "page-margin-mobile": "16px",
+                "section-gap": "64px",
+                "page-margin-desktop": "32px",
+                "gutter": "24px",
+                "container-max-width": "1440px"
+        },
+        "fontFamily": {
+                "label-sm": [
+                        "Inter"
+                ],
+                "headline-xl": [
+                        "Inter"
+                ],
+                "display-lg": [
+                        "Inter"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ],
+                "label-md": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Inter"
+                ],
+                "body-xl": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-xl": [
+                        "36px",
+                        {
+                                "lineHeight": "44px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "30px",
+                        {
+                                "lineHeight": "38px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-xl": [
+                        "20px",
+                        {
+                                "lineHeight": "30px",
+                                "fontWeight": "400"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .settings-card { transition: all 0.2s ease-in-out; }
+        .settings-card:hover { box-shadow: 0 10px 15px -3px rgba(2, 52, 100, 0.05); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        .active-nav { background-color: #023464 !important; color: white !important; }
+    </style>
+</head>
+<body class="text-on-surface">
+<div class="flex min-h-screen">
+<!-- Side Navigation Shell -->
+<aside class="hidden md:flex flex-col h-screen left-0 w-64 bg-surface-container-lowest border-r border-surface-border py-6 px-4 gap-y-2 sticky top-0 shrink-0">
+<div class="px-2 mb-8">
+<h1 class="text-headline-xl font-headline-xl text-primary tracking-tight">ICT Admin</h1>
+<p class="text-label-md font-label-md text-on-surface-variant">Staff Portal</p>
+</div>
+<nav class="flex flex-col gap-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="text-label-md font-label-md">Chat</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">database</span>
+<span class="text-label-md font-label-md">Knowledge Base</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="text-label-md font-label-md">Projects</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-y-2 border-t border-surface-border pt-6">
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-white rounded-lg font-semibold shadow-sm" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 min-w-0 overflow-y-auto flex flex-col h-screen">
+<!-- Top Header -->
+<header class="bg-surface/90 backdrop-blur-md sticky top-0 z-10 border-b border-surface-border h-16 flex justify-between items-center px-page-margin-desktop w-full shrink-0">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">settings</span>
+<h2 class="text-[18px] font-semibold text-primary tracking-tight">System Settings</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary-container text-white px-5 py-2.5 rounded-lg text-label-md font-semibold hover:bg-primary transition-colors shadow-sm">
+                        Save All Changes
+                    </button>
+<div class="w-10 h-10 rounded-full bg-surface-container-high border border-surface-border overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of a government ICT administrator in a clean white shirt, soft office lighting, high-quality corporate photography style with a blurred tech office background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACCyRBZcTK17qqDihAhsBJ54Qkb3iME-TbB8fCX7BkeTwAJthO0pMabfNc6oJeXje4YH_xtft3gt-YppkHgcYmNvQWSeIaTttxgs0ceXkevBrM4_EqwbJTXB8mMXODn6WNkNwecgPrlXEbX3Ex_5V9LUGQ_ukLXsTy8r5B90njwrY1ctR7ru5zkMW3sGmJw-B6TyXjaJCbh9whd_DQ8tJ2WK0yDmoplj5jujk-1oCH0M0N8xK-Rhd0ng"/>
+</div>
+</div>
+</header>
+<div class="flex-1 p-page-margin-desktop max-w-[1200px] w-full mx-auto space-y-section-gap overflow-y-auto">
+<!-- Settings Navigation & Content Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+<!-- Vertical Sub-Nav -->
+<nav class="lg:col-span-3 space-y-2">
+<button class="setting-tab w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-left text-[15px] font-semibold bg-primary-container text-white active-tab shadow-sm" id="tab-general" onclick="showSection('general')">
+<span class="material-symbols-outlined">desktop_windows</span>
+                            General
+                        </button>
+<button class="setting-tab w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-left text-[15px] font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors" id="tab-security" onclick="showSection('security')">
+<span class="material-symbols-outlined">security</span>
+                            Security
+                        </button>
+<button class="setting-tab w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-left text-[15px] font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors" id="tab-ai" onclick="showSection('ai')">
+<span class="material-symbols-outlined">psychology</span>
+                            AI Configuration
+                        </button>
+<button class="setting-tab w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-left text-[15px] font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors" id="tab-backup" onclick="showSection('backup')">
+<span class="material-symbols-outlined">backup</span>
+                            Backup &amp; Restore
+                        </button>
+<button class="setting-tab w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-left text-[15px] font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors" id="tab-notifications" onclick="showSection('notifications')">
+<span class="material-symbols-outlined">mail</span>
+                            Notifications
+                        </button>
+</nav>
+<!-- Settings Sections -->
+<div class="lg:col-span-9 space-y-8">
+<!-- General Settings Section -->
+<section class="settings-section space-y-8" id="section-general">
+<div class="bg-surface-container-lowest rounded-2xl border border-surface-border p-8 shadow-sm">
+<h3 class="text-[18px] font-semibold text-primary mb-2">General Administration</h3>
+<p class="text-body-md text-on-surface-variant mb-8 border-b border-surface-border pb-6">Configure basic institutional identity and branding.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-3">
+<label class="text-[14px] font-semibold text-on-surface">Site Name</label>
+<input class="w-full bg-surface border border-transparent focus:border-surface-border focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container/20 rounded-xl px-4 py-3.5 text-body-md transition-all" type="text" value="Ministry of ICT &amp; National Guidance"/>
+<p class="text-[13px] text-outline">The public-facing name of the staff portal.</p>
+</div>
+<div class="space-y-3">
+<label class="text-[14px] font-semibold text-on-surface">System Environment</label>
+<select class="w-full bg-surface border border-transparent focus:border-surface-border focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container/20 rounded-xl px-4 py-3.5 text-body-md transition-all appearance-none">
+<option>Production (Stable)</option>
+<option>Staging</option>
+<option>Development</option>
+</select>
+</div>
+<div class="md:col-span-2 space-y-4 pt-6">
+<label class="text-[14px] font-semibold text-on-surface">Institutional Logo</label>
+<div class="flex items-center gap-6 p-6 border border-dashed border-surface-border rounded-2xl bg-surface">
+<div class="w-24 h-24 bg-surface-container-lowest rounded-xl border border-surface-border flex items-center justify-center p-3 shadow-sm">
+<img class="max-h-full" data-alt="A clean, professional minimalist logo emblem for a government technology ministry, featuring a stylized crest with blue and orange accents on a white background, sharp vector graphics style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOXgmerR8FRIK66Nq5deTF7kCfR4yQnbB7KjJdfldou3mnY-5X9Vs_xSoH5qgVdUpMRg3sUswb-Q514p0xABusVMeIBUCcbqJ8UIsyfCN4O1FRds23cAB2hinaebAyeu5DtIDX6wiyNiKxu9SOSSTUl0LLEuZsZZz6-Iu9IiKZiufktEtjC_JfVTKQC8azU_pqHYFYtFpodZs1ImYYqoPHPOrW473qU_YejMBHPahc6uleD59Octp0Bw"/>
+</div>
+<div class="flex-1 space-y-3">
+<p class="text-[15px] font-semibold text-primary">Upload new logo</p>
+<p class="text-[13px] text-outline">SVG, PNG or JPG (Max 2MB). Recommended size: 512x512px.</p>
+<button class="px-5 py-2.5 bg-surface-container-lowest border border-surface-border text-primary rounded-xl text-[14px] font-semibold hover:bg-surface transition-colors shadow-sm">Replace Image</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Security Section -->
+<section class="settings-section hidden space-y-8" id="section-security">
+<div class="bg-surface-container-lowest rounded-2xl border border-surface-border p-8 shadow-sm">
+<h3 class="text-[18px] font-semibold text-primary mb-2">Security &amp; Authentication</h3>
+<p class="text-body-md text-on-surface-variant mb-8 border-b border-surface-border pb-6">Manage system access controls and protection policies.</p>
+<div class="space-y-8">
+<div class="flex items-center justify-between p-5 bg-surface rounded-2xl border border-surface-border">
+<div>
+<p class="text-[14px] font-semibold text-primary">Multi-Factor Authentication (MFA)</p>
+<p class="text-[13px] text-on-surface-variant mt-1">Require all staff to use TOTP or SMS verification for login.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-success-green"></div>
+</label>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-3">
+<label class="text-[14px] font-semibold text-on-surface">Session Timeout (Minutes)</label>
+<input class="w-full bg-surface border border-transparent focus:border-surface-border focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container/20 rounded-xl px-4 py-3.5 text-body-md transition-all" type="number" value="30"/>
+</div>
+<div class="space-y-3">
+<label class="text-[14px] font-semibold text-on-surface">Password Expiry (Days)</label>
+<input class="w-full bg-surface border border-transparent focus:border-surface-border focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container/20 rounded-xl px-4 py-3.5 text-body-md transition-all" type="number" value="90"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Configuration Section -->
+<section class="settings-section hidden space-y-8" id="section-ai">
+<div class="bg-surface-container-lowest rounded-2xl border border-surface-border p-8 shadow-sm">
+<h3 class="text-[18px] font-semibold text-primary mb-2">AI &amp; Model Configuration</h3>
+<p class="text-body-md text-on-surface-variant mb-8 border-b border-surface-border pb-6">Manage the intelligence layer powering national guidance tools.</p>
+<div class="space-y-8">
+<div class="space-y-3">
+<label class="text-[14px] font-semibold text-on-surface">Primary Language Model</label>
+<select class="w-full bg-surface border border-transparent focus:border-surface-border focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container/20 rounded-xl px-4 py-3.5 text-body-md transition-all appearance-none">
+<option>Uganda-GPT (v2.4 Enterprise)</option>
+<option>Llama 3 (Ministry Fine-tuned)</option>
+<option>Claude 3.5 Sonnet</option>
+</select>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<label class="text-[14px] font-semibold text-on-surface">Model Temperature</label>
+<span class="text-[13px] font-semibold text-secondary">0.7 (Balanced)</span>
+</div>
+<input class="w-full h-2 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-secondary" max="1" min="0" step="0.1" type="range" value="0.7"/>
+<div class="flex justify-between text-[11px] text-outline uppercase font-semibold tracking-wider">
+<span>Precise / Fact-based</span>
+<span>Creative / Conversational</span>
+</div>
+</div>
+<div class="p-5 bg-tertiary-container/5 rounded-2xl border border-tertiary-container/20">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-tertiary-container mt-0.5">info</span>
+<div>
+<p class="text-[14px] font-semibold text-tertiary-container">API Credit Balance</p>
+<p class="text-[14px] text-tertiary-container/80 mt-1">Your ministry account has 4.2M tokens remaining for this billing cycle.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Backup & Restore Section -->
+<section class="settings-section hidden space-y-8" id="section-backup">
+<div class="bg-surface-container-lowest rounded-2xl border border-surface-border p-8 shadow-sm">
+<h3 class="text-[18px] font-semibold text-primary mb-2">Backup &amp; Disaster Recovery</h3>
+<p class="text-body-md text-on-surface-variant mb-8 border-b border-surface-border pb-6">Ensure data persistence and integrity across national nodes.</p>
+<div class="space-y-5">
+<div class="flex items-center justify-between p-5 border border-surface-border rounded-2xl hover:bg-surface transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 flex items-center justify-center bg-surface-container-high rounded-xl group-hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-primary text-[24px]">cloud_upload</span>
+</div>
+<div>
+<p class="text-[14px] font-semibold text-primary">Last Full Backup</p>
+<p class="text-[13px] text-on-surface-variant mt-1">Completed 4 hours ago (1.2 GB)</p>
+</div>
+</div>
+<button class="px-5 py-2.5 bg-surface-container-lowest border border-surface-border rounded-xl text-[14px] font-semibold hover:bg-surface transition-colors shadow-sm">Download</button>
+</div>
+<div class="flex items-center justify-between p-5 border border-surface-border rounded-2xl">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 flex items-center justify-center bg-secondary-container/10 rounded-xl">
+<span class="material-symbols-outlined text-secondary text-[24px]">schedule</span>
+</div>
+<div>
+<p class="text-[14px] font-semibold text-primary">Automated Backup Schedule</p>
+<p class="text-[13px] text-on-surface-variant mt-1">Daily at 03:00 EAT (Stored in regional cloud)</p>
+</div>
+</div>
+<button class="px-5 py-2.5 bg-secondary-container text-white rounded-xl text-[14px] font-semibold shadow-sm hover:bg-secondary-container/90 transition-colors">Configure</button>
+</div>
+</div>
+<div class="mt-8 pt-8 border-t border-surface-border">
+<h4 class="text-[14px] font-semibold text-error mb-5">Danger Zone</h4>
+<button class="w-full flex items-center justify-center gap-2 py-3.5 px-4 bg-surface-container-lowest border border-error text-error rounded-xl text-[14px] font-semibold hover:bg-error-container/10 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[20px]">restore_from_trash</span>
+                                        Restore System to Factory Defaults
+                                    </button>
+</div>
+</div>
+</section>
+<!-- Notification/Email Section -->
+<section class="settings-section hidden space-y-8" id="section-notifications">
+<div class="bg-surface-container-lowest rounded-2xl border border-surface-border p-8 shadow-sm">
+<h3 class="text-[18px] font-semibold text-primary mb-2">Notifications &amp; Email</h3>
+<p class="text-body-md text-on-surface-variant mb-8 border-b border-surface-border pb-6">Manage institutional communications and automated alerts.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-3">
+<label class="text-[14px] font-semibold text-on-surface">Sender Name</label>
+<input class="w-full bg-surface border border-transparent focus:border-surface-border focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container/20 rounded-xl px-4 py-3.5 text-body-md transition-all" type="text" value="Ministry Notification Bot"/>
+</div>
+<div class="space-y-3">
+<label class="text-[14px] font-semibold text-on-surface">Reply-to Email</label>
+<input class="w-full bg-surface border border-transparent focus:border-surface-border focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container/20 rounded-xl px-4 py-3.5 text-body-md transition-all" type="email" value="support@ict.go.ug"/>
+</div>
+<div class="md:col-span-2 pt-6 border-t border-surface-border mt-2">
+<h4 class="text-[15px] font-semibold text-primary mb-5">Event Subscriptions</h4>
+<div class="space-y-4">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 text-primary-container bg-surface border border-surface-border rounded focus:ring-primary-container/20 focus:ring-offset-0 transition-colors" type="checkbox"/>
+<span class="text-[14px] text-on-surface group-hover:text-primary transition-colors">New staff user registration alerts</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 text-primary-container bg-surface border border-surface-border rounded focus:ring-primary-container/20 focus:ring-offset-0 transition-colors" type="checkbox"/>
+<span class="text-[14px] text-on-surface group-hover:text-primary transition-colors">High-priority AI usage spikes</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 text-primary-container bg-surface border border-surface-border rounded focus:ring-primary-container/20 focus:ring-offset-0 transition-colors" type="checkbox"/>
+<span class="text-[14px] text-on-surface group-hover:text-primary transition-colors">Weekly system health summaries</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="flex justify-end gap-4 mt-8 pb-10">
+<button class="px-6 py-3 bg-surface-container-lowest border border-surface-border text-on-surface-variant rounded-xl text-[14px] font-semibold hover:bg-surface transition-colors shadow-sm">Discard Changes</button>
+<button class="px-8 py-3 bg-primary-container text-white rounded-xl text-[14px] font-semibold shadow-md hover:bg-primary transition-colors">Save Changes</button>
+</div>
+</div>
+<!-- Footer Shell -->
+<footer class="w-full py-6 px-page-margin-desktop flex flex-col md:flex-row justify-between items-center bg-surface-container-highest border-t border-surface-border shrink-0">
+<p class="text-[13px] text-on-surface-variant">© 2026 Ministry of ICT &amp; National Guidance. All Rights Reserved.</p>
+<div class="flex gap-6 mt-4 md:mt-0">
+<a class="text-[13px] text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-[13px] text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-[13px] text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Support</a>
+</div>
+</footer>
+</main>
+</div>
+<script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.settings-section');
+            sections.forEach(s => s.classList.add('hidden'));
+
+            // Show target section
+            const target = document.getElementById('section-' + sectionId);
+            if (target) target.classList.remove('hidden');
+
+            // Update Tab Styles
+            const tabs = document.querySelectorAll('.setting-tab');
+            tabs.forEach(t => {
+                t.classList.remove('bg-primary-container', 'text-white', 'font-semibold', 'active-tab', 'shadow-sm');
+                t.classList.add('text-on-surface-variant', 'font-medium');
+            });
+
+            const activeTab = document.getElementById('tab-' + sectionId);
+            activeTab.classList.remove('text-on-surface-variant', 'font-medium');
+            activeTab.classList.add('bg-primary-container', 'text-white', 'font-semibold', 'active-tab', 'shadow-sm');
+        }
+    </script>
+</body></html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Help &amp; Support | MoICT Staff Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#a6c8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary": "#ffffff",
+                    "primary": "#001f40",
+                    "surface-container-high": "#e6e8ea",
+                    "on-tertiary-fixed": "#001d34",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface": "#f7f9fb",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#d0e4ff",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "on-tertiary-fixed-variant": "#004a79",
+                    "on-primary-fixed": "#001c3b",
+                    "background": "#f8fafc",
+                    "on-secondary-container": "#5c2400",
+                    "on-secondary-fixed-variant": "#783200",
+                    "inverse-primary": "#a6c8ff",
+                    "primary-container": "#023464",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#d4e3ff",
+                    "on-tertiary-container": "#5ba1e4",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-fixed-dim": "#ffb690",
+                    "outline-variant": "#f1f5f9",
+                    "on-error-container": "#93000a",
+                    "surface-border": "#e2e8f0",
+                    "on-surface": "#0f172a",
+                    "surface-variant": "#f1f5f9",
+                    "outline": "#94a3b8",
+                    "on-surface-variant": "#475569",
+                    "surface-tint": "#3b5f92",
+                    "surface-dim": "#f1f5f9",
+                    "secondary-fixed": "#ffdbca",
+                    "slate-dark": "#0F172A",
+                    "success-green": "#10B981",
+                    "tertiary-container": "#00365b",
+                    "surface-container": "#f1f5f9",
+                    "on-primary-fixed-variant": "#204778",
+                    "tertiary": "#002039",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-background": "#0f172a",
+                    "on-primary-container": "#7a9ed4",
+                    "secondary-container": "#fd761a",
+                    "on-secondary-fixed": "#341100",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f8fafc",
+                    "secondary": "#9d4300"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.375rem",
+                    "lg": "0.5rem",
+                    "xl": "1rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "32px",
+                    "section-gap": "80px",
+                    "container-max-width": "1440px",
+                    "page-margin-mobile": "20px",
+                    "page-margin-desktop": "48px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter", "sans-serif"],
+                    "label-sm": ["Inter", "sans-serif"],
+                    "headline-xl": ["Inter", "sans-serif"],
+                    "display-lg": ["Inter", "sans-serif"],
+                    "label-md": ["Inter", "sans-serif"],
+                    "headline-lg-mobile": ["Inter", "sans-serif"],
+                    "body-xl": ["Inter", "sans-serif"],
+                    "headline-lg": ["Inter", "sans-serif"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-xl": ["42px", {"lineHeight": "52px", "letterSpacing": "-0.025em", "fontWeight": "700"}],
+                    "display-lg": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "800"}],
+                    "label-md": ["14px", {"lineHeight": "22px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-xl": ["22px", {"lineHeight": "34px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { background-color: #F8FAFC; }
+        .glass-header { backdrop-filter: blur(12px); background-color: rgba(255, 255, 255, 0.9); }
+        .transition-premium { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .card-shadow-premium { box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02), 0 4px 12px -2px rgba(2, 52, 100, 0.04); }
+        .hairline-stroke { border-width: 0.5px; }
+    </style>
+</head>
+<body class="font-body-md text-on-surface bg-background antialiased">
+<!-- TopNavBar -->
+<header class="glass-header sticky top-0 z-50 border-b border-surface-border/50 w-full h-20 flex justify-between items-center px-page-desktop">
+<div class="flex items-center gap-12">
+<h1 class="text-2xl font-extrabold text-primary-container tracking-tight">MoICT Portal</h1>
+<nav class="hidden md:flex gap-8">
+<span class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer text-label-md">Dashboard</span>
+<span class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer text-label-md">Projects</span>
+<div class="relative">
+<span class="text-primary-container font-bold text-label-md px-1">Support</span>
+<div class="absolute -bottom-7 left-0 right-0 h-0.5 bg-primary-container rounded-full"></div>
+</div>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-xl">search</span>
+<input class="pl-12 pr-6 py-2.5 bg-slate-100/50 border-none rounded-full w-72 text-label-md focus:ring-1 focus:ring-primary-container/20 focus:bg-white transition-all placeholder:text-outline" placeholder="Search institutional resources..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2.5 text-on-surface-variant hover:bg-slate-100 rounded-full transition-premium">
+<span class="material-symbols-outlined text-2xl">notifications</span>
+</button>
+<button class="p-2.5 text-on-surface-variant hover:bg-slate-100 rounded-full transition-premium">
+<span class="material-symbols-outlined text-2xl">help</span>
+</button>
+</div>
+<div class="h-10 w-10 rounded-full bg-primary-fixed-dim overflow-hidden ring-2 ring-white shadow-sm cursor-pointer">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVr9NFvFx3tv2xpHL4OByf19dlXQ7sLTu1HIJMs5mSycPEC6QCClBqmfkmfO4NLHd-yKyq1V80G4MZdJm-eYFHxJv9TtfqnV9WRjVxICddPtmGC1-RX3S2xykwXAJReLV9HhaRNjn4abithw2234N2y3Qyu1daFc1Lbz0eGVU59sMcFR0l_B_iyd_5exxFMZRCLyK5_pOZ8QZxaYSuWHjFYBjv_il9sObXe-V6550hQIKaj3MAOy2L3g"/>
+</div>
+</div>
+</header>
+<div class="flex max-w-[1536px] mx-auto min-h-[calc(100vh-80px)]">
+<!-- SideNavBar (Refined Sidebar) -->
+<aside class="h-full w-80 flex-shrink-0 flex flex-col p-8 gap-8 border-r border-surface-border/50 sticky top-20">
+<div>
+<h2 class="font-bold text-primary-container text-2xl mb-1">Help Center</h2>
+<p class="text-label-md text-on-surface-variant/70">Institutional Support Hub</p>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-4 px-5 py-4 bg-primary-container text-white shadow-lg shadow-primary-container/10 rounded-xl font-semibold transition-premium" href="#">
+<span class="material-symbols-outlined">help_center</span>
+<span class="text-label-md">Knowledge Base</span>
+</a>
+<a class="flex items-center gap-4 px-5 py-4 text-on-surface-variant hover:bg-slate-100/80 transition-premium rounded-xl" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-label-md">User Guides</span>
+</a>
+<a class="flex items-center gap-4 px-5 py-4 text-on-surface-variant hover:bg-slate-100/80 transition-premium rounded-xl" href="#">
+<span class="material-symbols-outlined">report_problem</span>
+<span class="text-label-md">Report Issue</span>
+</a>
+<a class="flex items-center gap-4 px-5 py-4 text-on-surface-variant hover:bg-slate-100/80 transition-premium rounded-xl" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="text-label-md">Contact ICT</span>
+</a>
+</nav>
+<div class="mt-auto pt-8">
+<div class="bg-white hairline-stroke border-surface-border p-6 rounded-2xl relative overflow-hidden card-shadow-premium">
+<div class="relative z-10">
+<p class="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant/50 mb-3">Service Status</p>
+<div class="flex items-center gap-3">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success-green opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-success-green"></span>
+</span>
+<p class="text-sm font-bold text-on-surface">Systems Operational</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow p-page-desktop space-y-12">
+<!-- Hero Search Section (Executive Elevation) -->
+<section class="bg-white rounded-3xl p-16 hairline-stroke border-surface-border/60 card-shadow-premium relative overflow-hidden">
+<div class="relative z-10 max-w-2xl">
+<h1 class="font-headline-xl text-primary-container mb-6">How can we assist you?</h1>
+<p class="text-body-xl text-on-surface-variant/80 mb-10 leading-relaxed">Access the Ministry's comprehensive support directory or connect with our technical specialists for priority assistance.</p>
+<div class="relative group">
+<input class="w-full pl-16 pr-8 py-6 bg-slate-50 border border-slate-100 focus:border-primary-container/30 focus:bg-white focus:ring-4 focus:ring-primary-container/5 rounded-2xl text-body-md transition-premium outline-none shadow-sm" placeholder="Search for technical solutions, guides, or services..." type="text"/>
+<span class="material-symbols-outlined absolute left-6 top-1/2 -translate-y-1/2 text-primary-container/40 text-3xl group-focus-within:text-primary-container transition-colors">search</span>
+</div>
+</div>
+<div class="absolute right-0 top-0 w-2/5 h-full hidden lg:block pointer-events-none">
+<div class="w-full h-full bg-cover bg-center opacity-30 mix-blend-multiply" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAnl_mAs6R_naIxPPNi7RQ-qhBv2iSDbeesgedA2CAUdFiZ93UAFy1VUmHmuBKgnT48dKer20Daltk-i8oPWlYijy-l_8fZs6j9P5IoLzAaC9PP-SMxN31gJQdTHFiCEavkBupLQGBvIBFzFN25TbeuVni_zs_HwoFc2HE7KJ9NUk5yhZvxkYpCRHA9zvqLKnS124Dyu2jNDukDp5jICv8y263jvhazFoydoX6c2cxfY-_GSxkoNDbLkg')"></div>
+</div>
+</section>
+<!-- Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: FAQ & Documentation -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- FAQ Section -->
+<div class="bg-white rounded-3xl hairline-stroke border-surface-border/60 overflow-hidden card-shadow-premium">
+<div class="px-10 py-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/30">
+<h3 class="text-xl font-bold text-primary-container">Frequently Asked Questions</h3>
+<button class="text-primary-container font-bold text-sm hover:underline underline-offset-4">View All FAQ</button>
+</div>
+<div class="p-10 space-y-2">
+<details class="group py-6 first:pt-0 last:pb-0" open="">
+<summary class="flex justify-between items-center cursor-pointer list-none">
+<span class="font-bold text-on-surface text-lg">How do I access the remote VPN?</span>
+<span class="material-symbols-outlined group-open:rotate-180 transition-premium text-primary-container/40">expand_more</span>
+</summary>
+<div class="mt-6 text-on-surface-variant text-body-md leading-relaxed bg-slate-50/50 p-6 rounded-2xl">
+                                To access the MoICT VPN, ensure you have the Cisco AnyConnect client installed. Use your official staff credentials and your 2FA token generated via the Google Authenticator app. For detailed steps, refer to the 'Network Security' section in the User Guide.
+                            </div>
+</details>
+<div class="h-px bg-slate-100"></div>
+<details class="group py-6">
+<summary class="flex justify-between items-center cursor-pointer list-none">
+<span class="font-bold text-on-surface text-lg">Resetting your Ministry email password</span>
+<span class="material-symbols-outlined group-open:rotate-180 transition-premium text-primary-container/40">expand_more</span>
+</summary>
+<div class="mt-6 text-on-surface-variant text-body-md leading-relaxed bg-slate-50/50 p-6 rounded-2xl">
+                                Passwords can be reset through the 'Admin Tools' portal or by calling the ICT internal extension at 555. Note that passwords must be at least 12 characters and include a mix of uppercase, numbers, and symbols.
+                            </div>
+</details>
+<div class="h-px bg-slate-100"></div>
+<details class="group py-6">
+<summary class="flex justify-between items-center cursor-pointer list-none">
+<span class="font-bold text-on-surface text-lg">Troubleshooting printer connectivity</span>
+<span class="material-symbols-outlined group-open:rotate-180 transition-premium text-primary-container/40">expand_more</span>
+</summary>
+<div class="mt-6 text-on-surface-variant text-body-md leading-relaxed bg-slate-50/50 p-6 rounded-2xl">
+                                Ensure your device is connected to the 'MoICT-Internal' SSID. If the printer is not appearing, restart the 'Print Spooler' service on your machine or contact floor support.
+                            </div>
+</details>
+</div>
+</div>
+<!-- Documentation Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-white rounded-3xl hairline-stroke border-surface-border/60 p-8 flex items-start gap-6 hover:shadow-lg transition-premium cursor-pointer group card-shadow-premium">
+<div class="p-4 bg-error/5 text-error rounded-2xl transition-premium group-hover:scale-105">
+<span class="material-symbols-outlined text-4xl">picture_as_pdf</span>
+</div>
+<div>
+<h4 class="font-bold text-primary-container text-lg mb-2">User Guide 2024</h4>
+<p class="text-label-md text-on-surface-variant mb-5 line-clamp-2">Comprehensive operational manual for all portal internal services.</p>
+<span class="text-primary-container text-xs font-bold flex items-center gap-2 tracking-widest uppercase">
+                                DOWNLOAD PDF 
+                                <span class="material-symbols-outlined text-sm">download</span>
+</span>
+</div>
+</div>
+<div class="bg-white rounded-3xl hairline-stroke border-surface-border/60 p-8 flex items-start gap-6 hover:shadow-lg transition-premium cursor-pointer group card-shadow-premium">
+<div class="p-4 bg-primary-container/5 text-primary-container rounded-2xl transition-premium group-hover:scale-105">
+<span class="material-symbols-outlined text-4xl">terminal</span>
+</div>
+<div>
+<h4 class="font-bold text-primary-container text-lg mb-2">Technical Portal</h4>
+<p class="text-label-md text-on-surface-variant mb-5 line-clamp-2">Advanced API documentation and institutional developer resources.</p>
+<span class="text-primary-container text-xs font-bold flex items-center gap-2 tracking-widest uppercase">
+                                VISIT PORTAL 
+                                <span class="material-symbols-outlined text-sm">open_in_new</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Forms & Contact -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- Report Issue Form -->
+<div class="bg-white rounded-3xl hairline-stroke border-surface-border/60 p-10 card-shadow-premium">
+<h3 class="text-xl font-bold text-primary-container mb-8">Report an Issue</h3>
+<form class="space-y-6">
+<div>
+<label class="font-bold text-xs uppercase tracking-widest text-on-surface-variant block mb-3">Issue Category</label>
+<select class="w-full p-4 bg-slate-50 border border-slate-100 focus:border-primary-container/30 focus:bg-white rounded-xl outline-none transition-premium appearance-none text-on-surface">
+<option>Technical Glitch</option>
+<option>Access Permission</option>
+<option>Hardware Failure</option>
+<option>Network/Internet</option>
+</select>
+</div>
+<div>
+<label class="font-bold text-xs uppercase tracking-widest text-on-surface-variant block mb-3">Incident Description</label>
+<textarea class="w-full p-4 bg-slate-50 border border-slate-100 focus:border-primary-container/30 focus:bg-white rounded-xl outline-none transition-premium min-h-[120px]" placeholder="Provide a detailed description..."></textarea>
+</div>
+<button class="w-full py-5 bg-primary-container text-white font-bold rounded-2xl hover:shadow-xl hover:shadow-primary-container/20 transition-premium active:scale-[0.98]" type="submit">
+                            Submit Official Report
+                        </button>
+</form>
+</div>
+<!-- Contact Details -->
+<div class="bg-primary-container text-white rounded-3xl p-10 relative overflow-hidden shadow-2xl shadow-primary-container/30">
+<h3 class="text-xl font-bold mb-8 relative z-10">Institutional Support</h3>
+<div class="space-y-8 relative z-10">
+<div class="flex items-center gap-5 group cursor-pointer">
+<div class="h-12 w-12 rounded-xl bg-white/10 flex items-center justify-center transition-premium group-hover:bg-white/20">
+<span class="material-symbols-outlined text-white">confirmation_number</span>
+</div>
+<div>
+<p class="text-[10px] font-bold uppercase tracking-widest opacity-50 mb-1">Support Ticket</p>
+<p class="font-bold text-sm">portal.support.moict.go.ug</p>
+</div>
+</div>
+<div class="flex items-center gap-5 group cursor-pointer">
+<div class="h-12 w-12 rounded-xl bg-white/10 flex items-center justify-center transition-premium group-hover:bg-white/20">
+<span class="material-symbols-outlined text-white">mail</span>
+</div>
+<div>
+<p class="text-[10px] font-bold uppercase tracking-widest opacity-50 mb-1">Email Registry</p>
+<p class="font-bold text-sm">helpdesk@ict.go.ug</p>
+</div>
+</div>
+<div class="flex items-center gap-5 group cursor-pointer">
+<div class="h-12 w-12 rounded-xl bg-white/10 flex items-center justify-center transition-premium group-hover:bg-white/20">
+<span class="material-symbols-outlined text-white">phone_in_talk</span>
+</div>
+<div>
+<p class="text-[10px] font-bold uppercase tracking-widest opacity-50 mb-1">Direct Extension</p>
+<p class="font-bold text-sm">EXT: 555 / 102</p>
+</div>
+</div>
+</div>
+<div class="absolute -right-16 -bottom-16 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[240px]">shield_person</span>
+</div>
+</div>
+</div>
+</div>
+<div class="h-section-gap"></div>
+</main>
+</div>
+<!-- Mobile Bottom Nav -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 flex justify-around items-center h-20 z-50 px-4">
+<div class="flex flex-col items-center text-on-surface-variant gap-1">
+<span class="material-symbols-outlined text-2xl">dashboard</span>
+<span class="text-[11px] font-medium">Home</span>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant gap-1">
+<span class="material-symbols-outlined text-2xl">chat_bubble</span>
+<span class="text-[11px] font-medium">Chat</span>
+</div>
+<div class="flex flex-col items-center text-primary-container gap-1 relative">
+<span class="material-symbols-outlined text-2xl">help</span>
+<span class="text-[11px] font-bold">Support</span>
+<div class="absolute -bottom-3 w-1 h-1 bg-primary-container rounded-full"></div>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant gap-1">
+<span class="material-symbols-outlined text-2xl">account_circle</span>
+<span class="text-[11px] font-medium">Profile</span>
+</div>
+</nav>
+<script>
+    document.querySelector('form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const btn = e.target.querySelector('button');
+        const originalText = btn.innerText;
+        btn.innerText = 'Processing...';
+        btn.disabled = true;
+        
+        setTimeout(() => {
+            btn.innerText = 'Request Submitted';
+            btn.classList.replace('bg-primary-container', 'bg-success-green');
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.classList.replace('bg-success-green', 'bg-primary-container');
+                btn.disabled = false;
+                e.target.reset();
+            }, 2500);
+        }, 1200);
+    });
+
+    // Subtle parallax effect for hero background
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const heroBg = document.querySelector('section div[style*="background-image"]');
+        if (heroBg) {
+            heroBg.style.transform = `translateY(${scrolled * 0.1}px)`;
+        }
+    });
+</script>
+</body></html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create New Project | Ministry of ICT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#001c3b",
+                        "primary-fixed": "#d4e3ff",
+                        "surface-dim": "#d8dadc",
+                        "inverse-primary": "#a6c8ff",
+                        "surface-container-low": "#f2f4f6",
+                        "primary-fixed-dim": "#a6c8ff",
+                        "secondary-fixed-dim": "#ffb690",
+                        "tertiary-container": "#00365b",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#fd761a",
+                        "slate-dark": "#0F172A",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-background": "#191c1e",
+                        "outline-variant": "#c3c6d0",
+                        "tertiary-fixed": "#d0e4ff",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2d3133",
+                        "secondary-fixed": "#ffdbca",
+                        "on-secondary-container": "#5c2400",
+                        "on-tertiary-fixed-variant": "#004a79",
+                        "surface-variant": "#e0e3e5",
+                        "secondary": "#9d4300",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#f7f9fb",
+                        "primary": "#001f40",
+                        "background": "#f7f9fb",
+                        "error": "#ba1a1a",
+                        "surface-border": "#E2E8F0",
+                        "success-green": "#10B981",
+                        "on-secondary-fixed": "#341100",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#002039",
+                        "on-surface": "#191c1e",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-surface-variant": "#43474f",
+                        "on-primary-container": "#7a9ed4",
+                        "surface-container": "#eceef0",
+                        "tertiary-fixed-dim": "#9bcbff",
+                        "on-primary-fixed-variant": "#204778",
+                        "surface-tint": "#3b5f92",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#5ba1e4",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary-fixed": "#001d34",
+                        "primary-container": "#023464",
+                        "surface": "#f7f9fb",
+                        "surface-container-high": "#e6e8ea",
+                        "outline": "#737780",
+                        "on-secondary-fixed-variant": "#783200"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "64px",
+                        "page-margin-desktop": "32px",
+                        "container-max-width": "1440px",
+                        "page-margin-mobile": "16px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-xl": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for nice enterprise feel */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-surface-bright text-on-surface flex min-h-screen overflow-hidden">
+<!-- SIDE NAVIGATION (From Shared Components) -->
+<aside class="hidden md:flex flex-col h-screen left-0 w-64 bg-surface-container-lowest border-r border-surface-border py-6 px-4 gap-y-2 shrink-0">
+<div class="mb-8 px-2">
+<h1 class="text-headline-xl font-headline-xl text-primary leading-tight">ICT Admin</h1>
+<p class="text-label-md font-label-md text-on-surface-variant opacity-70">Staff Portal</p>
+</div>
+<button class="mb-6 flex items-center gap-3 bg-primary-container text-on-primary text-label-md font-label-md py-3 px-4 rounded-xl hover:scale-[1.02] transition-transform active:scale-95">
+<span class="material-symbols-outlined">chat</span>
+<span>New Chat</span>
+</button>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 py-2.5 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 py-2.5 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="text-label-md font-label-md">Chat</span>
+</a>
+<a class="flex items-center gap-3 py-2.5 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">database</span>
+<span class="text-label-md font-label-md">Knowledge Base</span>
+</a>
+<a class="flex items-center gap-3 py-2.5 px-4 bg-primary-container text-on-primary-container rounded-lg font-semibold transition-all" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="text-label-md font-label-md">Projects</span>
+</a>
+<a class="flex items-center gap-3 py-2.5 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="text-label-md font-label-md">Admin Tools</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1 pt-4 border-t border-surface-border">
+<a class="flex items-center gap-3 py-2.5 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 py-2.5 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- MAIN CONTENT AREA (Dashboard Background) -->
+<main class="flex-1 flex flex-col h-screen overflow-y-auto relative">
+<!-- TOP NAV (Shared Components) -->
+<header class="sticky top-0 z-30 bg-surface/80 backdrop-blur-md border-b border-surface-border h-16 flex items-center justify-between px-page-margin-desktop w-full mx-auto shadow-sm">
+<div class="text-body-xl font-bold text-primary tracking-tight">Ministry of ICT</div>
+<div class="hidden md:flex gap-8 items-center">
+<nav class="flex gap-6">
+<a class="text-on-surface-variant hover:text-primary text-label-md font-label-md transition-colors" href="#">Features</a>
+<a class="text-on-surface-variant hover:text-primary text-label-md font-label-md transition-colors" href="#">About</a>
+<a class="text-on-surface-variant hover:text-primary text-label-md font-label-md transition-colors" href="#">FAQ</a>
+</nav>
+<div class="h-8 w-[1px] bg-surface-border"></div>
+<button class="bg-primary text-on-primary text-label-md font-label-md py-2 px-6 rounded-full hover:bg-primary-container transition-colors">Staff Access</button>
+</div>
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<!-- Page Content -->
+<div class="p-page-margin-desktop space-y-8 max-w-container-max-width mx-auto w-full">
+<div class="flex justify-between items-end">
+<div>
+<h2 class="text-headline-xl font-headline-xl text-primary">Projects Dashboard</h2>
+<p class="text-body-md text-on-surface-variant">Manage and monitor national digital infrastructure initiatives.</p>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-xl flex items-center gap-2 hover:shadow-lg transition-all" onclick="openModal()">
+<span class="material-symbols-outlined">add</span>
+                    Create New Project
+                </button>
+</div>
+<!-- Bento Grid Dashboard Background -->
+<div class="grid grid-cols-12 gap-6 pb-12">
+<!-- Project Card 1 -->
+<div class="col-span-12 md:col-span-8 bg-surface-container-lowest border border-surface-border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">signal_cellular_alt</span>
+</div>
+<div>
+<h3 class="font-semibold text-primary">5G Infrastructure Rollout</h3>
+<p class="text-label-sm text-on-surface-variant uppercase tracking-wider">Infrastructure</p>
+</div>
+</div>
+<span class="bg-success-green/10 text-success-green px-3 py-1 rounded-full text-label-sm">On Track</span>
+</div>
+<div class="h-32 w-full bg-surface-container rounded-lg mb-6 flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-cover bg-center" data-alt="A clean, minimalist abstract visualization of a 5G connectivity map with flowing blue data lines across a simple topographical map of Uganda. The style is professional enterprise SaaS, with thin strokes and a soft white and Ministry Blue color palette." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB1vr4hSiYx4dMK0pXSjNImryme6olGo6FiWVRdJmv6GXMg7GfYFt04h8fplGdrMdAvovQXK42f0OZJzkdcSNmQzoFnaaEAOfu30Doxtn4ZgXXmGNXfEagOAvgKzVVWlNJywKIpGFKZKwb578AYxN8OiG6cx-kJkpQw5kDNA-tDAnpNEHYsXYv_KqfaT7QuxJnsftCF1BlkY3u1z_4O_ynIsOkk8XTOFyTLoJTUvr_d0ZJck4dQIku19Q')"></div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-container flex items-center justify-center text-[10px] font-bold">JD</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-container flex items-center justify-center text-[10px] font-bold">AK</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-container flex items-center justify-center text-[10px] font-bold">SM</div>
+</div>
+<div class="text-label-sm text-on-surface-variant">Due in 14 days</div>
+</div>
+</div>
+<!-- Stats Card -->
+<div class="col-span-12 md:col-span-4 bg-primary-container text-on-primary rounded-xl p-6 flex flex-col justify-between">
+<div>
+<span class="text-label-md opacity-80">Total Active Projects</span>
+<h4 class="text-display-lg font-display-lg mt-2">24</h4>
+</div>
+<div class="mt-8 space-y-3">
+<div class="flex justify-between items-center text-label-sm">
+<span>Regulatory</span>
+<span>8</span>
+</div>
+<div class="w-full bg-on-primary-container/20 h-1 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full w-[33%]"></div>
+</div>
+<div class="flex justify-between items-center text-label-sm">
+<span>Infrastructure</span>
+<span>12</span>
+</div>
+<div class="w-full bg-on-primary-container/20 h-1 rounded-full overflow-hidden">
+<div class="bg-primary-fixed h-full w-[50%]"></div>
+</div>
+</div>
+</div>
+<!-- Secondary Small Cards -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest border border-surface-border rounded-xl p-6 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary">policy</span>
+<h4 class="font-semibold text-primary">Data Privacy Bill</h4>
+</div>
+<p class="text-body-md text-on-surface-variant line-clamp-2 mb-4">Finalizing the regulatory framework for national data sovereignty and citizen privacy protection.</p>
+<div class="bg-surface-container-low p-3 rounded-lg flex items-center justify-between">
+<span class="text-label-sm">Priority</span>
+<span class="text-label-sm font-bold text-error">High</span>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest border border-surface-border rounded-xl p-6 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary-container">school</span>
+<h4 class="font-semibold text-primary">Digital Literacy</h4>
+</div>
+<p class="text-body-md text-on-surface-variant line-clamp-2 mb-4">Island-wide curriculum deployment for vocational institutions specializing in ICT skills.</p>
+<div class="bg-surface-container-low p-3 rounded-lg flex items-center justify-between">
+<span class="text-label-sm">Progress</span>
+<span class="text-label-sm font-bold text-primary">68%</span>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 border-2 border-dashed border-surface-border rounded-xl flex flex-col items-center justify-center p-6 cursor-pointer hover:bg-surface-container-low transition-colors" onclick="openModal()">
+<span class="material-symbols-outlined text-4xl text-outline mb-2">add_circle</span>
+<span class="text-label-md font-bold text-on-surface-variant">Add Project Component</span>
+</div>
+</div>
+</div>
+</main>
+<!-- MODAL OVERLAY -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-dark/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300" id="modalOverlay">
+<!-- MODAL CONTENT -->
+<div class="bg-surface-container-lowest w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden transform scale-95 transition-all duration-300" id="modalContainer">
+<!-- Header -->
+<div class="px-10 py-8 flex justify-between items-start">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary mb-1">Create New Project</h2>
+<p class="text-body-md text-on-surface-variant">Define scope and initialize your digital initiative.</p>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors text-on-surface-variant -mt-2 -mr-2" onclick="closeModal()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Body -->
+<div class="px-10 pb-4 max-h-[60vh] overflow-y-auto scroll-smooth">
+<form class="space-y-8" id="projectForm">
+<!-- Project Name -->
+<div class="space-y-3">
+<label class="text-body-md font-medium text-primary block">Project Name</label>
+<input class="w-full bg-surface-container-low border-transparent focus:border-primary focus:bg-surface-container-lowest focus:ring-1 focus:ring-primary rounded-xl px-5 py-4 text-body-md transition-all outline-none" placeholder="e.g., National Fiber Backbone Phase IV" type="text"/>
+</div>
+<!-- Description -->
+<div class="space-y-3">
+<label class="text-body-md font-medium text-primary block">Project Description</label>
+<textarea class="w-full bg-surface-container-low border-transparent focus:border-primary focus:bg-surface-container-lowest focus:ring-1 focus:ring-primary rounded-xl px-5 py-4 text-body-md transition-all outline-none resize-none" placeholder="Provide a detailed overview of the project's objectives and key deliverables..." rows="3"></textarea>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Category Dropdown -->
+<div class="space-y-3">
+<label class="text-body-md font-medium text-primary block">Category</label>
+<div class="relative">
+<select class="appearance-none w-full bg-surface-container-low border-transparent focus:border-primary focus:bg-surface-container-lowest focus:ring-1 focus:ring-primary rounded-xl px-5 py-4 text-body-md transition-all outline-none pr-12 cursor-pointer">
+<option disabled="" selected="" value="">Select Category</option>
+<option value="regulatory">Regulatory</option>
+<option value="infrastructure">Infrastructure</option>
+<option value="policy">Policy</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<!-- Assign Project Color -->
+<div class="space-y-3">
+<label class="text-body-md font-medium text-primary block">Assign Project Color</label>
+<div class="flex items-center gap-3 p-2 bg-surface-container-low rounded-xl inline-flex">
+<button class="w-10 h-10 rounded-lg bg-primary border-4 border-white shadow-sm ring-1 ring-surface-border transition-all" onclick="selectColor(this, '#023464')" type="button"></button>
+<button class="w-10 h-10 rounded-lg bg-secondary-container border-4 border-transparent hover:border-white hover:shadow-sm transition-all" onclick="selectColor(this, '#fd761a')" type="button"></button>
+<button class="w-10 h-10 rounded-lg bg-success-green border-4 border-transparent hover:border-white hover:shadow-sm transition-all" onclick="selectColor(this, '#10B981')" type="button"></button>
+<button class="w-10 h-10 rounded-lg bg-primary-fixed-dim border-4 border-transparent hover:border-white hover:shadow-sm transition-all" onclick="selectColor(this, '#70B5F9')" type="button"></button>
+<button class="w-10 h-10 rounded-lg bg-error border-4 border-transparent hover:border-white hover:shadow-sm transition-all" onclick="selectColor(this, '#ba1a1a')" type="button"></button>
+</div>
+</div>
+</div>
+<!-- Add Team Members -->
+<div class="space-y-3">
+<label class="text-body-md font-medium text-primary block">Add Team Members</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-transparent focus:border-primary focus:bg-surface-container-lowest focus:ring-1 focus:ring-primary rounded-xl pl-12 pr-5 py-4 text-body-md transition-all outline-none" placeholder="Search staff members by name or department..." type="text"/>
+</div>
+<div class="flex flex-wrap gap-2 mt-3">
+<div class="flex items-center gap-2 bg-primary-fixed border border-primary/10 text-on-primary-fixed px-4 py-2 rounded-lg text-label-md font-medium">
+<span>Jane Doe</span>
+<button class="hover:text-error transition-colors flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">close</span></button>
+</div>
+<div class="flex items-center gap-2 bg-primary-fixed border border-primary/10 text-on-primary-fixed px-4 py-2 rounded-lg text-label-md font-medium">
+<span>Aaron Kwaka</span>
+<button class="hover:text-error transition-colors flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">close</span></button>
+</div>
+</div>
+</div>
+<!-- Pin to Dashboard -->
+<div class="flex items-start gap-3 pt-4">
+<div class="flex items-center h-6">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer" id="pinProject" type="checkbox"/>
+</div>
+<label class="text-body-md text-on-surface cursor-pointer select-none" for="pinProject">Pin to Dashboard for quick access</label>
+</div>
+</form>
+</div>
+<!-- Footer -->
+<div class="px-10 py-8 border-t border-surface-border flex flex-col md:flex-row justify-end gap-4 mt-4">
+<button class="px-8 py-3.5 rounded-xl text-label-md font-bold text-on-surface-variant hover:bg-surface-container transition-all order-2 md:order-1" onclick="closeModal()">
+                    Cancel
+                </button>
+<button class="px-8 py-3.5 rounded-xl bg-primary text-on-primary text-label-md font-bold flex items-center justify-center gap-2 hover:bg-primary-container hover:shadow-lg transition-all active:scale-95 order-1 md:order-2 shadow-md" id="createBtn" onclick="simulateCreation()">
+                    Create Project
+                </button>
+</div>
+</div>
+</div>
+<!-- Notification Toast -->
+<div class="fixed bottom-8 right-8 z-[60] bg-primary text-on-primary px-6 py-4 rounded-xl shadow-2xl flex items-center gap-4 translate-y-24 opacity-0 transition-all duration-500" id="toast">
+<div class="w-8 h-8 bg-on-primary/20 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<div>
+<p class="font-bold text-label-md">Project Created</p>
+<p class="text-[12px] opacity-80">Syncing with National Registry...</p>
+</div>
+</div>
+<script>
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalContainer = document.getElementById('modalContainer');
+        const toast = document.getElementById('toast');
+        const createBtn = document.getElementById('createBtn');
+
+        function openModal() {
+            modalOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            modalOverlay.classList.add('opacity-100');
+            modalContainer.classList.remove('scale-95');
+            modalContainer.classList.add('scale-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modalOverlay.classList.add('opacity-0', 'pointer-events-none');
+            modalOverlay.classList.remove('opacity-100');
+            modalContainer.classList.add('scale-95');
+            modalContainer.classList.remove('scale-100');
+            document.body.style.overflow = 'auto';
+        }
+
+        function selectColor(btn, color) {
+            const buttons = btn.parentElement.querySelectorAll('button');
+            buttons.forEach(b => {
+                b.classList.remove('border-white', 'shadow-sm', 'ring-1', 'ring-surface-border');
+                b.classList.add('border-transparent');
+            });
+            btn.classList.add('border-white', 'shadow-sm', 'ring-1', 'ring-surface-border');
+            btn.classList.remove('border-transparent');
+        }
+
+        function simulateCreation() {
+            createBtn.innerHTML = `<span class="animate-spin material-symbols-outlined">sync</span> Processing...`;
+            createBtn.disabled = true;
+
+            setTimeout(() => {
+                closeModal();
+                showToast();
+                createBtn.innerHTML = `Create Project`;
+                createBtn.disabled = false;
+                document.getElementById('projectForm').reset();
+            }, 1800);
+        }
+
+        function showToast() {
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 4000);
+        }
+
+        // Close modal on background click
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        // Trigger modal immediately on load for demo purposes
+        window.addEventListener('load', () => {
+            setTimeout(openModal, 800);
+        });
+    </script>
+</body></html>

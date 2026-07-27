@@ -1,0 +1,431 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>National Broadband Expansion | Ministry of ICT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #E2E8F0;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#001c3b",
+                        "primary-fixed": "#d4e3ff",
+                        "surface-dim": "#d8dadc",
+                        "inverse-primary": "#a6c8ff",
+                        "surface-container-low": "#f2f4f6",
+                        "primary-fixed-dim": "#a6c8ff",
+                        "secondary-fixed-dim": "#ffb690",
+                        "tertiary-container": "#00365b",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#fd761a",
+                        "slate-dark": "#0F172A",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-background": "#191c1e",
+                        "outline-variant": "#c3c6d0",
+                        "tertiary-fixed": "#d0e4ff",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2d3133",
+                        "secondary-fixed": "#ffdbca",
+                        "on-secondary-container": "#5c2400",
+                        "on-tertiary-fixed-variant": "#004a79",
+                        "surface-variant": "#e0e3e5",
+                        "secondary": "#9d4300",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#f7f9fb",
+                        "primary": "#001f40",
+                        "background": "#f7f9fb",
+                        "error": "#ba1a1a",
+                        "surface-border": "#E2E8F0",
+                        "success-green": "#10B981",
+                        "on-secondary-fixed": "#341100",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#002039",
+                        "on-surface": "#191c1e",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-surface-variant": "#43474f",
+                        "on-primary-container": "#7a9ed4",
+                        "surface-container": "#eceef0",
+                        "tertiary-fixed-dim": "#9bcbff",
+                        "on-primary-fixed-variant": "#204778",
+                        "surface-tint": "#3b5f92",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#5ba1e4",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary-fixed": "#001d34",
+                        "primary-container": "#023464",
+                        "surface": "#f7f9fb",
+                        "surface-container-high": "#e6e8ea",
+                        "outline": "#737780",
+                        "on-secondary-fixed-variant": "#783200"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "64px",
+                        "page-margin-desktop": "32px",
+                        "container-max-width": "1440px",
+                        "page-margin-mobile": "16px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-xl": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-xl": ["20px", { "lineHeight": "30px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="hidden md:flex flex-col h-full py-6 px-4 gap-y-2 bg-surface-container-lowest border-r border-surface-border w-64 flex-shrink-0">
+<div class="mb-8 px-2">
+<h1 class="text-headline-xl font-headline-xl text-primary tracking-tight">ICT Admin</h1>
+<p class="text-label-md font-label-md text-on-surface-variant">Staff Portal</p>
+</div>
+<button class="mb-6 flex items-center justify-center gap-2 bg-primary-container text-on-primary-container py-3 px-4 rounded-lg font-semibold hover:scale-[1.02] transition-transform active:scale-95">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+<span class="text-label-md font-label-md">New Chat</span>
+</button>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+<span class="text-label-md font-label-md">Chat</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span class="text-label-md font-label-md">Knowledge Base</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg font-semibold" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="text-label-md font-label-md">Projects</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span class="text-label-md font-label-md">Admin Tools</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-surface-border flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col overflow-hidden relative">
+<!-- Top Bar -->
+<header class="bg-surface/80 backdrop-blur-md sticky top-0 z-30 border-b border-surface-border">
+<div class="flex justify-between items-center w-full px-page-margin-desktop max-w-container-max-width mx-auto h-16">
+<div class="flex items-center gap-4">
+<span class="text-label-md font-bold text-primary tracking-tight">Ministry of ICT</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Features</a>
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">About</a>
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">FAQ</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary-container text-on-primary-container px-4 py-2 rounded-lg text-label-md font-label-md">Staff Access</button>
+</div>
+</div>
+</header>
+<!-- Scrollable Body -->
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<div class="px-page-margin-desktop py-8 max-w-container-max-width mx-auto space-y-8">
+<!-- Breadcrumb & Header -->
+<section>
+<nav class="flex items-center gap-2 text-label-sm font-label-sm text-on-surface-variant mb-4">
+<a class="hover:text-primary" href="#">Projects</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">National Broadband Expansion</span>
+</nav>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<h2 class="text-headline-xl font-headline-xl text-primary">National Broadband Expansion</h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">Strategic review of rural connectivity initiatives for the Northern and Western regions.</p>
+</div>
+<button class="flex items-center gap-2 px-5 py-2.5 bg-surface-container-lowest border border-primary text-primary rounded-xl font-semibold text-label-md hover:bg-surface-container-low transition-colors shadow-sm">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+                            Edit Project
+                        </button>
+</div>
+</section>
+<!-- Project Grid Layout -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Main Content Column (Left/Center) -->
+<div class="col-span-12 lg:col-span-8 space-y-6">
+<!-- Linked Documents -->
+<div class="bg-surface-container-lowest rounded-xl border border-surface-border p-6 shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-headline-lg font-headline-lg text-primary flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                                    Linked Documents
+                                </h3>
+<button class="text-label-md font-bold text-secondary hover:underline transition-colors">View All</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Document Card -->
+<div class="p-4 border border-surface-border rounded-lg hover:border-primary-container hover:shadow-md transition-all group">
+<div class="flex items-start gap-4">
+<div class="p-3 bg-error-container/20 rounded-lg">
+<span class="material-symbols-outlined text-error fill-icon" data-icon="picture_as_pdf">picture_as_pdf</span>
+</div>
+<div class="flex-1">
+<p class="text-label-md font-bold text-on-surface truncate">Q3_Broadband_Rollout_V2.pdf</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Modified 2 days ago • 4.2 MB</p>
+<div class="mt-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="flex items-center gap-1.5 px-3 py-1.5 bg-primary-container text-on-primary-container rounded-lg text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="auto_awesome">auto_awesome</span>
+                                                    Ask AI
+                                                </button>
+<button class="px-3 py-1.5 bg-surface-container-low text-on-surface-variant rounded-lg text-label-sm font-label-sm">Download</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Document Card -->
+<div class="p-4 border border-surface-border rounded-lg hover:border-primary-container hover:shadow-md transition-all group">
+<div class="flex items-start gap-4">
+<div class="p-3 bg-error-container/20 rounded-lg">
+<span class="material-symbols-outlined text-error fill-icon" data-icon="picture_as_pdf">picture_as_pdf</span>
+</div>
+<div class="flex-1">
+<p class="text-label-md font-bold text-on-surface truncate">Rural_Connectivity_Standards.pdf</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Modified 1 week ago • 1.8 MB</p>
+<div class="mt-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="flex items-center gap-1.5 px-3 py-1.5 bg-primary-container text-on-primary-container rounded-lg text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="auto_awesome">auto_awesome</span>
+                                                    Ask AI
+                                                </button>
+<button class="px-3 py-1.5 bg-surface-container-low text-on-surface-variant rounded-lg text-label-sm font-label-sm">Download</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Notes Area -->
+<div class="bg-surface-container-lowest rounded-xl border border-surface-border p-6 shadow-sm">
+<h3 class="text-headline-lg font-headline-lg text-primary mb-4">Project Notes &amp; Annotations</h3>
+<div class="space-y-4">
+<div class="p-4 bg-surface-container-low rounded-lg border-l-4 border-secondary">
+<div class="flex justify-between items-start mb-2">
+<span class="text-label-sm font-bold text-secondary">URGENT ANNOTATION</span>
+<span class="text-label-sm text-on-surface-variant">Today, 10:45 AM</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface">Need to verify current fiber backbone latency requirements for the Gulu hub. Previous specs might be outdated according to the latest ITU benchmarks.</p>
+<div class="mt-3 flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary-fixed text-primary flex items-center justify-center text-[10px] font-bold">MK</div>
+<span class="text-label-sm font-label-sm">Mark Kasule • Senior Engineer</span>
+</div>
+</div>
+<div class="relative">
+<textarea class="w-full bg-surface-container-low border-none rounded-lg p-4 text-body-md focus:ring-2 focus:ring-primary h-24 transition-all" placeholder="Add a staff note..."></textarea>
+<button class="absolute bottom-3 right-3 bg-primary text-white p-2 rounded-lg hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar Column (Right) -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<!-- Related Chats -->
+<div class="bg-surface-container-lowest rounded-xl border border-surface-border p-6 shadow-sm">
+<h3 class="text-label-md font-bold text-on-surface-variant uppercase tracking-wider mb-4">Related Chats</h3>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low/50 hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="forum">forum</span>
+<span class="text-label-md font-bold">Vendor Negotiations</span>
+</div>
+<button class="text-primary hover:text-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low/50 hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="forum">forum</span>
+<span class="text-label-md font-bold">Stakeholder Briefing</span>
+</div>
+<button class="text-primary hover:text-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<button class="w-full py-2 border border-dashed border-outline-variant rounded-lg text-label-sm font-label-sm text-on-surface-variant hover:border-primary transition-all">
+                                    + Start New Project Chat
+                                </button>
+</div>
+</div>
+<!-- Team Members -->
+<div class="bg-surface-container-lowest rounded-xl border border-surface-border p-6 shadow-sm">
+<h3 class="text-label-md font-bold text-on-surface-variant uppercase tracking-wider mb-4">Team Members</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full border border-surface-border" data-alt="Professional headshot of a female tech executive, neutral background, soft corporate lighting, business attire, 8k resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzdEPZBOCl69GALAVlJQAvLblIo_ahb_XmvMMH3Jk6FDceQj53tLnD94Nk81yyqfkjxZadPhaRgmdm22_42xPN-UAyRnm4fzgyYFNdC76tj0VRSXFp3J3qJhETMy4aywr9IrQ43DfzApyocMl3Avty8i5VkCWdy_bop6YouqtVozi8QmDwYLR8vnEseS7lWyxRhq27lvhI5Xe5j8apIHsGzK-KWbahtEpBOcgEnRlo5TLTt50IslgSkQ">
+<div>
+<p class="text-label-md font-bold">Diana Nansubuga</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Project Lead</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold">RM</div>
+<div>
+<p class="text-label-md font-bold">Robert Musoke</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Field Coordinator</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full border border-surface-border" data-alt="Portrait of a young male software architect in a modern office setting, glasses, casual professional clothing, blurred background of a tech workspace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDC36ESay0apVc538N9DLwCoZssD7vkzAWscUTD1g2R40H4FbeBZDyOJQsTxXsEp5goKobHe35xgaG6PLQPwu5oRS-XMVVAOBqyzov4l5bOp7e5T_h7uboJHnuHlZdqVnNv6f-g4dIJT1NCM3CuTE4fpZAb8ZD6bulsS401DUIriyrOrbl9TWFGvq_visjFB0zfblnV-y94EnC1Ed86kqwee818TouWhBgQN2shEAUTHdotKMhnlMmz8A">
+<div>
+<p class="text-label-md font-bold">Samuel Kato</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Technical Analyst</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Activity -->
+<div class="bg-surface-container-lowest rounded-xl border border-surface-border p-6 shadow-sm">
+<h3 class="text-label-md font-bold text-on-surface-variant uppercase tracking-wider mb-4">Recent Activity</h3>
+<div class="space-y-6 relative before:absolute before:left-3 before:top-2 before:bottom-2 before:w-[2px] before:bg-surface-border">
+<div class="relative pl-8">
+<div class="absolute left-1 top-1 w-4 h-4 rounded-full bg-success-green border-4 border-surface-container-lowest"></div>
+<p class="text-label-md font-bold">Document Approved</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Q3 Rollout Plan approved by Commissioner.</p>
+<p class="text-[10px] uppercase font-bold text-on-surface-variant/60 mt-1">2 hours ago</p>
+</div>
+<div class="relative pl-8">
+<div class="absolute left-1 top-1 w-4 h-4 rounded-full bg-primary border-4 border-surface-container-lowest"></div>
+<p class="text-label-md font-bold">New Comment</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Samuel Kato commented on fiber standards.</p>
+<p class="text-[10px] uppercase font-bold text-on-surface-variant/60 mt-1">5 hours ago</p>
+</div>
+<div class="relative pl-8">
+<div class="absolute left-1 top-1 w-4 h-4 rounded-full bg-secondary-container border-4 border-surface-container-lowest"></div>
+<p class="text-label-md font-bold">Timeline Update</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Phase 2 milestone shifted to August 15th.</p>
+<p class="text-[10px] uppercase font-bold text-on-surface-variant/60 mt-1">Yesterday</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Suggestions Panel -->
+<section class="bg-primary-container rounded-2xl p-6 text-on-primary-container shadow-lg relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-secondary-fixed animate-pulse" data-icon="auto_awesome">auto_awesome</span>
+<h3 class="text-headline-lg font-headline-lg">AI-Powered Next Steps</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
+<div class="bg-surface-container-lowest/10 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/15 transition-all cursor-pointer">
+<p class="text-label-md font-bold mb-2">Review Vendor Gaps</p>
+<p class="text-label-sm font-label-sm opacity-80">AI identified 3 missing compliance certificates in the latest vendor submission.</p>
+<button class="mt-4 flex items-center gap-1 text-label-sm font-bold text-secondary-fixed">Take Action <span class="material-symbols-outlined text-[14px]">open_in_new</span></button>
+</div>
+<div class="bg-surface-container-lowest/10 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/15 transition-all cursor-pointer">
+<p class="text-label-md font-bold mb-2">Schedule Stakeholder Call</p>
+<p class="text-label-sm font-label-sm opacity-80">Timeline shift in Phase 2 requires immediate alignment with local municipalities.</p>
+<button class="mt-4 flex items-center gap-1 text-label-sm font-bold text-secondary-fixed">Calendar AI <span class="material-symbols-outlined text-[14px]">calendar_today</span></button>
+</div>
+<div class="bg-surface-container-lowest/10 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/15 transition-all cursor-pointer">
+<p class="text-label-md font-bold mb-2">Synthesize Engineering Notes</p>
+<p class="text-label-sm font-label-sm opacity-80">Merge the last 5 staff annotations into a technical brief for the Director.</p>
+<button class="mt-4 flex items-center gap-1 text-label-sm font-bold text-secondary-fixed">Generate Brief <span class="material-symbols-outlined text-[14px]">auto_stories</span></button>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full py-8 border-t border-surface-border flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-4">
+<span class="text-label-md font-bold text-primary">Ministry of ICT</span>
+<p class="text-label-sm font-label-sm text-on-surface-variant">© 2026 Ministry of ICT &amp; National Guidance. All Rights Reserved.</p>
+</div>
+<div class="flex gap-6">
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-primary" href="#">Privacy Policy</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-primary" href="#">Terms of Service</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-primary" href="#">Contact Support</a>
+</div>
+</footer>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interactions and simple state management
+        document.addEventListener('DOMContentLoaded', () => {
+            const documentCards = document.querySelectorAll('.group');
+            documentCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-2px)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Smooth entrance animation for the content area
+            const mainContent = document.querySelector('main');
+            mainContent.style.opacity = '0';
+            setTimeout(() => {
+                mainContent.style.transition = 'opacity 0.5s ease-out';
+                mainContent.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body></html>

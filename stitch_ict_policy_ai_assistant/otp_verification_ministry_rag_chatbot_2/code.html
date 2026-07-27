@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OTP Verification | Ministry of ICT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#5c2400",
+                    "tertiary-fixed": "#d0e4ff",
+                    "surface-container-highest": "#e0e3e5",
+                    "background": "#f7f9fb",
+                    "secondary-container": "#fd761a",
+                    "outline-variant": "#c3c6d0",
+                    "inverse-surface": "#2d3133",
+                    "inverse-primary": "#a6c8ff",
+                    "primary-fixed-dim": "#a6c8ff",
+                    "on-background": "#191c1e",
+                    "surface-container": "#eceef0",
+                    "primary": "#001f40",
+                    "primary-fixed": "#d4e3ff",
+                    "on-primary-container": "#7a9ed4",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed": "#ffdbca",
+                    "surface-bright": "#f7f9fb",
+                    "primary-container": "#023464",
+                    "surface-border": "#E2E8F0",
+                    "on-tertiary-fixed-variant": "#004a79",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-container-high": "#e6e8ea",
+                    "outline": "#737780",
+                    "surface-tint": "#3b5f92",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed": "#341100",
+                    "slate-dark": "#0F172A",
+                    "tertiary": "#002039",
+                    "on-error-container": "#93000a",
+                    "success-green": "#10B981",
+                    "on-surface-variant": "#43474f",
+                    "on-primary-fixed": "#001c3b",
+                    "on-primary-fixed-variant": "#204778",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed-variant": "#783200",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-variant": "#e0e3e5",
+                    "tertiary-container": "#00365b",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-fixed": "#001d34",
+                    "surface-dim": "#d8dadc",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#9d4300",
+                    "secondary-fixed-dim": "#ffb690",
+                    "on-tertiary-container": "#5ba1e4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "page-margin-mobile": "16px",
+                    "section-gap": "64px",
+                    "page-margin-desktop": "32px",
+                    "gutter": "24px",
+                    "container-max-width": "1440px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-xl": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .otp-input:focus {
+            outline: none;
+            border-color: #023464;
+            box-shadow: 0 0 0 2px rgba(2, 52, 100, 0.1);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-on-surface">
+<!-- Hero Background Animation -->
+<div class="fixed inset-0 -z-10 overflow-hidden">
+</div>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center px-page-margin-mobile md:px-page-margin-desktop py-16">
+<div class="w-full max-w-lg">
+<!-- Branding / Top Anchor -->
+<div class="text-center mb-12">
+<div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary-container text-white mb-6 shadow-lg">
+<span class="material-symbols-outlined text-headline-xl" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<h1 class="text-headline-xl font-headline-xl text-primary tracking-tight mb-4">Identity Verification</h1>
+<p class="text-body-xl font-body-xl text-on-surface-variant mt-2 px-6 leading-relaxed">
+                    We've sent a 6-digit secure code to your registered mobile number ending in <span class="font-semibold text-on-surface">•••• 4829</span>.
+                </p>
+</div>
+<!-- OTP Card -->
+<div class="glass-panel rounded-2xl p-10 md:p-12 shadow-md">
+<form class="space-y-10" id="otp-form">
+<!-- OTP Inputs -->
+<div class="flex justify-between gap-2 md:gap-4" id="otp-container">
+<input autofocus="" class="otp-input w-14 h-16 md:w-16 md:h-20 text-center text-headline-xl font-bold bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm transition-all" maxlength="1" type="text"/>
+<input class="otp-input w-14 h-16 md:w-16 md:h-20 text-center text-headline-xl font-bold bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm transition-all" maxlength="1" type="text"/>
+<input class="otp-input w-14 h-16 md:w-16 md:h-20 text-center text-headline-xl font-bold bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm transition-all" maxlength="1" type="text"/>
+<input class="otp-input w-14 h-16 md:w-16 md:h-20 text-center text-headline-xl font-bold bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm transition-all" maxlength="1" type="text"/>
+<input class="otp-input w-14 h-16 md:w-16 md:h-20 text-center text-headline-xl font-bold bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm transition-all" maxlength="1" type="text"/>
+<input class="otp-input w-14 h-16 md:w-16 md:h-20 text-center text-headline-xl font-bold bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm transition-all" maxlength="1" type="text"/>
+</div>
+<!-- Timer and Resend -->
+<div class="flex flex-col items-center gap-4">
+<div class="flex items-center gap-2 text-label-md font-label-md text-on-surface-variant" id="timer-container">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>Resend code in <span class="font-bold text-primary" id="timer">00:59</span></span>
+</div>
+<button class="text-label-md font-label-md text-outline hover:text-primary transition-colors cursor-not-allowed opacity-50" disabled="" id="resend-btn" type="button">
+                            Resend Code
+                        </button>
+</div>
+<!-- Action -->
+<button class="w-full h-14 bg-primary-container hover:bg-[#01264a] text-white font-semibold text-body-md rounded-xl shadow-md transition-all active:scale-[0.98] flex items-center justify-center gap-2" type="submit">
+                        Verify Identity
+                    </button>
+</form>
+</div>
+<!-- Footer Help Text -->
+<div class="mt-8 text-center">
+<p class="text-label-sm font-label-sm text-on-surface-variant">
+                    Having trouble? <a class="text-secondary font-bold hover:underline" href="#">Contact Support</a>
+</p>
+</div>
+</div>
+</main>
+<!-- Success Toast (Hidden by default) -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-white border border-surface-border px-6 py-4 rounded-xl shadow-xl transform translate-y-24 opacity-0 transition-all duration-500 ease-out z-50" id="success-toast">
+<div class="w-10 h-10 rounded-full bg-success-green/10 flex items-center justify-center text-success-green">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<p class="text-label-md font-bold text-on-surface">Verification Successful</p>
+<p class="text-label-sm text-on-surface-variant">Redirecting to Ministry Portal...</p>
+</div>
+</div>
+<!-- Notification Toast (Example) -->
+<div class="fixed top-8 right-8 z-50">
+<div class="glass-panel p-4 rounded-lg flex items-center gap-3 border-l-4 border-secondary-container animate-bounce">
+<span class="material-symbols-outlined text-secondary-container">info</span>
+<span class="text-label-md text-on-surface">Code sent successfully.</span>
+</div>
+</div>
+<!-- Scripting for Interactivity -->
+<script>
+        // OTP Focus Logic
+        const inputs = document.querySelectorAll('.otp-input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+
+        // Countdown Timer Logic
+        let timeLeft = 59;
+        const timerDisplay = document.getElementById('timer');
+        const resendBtn = document.getElementById('resend-btn');
+
+        const countdown = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                timerDisplay.parentElement.classList.add('hidden');
+                resendBtn.disabled = false;
+                resendBtn.classList.remove('cursor-not-allowed', 'opacity-50', 'text-outline');
+                resendBtn.classList.add('text-secondary', 'font-bold');
+            } else {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }, 1000);
+
+        // Verification Logic Mock
+        const form = document.getElementById('otp-form');
+        const toast = document.getElementById('success-toast');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Simulate API call
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            setTimeout(() => {
+                // Mock redirect
+                window.location.reload();
+            }, 3000);
+        });
+    </script>
+</body></html>

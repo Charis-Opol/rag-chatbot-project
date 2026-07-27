@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Chat Workspace | GovLLM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #E2E8F0;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #CBD5E1;
+        }
+        .citation-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border-color: #E2E8F0;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "gov-blue": "#023464",
+                        "gov-blue-light": "#0A4B8A",
+                        "surface": "#f7f9fb",
+                        "surface-white": "#ffffff",
+                        "border-light": "#E2E8F0",
+                        "text-main": "#191c1e",
+                        "text-muted": "#64748B",
+                        "success": "#10B981"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-text-main overflow-hidden h-screen flex antialiased">
+<!-- Sidebar -->
+<aside class="hidden md:flex flex-col h-full py-6 px-4 gap-y-2 bg-surface-white border-r border-border-light w-64 shrink-0 shadow-sm z-20 relative">
+<div class="mb-8 px-3 flex items-center gap-3">
+<div class="w-8 h-8 bg-gov-blue rounded-lg flex items-center justify-center text-white font-bold text-lg">G</div>
+<div>
+<h1 class="text-lg font-bold text-gov-blue tracking-tight leading-tight">GovLLM</h1>
+<p class="text-xs font-medium text-text-muted">Enterprise Workspace</p>
+</div>
+</div>
+<button class="mb-6 flex items-center justify-center gap-2 bg-gov-blue text-white py-2.5 px-4 rounded-lg font-medium hover:bg-gov-blue-light transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+<span>New Chat</span>
+</button>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 text-text-muted hover:bg-surface hover:text-gov-blue rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-gov-blue transition-colors" data-icon="dashboard">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 bg-surface text-gov-blue rounded-lg font-medium border border-border-light/50 shadow-sm" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="chat" style="font-variation-settings: 'FILL' 1;">chat</span>
+<span class="text-sm">Chat</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-text-muted hover:bg-surface hover:text-gov-blue rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-gov-blue transition-colors" data-icon="database">database</span>
+<span class="text-sm font-medium">Knowledge Base</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-text-muted hover:bg-surface hover:text-gov-blue rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-gov-blue transition-colors" data-icon="folder_open">folder_open</span>
+<span class="text-sm font-medium">Projects</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-border-light space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-text-muted hover:bg-surface hover:text-gov-blue rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-gov-blue transition-colors" data-icon="settings">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+<div class="flex items-center gap-3 px-3 py-3 mt-2 rounded-lg hover:bg-surface transition-colors cursor-pointer border border-transparent hover:border-border-light/50">
+<div class="w-9 h-9 rounded-full bg-gov-blue/10 text-gov-blue flex items-center justify-center font-bold text-sm">SM</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold text-text-main truncate">Staff Member</p>
+<p class="text-xs text-text-muted truncate">Policy Division</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="flex-1 flex flex-col min-w-0 bg-surface relative h-full">
+<!-- Top Header -->
+<header class="h-16 px-6 bg-surface-white/80 backdrop-blur-md flex justify-between items-center border-b border-border-light z-10 sticky top-0 shadow-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-2 mb-0.5">
+<span class="w-2 h-2 rounded-full bg-success"></span>
+<span class="text-xs font-semibold text-text-muted uppercase tracking-wider">Active Context: Regulatory Compliance</span>
+</div>
+<h2 class="text-lg font-bold text-text-main tracking-tight">Cybersecurity Framework Alignment</h2>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-surface rounded-md transition-colors text-text-muted hover:text-gov-blue" title="Export Context">
+<span class="material-symbols-outlined text-[20px]" data-icon="ios_share">ios_share</span>
+</button>
+<button class="p-2 hover:bg-surface rounded-md transition-colors text-text-muted hover:text-gov-blue" title="Options">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Conversation Stream -->
+<div class="flex-1 overflow-y-auto custom-scrollbar px-6 py-10 flex justify-center">
+<div class="w-full max-w-5xl flex flex-col gap-10">
+<!-- User Message -->
+<div class="flex flex-col items-end gap-2 w-full max-w-3xl self-end">
+<div class="bg-gov-blue text-white p-5 rounded-2xl rounded-tr-sm shadow-md">
+<p class="text-base leading-relaxed">
+                            What are the specific requirements for data localization in the new 2024 Data Protection Act?
+                        </p>
+</div>
+<span class="text-xs text-text-muted font-medium pr-1">Today, 10:24 AM</span>
+</div>
+<!-- AI Response Section -->
+<div class="flex gap-8 w-full items-start">
+<!-- Avatar -->
+<div class="w-10 h-10 rounded-full bg-white border border-border-light shadow-sm flex items-center justify-center text-gov-blue shrink-0">
+<span class="material-symbols-outlined text-[22px]" data-icon="smart_toy">smart_toy</span>
+</div>
+<!-- Response Content -->
+<div class="flex-1 max-w-3xl space-y-4">
+<div class="bg-white border border-border-light p-7 rounded-2xl shadow-sm text-base leading-relaxed text-text-main">
+<div class="mb-6 flex items-center gap-2 bg-success/10 text-success text-xs font-medium px-3 py-1.5 rounded-md w-fit border border-success/20">
+<span class="material-symbols-outlined text-[16px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+                                98% Confidence - Verified Government Source
+                            </div>
+<p class="mb-5 text-[15px]">According to the Data Protection Act 2024 (Section 12), data localization requirements have been strengthened to prioritize national security and digital sovereignty. Key requirements include:</p>
+<ul class="space-y-4 list-none pl-0">
+<li class="flex gap-3 items-start">
+<span class="text-gov-blue mt-1">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</span>
+<span class="text-[15px]"><strong class="text-gov-blue font-semibold">Critical Infrastructure Data:</strong> All data pertaining to national security, public health, and utility grids must be stored and processed exclusively within Ugandan borders.</span>
+</li>
+<li class="flex gap-3 items-start">
+<span class="text-gov-blue mt-1">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</span>
+<span class="text-[15px]"><strong class="text-gov-blue font-semibold">Mirroring Requirement:</strong> Private entities handling "high-sensitivity" personal data must maintain a real-time mirror copy of the database on a Ministry-certified local server.</span>
+</li>
+<li class="flex gap-3 items-start">
+<span class="text-gov-blue mt-1">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</span>
+<span class="text-[15px]"><strong class="text-gov-blue font-semibold">Cross-Border Transfer:</strong> Transfers are permitted only to jurisdictions with "Equivalent or Superior" protection frameworks, pending a mandatory Privacy Impact Assessment (PIA).</span>
+</li>
+</ul>
+<div class="mt-6 p-4 bg-surface rounded-xl border border-border-light/50">
+<p class="text-sm text-text-muted italic">Non-compliance may result in administrative fines of up to 5% of annual turnover or mandatory suspension of digital operations.</p>
+</div>
+</div>
+<!-- Interaction Tools -->
+<div class="flex items-center gap-4 px-2">
+<button class="flex items-center gap-1.5 text-xs font-medium text-text-muted hover:text-gov-blue transition-colors px-2 py-1 rounded hover:bg-white border border-transparent hover:border-border-light shadow-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="content_copy">content_copy</span> Copy
+                            </button>
+<button class="flex items-center gap-1.5 text-xs font-medium text-text-muted hover:text-gov-blue transition-colors px-2 py-1 rounded hover:bg-white border border-transparent hover:border-border-light shadow-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="refresh">refresh</span> Regenerate
+                            </button>
+<div class="w-px h-4 bg-border-light mx-2"></div>
+<button class="text-text-muted hover:text-success transition-colors p-1 rounded hover:bg-white border border-transparent hover:border-border-light">
+<span class="material-symbols-outlined text-[18px]" data-icon="thumb_up">thumb_up</span>
+</button>
+<button class="text-text-muted hover:text-red-500 transition-colors p-1 rounded hover:bg-white border border-transparent hover:border-border-light">
+<span class="material-symbols-outlined text-[18px]" data-icon="thumb_down">thumb_down</span>
+</button>
+</div>
+</div>
+<!-- Citations Panel -->
+<aside class="w-64 space-y-4 shrink-0 hidden xl:block">
+<h4 class="text-xs font-bold text-text-muted uppercase tracking-wider mb-3">Verified Sources (2)</h4>
+<div class="citation-card bg-white border border-border-light p-4 rounded-xl cursor-pointer transition-all">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-red-50 text-red-600 text-[10px] font-bold px-1.5 py-0.5 rounded border border-red-100">PDF</span>
+<p class="text-sm font-semibold text-text-main truncate">Data Protection Act 2024</p>
+</div>
+<p class="text-xs text-text-muted line-clamp-3 leading-relaxed">"...Section 12 details the localized storage mandates for critical data sectors..."</p>
+<div class="mt-2 text-gov-blue text-xs font-medium flex items-center gap-1">
+                                View document <span class="material-symbols-outlined text-[14px]" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+<div class="citation-card bg-white border border-border-light p-4 rounded-xl cursor-pointer transition-all">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-blue-50 text-blue-600 text-[10px] font-bold px-1.5 py-0.5 rounded border border-blue-100">DOC</span>
+<p class="text-sm font-semibold text-text-main truncate">Legal Framework 2023</p>
+</div>
+<p class="text-xs text-text-muted line-clamp-3 leading-relaxed">"Consolidated review of digital sovereignty laws and historical precedents."</p>
+<div class="mt-2 text-gov-blue text-xs font-medium flex items-center gap-1">
+                                View document <span class="material-symbols-outlined text-[14px]" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</aside>
+</div>
+<!-- Spacer -->
+<div class="h-32"></div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-surface via-surface to-transparent pt-10 pb-4 px-6">
+<div class="max-w-4xl mx-auto flex flex-col items-center">
+<!-- Suggested Actions -->
+<div class="flex gap-2 overflow-x-auto pb-3 custom-scrollbar w-full justify-center">
+<button class="whitespace-nowrap px-4 py-1.5 bg-white border border-border-light text-text-muted text-sm rounded-full hover:border-gov-blue hover:text-gov-blue transition-colors shadow-sm font-medium">
+                        Summarize Section 4
+                    </button>
+<button class="whitespace-nowrap px-4 py-1.5 bg-white border border-border-light text-text-muted text-sm rounded-full hover:border-gov-blue hover:text-gov-blue transition-colors shadow-sm font-medium">
+                        Draft a compliance report
+                    </button>
+<button class="whitespace-nowrap px-4 py-1.5 bg-white border border-border-light text-text-muted text-sm rounded-full hover:border-gov-blue hover:text-gov-blue transition-colors shadow-sm font-medium">
+                        Compare with EU GDPR
+                    </button>
+</div>
+<!-- Input Field -->
+<div class="w-full max-w-3xl bg-white border border-border-light focus-within:border-gov-blue focus-within:ring-1 focus-within:ring-gov-blue transition-all rounded-2xl shadow-lg p-3 flex flex-col gap-2">
+<textarea class="w-full bg-transparent border-none focus:ring-0 text-base placeholder:text-text-muted/60 resize-none py-2 px-3 custom-scrollbar" placeholder="Ask GovLLM about Ministry Regulations..." rows="1"></textarea>
+<div class="flex items-center justify-between px-2 pt-1 border-t border-border-light/40">
+<div class="flex items-center gap-1">
+<button class="p-2 text-text-muted hover:bg-surface rounded-lg transition-colors" title="Attach Files">
+<span class="material-symbols-outlined text-[20px]" data-icon="attach_file">attach_file</span>
+</button>
+<button class="p-2 text-text-muted hover:bg-surface rounded-lg transition-colors" title="Voice Input">
+<span class="material-symbols-outlined text-[20px]" data-icon="mic">mic</span>
+</button>
+</div>
+<button class="bg-gov-blue text-white h-9 w-9 rounded-lg flex items-center justify-center hover:bg-gov-blue-light transition-colors shadow-md active:scale-95">
+<span class="material-symbols-outlined text-[18px]" data-icon="arrow_upward" style="font-variation-settings: 'wght' 600;">arrow_upward</span>
+</button>
+</div>
+</div>
+<!-- Disclaimer -->
+<p class="text-center text-[11px] text-text-muted mt-3 max-w-2xl">
+                    GovLLM can make mistakes. Verify critical legal or policy interpretations against official Ministry documentation before formal use. Generated content is logged for auditing purposes.
+                </p>
+</div>
+</div>
+</main>
+<script>
+        // Simple text area auto-resize
+        const tx = document.querySelector('textarea');
+        tx.addEventListener("input", OnInput, false);
+        function OnInput() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + "px";
+            if (this.scrollHeight > 150) {
+                this.style.overflowY = "scroll";
+            } else {
+                this.style.overflowY = "hidden";
+            }
+        }
+    </script>
+</body></html>

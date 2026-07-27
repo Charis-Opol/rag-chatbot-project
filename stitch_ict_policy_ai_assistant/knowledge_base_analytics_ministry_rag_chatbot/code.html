@@ -1,0 +1,532 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>KMS Admin - Analytics Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        .glass-panel { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(8px); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 10px; }
+        @keyframes pulse-subtle { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .animate-pulse-subtle { animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#737780",
+                        "success-green": "#10B981",
+                        "tertiary-fixed": "#d0e4ff",
+                        "on-surface-variant": "#43474f",
+                        "surface-container-high": "#e6e8ea",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-lowest": "#ffffff",
+                        "slate-dark": "#0F172A",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c3c6d0",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#f7f9fb",
+                        "primary-container": "#023464",
+                        "on-secondary-fixed-variant": "#783200",
+                        "primary-fixed-dim": "#a6c8ff",
+                        "on-surface": "#191c1e",
+                        "on-secondary-container": "#5c2400",
+                        "on-background": "#191c1e",
+                        "tertiary-container": "#00365b",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary-fixed": "#001d34",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#fd761a",
+                        "on-primary-container": "#7a9ed4",
+                        "primary-fixed": "#d4e3ff",
+                        "on-primary-fixed": "#001c3b",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#ffb690",
+                        "on-tertiary-container": "#5ba1e4",
+                        "secondary": "#9d4300",
+                        "surface-container-highest": "#e0e3e5",
+                        "tertiary-fixed-dim": "#9bcbff",
+                        "surface-variant": "#e0e3e5",
+                        "on-primary": "#ffffff",
+                        "primary": "#001f40",
+                        "surface": "#f7f9fb",
+                        "background": "#f7f9fb",
+                        "surface-border": "#E2E8F0",
+                        "on-secondary-fixed": "#341100",
+                        "tertiary": "#002039",
+                        "on-primary-fixed-variant": "#204778",
+                        "surface-dim": "#d8dadc",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-tint": "#3b5f92",
+                        "inverse-primary": "#a6c8ff",
+                        "secondary-fixed": "#ffdbca",
+                        "on-tertiary-fixed-variant": "#004a79",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#eceef0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "page-margin-desktop": "32px",
+                        "section-gap": "64px",
+                        "page-margin-mobile": "16px",
+                        "container-max-width": "1440px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-6 z-40 bg-primary dark:bg-primary-container shadow-lg w-64">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-on-primary flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional, high-contrast logo for a government technology agency, featuring abstract circular patterns in ministry blue and vibrant orange. The design is clean, corporate, and minimalist, set against a pristine white background with a sharp, modern vector aesthetic suitable for a national ICT entity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnqAJFZfHBYL4GRxi--fvSKn3McmtmaZUyT62OrqvKv3KQA2641zGx7yu7OfK0OJDz6pz1KsRNB48xEb5fGRPwbs3ejwL5jqtg00AZlmO0zjQ6YY4AcX8-51HMhhp11a1ea-m1dWJOm17DK-Sq44q29np0ovnJFy8zmxO4hfO4bAUFBR6_x0rxPWCCz2ACt_mGPIeUeF89f3pFQ9tnTxUK0o3cYMgND1_gr1Jw9daFg8TTRcxihkqowA">
+</div>
+<div>
+<h1 class="text-headline-sm font-black text-on-primary leading-none">KMS Admin</h1>
+<p class="text-[10px] text-on-primary/60 font-medium tracking-wider uppercase mt-1">Institutional AI Node</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1 overflow-y-auto custom-scrollbar">
+<!-- Active Tab: System Health (Analytics) -->
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-md font-label-md">Overview</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-label-md font-label-md">Document Library</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="queue">queue</span>
+<span class="text-label-md font-label-md">Ingestion Queue</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+<span class="text-label-md font-label-md">Embedding Config</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span class="text-label-md font-label-md">Vector Stores</span>
+</a>
+<a class="flex items-center gap-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg px-4 py-3 mx-2 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-label-md font-label-md">System Health</span>
+</a>
+</nav>
+<div class="px-4 mt-auto pt-6 border-t border-on-primary/10">
+<button class="w-full bg-secondary-container text-on-secondary-container font-bold py-3 rounded-xl flex items-center justify-center gap-2 mb-6 hover:brightness-110 transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span class="text-label-md">New Ingestion</span>
+</button>
+<div class="space-y-1">
+<a class="flex items-center gap-3 text-on-primary/70 px-4 py-2 hover:text-on-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 px-4 py-2 hover:text-on-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span class="text-label-md">Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-50 bg-surface dark:bg-inverse-surface border-b border-surface-border dark:border-outline-variant shadow-sm">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative max-w-md w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-label-md focus:ring-2 focus:ring-primary/20" placeholder="Search analytics logs..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-8 px-6">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors text-label-md" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors text-label-md" href="#">Workflows</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors text-label-md" href="#">Logs</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 text-label-md" href="#">Analytics</a>
+</div>
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30"></div>
+<img class="w-8 h-8 rounded-full object-cover ring-2 ring-primary/10" data-alt="A professional headshot of a female Knowledge Management Officer in a corporate setting. She is wearing professional attire, and the background is a softly blurred modern office. The lighting is bright and clean, emphasizing a high-trust, institutional authority aesthetic consistent with a national ministry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGCWXzoxk-aXAF8VhhLORR6D5sRW_sjh7aesxWx7yJvm70dreNJaH9G0mom_yykwRNcAYswDZ5PVuB40rahUPxujReVZF9xSftRn_owv8g3lwyLp_AOqhmTBg5xOWG3U09scZz_u_VaduPPCmrrReDuWV3wfkZgQCK9UJscgk80o1DmW1aV7aNFxo1Ela7MklVdkwOqxbbFXpPwIc5V_iMNkfzcUt1TJjGBbAU4PnXCgUl1b0tA6DrKQ">
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="p-8 max-w-[1440px] mx-auto">
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">System Health &amp; Analytics</h2>
+<p class="text-body-md text-outline">Real-time performance monitoring and data consumption for the RAG Knowledge Hub.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 bg-surface-container-lowest border border-surface-border rounded-lg text-label-md font-semibold flex items-center gap-2 hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+                        Last 30 Days
+                    </button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-lg text-label-md font-semibold flex items-center gap-2 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                        Export Report
+                    </button>
+</div>
+</div>
+<!-- Bento Grid - High Level Counters -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<!-- Total Documents -->
+<div class="bg-surface-container-lowest border border-surface-border rounded-xl p-6 hover:shadow-lg transition-all group overflow-hidden relative">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+</div>
+<span class="text-success-green text-label-sm flex items-center gap-1 bg-success-green/10 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-xs" data-icon="trending_up">trending_up</span>
+                            +12%
+                        </span>
+</div>
+<p class="text-label-md text-outline mb-1">Total Documents</p>
+<h3 class="text-headline-xl font-headline-xl text-primary">124,892</h3>
+<p class="text-[12px] text-outline mt-4 border-t border-surface-border pt-4">Across 14 institutional departments</p>
+</div>
+<!-- Indexed Files -->
+<div class="bg-surface-container-lowest border border-surface-border rounded-xl p-6 hover:shadow-lg transition-all group overflow-hidden relative">
+<div class="absolute top-0 right-0 w-24 h-24 bg-secondary-container/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="search_check">search_check</span>
+</div>
+<span class="text-success-green text-label-sm flex items-center gap-1 bg-success-green/10 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-xs" data-icon="check_circle">check_circle</span>
+                            Healthy
+                        </span>
+</div>
+<p class="text-label-md text-outline mb-1">Indexed Files</p>
+<h3 class="text-headline-xl font-headline-xl text-primary">121,405</h3>
+<div class="w-full bg-surface-container rounded-full h-1.5 mt-4">
+<div class="bg-secondary-container h-1.5 rounded-full" style="width: 97.2%"></div>
+</div>
+<p class="text-[12px] text-outline mt-2">97.2% Knowledge coverage</p>
+</div>
+<!-- Failed Files -->
+<div class="bg-surface-container-lowest border border-surface-border rounded-xl p-6 hover:shadow-lg transition-all group overflow-hidden relative">
+<div class="absolute top-0 right-0 w-24 h-24 bg-error/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-xl bg-error-container flex items-center justify-center text-error">
+<span class="material-symbols-outlined" data-icon="error_outline">error_outline</span>
+</div>
+<span class="text-error text-label-sm flex items-center gap-1 bg-error/10 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-xs" data-icon="report_problem">report_problem</span>
+                            Needs Action
+                        </span>
+</div>
+<p class="text-label-md text-outline mb-1">Failed Files</p>
+<h3 class="text-headline-xl font-headline-xl text-error">3,487</h3>
+<p class="text-[12px] text-outline mt-4 border-t border-surface-border pt-4">Primary cause: Unsupported PDF encoding</p>
+</div>
+</div>
+<!-- Charts Row -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+<!-- Line Chart: Processing Time Trends -->
+<div class="bg-surface-container-lowest border border-surface-border rounded-xl p-6">
+<div class="flex items-center justify-between mb-8">
+<h4 class="text-label-md font-bold text-primary">Processing Time Trends (avg ms)</h4>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5 text-xs text-outline">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+                                Current Period
+                            </div>
+<div class="flex items-center gap-1.5 text-xs text-outline">
+<div class="w-3 h-3 rounded-full bg-primary/20"></div>
+                                Baseline
+                            </div>
+</div>
+</div>
+<div class="h-64 flex items-end justify-between gap-4 relative">
+<!-- Simulated Chart Grid -->
+<div class="absolute inset-0 flex flex-col justify-between">
+<div class="w-full border-t border-surface-container-low h-0"></div>
+<div class="w-full border-t border-surface-container-low h-0"></div>
+<div class="w-full border-t border-surface-container-low h-0"></div>
+<div class="w-full border-t border-surface-container-low h-0"></div>
+</div>
+<!-- SVG Line Chart Path -->
+<svg class="absolute inset-0 w-full h-full preserve-3d" preserveAspectRatio="none" viewBox="0 0 400 100">
+<path d="M0,80 Q50,60 100,75 T200,40 T300,55 T400,20" fill="none" stroke="#023464" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+<path d="M0,90 Q50,85 100,88 T200,75 T300,82 T400,65" fill="none" stroke="#02346433" stroke-dasharray="4 2" stroke-width="1" vector-effect="non-scaling-stroke"></path>
+</svg>
+<!-- Label markers -->
+<div class="text-[10px] text-outline mt-2 absolute bottom-[-24px] left-0">Mon</div>
+<div class="text-[10px] text-outline mt-2 absolute bottom-[-24px] left-[25%]">Wed</div>
+<div class="text-[10px] text-outline mt-2 absolute bottom-[-24px] left-[50%]">Fri</div>
+<div class="text-[10px] text-outline mt-2 absolute bottom-[-24px] left-[75%]">Sun</div>
+<div class="text-[10px] text-outline mt-2 absolute bottom-[-24px] right-0">Today</div>
+</div>
+</div>
+<!-- Bar Chart: Category Distribution -->
+<div class="bg-surface-container-lowest border border-surface-border rounded-xl p-6">
+<div class="flex items-center justify-between mb-8">
+<h4 class="text-label-md font-bold text-primary">Distribution by Document Category</h4>
+<button class="text-primary text-xs font-semibold hover:underline">View All</button>
+</div>
+<div class="space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span class="font-medium text-on-surface">Legal &amp; Policy</span>
+<span class="text-outline">42,109 (34%)</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 34%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span class="font-medium text-on-surface">Technical Briefs</span>
+<span class="text-outline">31,002 (25%)</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2 overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full" style="width: 25%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span class="font-medium text-on-surface">Financial Reports</span>
+<span class="text-outline">18,540 (15%)</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2 overflow-hidden">
+<div class="bg-primary/60 h-full rounded-full" style="width: 15%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span class="font-medium text-on-surface">Citizen Correspondence</span>
+<span class="text-outline">14,210 (11%)</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2 overflow-hidden">
+<div class="bg-tertiary-container h-full rounded-full" style="width: 11%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed Table Section -->
+<div class="bg-surface-container-lowest border border-surface-border rounded-xl overflow-hidden mb-section-gap">
+<div class="px-6 py-5 border-b border-surface-border flex justify-between items-center">
+<div>
+<h4 class="text-label-md font-bold text-primary">Storage Consumption by Department</h4>
+<p class="text-[12px] text-outline">Real-time allocation of vector database and file storage.</p>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-surface-container-lowest" data-alt="A small circular avatar of a professional in a white shirt, used as a UI element for department leads." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjbycRDPnf7EUP1GSM3vfX6Xu2ggEv-nQUhM-6eIlGGXH-GC23dOQHXsE7WcImUOdCkz6GiW895RQ4H0-JmfU1sOuiRp_tu-t_AFCrxELr04XVZsSsakQvUcKeI0dSN3b1Y8F7-48y6OAKWw-5mh9k5uK6l0qSEvFkbr4G0vu9s0YeeayOEAo31pbYfs_o2-jJa2SzqkCeFUojm75L-uw8x_gtFzEtioLAE0s5JfjapycpX5mVnyHOQw">
+<img class="w-8 h-8 rounded-full border-2 border-surface-container-lowest" data-alt="A small circular avatar of a government worker wearing traditional attire, representing a department head in a digital dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpD8wMcsLRUMAxrdamxCgpqHRtOWtg2sMq3Dqv23p37IRyEbsFebafTE9KbzDVlJ5c00KOCEzl_HIWh_f3MfRVc9ZCE8xTm-8cPHACGlUM-xWuzGLpD_rflxhnd4fuqm7Pflg397gEOE3We9ZXxeWcGYsVBNtAUol6GyfAekrrZh7Lj7Z6rsQ9nZLfMix-TI0BfamvnAprhc2JXFbLyisf-3dVKOr7ELf9dllD4D8Jp3SYWU6MsIwjZA">
+<img class="w-8 h-8 rounded-full border-2 border-surface-container-lowest" data-alt="A professional headshot of a diverse team member for a UI avatar group, focusing on institutional authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx1Oa8gdgrLpjylOW_Psou1jppeNTnvnYgTslGMwm9RJNk8S6tpglVfA7u5ne6CrrpWHFUUQRcPkwRVFt8golVemGidummTaWx1ulVMHgVllW7ymcTAJrWloeIfaWjJOB9XdkRxevywNQ2ws58SrW9Yv8AuzVhC4B513xaJiKg1kS_dgTWftCmsx_OAnUOkdMV_NjFTTXhg9msSLkni4-2smKEeRRu_ifKcQzIXln2OdVNy578ABXzrA">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-[10px] font-bold border-2 border-surface-container-lowest">+8</div>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low text-label-sm text-outline border-b border-surface-border">
+<th class="px-6 py-4 font-semibold uppercase tracking-wider">Department Name</th>
+<th class="px-6 py-4 font-semibold uppercase tracking-wider">Admin Lead</th>
+<th class="px-6 py-4 font-semibold uppercase tracking-wider">Total Documents</th>
+<th class="px-6 py-4 font-semibold uppercase tracking-wider">Storage (TB)</th>
+<th class="px-6 py-4 font-semibold uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 font-semibold uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-border">
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="account_balance">account_balance</span>
+</div>
+<span class="text-body-md font-medium">ICT Policy Research</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md">Hon. J. Mukasa</td>
+<td class="px-6 py-4 text-body-md">24,560</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="text-body-md">4.2</span>
+<div class="w-16 bg-surface-container rounded-full h-1">
+<div class="bg-primary h-1 rounded-full" style="width: 80%"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-success-green/10 text-success-green px-2 py-1 rounded-full text-[10px] font-bold uppercase">Optimized</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="security">security</span>
+</div>
+<span class="text-body-md font-medium">National Cybersecurity Unit</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md">D. Namubiru</td>
+<td class="px-6 py-4 text-body-md">18,201</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="text-body-md">6.8</span>
+<div class="w-16 bg-surface-container rounded-full h-1">
+<div class="bg-error h-1 rounded-full" style="width: 95%"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-error/10 text-error px-2 py-1 rounded-full text-[10px] font-bold uppercase">Near Limit</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="groups">groups</span>
+</div>
+<span class="text-body-md font-medium">Citizen Guidance Div.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md">P. Okello</td>
+<td class="px-6 py-4 text-body-md">32,490</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="text-body-md">1.2</span>
+<div class="w-16 bg-surface-container rounded-full h-1">
+<div class="bg-primary h-1 rounded-full" style="width: 30%"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-success-green/10 text-success-green px-2 py-1 rounded-full text-[10px] font-bold uppercase">Optimized</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="lan">lan</span>
+</div>
+<span class="text-body-md font-medium">Infrastructure Planning</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md">S. Atwine</td>
+<td class="px-6 py-4 text-body-md">12,112</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="text-body-md">0.8</span>
+<div class="w-16 bg-surface-container rounded-full h-1">
+<div class="bg-primary h-1 rounded-full" style="width: 15%"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-success-green/10 text-success-green px-2 py-1 rounded-full text-[10px] font-bold uppercase">Optimized</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Footer Meta -->
+<footer class="flex justify-between items-center py-8 border-t border-surface-border text-outline text-[12px]">
+<div class="flex items-center gap-6">
+<p>© 2026 Ministry of ICT and National Guidance</p>
+<a class="hover:text-primary transition-colors" href="#">Node Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">System Logs API</a>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-success-green animate-pulse"></div>
+<span>Cluster Entebbe-01: Operational</span>
+</div>
+</footer>
+</div>
+</main>
+<!-- FAB for Contextual Action -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="w-14 h-14 bg-secondary-container text-on-secondary-container rounded-full shadow-2xl flex items-center justify-center group hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl group-hover:rotate-90 transition-transform" data-icon="settings_suggest">settings_suggest</span>
+</button>
+</div>
+<script>
+        // Simple micro-interaction for table rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('click', () => {
+                row.classList.add('scale-[0.995]');
+                setTimeout(() => row.classList.remove('scale-[0.995]'), 150);
+            });
+        });
+    </script>
+</body></html>

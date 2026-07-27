@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login | Ministry of ICT &amp; National Guidance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Shared Style Guidance Tokens & Theme Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#5c2400",
+                    "tertiary-fixed": "#d0e4ff",
+                    "surface-container-highest": "#e0e3e5",
+                    "background": "#f7f9fb",
+                    "secondary-container": "#fd761a",
+                    "outline-variant": "#c3c6d0",
+                    "inverse-surface": "#2d3133",
+                    "inverse-primary": "#a6c8ff",
+                    "primary-fixed-dim": "#a6c8ff",
+                    "on-background": "#191c1e",
+                    "surface-container": "#eceef0",
+                    "primary": "#001f40",
+                    "primary-fixed": "#d4e3ff",
+                    "on-primary-container": "#7a9ed4",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed": "#ffdbca",
+                    "surface-bright": "#f7f9fb",
+                    "primary-container": "#023464",
+                    "surface-border": "#E2E8F0",
+                    "on-tertiary-fixed-variant": "#004a79",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-container-high": "#e6e8ea",
+                    "outline": "#737780",
+                    "surface-tint": "#3b5f92",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed": "#341100",
+                    "slate-dark": "#0F172A",
+                    "tertiary": "#002039",
+                    "on-error-container": "#93000a",
+                    "success-green": "#10B981",
+                    "on-surface-variant": "#43474f",
+                    "on-primary-fixed": "#001c3b",
+                    "on-primary-fixed-variant": "#204778",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed-variant": "#783200",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-variant": "#e0e3e5",
+                    "tertiary-container": "#00365b",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-fixed": "#001d34",
+                    "surface-dim": "#d8dadc",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#9d4300",
+                    "secondary-fixed-dim": "#ffb690",
+                    "on-tertiary-container": "#5ba1e4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "page-margin-mobile": "16px",
+                    "section-gap": "64px",
+                    "page-margin-desktop": "32px",
+                    "gutter": "24px",
+                    "container-max-width": "1440px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-xl": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .security-scanline {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #70B5F9, transparent);
+            top: -100%;
+            animation: scan 3s linear infinite;
+            opacity: 0.3;
+        }
+        @keyframes scan {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
+        .tonal-layer {
+            background-color: #F8FAFC;
+        }
+        .shadow-soft { box-shadow: 0 4px 20px -2px rgba(2, 52, 100, 0.05), 0 0 3px rgba(2, 52, 100, 0.02); }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+<!-- Subtle Ambient Background Element -->
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-primary-fixed opacity-10 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-5%] left-[-5%] w-[500px] h-[500px] bg-tertiary-fixed opacity-10 blur-[100px] rounded-full"></div>
+</div>
+<!-- Top Branding Anchor (Simplified for Login) -->
+<header class="fixed top-0 w-full flex justify-between items-center px-page-margin-desktop py-8 z-20">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary-container flex items-center justify-center rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-white text-[24px]" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-md font-bold text-primary tracking-tight uppercase leading-tight">Ministry of ICT</span>
+<span class="text-body-md font-medium text-on-surface-variant leading-tight mt-0.5">National Guidance Portal</span>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-3 bg-success-green/5 px-5 py-2.5 rounded-full border border-success-green/20">
+<span class="w-2.5 h-2.5 rounded-full bg-success-green animate-pulse"></span>
+<span class="text-label-md font-semibold text-success-green">Offline System Secure</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="w-full max-w-[540px] px-page-margin-mobile md:px-0 z-10">
+<!-- Login Card -->
+<div class="bg-white rounded-[2rem] border border-surface-border shadow-soft p-10 sm:p-14 relative overflow-hidden group">
+<div class="security-scanline"></div>
+<div class="mb-10 text-center md:text-left">
+<h1 class="text-headline-xl font-headline-xl text-primary mb-4">Offline RAG Chatbot</h1>
+<p class="text-body-xl font-body-xl text-on-surface-variant leading-relaxed">Access the centralized AI knowledge base for departmental guidance.</p>
+</div>
+<!-- Login Form -->
+<form action="#" class="space-y-8">
+<!-- Security Notice -->
+<div class="flex items-start gap-4 p-5 bg-primary-fixed/20 border border-primary-fixed-dim/30 rounded-xl mb-8">
+<span class="material-symbols-outlined text-primary text-[24px] mt-0.5">encrypted</span>
+<div class="flex flex-col">
+<span class="text-label-md font-bold text-primary mb-1">Authorized Personnel Only</span>
+<span class="text-body-md text-on-surface-variant leading-snug">Connection encrypted and logged via internal intranet protocols.</span>
+</div>
+</div>
+<!-- Email Input -->
+<div class="space-y-2.5">
+<label class="block text-label-md font-semibold text-on-surface ml-1" for="email">Government Email</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline text-xl">alternate_email</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-low border border-transparent focus:bg-white focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 rounded-xl transition-all text-body-md placeholder:text-outline/60" id="email" placeholder="name.surname@ict.go.ug" required="" type="email"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="space-y-2.5">
+<div class="flex justify-between items-center ml-1 mb-1">
+<label class="text-label-md font-semibold text-on-surface" for="password">Password</label>
+<a class="text-label-md font-semibold text-secondary hover:underline transition-colors" href="#">Forgot Password?</a>
+</div>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline text-xl">lock_open</span>
+<input class="w-full pl-12 pr-12 py-4 bg-surface-container-low border border-transparent focus:bg-white focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 rounded-xl transition-all text-body-md placeholder:text-outline/60" id="password" placeholder="••••••••••••" required="" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-xl">visibility_off</span>
+</button>
+</div>
+</div>
+<!-- Remember Me -->
+<div class="flex items-center gap-3 px-1 mt-2">
+<input class="w-5 h-5 text-primary-container border-surface-border rounded focus:ring-primary-container cursor-pointer transition-colors" id="remember" type="checkbox"/>
+<label class="text-body-md text-on-surface-variant cursor-pointer select-none" for="remember">Remember this workstation</label>
+</div>
+<!-- Sign In Button -->
+<button class="w-full bg-primary-container text-white py-4 rounded-xl font-semibold text-lg shadow-sm hover:shadow-md hover:bg-[#03427D] transition-all active:scale-[0.98] flex items-center justify-center gap-2 mt-10 relative overflow-hidden group" type="submit">
+<span class="relative z-10">Sign In to Dashboard</span>
+<span class="material-symbols-outlined relative z-10 text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
+<div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+</button>
+</form>
+</div>
+<!-- System Metadata -->
+<div class="mt-10 flex flex-col items-center gap-4">
+<div class="flex gap-10 text-label-md font-medium text-outline">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">database</span>
+<span>v2.4.1 Stable</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">lan</span>
+<span>Node: UG-ENT-042</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span>FIPS Compliant</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Identity -->
+<footer class="fixed bottom-0 w-full py-8 px-page-margin-desktop flex flex-col md:flex-row justify-between items-center text-on-surface-variant z-20">
+<div class="text-label-md font-medium opacity-80 mb-4 md:mb-0">
+            © 2026 Ministry of ICT &amp; National Guidance. All Rights Reserved.
+        </div>
+<div class="flex gap-8">
+<a class="text-label-md font-semibold hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-md font-semibold hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-label-md font-semibold hover:text-primary transition-colors" href="#">Contact Support</a>
+</div>
+</footer>
+<script>
+        // Micro-interaction: Password toggle visibility
+        const passwordInput = document.getElementById('password');
+        const toggleBtn = passwordInput.nextElementSibling;
+        
+        toggleBtn.addEventListener('click', () => {
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            toggleBtn.querySelector('span').innerText = isPassword ? 'visibility' : 'visibility_off';
+        });
+
+        // Micro-interaction: Form submission animation
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Authenticating...';
+            btn.classList.add('opacity-80', 'pointer-events-none');
+            
+            setTimeout(() => {
+                btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Access Granted';
+                btn.classList.replace('bg-primary-container', 'bg-success-green');
+            }, 1200);
+        });
+    </script>
+</body></html>

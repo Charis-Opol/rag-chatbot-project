@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Management | Ministry of ICT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "background": "#f7f9fb",
+                    "secondary-container": "#fd761a",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#5c2400",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "inverse-primary": "#a6c8ff",
+                    "outline-variant": "#c3c6d0",
+                    "on-surface-variant": "#43474f",
+                    "on-primary-fixed-variant": "#204778",
+                    "on-primary-fixed": "#001c3b",
+                    "surface-variant": "#e0e3e5",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#783200",
+                    "primary-fixed": "#d4e3ff",
+                    "slate-dark": "#0F172A",
+                    "primary-fixed-dim": "#a6c8ff",
+                    "on-secondary-fixed": "#341100",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-tertiary-fixed": "#001d34",
+                    "surface-border": "#E2E8F0",
+                    "surface-tint": "#3b5f92",
+                    "success-green": "#10B981",
+                    "on-tertiary-fixed-variant": "#004a79",
+                    "on-background": "#191c1e",
+                    "inverse-surface": "#2d3133",
+                    "tertiary-container": "#00365b",
+                    "surface-container-low": "#f2f4f6",
+                    "surface": "#f7f9fb",
+                    "outline": "#737780",
+                    "surface-bright": "#f7f9fb",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#7a9ed4",
+                    "secondary-fixed": "#ffdbca",
+                    "surface-dim": "#d8dadc",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#d0e4ff",
+                    "secondary": "#9d4300",
+                    "tertiary": "#002039",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "primary": "#001f40",
+                    "on-tertiary-container": "#5ba1e4",
+                    "error": "#ba1a1a",
+                    "primary-container": "#023464",
+                    "on-surface": "#191c1e",
+                    "secondary-fixed-dim": "#ffb690",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap": "64px",
+                    "page-margin-desktop": "32px",
+                    "container-max-width": "1440px",
+                    "page-margin-mobile": "16px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "body-xl": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f7f9fb;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid #E2E8F0;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="text-on-surface flex overflow-hidden h-screen">
+<!-- Shared SideNavBar -->
+<aside class="bg-surface-container-lowest dark:bg-surface-container-low border-r border-surface-border dark:border-outline-variant h-screen w-64 flex flex-col py-6 px-4 gap-y-2 flex-shrink-0 z-50">
+<div class="mb-8 px-2">
+<h1 class="text-headline-xl font-headline-xl text-primary tracking-tight">ICT Admin</h1>
+<p class="text-label-md font-label-md text-on-surface-variant opacity-70">Staff Portal</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:scale-[1.02] transition-transform duration-150 group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 transition-all">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg font-semibold hover:scale-[1.02] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="text-label-md font-label-md">Admin Tools</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:scale-[1.02] transition-transform duration-150 group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 transition-all">folder_open</span>
+<span class="text-label-md font-label-md">Projects</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:scale-[1.02] transition-transform duration-150 group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 transition-all">chat</span>
+<span class="text-label-md font-label-md">Chat</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:scale-[1.02] transition-transform duration-150 group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 transition-all">database</span>
+<span class="text-label-md font-label-md">Knowledge Base</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1">
+<button class="w-full mb-4 py-2.5 px-4 bg-primary text-white rounded-lg font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+<span class="text-label-md">New Chat</span>
+</button>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- Shared TopNavBar (Internal Layout) -->
+<header class="bg-surface/80 backdrop-blur-md sticky top-0 z-40 border-b border-surface-border shadow-sm h-16 flex items-center">
+<div class="flex justify-between items-center w-full px-page-margin-desktop max-w-container-max-width mx-auto">
+<div class="flex items-center gap-4">
+<span class="text-headline-lg font-headline-lg text-primary tracking-tight">Ministry of ICT</span>
+<nav class="hidden md:flex gap-6 ml-8">
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Features</a>
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">About</a>
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">FAQ</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<input class="bg-surface-container-low border-none rounded-full py-1.5 pl-10 pr-4 text-label-md w-64 focus:ring-2 focus:ring-primary-container" placeholder="Global search..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+</div>
+<button class="bg-primary text-white px-5 py-2 rounded-full text-label-md font-semibold hover:opacity-90 transition-opacity">Staff Access</button>
+</div>
+</div>
+</header>
+<!-- Dynamic Page Content -->
+<div class="flex-1 overflow-y-auto custom-scrollbar bg-background">
+<div class="max-w-container-max-width mx-auto px-page-margin-desktop py-10">
+<!-- Page Header & Actions -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10">
+<div>
+<nav class="flex items-center gap-2 text-label-sm text-on-surface-variant mb-2">
+<span>Admin Portal</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">User Management</span>
+</nav>
+<h2 class="text-display-lg font-display-lg text-primary">System Administrators</h2>
+<p class="text-body-md text-on-surface-variant mt-2 max-w-2xl">Manage organizational hierarchy, assign departmental roles, and control access permissions for the Ministry's digital infrastructure.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-5 py-3 border border-surface-border bg-white text-primary rounded-xl font-semibold hover:bg-surface-container-low transition-colors shadow-sm">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="text-label-md">Export Data</span>
+</button>
+<button class="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-all shadow-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person_add</span>
+<span class="text-label-md">Invite User</span>
+</button>
+</div>
+</div>
+<!-- Bento Statistics Summary -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+<div class="bg-white p-6 rounded-xl border border-surface-border shadow-sm flex flex-col">
+<span class="text-label-sm text-on-surface-variant uppercase tracking-wider">Total Users</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="text-headline-xl font-headline-xl text-primary">1,284</span>
+<span class="text-success-green text-label-sm font-bold flex items-center">+3% <span class="material-symbols-outlined text-[14px]">arrow_upward</span></span>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl border border-surface-border shadow-sm flex flex-col">
+<span class="text-label-sm text-on-surface-variant uppercase tracking-wider">Active Now</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="text-headline-xl font-headline-xl text-primary">456</span>
+<span class="w-2 h-2 rounded-full bg-success-green animate-pulse"></span>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl border border-surface-border shadow-sm flex flex-col">
+<span class="text-label-sm text-on-surface-variant uppercase tracking-wider">Departmental Spread</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="text-headline-xl font-headline-xl text-primary">12</span>
+<span class="text-on-surface-variant text-label-sm">Units</span>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl border border-surface-border shadow-sm flex flex-col">
+<span class="text-label-sm text-on-surface-variant uppercase tracking-wider">Pending Invites</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="text-headline-xl font-headline-xl text-secondary">24</span>
+<span class="text-on-surface-variant text-label-sm">Requires Action</span>
+</div>
+</div>
+</div>
+<!-- Table Controls -->
+<div class="bg-white rounded-t-xl border border-surface-border border-b-0 p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex flex-wrap items-center gap-4 w-full md:w-auto">
+<div class="relative w-full md:w-80">
+<input class="w-full bg-surface-container-low border-none rounded-lg py-2.5 pl-10 pr-4 text-body-md focus:ring-2 focus:ring-primary-container/20" placeholder="Search by name, email or ID..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+</div>
+<div class="flex gap-2">
+<select class="bg-white border border-surface-border rounded-lg text-label-md py-2 px-4 focus:ring-2 focus:ring-primary-container/20 cursor-pointer">
+<option>All Departments</option>
+<option>National Guidance</option>
+<option>IT Infrastructure</option>
+<option>Digital Literacy</option>
+</select>
+<select class="bg-white border border-surface-border rounded-lg text-label-md py-2 px-4 focus:ring-2 focus:ring-primary-container/20 cursor-pointer">
+<option>All Roles</option>
+<option>Admin</option>
+<option>KMO</option>
+<option>Staff</option>
+</select>
+</div>
+</div>
+<div class="hidden flex items-center gap-3 animate-in fade-in slide-in-from-right-4 duration-300" id="bulk-actions">
+<span class="text-label-md text-on-surface-variant font-medium"><span id="selected-count">0</span> Selected</span>
+<button class="bg-error-container text-on-error-container px-4 py-2 rounded-lg text-label-md font-bold hover:bg-error/10 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">delete</span> Delete
+                        </button>
+<button class="bg-surface-container-high text-on-surface-variant px-4 py-2 rounded-lg text-label-md font-bold hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">block</span> Disable
+                        </button>
+</div>
+</div>
+<!-- Main Data Table -->
+<div class="bg-white border border-surface-border rounded-b-xl overflow-hidden shadow-sm">
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-surface-border">
+<th class="px-6 py-4 w-12">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" id="select-all" type="checkbox"/>
+</th>
+<th class="px-6 py-4 text-label-sm text-on-surface-variant uppercase font-bold tracking-widest">User Profile</th>
+<th class="px-6 py-4 text-label-sm text-on-surface-variant uppercase font-bold tracking-widest">Department</th>
+<th class="px-6 py-4 text-label-sm text-on-surface-variant uppercase font-bold tracking-widest">Role</th>
+<th class="px-6 py-4 text-label-sm text-on-surface-variant uppercase font-bold tracking-widest">Status</th>
+<th class="px-6 py-4 text-label-sm text-on-surface-variant uppercase font-bold tracking-widest">Last Active</th>
+<th class="px-6 py-4 text-right"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-border">
+<!-- User Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-4">
+<input class="user-checkbox rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-label-md">
+                                                MN
+                                            </div>
+<div>
+<p class="font-semibold text-primary">Mugisha Nicholas</p>
+<p class="text-label-sm text-on-surface-variant">n.mugisha@ict.go.ug</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">National Guidance</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-bold bg-primary-fixed text-on-primary-fixed-variant">Admin</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-label-sm font-bold text-success-green bg-green-50 border border-success-green/20">
+<span class="w-1.5 h-1.5 rounded-full bg-success-green"></span> Active
+                                        </span>
+</td>
+<td class="px-6 py-4 text-label-md text-on-surface-variant">2 mins ago</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- User Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-4">
+<input class="user-checkbox rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-white flex items-center justify-center font-bold text-label-md">
+                                                AS
+                                            </div>
+<div>
+<p class="font-semibold text-primary">Akello Sarah</p>
+<p class="text-label-sm text-on-surface-variant">s.akello@ict.go.ug</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">IT Infrastructure</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-bold bg-secondary-fixed text-on-secondary-fixed-variant">KMO</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-label-sm font-bold text-success-green bg-green-50 border border-success-green/20">
+<span class="w-1.5 h-1.5 rounded-full bg-success-green"></span> Active
+                                        </span>
+</td>
+<td class="px-6 py-4 text-label-md text-on-surface-variant">1 hour ago</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- User Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-4">
+<input class="user-checkbox rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-primary flex items-center justify-center font-bold text-label-md border border-surface-border">
+                                                BO
+                                            </div>
+<div>
+<p class="font-semibold text-primary">Brian Okello</p>
+<p class="text-label-sm text-on-surface-variant">b.okello@ict.go.ug</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">Digital Literacy</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-bold bg-surface-container-high text-on-surface-variant">Staff</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-label-sm font-bold text-on-surface-variant bg-surface-container-high">
+<span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant"></span> Inactive
+                                        </span>
+</td>
+<td class="px-6 py-4 text-label-md text-on-surface-variant">3 days ago</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- User Row 4 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-4">
+<input class="user-checkbox rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-bold text-label-md">
+                                                DK
+                                            </div>
+<div>
+<p class="font-semibold text-primary">Daphine Kembabazi</p>
+<p class="text-label-sm text-on-surface-variant">d.kemba@ict.go.ug</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">Strategy &amp; Policy</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-bold bg-surface-container-high text-on-surface-variant">Staff</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-label-sm font-bold text-success-green bg-green-50 border border-success-green/20">
+<span class="w-1.5 h-1.5 rounded-full bg-success-green"></span> Active
+                                        </span>
+</td>
+<td class="px-6 py-4 text-label-md text-on-surface-variant">15 mins ago</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 bg-surface-container-low flex items-center justify-between border-t border-surface-border">
+<span class="text-label-md text-on-surface-variant">Showing 1 to 4 of 1,284 users</span>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-lg hover:bg-surface-container-high disabled:opacity-30 disabled:cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-primary text-white text-label-md font-bold">1</button>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-high text-label-md">2</button>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-high text-label-md">3</button>
+<span class="px-1">...</span>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-high text-label-md">32</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-high">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Footer Section (Integrated as per design) -->
+<footer class="mt-section-gap w-full py-8 flex flex-col md:flex-row justify-between items-center border-t border-surface-border">
+<p class="text-label-sm text-on-surface-variant">© 2026 Ministry of ICT &amp; National Guidance. All Rights Reserved.</p>
+<div class="flex gap-6 mt-4 md:mt-0">
+<a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Support</a>
+</div>
+</footer>
+</div>
+</div>
+</main>
+<!-- Micro-interaction Scripts -->
+<script>
+        const selectAll = document.getElementById('select-all');
+        const userCheckboxes = document.querySelectorAll('.user-checkbox');
+        const bulkActions = document.getElementById('bulk-actions');
+        const selectedCount = document.getElementById('selected-count');
+
+        function updateBulkActions() {
+            const checkedCount = Array.from(userCheckboxes).filter(cb => cb.checked).length;
+            if (checkedCount > 0) {
+                bulkActions.classList.remove('hidden');
+                selectedCount.textContent = checkedCount;
+            } else {
+                bulkActions.classList.add('hidden');
+            }
+        }
+
+        selectAll.addEventListener('change', (e) => {
+            userCheckboxes.forEach(cb => cb.checked = e.target.checked);
+            updateBulkActions();
+        });
+
+        userCheckboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                const allChecked = Array.from(userCheckboxes).every(cb => cb.checked);
+                const someChecked = Array.from(userCheckboxes).some(cb => cb.checked);
+                selectAll.checked = allChecked;
+                selectAll.indeterminate = someChecked && !allChecked;
+                updateBulkActions();
+            });
+        });
+
+        // Simple filtering visual feedback
+        const selectFilters = document.querySelectorAll('select');
+        selectFilters.forEach(select => {
+            select.addEventListener('change', () => {
+                const trs = document.querySelectorAll('tbody tr');
+                trs.forEach(tr => {
+                    tr.style.opacity = '0.5';
+                    setTimeout(() => tr.style.opacity = '1', 300);
+                });
+            });
+        });
+    </script>
+</body></html>

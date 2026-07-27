@@ -1,0 +1,464 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>KMS Admin | RAG Knowledge Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Config Verbatim -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#737780",
+                    "success-green": "#10B981",
+                    "tertiary-fixed": "#d0e4ff",
+                    "on-surface-variant": "#43474f",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-surface": "#2d3133",
+                    "surface-container-lowest": "#ffffff",
+                    "slate-dark": "#0F172A",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "outline-variant": "#c3c6d0",
+                    "on-error-container": "#93000a",
+                    "surface-bright": "#f7f9fb",
+                    "primary-container": "#023464",
+                    "on-secondary-fixed-variant": "#783200",
+                    "primary-fixed-dim": "#a6c8ff",
+                    "on-surface": "#191c1e",
+                    "on-secondary-container": "#5c2400",
+                    "on-background": "#191c1e",
+                    "tertiary-container": "#00365b",
+                    "surface-container-low": "#f2f4f6",
+                    "on-tertiary-fixed": "#001d34",
+                    "on-tertiary": "#ffffff",
+                    "secondary-container": "#fd761a",
+                    "on-primary-container": "#7a9ed4",
+                    "primary-fixed": "#d4e3ff",
+                    "on-primary-fixed": "#001c3b",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#ffb690",
+                    "on-tertiary-container": "#5ba1e4",
+                    "secondary": "#9d4300",
+                    "surface-container-highest": "#e0e3e5",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "surface-variant": "#e0e3e5",
+                    "on-primary": "#ffffff",
+                    "primary": "#001f40",
+                    "surface": "#f7f9fb",
+                    "background": "#f7f9fb",
+                    "surface-border": "#E2E8F0",
+                    "on-secondary-fixed": "#341100",
+                    "tertiary": "#002039",
+                    "on-primary-fixed-variant": "#204778",
+                    "surface-dim": "#d8dadc",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-tint": "#3b5f92",
+                    "inverse-primary": "#a6c8ff",
+                    "secondary-fixed": "#ffdbca",
+                    "on-tertiary-fixed-variant": "#004a79",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#eceef0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "page-margin-desktop": "32px",
+                    "section-gap": "64px",
+                    "page-margin-mobile": "16px",
+                    "container-max-width": "1440px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-xl": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(8px); }
+        .sidebar-active { background-color: #fd761a; color: white; }
+        .circular-progress {
+            background: conic-gradient(#023464 var(--progress), #E2E8F0 0deg);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar from JSON -->
+<nav class="fixed left-0 top-0 h-full flex flex-col py-6 z-40 bg-primary dark:bg-primary-container docked h-screen w-64 shadow-lg">
+<div class="px-6 mb-10">
+<h1 class="text-headline-sm font-black text-on-primary">KMS Admin</h1>
+<p class="text-label-md font-label-md opacity-70 text-on-primary">Institutional AI Node</p>
+</div>
+<div class="flex-1 space-y-1">
+<!-- Active Item: Overview -->
+<a class="flex items-center gap-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg px-4 py-3 mx-2 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Overview</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-label-md font-label-md">Document Library</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined">queue</span>
+<span class="text-label-md font-label-md">Ingestion Queue</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined">settings_input_component</span>
+<span class="text-label-md font-label-md">Embedding Config</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined">database</span>
+<span class="text-label-md font-label-md">Vector Stores</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-label-md font-label-md">System Health</span>
+</a>
+</div>
+<div class="mt-auto px-2 space-y-1">
+<button class="w-full mb-4 py-3 px-4 bg-secondary text-on-secondary rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg hover:opacity-90 transition-all">
+<span class="material-symbols-outlined">upload</span>
+                New Ingestion
+            </button>
+<a class="flex items-center gap-3 text-on-primary/70 px-4 py-3 hover:bg-primary-container rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 px-4 py-3 hover:bg-primary-container rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar from JSON -->
+<header class="flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-50 bg-surface dark:bg-inverse-surface border-b border-surface-border shadow-sm">
+<div class="flex items-center gap-8">
+<h2 class="text-headline-md font-bold text-primary dark:text-primary-fixed">RAG Knowledge Hub</h2>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary pb-1" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary transition-colors" href="#">Workflows</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary transition-colors" href="#">Logs</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary transition-colors" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary-container overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a Knowledge Management Officer for a government ministry. The subject is a person in business attire, looking confident and approachable, set against a blurred background of a modern office with subtle blue and white lighting, emphasizing institutional authority and radical clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANU0gXpY7c1MuX3S_Ie57qvQYtn9hKhUrRRjILP7eeIQKSIFWmvNjvynZ0Ia37M7vAifn-Sr5RtBTMh-csCFyBtAFWRnbsDbCimTQpBeDFjiap8jTRN7_Ijzhs3PgwXa55QyF3CxN_FGlVdRfGK50bHd3RArLP_aMhvVJ9HOVIP22oUcWnfpgSD0aJ2eiP1LeN1ImsPBrYEwmXOyxTiAuY1zrMXBZgghI7CSYemJuVeNjpDi0Z1hsJog">
+</div>
+</div>
+</header>
+<div class="p-gutter max-w-container-max-width mx-auto">
+<!-- Dashboard Header & Quick Actions -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<h3 class="text-display-lg font-bold text-primary">Overview</h3>
+<p class="text-body-md text-outline">Real-time status of the ICT National Knowledge Base</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-primary text-primary font-bold hover:bg-primary-container/5 transition-all">
+<span class="material-symbols-outlined">refresh</span>
+                        Re-index Base
+                    </button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-on-primary font-bold shadow-md hover:shadow-lg transition-all">
+<span class="material-symbols-outlined">add</span>
+                        New Upload
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="bento-grid">
+<!-- Main Stats -->
+<div class="col-span-12 md:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container-lowest border border-surface-border rounded-xl p-6 shadow-sm hover:shadow-md transition-all">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary p-2 bg-primary-fixed rounded-lg">upload_file</span>
+<span class="text-success-green text-label-sm">+12%</span>
+</div>
+<p class="text-label-md text-outline mb-1">Total Documents</p>
+<h4 class="text-headline-lg font-bold text-primary">24,592</h4>
+</div>
+<div class="bg-surface-container-lowest border border-surface-border rounded-xl p-6 shadow-sm hover:shadow-md transition-all">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-secondary p-2 bg-secondary-fixed rounded-lg">pending_actions</span>
+<span class="text-secondary text-label-sm">8 active</span>
+</div>
+<p class="text-label-md text-outline mb-1">Pending Processing</p>
+<h4 class="text-headline-lg font-bold text-primary">128</h4>
+</div>
+<div class="bg-surface-container-lowest border border-surface-border rounded-xl p-6 shadow-sm hover:shadow-md transition-all">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-error p-2 bg-error-container rounded-lg">error_outline</span>
+<span class="text-error text-label-sm">-2%</span>
+</div>
+<p class="text-label-md text-outline mb-1">Failed Tasks</p>
+<h4 class="text-headline-lg font-bold text-primary">42</h4>
+</div>
+</div>
+<!-- AI Health & Embedding Status -->
+<div class="col-span-12 md:col-span-4 bg-primary text-on-primary rounded-xl p-6 shadow-lg relative overflow-hidden">
+
+<div class="relative z-10">
+<h4 class="text-headline-sm font-bold mb-6">System Health</h4>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="w-3 h-3 rounded-full bg-success-green shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+<span class="text-body-md font-medium">Embedding Service</span>
+</div>
+<span class="text-label-sm opacity-80">99.9% Up</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="w-3 h-3 rounded-full bg-success-green shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+<span class="text-body-md font-medium">Vector DB Latency</span>
+</div>
+<span class="text-label-sm opacity-80">12ms</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="w-3 h-3 rounded-full bg-secondary shadow-[0_0_8px_rgba(253,118,26,0.8)]"></span>
+<span class="text-body-md font-medium">AI Reasoning Engine</span>
+</div>
+<span class="text-label-sm opacity-80">High Load</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Storage Usage Gauge -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest border border-surface-border rounded-xl p-6 shadow-sm">
+<h4 class="text-headline-sm font-bold text-primary mb-8">Storage Capacity</h4>
+<div class="flex flex-col items-center">
+<div class="relative w-48 h-48 rounded-full circular-progress flex items-center justify-center transition-all duration-1000" style="--progress: 240deg;">
+<div class="absolute inset-4 bg-surface-container-lowest rounded-full flex flex-col items-center justify-center shadow-inner">
+<span class="text-display-lg font-black text-primary">68%</span>
+<span class="text-label-sm text-outline uppercase tracking-wider">Used</span>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-2 gap-8 w-full text-center border-t border-surface-border pt-6">
+<div>
+<p class="text-label-sm text-outline mb-1">Allocated</p>
+<p class="text-body-md font-bold text-primary">2.0 TB</p>
+</div>
+<div>
+<p class="text-label-sm text-outline mb-1">Remaining</p>
+<p class="text-body-md font-bold text-primary">640 GB</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Uploads Table -->
+<div class="col-span-12 md:col-span-8 bg-surface-container-lowest border border-surface-border rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="p-6 border-b border-surface-border flex justify-between items-center bg-surface-bright">
+<h4 class="text-headline-sm font-bold text-primary">Recent Knowledge Assets</h4>
+<button class="text-primary font-bold text-label-md hover:underline transition-all">View All</button>
+</div>
+<div class="overflow-x-auto flex-1">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-6 py-4 text-label-sm text-outline font-bold uppercase">Asset Name</th>
+<th class="px-6 py-4 text-label-sm text-outline font-bold uppercase">Source</th>
+<th class="px-6 py-4 text-label-sm text-outline font-bold uppercase">Status</th>
+<th class="px-6 py-4 text-label-sm text-outline font-bold uppercase">Size</th>
+<th class="px-6 py-4 text-label-sm text-outline font-bold uppercase">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-border">
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">picture_as_pdf</span>
+<div>
+<p class="text-body-md font-bold text-primary">Digital_Uganda_Vision_2040.pdf</p>
+<p class="text-label-sm text-outline">Uploaded 2h ago</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">Policy Division</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-success-green/10 text-success-green rounded-full text-label-sm font-bold">Indexed</span>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">12.4 MB</td>
+<td class="px-6 py-4">
+<button class="text-outline hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">description</span>
+<div>
+<p class="text-body-md font-bold text-primary">Cyber_Security_Briefing_Q1.docx</p>
+<p class="text-label-sm text-outline">Uploaded 5h ago</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">NITA-U</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-secondary-container/10 text-secondary-container rounded-full text-label-sm font-bold">Processing</span>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">2.1 MB</td>
+<td class="px-6 py-4">
+<button class="text-outline hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">table_view</span>
+<div>
+<p class="text-body-md font-bold text-primary">Rural_Connectivity_Data.csv</p>
+<p class="text-label-sm text-outline">Uploaded 1d ago</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">Field Ops</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-error-container/10 text-error rounded-full text-label-sm font-bold">Failed</span>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">45.8 MB</td>
+<td class="px-6 py-4">
+<button class="text-outline hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Embedding Health & Latency Graph -->
+<div class="col-span-12 bg-surface-container-lowest border border-surface-border rounded-xl p-8 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="text-headline-sm font-bold text-primary">RAG Retrieval Latency</h4>
+<p class="text-label-md text-outline">System-wide performance monitoring across regional nodes</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-label-sm text-outline">Central Node</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="text-label-sm text-outline">Regional Cache</span>
+</div>
+</div>
+</div>
+<div class="h-64 w-full relative">
+<!-- Custom CSS Data Viz -->
+<div class="absolute inset-0 flex items-end justify-between px-4">
+<!-- Faked Bar Chart for Design Quality -->
+<div class="w-12 bg-primary/10 rounded-t-lg h-[40%] group relative cursor-pointer transition-all hover:bg-primary/20">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-slate-dark text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">45ms</div>
+</div>
+<div class="w-12 bg-primary/10 rounded-t-lg h-[65%] group relative transition-all hover:bg-primary/20"></div>
+<div class="w-12 bg-primary rounded-t-lg h-[85%] group relative transition-all hover:scale-x-110"></div>
+<div class="w-12 bg-primary/10 rounded-t-lg h-[55%] group relative transition-all hover:bg-primary/20"></div>
+<div class="w-12 bg-secondary rounded-t-lg h-[30%] group relative transition-all hover:scale-x-110"></div>
+<div class="w-12 bg-primary/10 rounded-t-lg h-[70%] group relative transition-all hover:bg-primary/20"></div>
+<div class="w-12 bg-primary/10 rounded-t-lg h-[90%] group relative transition-all hover:bg-primary/20"></div>
+<div class="w-12 bg-primary/10 rounded-t-lg h-[45%] group relative transition-all hover:bg-primary/20"></div>
+<div class="w-12 bg-primary/10 rounded-t-lg h-[60%] group relative transition-all hover:bg-primary/20"></div>
+<div class="w-12 bg-secondary rounded-t-lg h-[50%] group relative transition-all hover:scale-x-110"></div>
+</div>
+<div class="absolute inset-0 border-b-2 border-l-2 border-surface-border"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="mt-section-gap border-t border-surface-border py-12 px-gutter bg-surface-bright">
+<div class="max-w-container-max-width mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 bg-primary flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-on-primary">account_balance</span>
+</div>
+<div>
+<p class="text-label-md font-bold text-primary">Ministry of ICT and National Guidance</p>
+<p class="text-label-sm text-outline">Republic of Uganda © 2026</p>
+</div>
+</div>
+<div class="flex gap-8">
+<a class="text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Framework</a>
+<a class="text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Governance API</a>
+<a class="text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Accessibility</a>
+</div>
+</div>
+</footer>
+</main>
+<!-- Success Feedback Overlay (Hidden) -->
+<div class="fixed bottom-8 right-8 bg-slate-dark text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 translate-y-24 transition-transform duration-300 z-50" id="toast">
+<span class="material-symbols-outlined text-success-green">check_circle</span>
+<p class="text-body-md font-medium">Re-indexing initiated successfully</p>
+</div>
+<script>
+        // Simple Interaction Logic
+        const toast = document.getElementById('toast');
+        const reindexBtn = document.querySelector('button:has(.material-symbols-outlined:contains("refresh"))');
+        
+        // Target specifically the reindex button based on text content since classes are generic
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.innerText.includes('Re-index Base')) {
+                btn.addEventListener('click', () => {
+                    toast.classList.remove('translate-y-24');
+                    setTimeout(() => {
+                        toast.classList.add('translate-y-24');
+                    }, 3000);
+                });
+            }
+        });
+
+        // Hover animation for gauge
+        const gauge = document.querySelector('.circular-progress');
+        gauge.addEventListener('mouseenter', () => {
+            gauge.style.setProperty('--progress', '260deg');
+            gauge.style.transition = 'all 1s ease-out';
+        });
+        gauge.addEventListener('mouseleave', () => {
+            gauge.style.setProperty('--progress', '240deg');
+        });
+    </script>
+</body></html>

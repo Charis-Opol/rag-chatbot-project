@@ -1,0 +1,370 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Help &amp; Support | MoICT Staff Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#a6c8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary": "#ffffff",
+                    "primary": "#001f40",
+                    "surface-container-high": "#e6e8ea",
+                    "on-tertiary-fixed": "#001d34",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface": "#f7f9fb",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#d0e4ff",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "on-tertiary-fixed-variant": "#004a79",
+                    "on-primary-fixed": "#001c3b",
+                    "background": "#f7f9fb",
+                    "on-secondary-container": "#5c2400",
+                    "on-secondary-fixed-variant": "#783200",
+                    "inverse-primary": "#a6c8ff",
+                    "primary-container": "#023464",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#d4e3ff",
+                    "on-tertiary-container": "#5ba1e4",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-fixed-dim": "#ffb690",
+                    "outline-variant": "#c3c6d0",
+                    "on-error-container": "#93000a",
+                    "surface-border": "#E2E8F0",
+                    "on-surface": "#191c1e",
+                    "surface-variant": "#e0e3e5",
+                    "outline": "#737780",
+                    "on-surface-variant": "#43474f",
+                    "surface-tint": "#3b5f92",
+                    "surface-dim": "#d8dadc",
+                    "secondary-fixed": "#ffdbca",
+                    "slate-dark": "#0F172A",
+                    "success-green": "#10B981",
+                    "tertiary-container": "#00365b",
+                    "surface-container": "#eceef0",
+                    "on-primary-fixed-variant": "#204778",
+                    "tertiary": "#002039",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-background": "#191c1e",
+                    "on-primary-container": "#7a9ed4",
+                    "secondary-container": "#fd761a",
+                    "on-secondary-fixed": "#341100",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f2f4f6",
+                    "secondary": "#9d4300"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "section-gap": "64px",
+                    "container-max-width": "1440px",
+                    "page-margin-mobile": "16px",
+                    "page-margin-desktop": "32px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-xl": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { background-color: #F8FAFC; }
+        .glass-header { backdrop-filter: blur(8px); background-color: rgba(255, 255, 255, 0.8); }
+        .transition-standard { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-shadow { box-shadow: 0 10px 15px -3px rgba(2, 52, 100, 0.05); }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- TopNavBar -->
+<header class="bg-surface sticky top-0 z-50 border-b border-surface-border shadow-sm w-full h-16 flex justify-between items-center px-page-desktop">
+<div class="flex items-center gap-8">
+<h1 class="text-headline-lg font-headline-lg text-primary tracking-tight">MoICT Staff Portal</h1>
+<div class="hidden md:flex gap-6">
+<span class="text-on-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer px-3 py-1 rounded-lg">Dashboard</span>
+<span class="text-on-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer px-3 py-1 rounded-lg">Projects</span>
+<span class="text-primary font-bold border-b-2 border-primary px-3 py-1">Support</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full w-64 text-label-md focus:ring-2 focus:ring-primary-container transition-all" placeholder="Search resources..." type="text">
+</div>
+<span class="material-symbols-outlined text-primary cursor-pointer active:opacity-80 p-2 hover:bg-surface-container-low rounded-full">notifications</span>
+<span class="material-symbols-outlined text-primary cursor-pointer active:opacity-80 p-2 hover:bg-surface-container-low rounded-full">help</span>
+<div class="h-8 w-8 rounded-full bg-primary-fixed-dim overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional close-up portrait of a Ugandan government official in a sharp navy suit, smiling confidently against a soft-focus office background. The lighting is bright and natural, emphasizing clarity and institutional authority. High-end photography style with clean lines and a premium corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVr9NFvFx3tv2xpHL4OByf19dlXQ7sLTu1HIJMs5mSycPEC6QCClBqmfkmfO4NLHd-yKyq1V80G4MZdJm-eYFHxJv9TtfqnV9WRjVxICddPtmGC1-RX3S2xykwXAJReLV9HhaRNjn4abithw2234N2y3Qyu1daFc1Lbz0eGVU59sMcFR0l_B_iyd_5exxFMZRCLyK5_pOZ8QZxaYSuWHjFYBjv_il9sObXe-V6550hQIKaj3MAOy2L3g">
+</div>
+</div>
+</header>
+<div class="flex max-w-[1440px] mx-auto min-h-[calc(100vh-64px)]">
+<!-- SideNavBar (Settings/Support Style) -->
+<aside class="h-full w-72 flex-shrink-0 flex flex-col p-6 gap-4 bg-surface-container-low sticky top-16">
+<div class="mb-4">
+<h2 class="font-headline-md text-primary text-headline-lg leading-tight">Help Center</h2>
+<p class="font-label-md text-on-surface-variant">Manage your support needs</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-white text-primary shadow-sm rounded-xl font-semibold transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">help_center</span>
+<span>Knowledge Base</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>User Guides</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined">report_problem</span>
+<span>Report Issue</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span>Contact ICT</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant">
+<div class="bg-primary-container text-white p-4 rounded-xl relative overflow-hidden">
+<div class="relative z-10">
+<p class="font-label-sm uppercase tracking-wider opacity-80 mb-1">Status</p>
+<p class="font-bold flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-success-green animate-pulse"></span>
+                            All Systems Operational
+                        </p>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-6xl">cloud_done</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow p-page-desktop space-y-10">
+<!-- Hero Search Section -->
+<section class="bg-white rounded-xl p-10 border border-surface-border card-shadow relative overflow-hidden">
+<div class="relative z-10 max-w-2xl">
+<h1 class="font-headline-xl text-primary mb-4">How can we help you today?</h1>
+<p class="text-body-xl text-on-surface-variant mb-8">Search our knowledge base for instant answers or reach out to our dedicated support team.</p>
+<div class="relative">
+<input class="w-full pl-14 pr-6 py-4 bg-surface-container-low border-2 border-transparent focus:border-primary-container focus:bg-white rounded-xl text-body-md transition-all outline-none" placeholder="Search for 'How to reset VPN password' or 'Email setup'..." type="text">
+<span class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-primary-container text-2xl">search</span>
+</div>
+</div>
+<div class="absolute right-0 top-0 w-1/3 h-full hidden lg:block">
+<div class="w-full h-full bg-cover bg-center opacity-20" data-alt="A clean, minimalist 3D rendering of high-tech geometric shapes and floating translucent data nodes. The aesthetic is purely corporate modern with a color scheme of Ministry Blue and soft white. The image reflects technological progress and radical clarity in a government context." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAnl_mAs6R_naIxPPNi7RQ-qhBv2iSDbeesgedA2CAUdFiZ93UAFy1VUmHmuBKgnT48dKer20Daltk-i8oPWlYijy-l_8fZs6j9P5IoLzAaC9PP-SMxN31gJQdTHFiCEavkBupLQGBvIBFzFN25TbeuVni_zs_HwoFc2HE7KJ9NUk5yhZvxkYpCRHA9zvqLKnS124Dyu2jNDukDp5jICv8y263jvhazFoydoX6c2cxfY-_GSxkoNDbLkg')"></div>
+</div>
+</section>
+<!-- Grid Layout for Content -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: FAQ & Documentation -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- FAQ Section -->
+<div class="bg-white rounded-xl border border-surface-border overflow-hidden">
+<div class="px-6 py-4 border-b border-surface-border flex justify-between items-center">
+<h3 class="font-headline-lg text-primary text-body-xl">Frequently Asked Questions</h3>
+<button class="text-primary font-label-md hover:underline">View All</button>
+</div>
+<div class="p-6 space-y-4">
+<details class="group border-b border-surface-container py-4 last:border-0" open="">
+<summary class="flex justify-between items-center cursor-pointer list-none">
+<span class="font-semibold text-primary">How do I access the remote VPN?</span>
+<span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="mt-4 text-on-surface-variant text-body-md">
+                                    To access the MoICT VPN, ensure you have the Cisco AnyConnect client installed. Use your official staff credentials and your 2FA token generated via the Google Authenticator app. For detailed steps, refer to the 'Network Security' section in the User Guide.
+                                </div>
+</details>
+<details class="group border-b border-surface-container py-4 last:border-0">
+<summary class="flex justify-between items-center cursor-pointer list-none">
+<span class="font-semibold text-primary">Resetting your Ministry email password</span>
+<span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="mt-4 text-on-surface-variant text-body-md">
+                                    Passwords can be reset through the 'Admin Tools' portal or by calling the ICT internal extension at 555. Note that passwords must be at least 12 characters and include a mix of uppercase, numbers, and symbols.
+                                </div>
+</details>
+<details class="group border-b border-surface-container py-4 last:border-0">
+<summary class="flex justify-between items-center cursor-pointer list-none">
+<span class="font-semibold text-primary">Troubleshooting printer connectivity</span>
+<span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="mt-4 text-on-surface-variant text-body-md">
+                                    Ensure your device is connected to the 'MoICT-Internal' SSID. If the printer is not appearing, restart the 'Print Spooler' service on your machine or contact floor support.
+                                </div>
+</details>
+</div>
+</div>
+<!-- User Guide & Docs Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-white rounded-xl border border-surface-border p-6 flex items-start gap-4 hover:shadow-md transition-standard cursor-pointer">
+<div class="p-3 bg-red-50 text-error rounded-lg">
+<span class="material-symbols-outlined text-3xl">picture_as_pdf</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">User Guide 2024</h4>
+<p class="text-label-md text-on-surface-variant mb-3">Complete manual for portal usage.</p>
+<span class="text-primary text-label-sm font-bold flex items-center gap-1">DOWNLOAD PDF <span class="material-symbols-outlined text-sm">download</span></span>
+</div>
+</div>
+<div class="bg-white rounded-xl border border-surface-border p-6 flex items-start gap-4 hover:shadow-md transition-standard cursor-pointer">
+<div class="p-3 bg-blue-50 text-primary rounded-lg">
+<span class="material-symbols-outlined text-3xl">terminal</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">Technical Documentation</h4>
+<p class="text-label-md text-on-surface-variant mb-3">API docs &amp; developer resources.</p>
+<span class="text-primary text-label-sm font-bold flex items-center gap-1">VISIT PORTAL <span class="material-symbols-outlined text-sm">open_in_new</span></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Report Issue & Contact -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- Report Issue Form -->
+<div class="bg-white rounded-xl border border-surface-border p-6 card-shadow">
+<h3 class="font-headline-lg text-primary text-body-xl mb-6">Report an Issue</h3>
+<form class="space-y-4">
+<div>
+<label class="font-label-md text-on-surface block mb-1">Issue Category</label>
+<select class="w-full p-3 bg-surface-container-low border-2 border-transparent focus:border-primary-container focus:bg-white rounded-lg outline-none transition-all appearance-none">
+<option>Technical Glitch</option>
+<option>Access Permission</option>
+<option>Hardware Failure</option>
+<option>Network/Internet</option>
+</select>
+</div>
+<div>
+<label class="font-label-md text-on-surface block mb-1">Description</label>
+<textarea class="w-full p-3 bg-surface-container-low border-2 border-transparent focus:border-primary-container focus:bg-white rounded-lg outline-none transition-all" placeholder="Describe what happened..." rows="3"></textarea>
+</div>
+<button class="w-full py-3 bg-primary-container text-white font-bold rounded-xl hover:opacity-90 transition-standard relative overflow-hidden group" type="submit">
+<span class="relative z-10">Submit Report</span>
+<div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+</button>
+</form>
+</div>
+<!-- Contact ICT Details -->
+<div class="bg-primary text-white rounded-xl p-6 relative overflow-hidden">
+<h3 class="font-headline-lg text-body-xl mb-6">Contact ICT Support</h3>
+<div class="space-y-6 relative z-10">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary-fixed">confirmation_number</span>
+</div>
+<div>
+<p class="font-label-sm opacity-70">Support Ticket</p>
+<p class="font-bold">portal.support.moict.go.ug</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary-fixed">mail</span>
+</div>
+<div>
+<p class="font-label-sm opacity-70">Email Address</p>
+<p class="font-bold">helpdesk@ict.go.ug</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary-fixed">phone_in_talk</span>
+</div>
+<div>
+<p class="font-label-sm opacity-70">Internal Extension</p>
+<p class="font-bold">EXT: 555 / 102</p>
+</div>
+</div>
+</div>
+<div class="absolute -right-10 -bottom-10 opacity-5">
+<span class="material-symbols-outlined text-[200px]">support_agent</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Spacing -->
+<div class="h-section-gap"></div>
+</main>
+</div>
+<!-- Mobile Bottom Nav -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-surface-border flex justify-around items-center h-16 z-50">
+<div class="flex flex-col items-center text-on-surface-variant">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px]">Home</span>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant">
+<span class="material-symbols-outlined">chat</span>
+<span class="text-[10px]">Chat</span>
+</div>
+<div class="flex flex-col items-center text-primary font-bold">
+<span class="material-symbols-outlined">help</span>
+<span class="text-[10px]">Support</span>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px]">Admin</span>
+</div>
+</nav>
+<script>
+        // Simple form interaction simulation
+        document.querySelector('form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = 'Submitting...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerText = 'Success!';
+                btn.classList.replace('bg-primary-container', 'bg-success-green');
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.classList.replace('bg-success-green', 'bg-primary-container');
+                    btn.disabled = false;
+                    e.target.reset();
+                }, 2000);
+            }, 1500);
+        });
+
+        // Hover effects for cards
+        document.querySelectorAll('.card-shadow').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+                card.style.transition = 'transform 0.3s ease';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>

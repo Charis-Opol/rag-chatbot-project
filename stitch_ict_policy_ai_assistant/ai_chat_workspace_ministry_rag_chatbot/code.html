@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Chat Workspace | Ministry of ICT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .ai-gradient-bg {
+            background: linear-gradient(135deg, rgba(2, 52, 100, 0.03) 0%, rgba(112, 181, 249, 0.05) 100%);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #E2E8F0;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #CBD5E1;
+        }
+        .citation-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(2, 52, 100, 0.05);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#d4e3ff",
+                        "surface-dim": "#d8dadc",
+                        "on-tertiary-container": "#5ba1e4",
+                        "tertiary-fixed-dim": "#9bcbff",
+                        "secondary-fixed-dim": "#ffb690",
+                        "success-green": "#10B981",
+                        "surface-container-low": "#f2f4f6",
+                        "outline": "#737780",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#001d34",
+                        "on-secondary-fixed": "#341100",
+                        "on-secondary-container": "#5c2400",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eceef0",
+                        "tertiary-fixed": "#d0e4ff",
+                        "background": "#f7f9fb",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#191c1e",
+                        "surface": "#f7f9fb",
+                        "outline-variant": "#c3c6d0",
+                        "secondary-container": "#fd761a",
+                        "surface-tint": "#3b5f92",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-surface-variant": "#43474f",
+                        "surface-border": "#E2E8F0",
+                        "tertiary-container": "#00365b",
+                        "error": "#ba1a1a",
+                        "primary-container": "#023464",
+                        "inverse-surface": "#2d3133",
+                        "on-error": "#ffffff",
+                        "on-background": "#191c1e",
+                        "tertiary": "#002039",
+                        "secondary-fixed": "#ffdbca",
+                        "on-primary": "#ffffff",
+                        "secondary": "#9d4300",
+                        "on-primary-fixed-variant": "#204778",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e6e8ea",
+                        "inverse-primary": "#a6c8ff",
+                        "primary": "#001f40",
+                        "slate-dark": "#0F172A",
+                        "on-primary-container": "#7a9ed4",
+                        "primary-fixed-dim": "#a6c8ff",
+                        "surface-variant": "#e0e3e5",
+                        "on-tertiary-fixed-variant": "#004a79",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary-fixed-variant": "#783200",
+                        "on-primary-fixed": "#001c3b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "page-margin-desktop": "32px",
+                        "page-margin-mobile": "16px",
+                        "gutter": "24px",
+                        "section-gap": "64px",
+                        "container-max-width": "1440px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-xl": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-hidden h-screen flex">
+<!-- SideNavBar (Authority: JSON & Design System) -->
+<aside class="hidden md:flex flex-col h-full py-6 px-4 gap-y-2 bg-surface-container-lowest border-r border-surface-border w-64 shrink-0">
+<div class="mb-8 px-2">
+<h1 class="text-headline-xl font-headline-xl text-primary tracking-tight">ICT Admin</h1>
+<p class="text-label-md font-label-md text-on-surface-variant">Staff Portal</p>
+</div>
+<button class="mb-6 flex items-center justify-center gap-2 bg-primary-container text-on-primary-container py-3 px-4 rounded-xl font-semibold hover:scale-[1.02] transition-transform duration-150 active:scale-95">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>New Chat</span>
+</button>
+<nav class="flex-1 space-y-1">
+<!-- Dashboard Tab -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<!-- Chat Tab (ACTIVE) -->
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg font-semibold transition-transform duration-150 scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="chat" style="font-variation-settings: 'FILL' 1;">chat</span>
+<span class="text-label-md font-label-md">Chat</span>
+</a>
+<!-- Knowledge Base Tab -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span class="text-label-md font-label-md">Knowledge Base</span>
+</a>
+<!-- Projects Tab -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="text-label-md font-label-md">Projects</span>
+</a>
+<!-- Admin Tools Tab -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span class="text-label-md font-label-md">Admin Tools</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-surface-border space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+<div class="flex items-center gap-3 px-3 py-4 mt-2">
+<div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">SM</div>
+<div>
+<p class="text-label-md font-bold text-on-surface">Staff Member</p>
+<p class="text-label-sm text-on-surface-variant">Policy Division</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="flex-1 flex flex-col min-w-0 bg-background relative h-full">
+<!-- TopAppBar (Customized for Chat Header) -->
+<header class="h-16 px-page-margin-desktop bg-surface/80 backdrop-blur-md flex justify-between items-center border-b border-surface-border z-10 sticky top-0">
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-secondary-container bg-secondary-container/10 px-2 py-0.5 rounded-md inline-block w-fit">Project: Regulatory Compliance</span>
+<h2 class="text-body-xl font-bold text-primary tracking-tight">Cybersecurity Framework Alignment</h2>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors text-on-surface-variant" title="Download PDF">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors text-on-surface-variant" title="Export">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span>
+</button>
+<div class="h-6 w-px bg-surface-border mx-2"></div>
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Conversation Stream -->
+<div class="flex-1 overflow-y-auto custom-scrollbar px-page-margin-desktop py-8">
+<div class="max-w-4xl mx-auto space-y-12">
+<!-- User Message -->
+<div class="flex flex-col items-end gap-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
+<div class="bg-primary text-white p-5 rounded-2xl rounded-tr-none shadow-sm max-w-2xl border border-primary/10">
+<p class="text-body-md font-body-md leading-relaxed">
+                            What are the specific requirements for data localization in the new 2024 Data Protection Act?
+                        </p>
+</div>
+<span class="text-label-sm text-on-surface-variant opacity-60">Today, 10:24 AM</span>
+</div>
+<!-- AI Response & Citation Wrapper -->
+<div class="flex gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+<div class="flex-1 space-y-6">
+<div class="ai-gradient-bg border border-surface-border p-6 rounded-2xl rounded-tl-none shadow-sm relative group">
+<!-- Confidence Badge -->
+<div class="absolute -top-3 right-4 bg-success-green/10 text-success-green text-label-sm px-3 py-1 rounded-full border border-success-green/20 flex items-center gap-1.5 backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+                                98% Confidence - Verified Source
+                            </div>
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container shrink-0 mt-1">
+<span class="material-symbols-outlined text-[20px]" data-icon="smart_toy">smart_toy</span>
+</div>
+<div class="space-y-4 text-on-surface leading-relaxed">
+<p class="font-medium text-primary">According to the Data Protection Act 2024 (Section 12), data localization requirements have been strengthened to prioritize national security and digital sovereignty. Key requirements include:</p>
+<ul class="space-y-3 list-none pl-1">
+<li class="flex gap-3">
+<span class="text-primary-container font-bold">•</span>
+<span><strong>Critical Infrastructure Data:</strong> All data pertaining to national security, public health, and utility grids must be stored and processed exclusively within Ugandan borders.</span>
+</li>
+<li class="flex gap-3">
+<span class="text-primary-container font-bold">•</span>
+<span><strong>Mirroring Requirement:</strong> Private entities handling "high-sensitivity" personal data must maintain a real-time mirror copy of the database on a Ministry-certified local server.</span>
+</li>
+<li class="flex gap-3">
+<span class="text-primary-container font-bold">•</span>
+<span><strong>Cross-Border Transfer:</strong> Transfers are permitted only to jurisdictions with "Equivalent or Superior" protection frameworks, pending a mandatory Privacy Impact Assessment (PIA).</span>
+</li>
+</ul>
+<p class="text-on-surface-variant text-body-md">Non-compliance may result in administrative fines of up to 5% of annual turnover or mandatory suspension of digital operations.</p>
+</div>
+</div>
+<!-- Interactive Response Tools -->
+<div class="mt-6 pt-4 border-t border-surface-border/50 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="flex gap-4">
+<button class="flex items-center gap-1 text-label-sm text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="content_copy">content_copy</span>
+                                        Copy
+                                    </button>
+<button class="flex items-center gap-1 text-label-sm text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="refresh">refresh</span>
+                                        Regenerate
+                                    </button>
+</div>
+<div class="flex gap-2">
+<button class="p-1.5 hover:bg-surface-container-high rounded text-on-surface-variant hover:text-success-green transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="thumb_up">thumb_up</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container-high rounded text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="thumb_down">thumb_down</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Citation Panel (Side) -->
+<aside class="w-64 space-y-4 shrink-0 hidden lg:block">
+<h4 class="text-label-sm font-bold text-on-surface-variant uppercase tracking-widest px-1">Sources (2)</h4>
+<!-- Source Card 1 -->
+<div class="citation-card bg-surface-container-lowest border border-surface-border p-3 rounded-xl cursor-pointer transition-all active:scale-[0.98]">
+<div class="flex items-center justify-between mb-2">
+<span class="bg-primary/5 text-primary text-[10px] font-bold px-1.5 py-0.5 rounded border border-primary/10">PDF</span>
+<span class="material-symbols-outlined text-primary text-[16px]" data-icon="open_in_new">open_in_new</span>
+</div>
+<p class="text-label-md font-bold text-on-surface mb-1 line-clamp-1">Data Protection Act 2024</p>
+<p class="text-label-sm text-on-surface-variant line-clamp-2 italic">"...Section 12 details the localized storage mandates for critical data sectors..."</p>
+</div>
+<!-- Source Card 2 -->
+<div class="citation-card bg-surface-container-lowest border border-surface-border p-3 rounded-xl cursor-pointer transition-all active:scale-[0.98]">
+<div class="flex items-center justify-between mb-2">
+<span class="bg-secondary-container/5 text-secondary-container text-[10px] font-bold px-1.5 py-0.5 rounded border border-secondary-container/10">DOC</span>
+<span class="material-symbols-outlined text-secondary-container text-[16px]" data-icon="open_in_new">open_in_new</span>
+</div>
+<p class="text-label-md font-bold text-on-surface mb-1 line-clamp-1">Legal Framework 2023</p>
+<p class="text-label-sm text-on-surface-variant line-clamp-2 italic">"Consolidated review of digital sovereignty laws and historical precedents."</p>
+</div>
+</aside>
+</div>
+<!-- Spacer -->
+<div class="h-24"></div>
+</div>
+</div>
+<!-- Floating Input Section -->
+<div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-background via-background/95 to-transparent pt-12 pb-6 px-page-margin-desktop border-t border-surface-border/20">
+<div class="max-w-4xl mx-auto space-y-4">
+<!-- Suggested Chips -->
+<div class="flex gap-2 overflow-x-auto pb-2 custom-scrollbar">
+<button class="whitespace-nowrap px-4 py-2 bg-surface-container-lowest border border-surface-border text-on-surface-variant text-label-md rounded-full hover:bg-primary-container hover:text-on-primary-container hover:border-primary-container transition-all">
+                        Summarize Section 4
+                    </button>
+<button class="whitespace-nowrap px-4 py-2 bg-surface-container-lowest border border-surface-border text-on-surface-variant text-label-md rounded-full hover:bg-primary-container hover:text-on-primary-container hover:border-primary-container transition-all">
+                        Draft a compliance report
+                    </button>
+<button class="whitespace-nowrap px-4 py-2 bg-surface-container-lowest border border-surface-border text-on-surface-variant text-label-md rounded-full hover:bg-primary-container hover:text-on-primary-container hover:border-primary-container transition-all">
+                        Compare with EU GDPR
+                    </button>
+</div>
+<!-- Main Input Field -->
+<div class="relative group">
+<div class="absolute inset-0 bg-primary/5 blur-xl group-focus-within:bg-primary/10 transition-colors -z-10 rounded-2xl"></div>
+<div class="bg-white border-2 border-surface-border focus-within:border-primary transition-all rounded-2xl shadow-xl p-2 flex flex-col gap-2">
+<textarea class="w-full bg-transparent border-none focus:ring-0 text-body-md placeholder:text-on-surface-variant/50 resize-none py-2 px-3 custom-scrollbar" placeholder="Ask AI about Ministry Regulations..." rows="2"></textarea>
+<div class="flex items-center justify-between px-2 pb-1">
+<div class="flex items-center gap-1">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" title="Attach Files">
+<span class="material-symbols-outlined" data-icon="attach_file">attach_file</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" title="Voice Input">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" title="Search Web">
+<span class="material-symbols-outlined" data-icon="language">language</span>
+</button>
+</div>
+<button class="bg-primary text-white h-10 w-10 rounded-xl flex items-center justify-center hover:bg-primary-container transition-all shadow-lg shadow-primary/20 active:scale-95">
+<span class="material-symbols-outlined" data-icon="send" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</div>
+<p class="text-center text-label-sm text-on-surface-variant/60">
+                    AI results are grounded in Ministry documentation. Always verify legal text for official drafting.
+                </p>
+</div>
+</div>
+</main>
+<!-- Visual Polish: Atmosphere Overlay -->
+<div class="fixed inset-0 pointer-events-none z-[100] opacity-30 mix-blend-overlay">
+<div class="absolute top-0 right-0 w-1/2 h-1/2 bg-primary/5 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-0 left-0 w-1/3 h-1/3 bg-secondary-container/5 blur-[120px] rounded-full"></div>
+</div>
+<script>
+        // Micro-interactions for chips
+        document.querySelectorAll('.suggestion-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const textarea = document.querySelector('textarea');
+                textarea.value = chip.textContent.trim();
+                textarea.focus();
+            });
+        });
+
+        // Simple text area auto-resize
+        const tx = document.querySelector('textarea');
+        tx.addEventListener("input", OnInput, false);
+        function OnInput() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + "px";
+            if (this.scrollHeight > 200) {
+                this.style.overflowY = "scroll";
+            } else {
+                this.style.overflowY = "hidden";
+            }
+        }
+    </script>
+</body></html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>System Settings | Ministry of ICT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "background": "#f7f9fb",
+                    "secondary-container": "#fd761a",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#5c2400",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "inverse-primary": "#a6c8ff",
+                    "outline-variant": "#c3c6d0",
+                    "on-surface-variant": "#43474f",
+                    "on-primary-fixed-variant": "#204778",
+                    "on-primary-fixed": "#001c3b",
+                    "surface-variant": "#e0e3e5",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#783200",
+                    "primary-fixed": "#d4e3ff",
+                    "slate-dark": "#0F172A",
+                    "primary-fixed-dim": "#a6c8ff",
+                    "on-secondary-fixed": "#341100",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-tertiary-fixed": "#001d34",
+                    "surface-border": "#E2E8F0",
+                    "surface-tint": "#3b5f92",
+                    "success-green": "#10B981",
+                    "on-tertiary-fixed-variant": "#004a79",
+                    "on-background": "#191c1e",
+                    "inverse-surface": "#2d3133",
+                    "tertiary-container": "#00365b",
+                    "surface-container-low": "#f2f4f6",
+                    "surface": "#f7f9fb",
+                    "outline": "#737780",
+                    "surface-bright": "#f7f9fb",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#7a9ed4",
+                    "secondary-fixed": "#ffdbca",
+                    "surface-dim": "#d8dadc",
+                    "surface-container": "#eceef0",
+                    "primary": "#001f40",
+                    "on-tertiary-container": "#5ba1e4",
+                    "error": "#ba1a1a",
+                    "primary-container": "#023464",
+                    "on-surface": "#191c1e",
+                    "secondary-fixed-dim": "#ffb690",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap": "64px",
+                    "page-margin-desktop": "32px",
+                    "container-max-width": "1440px",
+                    "page-margin-mobile": "16px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "body-xl": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .settings-card { transition: all 0.2s ease-in-out; }
+        .settings-card:hover { box-shadow: 0 10px 15px -3px rgba(2, 52, 100, 0.05); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        .active-nav { background-color: #023464 !important; color: white !important; }
+    </style>
+</head>
+<body class="text-on-surface">
+<div class="flex min-h-screen">
+<!-- Side Navigation Shell -->
+<aside class="hidden md:flex flex-col h-screen left-0 w-64 bg-surface-container-lowest border-r border-surface-border py-6 px-4 gap-y-2 sticky top-0">
+<div class="px-2 mb-8">
+<h1 class="text-headline-xl font-headline-xl text-primary tracking-tight">ICT Admin</h1>
+<p class="text-label-md font-label-md text-on-surface-variant">Staff Portal</p>
+</div>
+<nav class="flex flex-col gap-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="text-label-md font-label-md">Chat</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">database</span>
+<span class="text-label-md font-label-md">Knowledge Base</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="text-label-md font-label-md">Projects</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-y-1 border-t border-surface-border pt-4">
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg font-semibold transition-all scale-95" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-transform duration-150 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 min-w-0 overflow-y-auto">
+<!-- Top Header -->
+<header class="bg-surface/80 backdrop-blur-md sticky top-0 z-10 border-b border-surface-border h-16 flex justify-between items-center px-page-margin-desktop max-w-container-max-width mx-auto w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">settings</span>
+<h2 class="text-headline-lg font-headline-lg text-primary tracking-tight">System Settings</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary-container text-white px-4 py-2 rounded-lg text-label-md font-label-md hover:bg-primary transition-colors">
+                        Save All Changes
+                    </button>
+<div class="w-10 h-10 rounded-full bg-surface-container-high border border-surface-border overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of a government ICT administrator in a clean white shirt, soft office lighting, high-quality corporate photography style with a blurred tech office background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACCyRBZcTK17qqDihAhsBJ54Qkb3iME-TbB8fCX7BkeTwAJthO0pMabfNc6oJeXje4YH_xtft3gt-YppkHgcYmNvQWSeIaTttxgs0ceXkevBrM4_EqwbJTXB8mMXODn6WNkNwecgPrlXEbX3Ex_5V9LUGQ_ukLXsTy8r5B90njwrY1ctR7ru5zkMW3sGmJw-B6TyXjaJCbh9whd_DQ8tJ2WK0yDmoplj5jujk-1oCH0M0N8xK-Rhd0ng">
+</div>
+</div>
+</header>
+<div class="p-page-margin-desktop max-w-6xl mx-auto space-y-section-gap">
+<!-- Settings Navigation & Content Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Vertical Sub-Nav -->
+<nav class="lg:col-span-3 space-y-1">
+<button class="setting-tab w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-label-md font-semibold bg-primary-container text-on-primary-container active-tab" id="tab-general" onclick="showSection('general')">
+<span class="material-symbols-outlined">desktop_windows</span>
+                            General
+                        </button>
+<button class="setting-tab w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-label-md font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors" id="tab-security" onclick="showSection('security')">
+<span class="material-symbols-outlined">security</span>
+                            Security
+                        </button>
+<button class="setting-tab w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-label-md font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors" id="tab-ai" onclick="showSection('ai')">
+<span class="material-symbols-outlined">psychology</span>
+                            AI Configuration
+                        </button>
+<button class="setting-tab w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-label-md font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors" id="tab-backup" onclick="showSection('backup')">
+<span class="material-symbols-outlined">backup</span>
+                            Backup &amp; Restore
+                        </button>
+<button class="setting-tab w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-label-md font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors" id="tab-notifications" onclick="showSection('notifications')">
+<span class="material-symbols-outlined">mail</span>
+                            Notifications
+                        </button>
+</nav>
+<!-- Settings Sections -->
+<div class="lg:col-span-9 space-y-gutter">
+<!-- General Settings Section -->
+<section class="settings-section space-y-6" id="section-general">
+<div class="bg-white rounded-xl border border-surface-border p-6 shadow-sm">
+<h3 class="text-headline-lg font-headline-lg text-primary mb-1">General Administration</h3>
+<p class="text-body-md text-on-surface-variant mb-6 border-b border-surface-border pb-4">Configure basic institutional identity and branding.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-label-md font-bold text-on-surface">Site Name</label>
+<input class="w-full bg-[#F1F5F9] border-none focus:ring-2 focus:ring-primary rounded-lg px-4 py-3 text-body-md" type="text" value="Ministry of ICT &amp; National Guidance">
+<p class="text-label-sm text-outline">The public-facing name of the staff portal.</p>
+</div>
+<div class="space-y-2">
+<label class="text-label-md font-bold text-on-surface">System Environment</label>
+<select class="w-full bg-[#F1F5F9] border-none focus:ring-2 focus:ring-primary rounded-lg px-4 py-3 text-body-md">
+<option>Production (Stable)</option>
+<option>Staging</option>
+<option>Development</option>
+</select>
+</div>
+<div class="md:col-span-2 space-y-4 pt-4">
+<label class="text-label-md font-bold text-on-surface">Institutional Logo</label>
+<div class="flex items-center gap-6 p-4 border-2 border-dashed border-outline-variant rounded-xl bg-surface-container-low">
+<div class="w-24 h-24 bg-white rounded-lg border border-surface-border flex items-center justify-center p-2">
+<img class="max-h-full" data-alt="A clean, professional minimalist logo emblem for a government technology ministry, featuring a stylized crest with blue and orange accents on a white background, sharp vector graphics style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOXgmerR8FRIK66Nq5deTF7kCfR4yQnbB7KjJdfldou3mnY-5X9Vs_xSoH5qgVdUpMRg3sUswb-Q514p0xABusVMeIBUCcbqJ8UIsyfCN4O1FRds23cAB2hinaebAyeu5DtIDX6wiyNiKxu9SOSSTUl0LLEuZsZZz6-Iu9IiKZiufktEtjC_JfVTKQC8azU_pqHYFYtFpodZs1ImYYqoPHPOrW473qU_YejMBHPahc6uleD59Octp0Bw">
+</div>
+<div class="flex-1">
+<p class="text-body-md font-semibold text-primary">Upload new logo</p>
+<p class="text-label-sm text-outline mb-3">SVG, PNG or JPG (Max 2MB). Recommended size: 512x512px.</p>
+<button class="px-4 py-2 bg-white border border-primary text-primary rounded-lg text-label-md font-bold hover:bg-surface-container-low transition-colors">Replace Image</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Security Section -->
+<section class="settings-section hidden space-y-6" id="section-security">
+<div class="bg-white rounded-xl border border-surface-border p-6 shadow-sm">
+<h3 class="text-headline-lg font-headline-lg text-primary mb-1">Security &amp; Authentication</h3>
+<p class="text-body-md text-on-surface-variant mb-6 border-b border-surface-border pb-4">Manage system access controls and protection policies.</p>
+<div class="space-y-6">
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl">
+<div>
+<p class="text-label-md font-bold text-primary">Multi-Factor Authentication (MFA)</p>
+<p class="text-label-sm text-on-surface-variant">Require all staff to use TOTP or SMS verification for login.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-success-green"></div>
+</label>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-label-md font-bold text-on-surface">Session Timeout (Minutes)</label>
+<input class="w-full bg-[#F1F5F9] border-none focus:ring-2 focus:ring-primary rounded-lg px-4 py-3 text-body-md" type="number" value="30">
+</div>
+<div class="space-y-2">
+<label class="text-label-md font-bold text-on-surface">Password Expiry (Days)</label>
+<input class="w-full bg-[#F1F5F9] border-none focus:ring-2 focus:ring-primary rounded-lg px-4 py-3 text-body-md" type="number" value="90">
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Configuration Section -->
+<section class="settings-section hidden space-y-6" id="section-ai">
+<div class="bg-white rounded-xl border border-surface-border p-6 shadow-sm">
+<h3 class="text-headline-lg font-headline-lg text-primary mb-1">AI &amp; Model Configuration</h3>
+<p class="text-body-md text-on-surface-variant mb-6 border-b border-surface-border pb-4">Manage the intelligence layer powering national guidance tools.</p>
+<div class="space-y-8">
+<div class="space-y-2">
+<label class="text-label-md font-bold text-on-surface">Primary Language Model</label>
+<select class="w-full bg-[#F1F5F9] border-none focus:ring-2 focus:ring-primary rounded-lg px-4 py-3 text-body-md">
+<option>Uganda-GPT (v2.4 Enterprise)</option>
+<option>Llama 3 (Ministry Fine-tuned)</option>
+<option>Claude 3.5 Sonnet</option>
+</select>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between">
+<label class="text-label-md font-bold text-on-surface">Model Temperature</label>
+<span class="text-label-sm font-bold text-secondary">0.7 (Balanced)</span>
+</div>
+<input class="w-full h-2 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-secondary" max="1" min="0" step="0.1" type="range" value="0.7">
+<div class="flex justify-between text-[10px] text-outline uppercase font-bold tracking-widest">
+<span>Precise / Fact-based</span>
+<span>Creative / Conversational</span>
+</div>
+</div>
+<div class="p-4 bg-tertiary-container rounded-xl border border-on-tertiary-container/20">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-tertiary-container">info</span>
+<div>
+<p class="text-label-md font-bold text-on-tertiary-container">API Credit Balance</p>
+<p class="text-body-md text-on-tertiary-container">Your ministry account has 4.2M tokens remaining for this billing cycle.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Backup & Restore Section -->
+<section class="settings-section hidden space-y-6" id="section-backup">
+<div class="bg-white rounded-xl border border-surface-border p-6 shadow-sm">
+<h3 class="text-headline-lg font-headline-lg text-primary mb-1">Backup &amp; Disaster Recovery</h3>
+<p class="text-body-md text-on-surface-variant mb-6 border-b border-surface-border pb-4">Ensure data persistence and integrity across national nodes.</p>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 border border-surface-border rounded-xl hover:bg-surface-container-lowest transition-colors">
+<div class="flex items-center gap-4">
+<div class="p-2 bg-surface-container-high rounded-lg">
+<span class="material-symbols-outlined text-primary">cloud_upload</span>
+</div>
+<div>
+<p class="text-label-md font-bold text-primary">Last Full Backup</p>
+<p class="text-label-sm text-on-surface-variant">Completed 4 hours ago (1.2 GB)</p>
+</div>
+</div>
+<button class="px-4 py-2 border border-surface-border rounded-lg text-label-md font-bold hover:bg-surface-container-high">Download</button>
+</div>
+<div class="flex items-center justify-between p-4 border border-surface-border rounded-xl">
+<div class="flex items-center gap-4">
+<div class="p-2 bg-secondary-container/20 rounded-lg">
+<span class="material-symbols-outlined text-secondary">schedule</span>
+</div>
+<div>
+<p class="text-label-md font-bold text-primary">Automated Backup Schedule</p>
+<p class="text-label-sm text-on-surface-variant">Daily at 03:00 EAT (Stored in regional cloud)</p>
+</div>
+</div>
+<button class="px-4 py-2 bg-secondary-container text-white rounded-lg text-label-md font-bold">Configure</button>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-surface-border">
+<h4 class="text-label-md font-bold text-error mb-4">Danger Zone</h4>
+<button class="w-full flex items-center justify-center gap-2 py-3 px-4 border border-error text-error rounded-lg text-label-md font-bold hover:bg-error-container/20 transition-colors">
+<span class="material-symbols-outlined">restore_from_trash</span>
+                                        Restore System to Factory Defaults
+                                    </button>
+</div>
+</div>
+</section>
+<!-- Notification/Email Section -->
+<section class="settings-section hidden space-y-6" id="section-notifications">
+<div class="bg-white rounded-xl border border-surface-border p-6 shadow-sm">
+<h3 class="text-headline-lg font-headline-lg text-primary mb-1">Notifications &amp; Email</h3>
+<p class="text-body-md text-on-surface-variant mb-6 border-b border-surface-border pb-4">Manage institutional communications and automated alerts.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-label-md font-bold text-on-surface">Sender Name</label>
+<input class="w-full bg-[#F1F5F9] border-none focus:ring-2 focus:ring-primary rounded-lg px-4 py-3 text-body-md" type="text" value="Ministry Notification Bot">
+</div>
+<div class="space-y-2">
+<label class="text-label-md font-bold text-on-surface">Reply-to Email</label>
+<input class="w-full bg-[#F1F5F9] border-none focus:ring-2 focus:ring-primary rounded-lg px-4 py-3 text-body-md" type="email" value="support@ict.go.ug">
+</div>
+<div class="md:col-span-2 pt-4">
+<h4 class="text-label-md font-bold text-primary mb-4">Event Subscriptions</h4>
+<div class="space-y-3">
+<div class="flex items-center gap-3">
+<input checked="" class="w-5 h-5 text-primary bg-surface-container-high border-none rounded focus:ring-primary" type="checkbox">
+<span class="text-body-md text-on-surface">New staff user registration alerts</span>
+</div>
+<div class="flex items-center gap-3">
+<input checked="" class="w-5 h-5 text-primary bg-surface-container-high border-none rounded focus:ring-primary" type="checkbox">
+<span class="text-body-md text-on-surface">High-priority AI usage spikes</span>
+</div>
+<div class="flex items-center gap-3">
+<input class="w-5 h-5 text-primary bg-surface-container-high border-none rounded focus:ring-primary" type="checkbox">
+<span class="text-body-md text-on-surface">Weekly system health summaries</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="flex justify-end gap-4 border-t border-surface-border pt-8 mt-12">
+<button class="px-6 py-3 border border-surface-border text-on-surface-variant rounded-xl text-label-md font-bold hover:bg-surface-container-low transition-colors">Discard Changes</button>
+<button class="px-8 py-3 bg-primary text-white rounded-xl text-label-md font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">Save Changes</button>
+</div>
+</div>
+<!-- Footer Shell -->
+<footer class="w-full py-8 px-page-margin-desktop flex flex-col md:flex-row justify-between items-center bg-surface-container-highest border-t border-surface-border mt-section-gap">
+<p class="text-body-md text-on-surface-variant font-body-md">© 2026 Ministry of ICT &amp; National Guidance. All Rights Reserved.</p>
+<div class="flex gap-6 mt-4 md:mt-0">
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Support</a>
+</div>
+</footer>
+</main>
+</div>
+<script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.settings-section');
+            sections.forEach(s => s.classList.add('hidden'));
+
+            // Show target section
+            const target = document.getElementById('section-' + sectionId);
+            if (target) target.classList.remove('hidden');
+
+            // Update Tab Styles
+            const tabs = document.querySelectorAll('.setting-tab');
+            tabs.forEach(t => {
+                t.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-semibold', 'active-tab');
+                t.classList.add('text-on-surface-variant', 'font-medium');
+            });
+
+            const activeTab = document.getElementById('tab-' + sectionId);
+            activeTab.classList.remove('text-on-surface-variant', 'font-medium');
+            activeTab.classList.add('bg-primary-container', 'text-on-primary-container', 'font-semibold', 'active-tab');
+        }
+
+        // micro-interactions for input fields
+        document.querySelectorAll('input, select').forEach(el => {
+            el.addEventListener('focus', () => {
+                el.classList.add('shadow-md');
+                el.style.backgroundColor = '#ffffff';
+            });
+            el.addEventListener('blur', () => {
+                el.classList.remove('shadow-md');
+                el.style.backgroundColor = '#F1F5F9';
+            });
+        });
+    </script>
+</body></html>

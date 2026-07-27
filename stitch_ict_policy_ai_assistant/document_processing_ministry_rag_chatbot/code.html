@@ -1,0 +1,528 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>KMS Admin - Document Processing Monitor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .status-dot-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .4; }
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #023464;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#737780",
+                        "success-green": "#10B981",
+                        "tertiary-fixed": "#d0e4ff",
+                        "on-surface-variant": "#43474f",
+                        "surface-container-high": "#e6e8ea",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-lowest": "#ffffff",
+                        "slate-dark": "#0F172A",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c3c6d0",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#f7f9fb",
+                        "primary-container": "#023464",
+                        "on-secondary-fixed-variant": "#783200",
+                        "primary-fixed-dim": "#a6c8ff",
+                        "on-surface": "#191c1e",
+                        "on-secondary-container": "#5c2400",
+                        "on-background": "#191c1e",
+                        "tertiary-container": "#00365b",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary-fixed": "#001d34",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#fd761a",
+                        "on-primary-container": "#7a9ed4",
+                        "primary-fixed": "#d4e3ff",
+                        "on-primary-fixed": "#001c3b",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#ffb690",
+                        "on-tertiary-container": "#5ba1e4",
+                        "secondary": "#9d4300",
+                        "surface-container-highest": "#e0e3e5",
+                        "tertiary-fixed-dim": "#9bcbff",
+                        "surface-variant": "#e0e3e5",
+                        "on-primary": "#ffffff",
+                        "primary": "#001f40",
+                        "surface": "#f7f9fb",
+                        "background": "#f7f9fb",
+                        "surface-border": "#E2E8F0",
+                        "on-secondary-fixed": "#341100",
+                        "tertiary": "#002039",
+                        "on-primary-fixed-variant": "#204778",
+                        "surface-dim": "#d8dadc",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-tint": "#3b5f92",
+                        "inverse-primary": "#a6c8ff",
+                        "secondary-fixed": "#ffdbca",
+                        "on-tertiary-fixed-variant": "#004a79",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#eceef0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "page-margin-desktop": "32px",
+                        "section-gap": "64px",
+                        "page-margin-mobile": "16px",
+                        "container-max-width": "1440px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar (Predicted Component) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-6 z-40 bg-primary dark:bg-primary-container docked left-0 h-screen w-64 shadow-lg">
+<div class="px-6 mb-8">
+<h1 class="text-headline-sm font-black text-on-primary">KMS Admin</h1>
+<p class="text-label-sm text-on-primary/60 uppercase tracking-widest mt-1">Institutional AI Node</p>
+</div>
+<nav class="flex-grow flex flex-col gap-1 overflow-y-auto">
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Overview</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-md text-label-md">Document Library</span>
+</a>
+<!-- Active Tab: Ingestion Queue (Mapping to Document Processing Monitor) -->
+<a class="flex items-center gap-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg px-4 py-3 mx-2 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="queue">queue</span>
+<span class="font-label-md text-label-md">Ingestion Queue</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+<span class="font-label-md text-label-md">Embedding Config</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span class="font-label-md text-label-md">Vector Stores</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container dark:hover:bg-on-primary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md">System Health</span>
+</a>
+</nav>
+<div class="px-2 mt-auto border-t border-on-primary/10 pt-4">
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 mx-2 hover:bg-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow md:ml-64 min-h-screen flex flex-col relative">
+<!-- TopNavBar (Predicted Component) -->
+<header class="flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-50 bg-surface dark:bg-inverse-surface border-b border-surface-border dark:border-outline-variant shadow-sm">
+<div class="flex items-center gap-8">
+<span class="text-headline-md font-bold text-primary dark:text-primary-fixed">RAG Knowledge Hub</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary transition-colors font-label-md" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary transition-colors font-label-md" href="#">Workflows</a>
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary pb-1 font-label-md" href="#">Logs</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary transition-colors font-label-md" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary rounded-full border-2 border-surface"></span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-surface-border">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a Knowledge Management Officer in business attire, clean lighting, minimalist background, corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQIqw7GKfBbXu7oiN01TGdLDZDHu8IPzGLE0wtNoPoW8NS3xScIAJDvH6ALIO0yag5CLgKWrJ3OD35z86yX9aI_3az9ahl3db31YFEiwYx26jLFzITImIIna7wxWdmzaxnEPi7IN3bp0Ih4oAFEoo4AXBr-X30-Njwmdwdo79sudzlnvWgTed19NN3sgXjoMfOArCs2H3RTMttd2WdG2PK-eVOu-7JO32dCmxqyMe8zpKtiBfFkjDthw">
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-page-margin-desktop space-y-8 max-w-container-max-width mx-auto w-full">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Ingestion Pipeline Monitor</h2>
+<p class="text-on-surface-variant mt-1">Real-time status of document conversion, chunking, and vector indexing operations.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-surface-container-high px-4 py-2 rounded-xl flex items-center gap-3 border border-surface-border">
+<span class="w-3 h-3 rounded-full bg-success-green status-dot-pulse"></span>
+<span class="font-label-md text-label-md">Pipeline Active: 24.2 MB/s</span>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-xl font-label-md flex items-center gap-2 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                        New Ingestion
+                    </button>
+</div>
+</div>
+<!-- Dashboard Quick Stats -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="bg-white p-6 rounded-xl border border-surface-border shadow-sm">
+<p class="text-label-sm text-outline uppercase tracking-wider mb-2">Total In Queue</p>
+<div class="flex items-center justify-between">
+<span class="text-headline-lg font-headline-lg text-primary">1,284</span>
+<span class="material-symbols-outlined text-primary/20 scale-150" data-icon="all_inbox">all_inbox</span>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl border border-surface-border shadow-sm">
+<p class="text-label-sm text-outline uppercase tracking-wider mb-2">Processing</p>
+<div class="flex items-center justify-between">
+<span class="text-headline-lg font-headline-lg text-secondary">42</span>
+<span class="material-symbols-outlined text-secondary/20 scale-150" data-icon="sync">sync</span>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl border border-surface-border shadow-sm">
+<p class="text-label-sm text-outline uppercase tracking-wider mb-2">Completed (24h)</p>
+<div class="flex items-center justify-between">
+<span class="text-headline-lg font-headline-lg text-success-green">892</span>
+<span class="material-symbols-outlined text-success-green/20 scale-150" data-icon="check_circle">check_circle</span>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl border border-surface-border shadow-sm">
+<p class="text-label-sm text-outline uppercase tracking-wider mb-2">Failures</p>
+<div class="flex items-center justify-between">
+<span class="text-headline-lg font-headline-lg text-error">7</span>
+<span class="material-symbols-outlined text-error/20 scale-150" data-icon="error_outline">error_outline</span>
+</div>
+</div>
+</div>
+<!-- Main Pipeline Table -->
+<section class="bg-white rounded-xl border border-surface-border shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-surface-border flex items-center justify-between bg-surface-bright">
+<h3 class="font-headline-sm text-headline-sm text-primary">Active Documents</h3>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-2 text-label-md focus:ring-2 focus:ring-primary w-64" placeholder="Search by document name..." type="text">
+</div>
+<button class="p-2 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-surface-border">
+<th class="px-6 py-4 text-left font-label-md text-label-md text-outline">Document Name</th>
+<th class="px-6 py-4 text-left font-label-md text-label-md text-outline">OCR</th>
+<th class="px-6 py-4 text-left font-label-md text-label-md text-outline">Chunking</th>
+<th class="px-6 py-4 text-left font-label-md text-label-md text-outline">Embedding</th>
+<th class="px-6 py-4 text-left font-label-md text-label-md text-outline">Indexing</th>
+<th class="px-6 py-4 text-right font-label-md text-label-md text-outline">Last Update</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-border">
+<!-- Row 1: Active -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="picture_as_pdf">picture_as_pdf</span>
+<div>
+<p class="font-bold text-primary font-label-md">National_ICT_Policy_2026.pdf</p>
+<p class="text-xs text-outline">4.2 MB • System Upload</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-success-green text-sm" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-xs font-semibold text-success-green uppercase">Complete</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[65%]"></div>
+</div>
+<p class="text-[10px] mt-1 text-outline">65% • 4,201 chunks</p>
+</td>
+<td class="px-6 py-4">
+<span class="inline-block px-2 py-1 rounded bg-surface-container text-outline text-[10px] font-bold uppercase">Pending</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-block px-2 py-1 rounded bg-surface-container text-outline text-[10px] font-bold uppercase">Pending</span>
+</td>
+<td class="px-6 py-4 text-right">
+<p class="text-label-sm text-on-surface">2 mins ago</p>
+</td>
+</tr>
+<!-- Row 2: Failed -->
+<tr class="hover:bg-error-container/10 transition-colors group border-l-4 border-error">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="article">article</span>
+<div>
+<p class="font-bold text-primary font-label-md">Rural_Connectivity_Report_Q3.docx</p>
+<p class="text-xs text-outline">12.8 MB • Manual Import</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-sm" data-icon="error" data-weight="fill" style="font-variation-settings: 'FILL' 1;">error</span>
+<span class="text-xs font-semibold text-error uppercase">Failed</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-outline/30" data-icon="horizontal_rule">horizontal_rule</span>
+</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-outline/30" data-icon="horizontal_rule">horizontal_rule</span>
+</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-outline/30" data-icon="horizontal_rule">horizontal_rule</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="bg-error text-on-error px-3 py-1 rounded text-xs font-bold hover:shadow-md transition-shadow">Retry</button>
+</td>
+</tr>
+<!-- Row 3: Completed -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="description">description</span>
+<div>
+<p class="font-bold text-primary font-label-md">Infrastructure_Audit_Uganda_2025.pdf</p>
+<p class="text-xs text-outline">2.1 MB • API Ingest</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-success-green text-sm" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-success-green text-sm" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-success-green text-sm" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-success-green text-sm" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="px-6 py-4 text-right">
+<p class="text-label-sm text-on-surface">15 mins ago</p>
+</td>
+</tr>
+<!-- Row 4: Processing -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="table_chart">table_chart</span>
+<div>
+<p class="font-bold text-primary font-label-md">E-Government_Usage_Stats.csv</p>
+<p class="text-xs text-outline">1.5 MB • Data Lake Sync</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-success-green text-sm" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-success-green text-sm" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full border-2 border-primary border-t-transparent animate-spin"></div>
+<span class="text-xs font-bold text-primary">Embedding...</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-block px-2 py-1 rounded bg-surface-container text-outline text-[10px] font-bold uppercase">Pending</span>
+</td>
+<td class="px-6 py-4 text-right">
+<p class="text-label-sm text-on-surface">Just now</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Error Logs Section (Asymmetric Layout) -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 section-gap">
+<section class="lg:col-span-2 bg-slate-dark text-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+<div class="px-6 py-4 bg-slate-800 flex items-center justify-between border-b border-white/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error" data-icon="terminal">terminal</span>
+<h3 class="font-headline-sm text-headline-sm">System Error Logs</h3>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[10px] bg-error px-2 py-0.5 rounded uppercase font-bold">7 Failures</span>
+<button class="p-1 hover:bg-white/10 rounded"><span class="material-symbols-outlined text-sm" data-icon="download">download</span></button>
+</div>
+</div>
+<div class="flex-grow p-4 font-mono text-xs overflow-y-auto max-h-[300px] bg-slate-900/50">
+<div class="flex gap-4 py-1 border-b border-white/5 group">
+<span class="text-outline shrink-0">[14:22:01]</span>
+<span class="text-error shrink-0">[ERROR]</span>
+<span class="text-slate-300">Failed to process 'Rural_Connectivity_Report_Q3.docx': Timeout during OCR phase at page 42. Memory limit exceeded.</span>
+<button class="ml-auto opacity-0 group-hover:opacity-100 text-secondary transition-opacity">RETRY_NODE</button>
+</div>
+<div class="flex gap-4 py-1 border-b border-white/5 group">
+<span class="text-outline shrink-0">[14:19:55]</span>
+<span class="text-error shrink-0">[ERROR]</span>
+<span class="text-slate-300">Connection refused by Pinecone Vector DB (Index: 'knowledge-base-v1'). Retrying in 30s.</span>
+</div>
+<div class="flex gap-4 py-1 border-b border-white/5 group">
+<span class="text-outline shrink-0">[14:15:32]</span>
+<span class="text-secondary shrink-0">[WARN]</span>
+<span class="text-slate-300">Chunking module detected high overlap (0.8) in document 'Audit_2025'. Quality may be degraded.</span>
+</div>
+<div class="flex gap-4 py-1 border-b border-white/5 group">
+<span class="text-outline shrink-0">[14:12:10]</span>
+<span class="text-error shrink-0">[ERROR]</span>
+<span class="text-slate-300">Invalid character encoding detected in 'User_Feedback_raw.csv' at line 14,021. Ingestion aborted.</span>
+<button class="ml-auto opacity-0 group-hover:opacity-100 text-secondary transition-opacity">RETRY_NODE</button>
+</div>
+</div>
+</section>
+<section class="bg-white rounded-xl border border-surface-border shadow-sm p-6 flex flex-col justify-between">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4">Pipeline Health</h3>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-label-sm mb-1">
+<span class="text-outline">OCR Engine Load</span>
+<span class="text-primary font-bold">88%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[88%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-label-sm mb-1">
+<span class="text-outline">Embedding Throughput</span>
+<span class="text-primary font-bold">94%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-success-green w-[94%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-label-sm mb-1">
+<span class="text-outline">Vector DB Latency</span>
+<span class="text-primary font-bold">12ms</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[15%]"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-6 p-4 rounded-xl bg-primary-container text-on-primary-container">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="auto_awesome">auto_awesome</span>
+<div>
+<p class="text-xs font-bold mb-1">AI Recommendation</p>
+<p class="text-[10px] leading-relaxed opacity-90">OCR Load is reaching capacity. Consider scaling the processing cluster or scheduling heavy PDF tasks during off-peak hours (GMT+3 02:00).</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Footer Padding -->
+<div class="h-12"></div>
+</main>
+<!-- Contextual FAB (Predicted Component Suppressed on Details/Settings, but shown here for primary action) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-secondary text-on-secondary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-transform z-50 md:hidden">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<script>
+        // Micro-interaction for simulated real-time updates
+        document.addEventListener('DOMContentLoaded', () => {
+            const rows = document.querySelectorAll('tbody tr');
+            
+            // Randomly update a progress bar to simulate life
+            setInterval(() => {
+                const activeRow = rows[0]; // National ICT Policy
+                const bar = activeRow.querySelector('.bg-secondary');
+                if (bar) {
+                    let currentWidth = parseInt(bar.style.width || '65');
+                    if (currentWidth < 95) {
+                        currentWidth += Math.floor(Math.random() * 2);
+                        bar.style.width = currentWidth + '%';
+                        activeRow.querySelector('.text-[10px]').innerText = `${currentWidth}% • 4,201 chunks`;
+                    }
+                }
+            }, 3000);
+
+            // Pulse effect for healthy systems
+            const healthDots = document.querySelectorAll('.status-dot-pulse');
+            healthDots.forEach(dot => {
+                dot.classList.add('transition-opacity', 'duration-1000');
+            });
+        });
+    </script>
+</body></html>

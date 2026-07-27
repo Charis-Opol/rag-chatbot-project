@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>System Monitoring | Ministry of ICT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-primary-fixed": "#001c3b",
+                "surface-container-lowest": "#ffffff",
+                "primary": "#001f40",
+                "tertiary-container": "#00365b",
+                "surface-border": "#E2E8F0",
+                "surface-container-high": "#e6e8ea",
+                "inverse-on-surface": "#eff1f3",
+                "error": "#ba1a1a",
+                "primary-container": "#023464",
+                "secondary-fixed": "#ffdbca",
+                "on-error": "#ffffff",
+                "tertiary-fixed": "#d0e4ff",
+                "surface-container-low": "#f2f4f6",
+                "primary-fixed": "#d4e3ff",
+                "tertiary": "#002039",
+                "surface": "#f7f9fb",
+                "on-error-container": "#93000a",
+                "tertiary-fixed-dim": "#9bcbff",
+                "on-surface-variant": "#43474f",
+                "on-primary-container": "#7a9ed4",
+                "on-secondary-fixed-variant": "#783200",
+                "on-secondary-container": "#5c2400",
+                "outline": "#737780",
+                "on-tertiary": "#ffffff",
+                "primary-fixed-dim": "#a6c8ff",
+                "on-primary-fixed-variant": "#204778",
+                "background": "#f7f9fb",
+                "on-tertiary-fixed": "#001d34",
+                "on-surface": "#191c1e",
+                "surface-tint": "#3b5f92",
+                "success-green": "#10B981",
+                "on-secondary-fixed": "#341100",
+                "surface-container-highest": "#e0e3e5",
+                "secondary-container": "#fd761a",
+                "secondary": "#9d4300",
+                "on-primary": "#ffffff",
+                "on-tertiary-container": "#5ba1e4",
+                "slate-dark": "#0F172A",
+                "inverse-surface": "#2d3133",
+                "surface-variant": "#e0e3e5",
+                "surface-dim": "#d8dadc",
+                "surface-container": "#eceef0",
+                "on-secondary": "#ffffff",
+                "on-tertiary-fixed-variant": "#004a79",
+                "error-container": "#ffdad6",
+                "surface-bright": "#f7f9fb",
+                "secondary-fixed-dim": "#ffb690",
+                "inverse-primary": "#a6c8ff",
+                "outline-variant": "#c3c6d0",
+                "on-background": "#191c1e"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "2xl": "1rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "page-margin-mobile": "16px",
+                "section-gap": "64px",
+                "page-margin-desktop": "32px",
+                "gutter": "32px",
+                "container-max-width": "1440px"
+        },
+        "fontFamily": {
+                "label-sm": [
+                        "Inter"
+                ],
+                "headline-xl": [
+                        "Inter"
+                ],
+                "display-lg": [
+                        "Inter"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ],
+                "label-md": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Inter"
+                ],
+                "body-xl": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-xl": [
+                        "36px",
+                        {
+                                "lineHeight": "44px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "30px",
+                        {
+                                "lineHeight": "38px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-xl": [
+                        "20px",
+                        {
+                                "lineHeight": "30px",
+                                "fontWeight": "400"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 32px;
+        }
+        .status-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex">
+<!-- Side Navigation -->
+<nav class="fixed left-0 top-0 h-full flex flex-col py-8 z-40 bg-primary dark:bg-primary-container h-screen w-64 shadow-xl">
+<div class="px-8 mb-12">
+<h1 class="text-[24px] leading-[32px] font-black text-on-primary tracking-tight">Ministry of ICT</h1>
+<p class="text-label-md font-label-md opacity-80 text-on-primary mt-1">Staff Portal</p>
+</div>
+<div class="px-6 mb-8 hidden">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+</div>
+<div>
+<p class="text-label-md font-bold text-on-primary">ICT Admin</p>
+<p class="text-xs text-on-primary/70">Staff Portal</p>
+</div>
+</div>
+</div>
+<div class="flex-1 space-y-2">
+<a class="flex items-center gap-4 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-xl px-5 py-3.5 mx-4 transition-transform font-medium shadow-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary/80 dark:text-on-primary-container/80 px-5 py-3.5 mx-4 hover:bg-primary-container dark:hover:bg-on-primary-container/10 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+<span class="text-label-md">Chat</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary/80 dark:text-on-primary-container/80 px-5 py-3.5 mx-4 hover:bg-primary-container dark:hover:bg-on-primary-container/10 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span class="text-label-md">Knowledge Base</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary/80 dark:text-on-primary-container/80 px-5 py-3.5 mx-4 hover:bg-primary-container dark:hover:bg-on-primary-container/10 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="text-label-md">Projects</span>
+</a>
+</div>
+<div class="mt-auto px-4 space-y-2">
+<button class="w-full mb-6 py-3.5 px-4 bg-secondary text-on-secondary rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                New Chat
+            </button>
+<a class="flex items-center gap-4 text-on-primary/80 px-5 py-3.5 hover:bg-primary-container rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary/80 px-5 py-3.5 hover:bg-primary-container rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="text-label-md">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 min-h-screen pb-16">
+<!-- Top Navigation -->
+<header class="flex justify-between items-center w-full px-12 h-20 sticky top-0 z-50 bg-surface/90 backdrop-blur-md dark:bg-inverse-surface/90 border-b border-surface-border/50 shadow-sm">
+<div class="flex items-center gap-10 flex-1">
+<div class="hidden md:flex gap-8">
+<a class="text-on-surface-variant font-medium hover:text-primary py-7 transition-colors" href="#">Features</a>
+<a class="text-on-surface-variant font-medium hover:text-primary py-7 transition-colors" href="#">About</a>
+<a class="text-on-surface-variant font-medium hover:text-primary py-7 transition-colors" href="#">FAQ</a>
+</div>
+</div>
+<div class="flex items-center gap-5">
+<div class="relative group">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer p-2 rounded-full hover:bg-surface-container-low transition-colors">search</span>
+</div>
+<button class="bg-primary-container text-on-primary px-6 py-2.5 rounded-xl text-label-md font-bold shadow-md hover:shadow-lg transition-all">Staff Access</button>
+</div>
+</header>
+<div class="p-12 max-w-container-max-width mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+<div>
+<h1 class="text-[42px] leading-[48px] font-black text-primary tracking-tight mb-2">System Health Dashboard</h1>
+<p class="text-body-md text-on-surface-variant">Real-time infrastructure and AI infrastructure metrics</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container-lowest px-6 py-3 rounded-xl border border-surface-border/60 flex items-center gap-3 shadow-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-success-green status-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+<span class="text-label-md font-bold text-primary">All Systems Nominal</span>
+</div>
+<div class="bg-surface-container-lowest px-6 py-3 rounded-xl border border-surface-border/60 flex items-center gap-3 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">schedule</span>
+<span class="text-label-md font-bold text-on-surface-variant" id="current-time">14:24:10 EAT</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="bento-grid">
+<!-- Primary Resource Cards -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest p-8 rounded-2xl border border-surface-border/60 card-shadow hover:shadow-md transition-all flex flex-col justify-between">
+<div class="flex justify-between items-start mb-8">
+<span class="text-label-md font-bold text-on-surface-variant uppercase tracking-wider">CPU Usage</span>
+<div class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">memory</span>
+</div>
+</div>
+<div class="flex items-end gap-4 mb-8">
+<h2 class="text-[48px] leading-[56px] font-black text-primary tracking-tight" id="cpu-val">42%</h2>
+<span class="text-success-green text-label-sm mb-3 flex items-center bg-success-green/10 px-2.5 py-1 rounded-full font-bold"><span class="material-symbols-outlined text-[14px] mr-1">arrow_downward</span> 2.1%</span>
+</div>
+<div class="w-full h-16 flex items-end gap-1.5">
+<div class="flex-1 bg-primary-container/20 rounded-t-sm animate-pulse" style="height: 60%"></div>
+<div class="flex-1 bg-primary-container/40 rounded-t-sm" style="height: 40%"></div>
+<div class="flex-1 bg-primary-container/30 rounded-t-sm" style="height: 55%"></div>
+<div class="flex-1 bg-primary-container/50 rounded-t-sm animate-pulse" style="height: 75%"></div>
+<div class="flex-1 bg-primary-container/40 rounded-t-sm" style="height: 45%"></div>
+<div class="flex-1 bg-primary-container/20 rounded-t-sm" style="height: 30%"></div>
+<div class="flex-1 bg-primary-container/60 rounded-t-sm" style="height: 85%"></div>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest p-8 rounded-2xl border border-surface-border/60 card-shadow hover:shadow-md transition-all flex flex-col justify-between">
+<div class="flex justify-between items-start mb-8">
+<span class="text-label-md font-bold text-on-surface-variant uppercase tracking-wider">Memory Allocation</span>
+<div class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">analytics</span>
+</div>
+</div>
+<div class="flex items-end gap-4 mb-8">
+<h2 class="text-[48px] leading-[56px] font-black text-primary tracking-tight" id="mem-val">68.4 <span class="text-[30px] font-bold">GB</span></h2>
+<span class="text-error text-label-sm mb-3 flex items-center bg-error/10 px-2.5 py-1 rounded-full font-bold"><span class="material-symbols-outlined text-[14px] mr-1">arrow_upward</span> 12%</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden mb-4">
+<div class="bg-primary-container h-full transition-all duration-1000 rounded-full" style="width: 72%"></div>
+</div>
+<p class="text-label-md text-outline font-medium">72% of 96GB available cluster RAM</p>
+</div>
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest p-8 rounded-2xl border border-surface-border/60 card-shadow hover:shadow-md transition-all flex flex-col justify-between">
+<div class="flex justify-between items-start mb-8">
+<span class="text-label-md font-bold text-on-surface-variant uppercase tracking-wider">SSD Storage</span>
+<div class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">hard_drive</span>
+</div>
+</div>
+<div class="flex items-end gap-4 mb-8">
+<h2 class="text-[48px] leading-[56px] font-black text-primary tracking-tight">2.4 <span class="text-[30px] font-bold">TB</span></h2>
+</div>
+<div class="flex gap-2 mb-4">
+<div class="flex-1 h-2 bg-secondary-container rounded-full"></div>
+<div class="flex-1 h-2 bg-secondary-container/60 rounded-full"></div>
+<div class="flex-1 h-2 bg-secondary-container/30 rounded-full"></div>
+<div class="flex-1 h-2 bg-surface-container-high rounded-full"></div>
+</div>
+<p class="text-label-md text-outline font-medium">Provisioned: 4.0 TB | Used: 60%</p>
+</div>
+<!-- AI Infrastructure Status (Large Center Card) -->
+<div class="col-span-12 lg:col-span-8 bg-primary-container p-10 rounded-2xl relative overflow-hidden text-on-primary shadow-xl">
+<div class="absolute top-0 right-0 w-64 h-64 opacity-20 pointer-events-none">
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-10">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">neurology</span>
+<span class="text-body-xl font-bold tracking-tight text-white">AI Model Orchestration</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-white/5 p-6 rounded-xl backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-colors">
+<div class="flex justify-between items-center mb-6">
+<p class="text-body-md font-bold text-white">Llama 3 (NID-04)</p>
+<span class="px-3 py-1 bg-success-green/20 text-success-green text-[11px] rounded-full font-bold uppercase tracking-wider border border-success-green/30">ONLINE</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between text-label-md">
+<span class="text-white/70">Knowledge Base Health</span>
+<span class="font-bold">99.8%</span>
+</div>
+<div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+<div class="bg-success-green h-full rounded-full" style="width: 99.8%"></div>
+</div>
+<div class="flex justify-between text-label-md pt-2 border-t border-white/10">
+<span class="text-white/70">Embedding Queue</span>
+<span class="font-bold">12 Tasks</span>
+</div>
+</div>
+</div>
+<div class="bg-white/5 p-6 rounded-xl backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-colors">
+<div class="flex justify-between items-center mb-6">
+<p class="text-body-md font-bold text-white">Vector Database</p>
+<span class="px-3 py-1 bg-success-green/20 text-success-green text-[11px] rounded-full font-bold uppercase tracking-wider border border-success-green/30">CONNECTED</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between text-label-md">
+<span class="text-white/70">Query Latency</span>
+<span class="font-bold">42ms</span>
+</div>
+<div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full" style="width: 35%"></div>
+</div>
+<div class="flex justify-between text-label-md pt-2 border-t border-white/10">
+<span class="text-white/70">Index Consistency</span>
+<span class="font-bold">Synchronized</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-12 flex gap-10 border-t border-white/10 pt-8">
+<div>
+<p class="text-label-sm text-white/60 uppercase tracking-widest mb-2">Total Collections</p>
+<p class="text-[30px] leading-[38px] font-black text-white">852</p>
+</div>
+<div class="w-px bg-white/10"></div>
+<div>
+<p class="text-label-sm text-white/60 uppercase tracking-widest mb-2">Daily Tokens</p>
+<p class="text-[30px] leading-[38px] font-black text-white">4.2M</p>
+</div>
+<div class="w-px bg-white/10"></div>
+<div>
+<p class="text-label-sm text-white/60 uppercase tracking-widest mb-2">Active Users</p>
+<p class="text-[30px] leading-[38px] font-black text-white">128</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Panel Alerts -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-2xl border border-surface-border/60 flex flex-col card-shadow overflow-hidden">
+<div class="p-6 border-b border-surface-border/50 flex justify-between items-center bg-surface-container-lowest">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-error/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-error text-[18px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<span class="text-body-xl font-bold text-primary tracking-tight">System Alerts</span>
+</div>
+<span class="text-label-md text-on-surface-variant font-medium">4 Active</span>
+</div>
+<div class="flex-grow overflow-y-auto p-6 space-y-4 custom-scrollbar max-h-[440px]">
+<!-- Alert Item -->
+<div class="p-4 bg-error-container/10 rounded-xl border-l-4 border-error hover:bg-error-container/20 transition-colors">
+<div class="flex justify-between mb-2">
+<p class="text-label-md font-bold text-error">Critical Load</p>
+<span class="text-[11px] font-medium text-outline">2m ago</span>
+</div>
+<p class="text-sm text-on-surface-variant font-medium leading-relaxed">Cluster NID-04 CPU exceeded 95% threshold for 60s.</p>
+</div>
+<!-- Warning Item -->
+<div class="p-4 bg-secondary-container/5 rounded-xl border-l-4 border-secondary hover:bg-secondary-container/10 transition-colors">
+<div class="flex justify-between mb-2">
+<p class="text-label-md font-bold text-secondary">Disk Warning</p>
+<span class="text-[11px] font-medium text-outline">15m ago</span>
+</div>
+<p class="text-sm text-on-surface-variant font-medium leading-relaxed">Backup storage in Zone-B approaching 85% capacity.</p>
+</div>
+<!-- Info Item -->
+<div class="p-4 bg-primary-container/5 rounded-xl border-l-4 border-primary-container hover:bg-primary-container/10 transition-colors">
+<div class="flex justify-between mb-2">
+<p class="text-label-md font-bold text-primary-container">System Update</p>
+<span class="text-[11px] font-medium text-outline">1h ago</span>
+</div>
+<p class="text-sm text-on-surface-variant font-medium leading-relaxed">Scheduled security patch completed successfully on core router.</p>
+</div>
+<!-- Alert Item -->
+<div class="p-4 bg-error-container/10 rounded-xl border-l-4 border-error hover:bg-error-container/20 transition-colors">
+<div class="flex justify-between mb-2">
+<p class="text-label-md font-bold text-error">API Timeout</p>
+<span class="text-[11px] font-medium text-outline">3h ago</span>
+</div>
+<p class="text-sm text-on-surface-variant font-medium leading-relaxed">Gateway service reported 504 errors on external API calls.</p>
+</div>
+</div>
+<div class="p-6 pt-0 mt-auto">
+<button class="w-full py-3 border border-surface-border/60 rounded-xl text-label-md font-bold text-primary hover:bg-surface-container-low transition-colors shadow-sm">
+                        View Audit Log
+                    </button>
+</div>
+</div>
+<!-- Network Traffic Chart Card -->
+<div class="col-span-12 bg-surface-container-lowest p-10 rounded-2xl border border-surface-border/60 card-shadow">
+<div class="flex justify-between items-center mb-12">
+<div class="flex items-center gap-6">
+<h4 class="text-body-xl font-bold text-primary tracking-tight">Regional Data Throughput</h4>
+<div class="flex gap-2 border border-surface-border/50 rounded-lg p-1 bg-surface">
+<button class="px-4 py-1.5 bg-surface-container-lowest text-primary text-xs rounded-md font-bold shadow-sm">LIVE</button>
+<button class="px-4 py-1.5 text-on-surface-variant text-xs rounded-md font-bold hover:bg-surface-container-low transition-colors">LAST 24H</button>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-primary-container"></div>
+<span class="text-label-md text-on-surface-variant font-medium">Ingress</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-surface-tint/60"></div>
+<span class="text-label-md text-on-surface-variant font-medium">Egress</span>
+</div>
+</div>
+</div>
+<div class="h-64 w-full flex items-end gap-4 px-6 relative">
+<!-- Simulated Chart Bars -->
+<div class="flex-grow flex items-end gap-2 h-full z-10">
+<div class="flex-1 bg-primary-container/20 rounded-t-lg transition-all hover:bg-primary-container/30" style="height: 40%"></div>
+<div class="flex-1 bg-primary-container/30 rounded-t-lg transition-all hover:bg-primary-container/40" style="height: 45%"></div>
+<div class="flex-1 bg-primary-container/20 rounded-t-lg transition-all hover:bg-primary-container/30" style="height: 38%"></div>
+<div class="flex-1 bg-primary-container/40 rounded-t-lg transition-all hover:bg-primary-container/50" style="height: 60%"></div>
+<div class="flex-1 bg-surface-tint/70 rounded-t-lg transition-all hover:bg-surface-tint/80" style="height: 75%"></div>
+<div class="flex-1 bg-surface-tint/60 rounded-t-lg transition-all hover:bg-surface-tint/70" style="height: 68%"></div>
+<div class="flex-1 bg-primary-container rounded-t-lg transition-all shadow-md" style="height: 90%"></div>
+<div class="flex-1 bg-surface-tint/80 rounded-t-lg transition-all hover:bg-surface-tint/90" style="height: 82%"></div>
+<div class="flex-1 bg-primary-container/40 rounded-t-lg transition-all hover:bg-primary-container/50" style="height: 55%"></div>
+<div class="flex-1 bg-primary-container/30 rounded-t-lg transition-all hover:bg-primary-container/40" style="height: 48%"></div>
+<div class="flex-1 bg-primary-container/20 rounded-t-lg transition-all hover:bg-primary-container/30" style="height: 40%"></div>
+<div class="flex-1 bg-primary-container/15 rounded-t-lg transition-all hover:bg-primary-container/25" style="height: 35%"></div>
+<div class="flex-1 bg-primary-container/40 rounded-t-lg transition-all hover:bg-primary-container/50" style="height: 55%"></div>
+<div class="flex-1 bg-surface-tint/70 rounded-t-lg transition-all hover:bg-surface-tint/80" style="height: 75%"></div>
+<div class="flex-1 bg-primary-container rounded-t-lg transition-all shadow-md" style="height: 92%"></div>
+<div class="flex-1 bg-primary-container rounded-t-lg transition-all shadow-md" style="height: 100%"></div>
+<div class="flex-1 bg-surface-tint/80 rounded-t-lg transition-all hover:bg-surface-tint/90" style="height: 85%"></div>
+<div class="flex-1 bg-surface-tint/60 rounded-t-lg transition-all hover:bg-surface-tint/70" style="height: 65%"></div>
+</div>
+<div class="absolute inset-0 px-6 border-b border-surface-border/80"></div>
+</div>
+<div class="flex justify-between mt-6 text-[11px] text-on-surface-variant font-bold uppercase tracking-widest px-8 pt-4">
+<span>Kampala (HQ)</span>
+<span>Entebbe</span>
+<span>Mbarara</span>
+<span>Gulu</span>
+<span>Mbale</span>
+<span>Jinja</span>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="mt-20 border-t border-surface-border/50 py-16 px-12 bg-surface-container-highest">
+<div class="max-w-container-max-width mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-5">
+<div class="h-12 w-12 bg-primary-container flex items-center justify-center rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-on-primary">account_balance</span>
+</div>
+<div>
+<p class="text-body-md font-bold text-primary">Ministry of ICT</p>
+</div>
+</div>
+<p class="text-body-md text-on-surface-variant text-center md:text-left font-medium">© 2026 Ministry of ICT &amp; National Guidance. All Rights Reserved.</p>
+<div class="flex gap-10">
+<a class="text-body-md text-on-surface-variant hover:text-primary transition-colors font-medium" href="#">Privacy Policy</a>
+<a class="text-body-md text-on-surface-variant hover:text-primary transition-colors font-medium" href="#">Terms of Service</a>
+<a class="text-body-md text-on-surface-variant hover:text-primary transition-colors font-medium" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+</div>
+</main>
+<script>
+        // Real-time clock update
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' EAT';
+            document.getElementById('current-time').textContent = timeString;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Random jitter for metrics to simulate "real-time"
+        setInterval(() => {
+            const cpuVal = document.getElementById('cpu-val');
+            const memVal = document.getElementById('mem-val');
+            
+            const currentCpu = parseInt(cpuVal.textContent);
+            const cpuJitter = Math.floor(Math.random() * 5) - 2;
+            cpuVal.textContent = Math.max(10, Math.min(99, currentCpu + cpuJitter)) + '%';
+            
+            const currentMem = parseFloat(memVal.textContent);
+            const memJitter = (Math.random() * 0.4) - 0.2;
+            memVal.innerHTML = (currentMem + memJitter).toFixed(1) + ' <span class="text-[30px] font-bold">GB</span>';
+        }, 3000);
+    </script>
+</body></html>

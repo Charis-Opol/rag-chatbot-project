@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact Verification | Ministry of ICT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#5c2400",
+                        "tertiary-fixed": "#d0e4ff",
+                        "surface-container-highest": "#e0e3e5",
+                        "background": "#f7f9fb",
+                        "secondary-container": "#fd761a",
+                        "outline-variant": "#c3c6d0",
+                        "inverse-surface": "#2d3133",
+                        "inverse-primary": "#a6c8ff",
+                        "primary-fixed-dim": "#a6c8ff",
+                        "on-background": "#191c1e",
+                        "surface-container": "#eceef0",
+                        "primary": "#001f40",
+                        "primary-fixed": "#d4e3ff",
+                        "on-primary-container": "#7a9ed4",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#ffdbca",
+                        "surface-bright": "#f7f9fb",
+                        "primary-container": "#023464",
+                        "surface-border": "#E2E8F0",
+                        "on-tertiary-fixed-variant": "#004a79",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-high": "#e6e8ea",
+                        "outline": "#737780",
+                        "surface-tint": "#3b5f92",
+                        "tertiary-fixed-dim": "#9bcbff",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed": "#341100",
+                        "slate-dark": "#0F172A",
+                        "tertiary": "#002039",
+                        "on-error-container": "#93000a",
+                        "success-green": "#10B981",
+                        "on-surface-variant": "#43474f",
+                        "on-primary-fixed": "#001c3b",
+                        "on-primary-fixed-variant": "#204778",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#783200",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-variant": "#e0e3e5",
+                        "tertiary-container": "#00365b",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#f7f9fb",
+                        "on-tertiary-fixed": "#001d34",
+                        "surface-dim": "#d8dadc",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#9d4300",
+                        "secondary-fixed-dim": "#ffb690",
+                        "on-tertiary-container": "#5ba1e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "page-margin-mobile": "16px",
+                        "section-gap": "64px",
+                        "page-margin-desktop": "32px",
+                        "gutter": "24px",
+                        "container-max-width": "1440px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-xl": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; color: #191c1e; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .step-active { color: #023464; border-color: #023464; }
+        .step-complete { background-color: #10B981; border-color: #10B981; color: white; }
+        .glass-panel { backdrop-filter: blur(8px); background-color: rgba(255, 255, 255, 0.8); }
+        .enterprise-shadow { box-shadow: 0 10px 15px -3px rgba(2, 52, 100, 0.05); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- TopNavBar (Shared Component) -->
+<nav class="docked full-width top-0 sticky bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md border-b border-surface-border dark:border-outline-variant shadow-sm z-50">
+<div class="flex justify-between items-center w-full px-page-margin-desktop max-w-container-max-width mx-auto h-16">
+<div class="text-body-xl font-bold text-primary dark:text-primary-fixed tracking-tight">Ministry of ICT</div>
+<div class="hidden md:flex items-center gap-x-8">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary text-label-md font-label-md transition-colors duration-200" href="#">Features</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary text-label-md font-label-md transition-colors duration-200" href="#">About</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary text-label-md font-label-md transition-colors duration-200" href="#">FAQ</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg text-label-md font-label-md hover:opacity-90 transition-all">Staff Access</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center py-16 px-page-margin-mobile md:px-page-margin-desktop bg-[#F8FAFC]">
+<div class="max-w-2xl w-full flex flex-col gap-8">
+<!-- Stepper Component -->
+<div class="w-full flex items-center justify-between px-4">
+<div class="flex flex-col items-center gap-2 group">
+<div class="w-10 h-10 rounded-full border-2 flex items-center justify-center text-label-md font-bold transition-all duration-300 step-complete" id="step-1-indicator">
+<span class="material-symbols-outlined text-xl">check</span>
+</div>
+<span class="text-label-sm font-label-sm text-primary">Identity</span>
+</div>
+<div class="flex-grow h-0.5 bg-outline-variant mx-4 rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-1/2 transition-all duration-500" id="progress-bar"></div>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full border-2 border-primary-container bg-surface-container-lowest text-primary-container flex items-center justify-center text-label-md font-bold transition-all duration-300 ring-4 ring-primary/5" id="step-2-indicator">
+                        2
+                    </div>
+<span class="text-label-sm font-label-sm text-primary font-bold">Contact</span>
+</div>
+<div class="flex-grow h-0.5 bg-outline-variant mx-4 rounded-full"></div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full border-2 border-outline-variant text-outline flex items-center justify-center text-label-md font-bold transition-all duration-300" id="step-3-indicator">
+                        3
+                    </div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Security</span>
+</div>
+</div>
+<!-- Central Verification Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-surface-border enterprise-shadow overflow-hidden">
+<div class="p-8 md:p-12">
+<div class="mb-10 text-center">
+<h1 class="text-headline-lg font-headline-lg text-primary mb-2">Verify your contact details</h1>
+<p class="text-body-md font-body-md text-on-surface-variant">To ensure high-level security for the National ICT Portal, we need to confirm your professional identity.</p>
+</div>
+<!-- Verification Blocks -->
+<div class="flex flex-col gap-6">
+<!-- Block 1: Work Email -->
+<div class="group relative p-6 rounded-xl border border-surface-border bg-white transition-all duration-200 hover:border-primary/30 hover:shadow-md" id="verify-email-block">
+<div class="flex items-start gap-4">
+<div class="bg-primary-fixed p-3 rounded-lg text-primary">
+<span class="material-symbols-outlined" data-icon="work" style="font-variation-settings: 'FILL' 1;">work</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-label-md font-bold text-primary">Verify work email</h3>
+<span class="text-label-sm px-2 py-0.5 bg-success-green/10 text-success-green rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                            Sent
+                                        </span>
+</div>
+<p class="text-label-md text-on-surface-variant mb-4">We've sent a 6-digit code to <span class="font-semibold text-on-surface">j.doe@ict.go.ug</span></p>
+<div class="flex gap-2 mb-4">
+<input class="w-12 h-14 text-center text-headline-lg font-bold bg-[#F1F5F9] border-none rounded-lg focus:ring-2 focus:ring-primary focus:bg-white transition-all" maxlength="1" type="text"/>
+<input class="w-12 h-14 text-center text-headline-lg font-bold bg-[#F1F5F9] border-none rounded-lg focus:ring-2 focus:ring-primary focus:bg-white transition-all" maxlength="1" type="text"/>
+<input class="w-12 h-14 text-center text-headline-lg font-bold bg-[#F1F5F9] border-none rounded-lg focus:ring-2 focus:ring-primary focus:bg-white transition-all" maxlength="1" type="text"/>
+<div class="w-4 h-14 flex items-center justify-center text-outline">-</div>
+<input class="w-12 h-14 text-center text-headline-lg font-bold bg-[#F1F5F9] border-none rounded-lg focus:ring-2 focus:ring-primary focus:bg-white transition-all" maxlength="1" type="text"/>
+<input class="w-12 h-14 text-center text-headline-lg font-bold bg-[#F1F5F9] border-none rounded-lg focus:ring-2 focus:ring-primary focus:bg-white transition-all" maxlength="1" type="text"/>
+<input class="w-12 h-14 text-center text-headline-lg font-bold bg-[#F1F5F9] border-none rounded-lg focus:ring-2 focus:ring-primary focus:bg-white transition-all" maxlength="1" type="text"/>
+</div>
+<div class="flex items-center justify-between">
+<button class="text-label-sm font-label-sm text-secondary hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">refresh</span>
+                                            Resend email
+                                        </button>
+<button class="bg-primary text-white px-4 py-2 rounded-lg text-label-sm font-bold hover:bg-primary-container transition-colors">Verify Email</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Block 2: Phone Number -->
+<div class="group relative p-6 rounded-xl border border-surface-border bg-surface-container-low/50 opacity-75 grayscale transition-all duration-200" id="verify-phone-block">
+<div class="flex items-start gap-4">
+<div class="bg-outline-variant p-3 rounded-lg text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="smartphone">smartphone</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-label-md font-bold text-on-surface-variant">Verify phone number</h3>
+<span class="text-label-sm px-2 py-0.5 bg-outline-variant/20 text-on-surface-variant rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                                            Pending
+                                        </span>
+</div>
+<p class="text-label-md text-on-surface-variant">Complete email verification to proceed with SMS authentication for <span class="font-semibold">+256 ••• ••• 412</span></p>
+</div>
+</div>
+<!-- Tooltip/Badge -->
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-white/20 backdrop-blur-[1px] pointer-events-none">
+<span class="bg-primary-container text-on-primary-container text-label-sm px-4 py-1.5 rounded-full shadow-lg">Verification Queue Active</span>
+</div>
+</div>
+</div>
+<!-- Data Protection Explanation -->
+<div class="mt-12 pt-8 border-t border-surface-border">
+<div class="flex gap-4 p-4 rounded-xl bg-tertiary-container/5 border border-tertiary-container/10">
+<span class="material-symbols-outlined text-tertiary text-[24px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<div>
+<h4 class="text-label-md font-bold text-tertiary mb-1">Secure Data Protection</h4>
+<p class="text-label-sm text-on-surface-variant leading-relaxed">
+                                    Your contact information is encrypted and managed under the National Data Protection and Privacy Act (2019). We use these details solely for multi-factor authentication to prevent unauthorized administrative access.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Action -->
+<div class="bg-surface-container-low px-8 py-4 flex items-center justify-between">
+<button class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                        Back to Profile
+                    </button>
+<div class="flex items-center gap-2 text-label-sm text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-success-green animate-pulse"></span>
+                        Secure Session Active
+                    </div>
+</div>
+</div>
+<!-- Help Links -->
+<div class="flex justify-center gap-8">
+<a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors underline" href="#">I don't have access to this email</a>
+<a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors underline" href="#">Contact Support</a>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full py-8 px-page-margin-desktop flex flex-col md:flex-row justify-between items-center bg-surface-container-highest dark:bg-tertiary-container border-t border-surface-border">
+<div class="text-label-md font-bold text-primary mb-4 md:mb-0">Ministry of ICT &amp; National Guidance</div>
+<div class="text-body-md font-body-md text-on-surface-variant dark:text-on-tertiary-container mb-4 md:mb-0 text-center">
+            © 2026 Ministry of ICT &amp; National Guidance. All Rights Reserved.
+        </div>
+<div class="flex gap-6">
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Support</a>
+</div>
+</footer>
+<script>
+        // Micro-interaction: Auto-focus next input in OTP
+        const otpInputs = document.querySelectorAll('#verify-email-block input');
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1 && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && e.target.value.length === 0 && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+        });
+
+        // Simulating a "Resend" state
+        const resendBtn = document.querySelector('button.text-secondary');
+        resendBtn.addEventListener('click', function() {
+            const originalText = this.innerHTML;
+            this.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">sync</span> Sending...';
+            this.classList.add('pointer-events-none', 'opacity-50');
+            
+            setTimeout(() => {
+                this.innerHTML = '<span class="material-symbols-outlined text-[16px] text-success-green">done</span> Sent!';
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.classList.remove('pointer-events-none', 'opacity-50');
+                }, 2000);
+            }, 1500);
+        });
+    </script>
+</body></html>

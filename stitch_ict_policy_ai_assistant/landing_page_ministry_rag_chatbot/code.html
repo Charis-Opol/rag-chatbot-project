@@ -1,0 +1,406 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Ministry of ICT | Offline RAG Chatbot</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Config from Design System -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "primary-fixed": "#d4e3ff",
+                "surface-dim": "#d8dadc",
+                "on-tertiary-container": "#5ba1e4",
+                "tertiary-fixed-dim": "#9bcbff",
+                "secondary-fixed-dim": "#ffb690",
+                "success-green": "#10B981",
+                "surface-container-low": "#f2f4f6",
+                "outline": "#737780",
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed": "#001d34",
+                "on-secondary-fixed": "#341100",
+                "on-secondary-container": "#5c2400",
+                "inverse-on-surface": "#eff1f3",
+                "on-tertiary": "#ffffff",
+                "surface-container": "#eceef0",
+                "tertiary-fixed": "#d0e4ff",
+                "background": "#f7f9fb",
+                "surface-container-lowest": "#ffffff",
+                "on-error-container": "#93000a",
+                "on-surface": "#191c1e",
+                "surface": "#f7f9fb",
+                "outline-variant": "#c3c6d0",
+                "secondary-container": "#fd761a",
+                "surface-tint": "#3b5f92",
+                "surface-container-highest": "#e0e3e5",
+                "on-surface-variant": "#43474f",
+                "surface-border": "#E2E8F0",
+                "tertiary-container": "#00365b",
+                "error": "#ba1a1a",
+                "primary-container": "#023464",
+                "inverse-surface": "#2d3133",
+                "on-error": "#ffffff",
+                "on-background": "#191c1e",
+                "tertiary": "#002039",
+                "secondary-fixed": "#ffdbca",
+                "on-primary": "#ffffff",
+                "secondary": "#9d4300",
+                "on-primary-fixed-variant": "#204778",
+                "on-secondary": "#ffffff",
+                "surface-container-high": "#e6e8ea",
+                "inverse-primary": "#a6c8ff",
+                "primary": "#001f40",
+                "slate-dark": "#0F172A",
+                "on-primary-container": "#7a9ed4",
+                "primary-fixed-dim": "#a6c8ff",
+                "surface-variant": "#e0e3e5",
+                "on-tertiary-fixed-variant": "#004a79",
+                "surface-bright": "#f7f9fb",
+                "on-secondary-fixed-variant": "#783200",
+                "on-primary-fixed": "#001c3b"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "page-margin-desktop": "32px",
+                "page-margin-mobile": "16px",
+                "gutter": "24px",
+                "section-gap": "64px",
+                "container-max-width": "1440px"
+            },
+            "fontFamily": {
+                "headline-lg-mobile": ["Inter"],
+                "headline-lg": ["Inter"],
+                "label-sm": ["Inter"],
+                "body-md": ["Inter"],
+                "headline-xl": ["Inter"],
+                "label-md": ["Inter"],
+                "display-lg": ["Inter"],
+                "body-xl": ["Inter"]
+            },
+            "fontSize": {
+                "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(226, 232, 240, 0.6); }
+        .hero-gradient { background: radial-gradient(circle at 50% 50%, rgba(212, 227, 255, 0.4) 0%, rgba(247, 249, 251, 1) 100%); }
+    </style>
+</head>
+<body class="antialiased text-on-surface">
+<!-- TopNavBar Component -->
+<nav class="docked full-width top-0 sticky z-50 bg-surface/80 backdrop-blur-md border-b border-surface-border shadow-sm">
+<div class="flex justify-between items-center w-full px-page-margin-desktop max-w-container-max-width mx-auto h-16">
+<div class="flex items-center gap-8">
+<span class="text-body-xl font-bold text-primary tracking-tight">Ministry of ICT</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-secondary font-bold border-b-2 border-secondary text-label-md font-label-md py-1 transition-colors" href="#">Features</a>
+<a class="text-on-surface-variant hover:text-primary text-label-md font-label-md transition-colors" href="#">About</a>
+<a class="text-on-surface-variant hover:text-primary text-label-md font-label-md transition-colors" href="#">FAQ</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden lg:flex items-center gap-2 text-on-surface-variant hover:bg-surface-container-low px-3 py-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="search">search</span>
+<span class="text-label-md">Search...</span>
+</button>
+<button class="bg-primary-container text-on-primary px-6 py-2.5 rounded-lg text-label-md font-bold hover:scale-[1.02] active:scale-95 transition-all shadow-sm">
+                    Staff Access
+                </button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative overflow-hidden hero-gradient pt-24 pb-32">
+<div class="max-w-container-max-width mx-auto px-page-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="z-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-primary-fixed rounded-full mb-6">
+<span class="material-symbols-outlined text-[18px] text-on-primary-fixed-variant" data-icon="security" style="font-variation-settings: 'FILL' 1;">security</span>
+<span class="text-label-sm text-on-primary-fixed-variant">OFFLINE RAG ARCHITECTURE</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary mb-6 leading-tight">
+                    Secure Intelligence for <br> <span class="text-secondary">National Governance.</span>
+</h1>
+<p class="font-body-xl text-body-xl text-on-surface-variant mb-10 max-w-xl">
+                    An offline, RAG-powered AI assistant designed for the Ministry of ICT and National Guidance to streamline regulatory compliance and policy retrieval.
+                </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary-container text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:shadow-lg transition-all">
+                        Staff Access
+                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="border border-primary text-primary px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-white transition-all">
+<span class="material-symbols-outlined" data-icon="play_circle">play_circle</span>
+                        Watch Overview
+                    </button>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute -inset-4 bg-primary-fixed/20 rounded-full blur-3xl group-hover:bg-primary-fixed/30 transition-colors"></div>
+<div class="relative glass-card rounded-3xl p-4 shadow-2xl overflow-hidden border border-white/50">
+<div class="w-full aspect-[4/3] bg-cover bg-center rounded-2xl" data-alt="A futuristic and sophisticated 3D abstract visualization showing glowing data nodes and neural network pathways connecting in a crystalline structure. The scene is illuminated with a professional Ministry Blue and soft Ministry Orange lighting against a clean, light-mode background. The aesthetic is high-end corporate technology, emphasizing secure and intelligent data processing with a sense of architectural depth." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAhXI3wN3LjrUIMYMXyT9yxHu2GsGF7HguZ1i0u63taL4V2AMDlAKlupvECWz8H0HtkVwzHjkDRojJnfOYHNkEzYzPKxbcUaPE0Nt6hjYcERuvH1uY88VJEnbCBFkmDbrSSGjhkN9f-8LGWnkPYELSGbnxzRNBqNAUKmeO1aOoZOGInUujV9PbFYyS8YcoBd8_maD9fhpUzTghyMrmfNEDn78K5aKbswlCzTPF3wr4vg0lSgKwOXCN7xA')"></div>
+<div class="absolute bottom-10 left-10 right-10 glass-card p-6 rounded-2xl border border-white/40 shadow-lg">
+<div class="flex items-center gap-4 mb-2">
+<div class="w-10 h-10 rounded-full bg-success-green/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-success-green" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<p class="text-label-md font-bold text-primary">System Integrity Status</p>
+<p class="text-label-sm text-on-surface-variant">Offline Node: Verified &amp; Encrypted</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Social Proof / Logos -->
+<section class="py-12 bg-white border-y border-surface-border">
+<div class="max-w-container-max-width mx-auto px-page-margin-desktop flex flex-col items-center">
+<p class="text-label-sm text-outline mb-8 uppercase tracking-widest">Authorized Ministry Entities</p>
+<div class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60 grayscale hover:grayscale-0 transition-all">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[32px]" data-icon="account_balance">account_balance</span>
+<span class="text-label-md font-extrabold text-primary">NITA-U</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[32px]" data-icon="gavel">gavel</span>
+<span class="text-label-md font-extrabold text-primary">REGULATORY DEPT.</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[32px]" data-icon="public">public</span>
+<span class="text-label-md font-extrabold text-primary">NATIONAL GUIDANCE</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[32px]" data-icon="hub">hub</span>
+<span class="text-label-md font-extrabold text-primary">ICT INNOVATION HUB</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Section -->
+<section class="py-section-gap bg-surface">
+<div class="max-w-container-max-width mx-auto px-page-margin-desktop">
+<div class="text-center mb-16">
+<h2 class="font-headline-xl text-headline-xl text-primary mb-4">Precision Engineering for Policy</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">Our RAG-based engine isn't just an AI—it's a digital library that thinks, cross-references, and secures national secrets.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Feature 1 -->
+<div class="bg-white p-8 rounded-xl border border-surface-border hover:shadow-xl transition-all duration-300 group">
+<div class="w-14 h-14 rounded-lg bg-primary/5 flex items-center justify-center mb-6 group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white transition-colors" data-icon="search_insights">search_insights</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-4">Instant Policy Retrieval</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Search thousands of regulations in seconds. Our semantic search understands the context of your inquiry, not just keywords.</p>
+</div>
+<!-- Feature 2 -->
+<div class="bg-white p-8 rounded-xl border border-surface-border hover:shadow-xl transition-all duration-300 group">
+<div class="w-14 h-14 rounded-lg bg-primary/5 flex items-center justify-center mb-6 group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white transition-colors" data-icon="fact_check">fact_check</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-4">Verified Citations</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Every answer is backed by official government documents. Clickable sources ensure every piece of advice is legally defensible.</p>
+</div>
+<!-- Feature 3 -->
+<div class="bg-white p-8 rounded-xl border border-surface-border hover:shadow-xl transition-all duration-300 group">
+<div class="w-14 h-14 rounded-lg bg-primary/5 flex items-center justify-center mb-6 group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white transition-colors" data-icon="shield_lock">shield_lock</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-4">100% Offline &amp; Secure</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Zero data leakage. All processing happens within the Ministry's infrastructure, ensuring air-gapped security for national data.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Benefits Section (Asymmetric / Bento Style) -->
+<section class="py-section-gap bg-primary text-white overflow-hidden relative">
+<div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
+
+</div>
+<div class="max-w-container-max-width mx-auto px-page-margin-desktop relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div>
+<h2 class="font-headline-xl text-headline-xl mb-8">Empowering the <span class="text-on-primary-container">Ministry Core.</span></h2>
+<ul class="space-y-8">
+<li class="flex gap-6">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-on-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="verified">verified</span>
+</div>
+<div>
+<h4 class="font-bold text-xl mb-1">Trustworthy Responses</h4>
+<p class="text-on-primary-container/80">Eliminate AI hallucinations with retrieval-augmented generation focused solely on Ministry-approved datasets.</p>
+</div>
+</li>
+<li class="flex gap-6">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-on-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="speed">speed</span>
+</div>
+<div>
+<h4 class="font-bold text-xl mb-1">Efficiency for Staff</h4>
+<p class="text-on-primary-container/80">Reduce policy research time by 90%, allowing staff to focus on high-level decision making and guidance.</p>
+</div>
+</li>
+<li class="flex gap-6">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-on-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="rule">rule</span>
+</div>
+<div>
+<h4 class="font-bold text-xl mb-1">Regulatory Accuracy</h4>
+<p class="text-on-primary-container/80">Consistently align with national guidance frameworks and the latest legislative updates.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-4 pt-12">
+<div class="glass-card bg-white/10 border-white/20 p-6 rounded-2xl h-48 flex flex-col justify-end">
+<p class="text-4xl font-bold mb-2">99.9%</p>
+<p class="text-label-sm opacity-70">Query Accuracy</p>
+</div>
+<div class="glass-card bg-white/10 border-white/20 p-6 rounded-2xl h-64 flex flex-col justify-between">
+<span class="material-symbols-outlined text-4xl" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+<p class="text-body-md">Air-gapped deployment capability for maximum classification.</p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="glass-card bg-white/10 border-white/20 p-6 rounded-2xl h-72 flex flex-col justify-between">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-white"></div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-white"></div>
+<div class="w-8 h-8 rounded-full bg-surface-container-low border border-white"></div>
+</div>
+<div>
+<p class="text-xl font-bold mb-2">10k+</p>
+<p class="text-label-sm opacity-70">Indexed Documents</p>
+</div>
+</div>
+<div class="glass-card bg-white/10 border-white/20 p-6 rounded-2xl h-40 flex flex-col justify-center text-center">
+<p class="text-label-md font-bold">Latency &lt; 1s</p>
+<p class="text-label-sm opacity-70">Real-time Inference</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="py-section-gap bg-surface">
+<div class="max-w-container-max-width mx-auto px-page-margin-desktop">
+<div class="bg-primary-container rounded-[2rem] p-12 md:p-20 text-center relative overflow-hidden">
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+<div class="absolute top-0 left-0 w-64 h-64 bg-secondary rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2"></div>
+</div>
+<div class="relative z-10">
+<h2 class="text-headline-xl text-white mb-6">Ready to streamline ICT policy?</h2>
+<p class="text-body-xl text-on-primary-container mb-10 max-w-2xl mx-auto">Authorized personnel can access the chatbot portal using their government credentials.</p>
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+<button class="bg-white text-primary px-10 py-4 rounded-xl font-bold text-lg hover:bg-on-primary-container hover:text-white transition-all shadow-xl">
+                            Sign In to Portal
+                        </button>
+<button class="border border-white/30 text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-white/10 transition-all">
+                            Technical Documentation
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer Component -->
+<footer class="w-full bg-surface-container-highest dark:bg-tertiary-container border-t border-surface-border">
+<div class="w-full py-12 px-page-margin-desktop max-w-container-max-width mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-start mb-12 gap-8">
+<div class="max-w-xs">
+<div class="text-label-md font-bold text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="cloud_off">cloud_off</span>
+                        Ministry of ICT Chatbot
+                    </div>
+<p class="text-body-md text-on-surface-variant">The official offline intelligence assistant of the Ministry of ICT &amp; National Guidance, Uganda.</p>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-12">
+<div>
+<h5 class="text-label-md font-bold text-primary mb-4">Resources</h5>
+<ul class="space-y-3">
+<li><a class="text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Digital Roadmap</a></li>
+<li><a class="text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">ICT Policy 2024</a></li>
+<li><a class="text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">E-Gov Services</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-label-md font-bold text-primary mb-4">Internal</h5>
+<ul class="space-y-3">
+<li><a class="text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Staff Email</a></li>
+<li><a class="text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">HR Portal</a></li>
+<li><a class="text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Admin Dashboard</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-label-md font-bold text-primary mb-4">Support</h5>
+<ul class="space-y-3">
+<li><a class="text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Support</a></li>
+<li><a class="text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Report Issue</a></li>
+<li><a class="text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">FAQ</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="pt-8 border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-label-sm text-on-surface-variant">© 2026 Ministry of ICT &amp; National Guidance. All Rights Reserved.</p>
+<div class="flex gap-6">
+<a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Support</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for staff access button
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                if(btn.classList.contains('bg-primary-container')) {
+                    btn.classList.add('shadow-lg');
+                }
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.classList.remove('shadow-lg');
+            });
+        });
+
+        // Simple scroll animation observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section > div').forEach(el => {
+            el.classList.add('transition-all', 'duration-700', 'ease-out', 'opacity-0', 'translate-y-10');
+            observer.observe(el);
+        });
+    </script>
+</body></html>

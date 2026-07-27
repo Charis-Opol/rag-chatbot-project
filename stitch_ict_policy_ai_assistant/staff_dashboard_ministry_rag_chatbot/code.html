@@ -1,0 +1,394 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Ministry of ICT - Staff Dashboard</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#d4e3ff",
+                    "surface-dim": "#d8dadc",
+                    "on-tertiary-container": "#5ba1e4",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "secondary-fixed-dim": "#ffb690",
+                    "success-green": "#10B981",
+                    "surface-container-low": "#f2f4f6",
+                    "outline": "#737780",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#001d34",
+                    "on-secondary-fixed": "#341100",
+                    "on-secondary-container": "#5c2400",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "tertiary-fixed": "#d0e4ff",
+                    "background": "#f7f9fb",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#191c1e",
+                    "surface": "#f7f9fb",
+                    "outline-variant": "#c3c6d0",
+                    "secondary-container": "#fd761a",
+                    "surface-tint": "#3b5f92",
+                    "surface-border": "#E2E8F0",
+                    "tertiary-container": "#00365b",
+                    "error": "#ba1a1a",
+                    "primary-container": "#023464",
+                    "inverse-surface": "#2d3133",
+                    "on-error": "#ffffff",
+                    "on-background": "#191c1e",
+                    "tertiary": "#002039",
+                    "secondary-fixed": "#ffdbca",
+                    "on-primary": "#ffffff",
+                    "secondary": "#9d4300",
+                    "on-primary-fixed-variant": "#204778",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-primary": "#a6c8ff",
+                    "primary": "#001f40",
+                    "slate-dark": "#0F172A",
+                    "on-primary-container": "#7a9ed4",
+                    "primary-fixed-dim": "#a6c8ff",
+                    "surface-variant": "#e0e3e5",
+                    "on-tertiary-fixed-variant": "#004a79",
+                    "surface-bright": "#f7f9fb",
+                    "on-secondary-fixed-variant": "#783200",
+                    "on-primary-fixed": "#001c3b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "page-margin-desktop": "32px",
+                    "page-margin-mobile": "16px",
+                    "gutter": "24px",
+                    "section-gap": "64px",
+                    "container-max-width": "1440px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .enterprise-shadow {
+            box-shadow: 0 10px 15px -3px rgba(2, 52, 100, 0.05);
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+<!-- SideNavBar (Authority Source: JSON) -->
+<aside class="hidden md:flex flex-col h-screen left-0 w-64 fixed bg-surface-container-lowest border-r border-surface-border py-6 px-4 gap-y-2 z-50">
+<div class="mb-8 px-2">
+<h1 class="text-headline-xl font-headline-xl text-primary tracking-tight">ICT Admin</h1>
+<p class="text-label-md font-label-md text-on-surface-variant">Staff Portal</p>
+</div>
+<button class="mb-6 flex items-center justify-center gap-2 bg-primary text-on-primary py-3 rounded-xl font-semibold hover:scale-[1.02] transition-transform duration-150 shadow-md">
+<span class="material-symbols-outlined">add</span>
+            New Chat
+        </button>
+<nav class="flex flex-col gap-y-1">
+<!-- Active State: Dashboard -->
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg font-semibold transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:scale-[1.02] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+                Chat
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:scale-[1.02] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+                Knowledge Base
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:scale-[1.02] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+                Projects
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:scale-[1.02] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+                Admin Tools
+            </a>
+</nav>
+<div class="mt-auto flex flex-col gap-y-1 pt-4 border-t border-surface-border">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:scale-[1.02] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:scale-[1.02] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Support
+            </a>
+<div class="mt-4 flex items-center gap-3 p-2 bg-surface-container-low rounded-xl">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-primary-fixed flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a government official, clean studio lighting, high resolution photography, corporate attire, soft blue background, representing an ICT staff member." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_0Nxiqf2qIMgo6KlxPzgQA0V12o3iZHBSJR56JzO6DzF4RGWkJDoQV1Bkl4vdxpVXEtWT659SZHpG8N2tBIyoKnytiCboma7NEk3ZFDZTBmdIrh6S99xwKGYJOdmpc6BykBzA8iViQALGCEw1Ss1e8d6lhthbGVuaHIaeYfYy1OvU-Eyo31dUdVEXZch5eO7GeocM8xzDK3ELqP2BrSyw-V_dA7OSfThUxsA189diOV9nj8i5S8FQMQ">
+</div>
+<div class="overflow-hidden">
+<p class="text-label-md font-bold truncate text-primary">S. Mukasa</p>
+<p class="text-label-sm text-on-surface-variant truncate">Lead Analyst</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 min-h-screen overflow-y-auto px-page-margin-desktop py-8">
+<!-- Header & Breadcrumbs -->
+<header class="flex flex-col gap-6 mb-section-gap">
+<nav class="flex text-label-sm text-on-surface-variant gap-2 items-center">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Dashboard</span>
+</nav>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary">Welcome back, Stephen</h2>
+<p class="text-body-md text-on-surface-variant">Here is a quick overview of your AI assistance platform activities.</p>
+</div>
+<div class="relative w-full max-w-md group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest border border-surface-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all enterprise-shadow" placeholder="Search knowledge base or chats..." type="text">
+</div>
+</div>
+</header>
+<!-- Quick Actions Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-12">
+<button class="group flex flex-col items-start p-6 bg-surface-container-lowest border border-surface-border rounded-xl enterprise-shadow hover:border-secondary transition-all text-left">
+<div class="w-12 h-12 rounded-lg bg-primary-fixed flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">chat_add_on</span>
+</div>
+<h3 class="text-label-md font-bold text-primary mb-1">New Chat</h3>
+<p class="text-label-sm text-on-surface-variant">Start a new investigative session with AI assistance.</p>
+</button>
+<button class="group flex flex-col items-start p-6 bg-surface-container-lowest border border-surface-border rounded-xl enterprise-shadow hover:border-secondary transition-all text-left">
+<div class="w-12 h-12 rounded-lg bg-primary-fixed flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">library_books</span>
+</div>
+<h3 class="text-label-md font-bold text-primary mb-1">Browse Knowledge Base</h3>
+<p class="text-label-sm text-on-surface-variant">Access 12,450+ indexed government documents and policies.</p>
+</button>
+<button class="group flex flex-col items-start p-6 bg-surface-container-lowest border border-surface-border rounded-xl enterprise-shadow hover:border-secondary transition-all text-left">
+<div class="w-12 h-12 rounded-lg bg-secondary-fixed flex items-center justify-center text-secondary mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">cloud_upload</span>
+</div>
+<div class="flex items-center gap-2 mb-1">
+<h3 class="text-label-md font-bold text-primary">Upload Document</h3>
+<span class="px-2 py-0.5 bg-secondary-container text-white text-[10px] rounded-full font-bold uppercase tracking-wider">Admin</span>
+</div>
+<p class="text-label-sm text-on-surface-variant">Contribute new datasets to the national ICT LLM.</p>
+</button>
+</section>
+<!-- Main Dashboard Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Left Column: Recent Conversations -->
+<section class="lg:col-span-8 bg-surface-container-lowest border border-surface-border rounded-xl enterprise-shadow overflow-hidden">
+<div class="p-6 border-b border-surface-border flex justify-between items-center">
+<h3 class="text-body-xl font-bold text-primary">Recent Conversations</h3>
+<button class="text-label-md text-secondary font-bold hover:underline">View All</button>
+</div>
+<div class="divide-y divide-surface-border">
+<!-- Chat Item 1 -->
+<div class="p-6 hover:bg-surface-container-low transition-colors group">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">policy</span>
+</div>
+<div>
+<h4 class="text-body-md font-bold text-primary mb-1">Telecommunications Act Inquiry</h4>
+<div class="flex gap-4 text-label-sm text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 2 hours ago</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">forum</span> 24 messages</span>
+</div>
+</div>
+</div>
+<button class="px-4 py-2 border border-primary text-primary text-label-md font-bold rounded-lg hover:bg-primary hover:text-white transition-all self-start md:self-center">Jump to Chat</button>
+</div>
+</div>
+<!-- Chat Item 2 -->
+<div class="p-6 hover:bg-surface-container-low transition-colors group">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">shopping_cart_checkout</span>
+</div>
+<div>
+<h4 class="text-body-md font-bold text-primary mb-1">ICT Procurement Standards Review</h4>
+<div class="flex gap-4 text-label-sm text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> Yesterday, 4:15 PM</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">forum</span> 8 messages</span>
+</div>
+</div>
+</div>
+<button class="px-4 py-2 border border-primary text-primary text-label-md font-bold rounded-lg hover:bg-primary hover:text-white transition-all self-start md:self-center">Jump to Chat</button>
+</div>
+</div>
+<!-- Chat Item 3 -->
+<div class="p-6 hover:bg-surface-container-low transition-colors group">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">security</span>
+</div>
+<div>
+<h4 class="text-body-md font-bold text-primary mb-1">Cybersecurity Framework Alignment</h4>
+<div class="flex gap-4 text-label-sm text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 3 days ago</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">forum</span> 42 messages</span>
+</div>
+</div>
+</div>
+<button class="px-4 py-2 border border-primary text-primary text-label-md font-bold rounded-lg hover:bg-primary hover:text-white transition-all self-start md:self-center">Jump to Chat</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Widgets -->
+<div class="lg:col-span-4 flex flex-col gap-gutter">
+<!-- System Health Widget -->
+<section class="p-6 bg-surface-container-lowest border border-surface-border rounded-xl enterprise-shadow">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-label-md font-bold text-primary">System Health</h3>
+<span class="w-3 h-3 rounded-full bg-success-green animate-pulse"></span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-label-md text-on-surface-variant">Offline Status</span>
+<span class="text-label-md font-bold text-success-green">Active</span>
+</div>
+<div class="w-full bg-surface-container h-1 rounded-full overflow-hidden">
+<div class="bg-success-green h-full w-[99%]"></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-label-md text-on-surface-variant">Knowledge Base</span>
+<span class="text-label-md font-bold text-primary">12,450 docs</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-label-md text-on-surface-variant">Avg. Response Time</span>
+<span class="text-label-md font-bold text-primary">1.2s</span>
+</div>
+</div>
+</section>
+<!-- Pinned Documents -->
+<section class="p-6 bg-surface-container-lowest border border-surface-border rounded-xl enterprise-shadow">
+<h3 class="text-label-md font-bold text-primary mb-4">Pinned Documents</h3>
+<div class="flex flex-col gap-3">
+<a class="flex items-center gap-3 p-2 hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">keep</span>
+<div class="overflow-hidden">
+<p class="text-label-sm font-bold text-primary truncate">National_Broadband_Policy_2024.pdf</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Regulatory Framework</p>
+</div>
+</a>
+<a class="flex items-center gap-3 p-2 hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">keep</span>
+<div class="overflow-hidden">
+<p class="text-label-sm font-bold text-primary truncate">Draft_Data_Protection_V2.docx</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Legal Affairs</p>
+</div>
+</a>
+</div>
+</section>
+</div>
+</div>
+<!-- Bottom Section: Trending Topics -->
+<section class="mt-12 p-8 bg-primary text-on-primary rounded-xl enterprise-shadow relative overflow-hidden">
+<!-- Subtle background animation placeholder -->
+
+<div class="relative z-10">
+<h3 class="text-body-xl font-bold mb-6">Trending Across Ministry</h3>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-label-md font-semibold cursor-pointer transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">tag</span>
+                        #Compliance
+                    </span>
+<span class="px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-label-md font-semibold cursor-pointer transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">tag</span>
+                        #Legal
+                    </span>
+<span class="px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-label-md font-semibold cursor-pointer transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">tag</span>
+                        #Procurement
+                    </span>
+<span class="px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-label-md font-semibold cursor-pointer transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">tag</span>
+                        #Infrastructure
+                    </span>
+<span class="px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-label-md font-semibold cursor-pointer transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">tag</span>
+                        #SatelliteSystems
+                    </span>
+<span class="px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-label-md font-semibold cursor-pointer transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">tag</span>
+                        #NationalGuidance
+                    </span>
+</div>
+</div>
+</section>
+<!-- Footer (Authority Source: JSON) -->
+<footer class="mt-section-gap w-full py-8 border-t border-surface-border flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex flex-col items-center md:items-start gap-1">
+<p class="text-label-md font-bold text-primary">Ministry of ICT</p>
+<p class="text-label-sm text-on-surface-variant text-center md:text-left">© 2026 Ministry of ICT &amp; National Guidance. All Rights Reserved.</p>
+</div>
+<div class="flex gap-6">
+<a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Support</a>
+</div>
+</footer>
+</main>
+<!-- Simple Interactivity -->
+<script>
+        // Micro-interaction: Sidebar nav hover state logic or simple logging
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // If it was a real app, we'd handle routing here. 
+                // For this UI, we just toggle active classes locally if needed.
+            });
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary');
+        });
+    </script>
+</body></html>

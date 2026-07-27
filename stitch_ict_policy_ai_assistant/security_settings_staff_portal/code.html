@@ -1,0 +1,442 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Security Settings | MoICT Staff Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#a6c8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#001f40",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-fixed": "#001d34",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface": "#f7f9fb",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#d0e4ff",
+                        "tertiary-fixed-dim": "#9bcbff",
+                        "on-tertiary-fixed-variant": "#004a79",
+                        "on-primary-fixed": "#001c3b",
+                        "background": "#f7f9fb",
+                        "on-secondary-container": "#5c2400",
+                        "on-secondary-fixed-variant": "#783200",
+                        "inverse-primary": "#a6c8ff",
+                        "primary-container": "#023464",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#d4e3ff",
+                        "on-tertiary-container": "#5ba1e4",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-fixed-dim": "#ffb690",
+                        "outline-variant": "#c3c6d0",
+                        "on-error-container": "#93000a",
+                        "surface-border": "#E2E8F0",
+                        "on-surface": "#191c1e",
+                        "surface-variant": "#e0e3e5",
+                        "outline": "#737780",
+                        "on-surface-variant": "#43474f",
+                        "surface-tint": "#3b5f92",
+                        "surface-dim": "#d8dadc",
+                        "secondary-fixed": "#ffdbca",
+                        "slate-dark": "#0F172A",
+                        "success-green": "#10B981",
+                        "tertiary-container": "#00365b",
+                        "surface-container": "#eceef0",
+                        "on-primary-fixed-variant": "#204778",
+                        "tertiary": "#002039",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-background": "#191c1e",
+                        "on-primary-container": "#7a9ed4",
+                        "secondary-container": "#fd761a",
+                        "on-secondary-fixed": "#341100",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary": "#9d4300"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "section-gap": "64px",
+                        "container-max-width": "1440px",
+                        "page-margin-mobile": "16px",
+                        "page-margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-xl": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                        "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        .glass-panel { backdrop-filter: blur(8px); background: rgba(255, 255, 255, 0.8); }
+        .focus-ring:focus-within { border-color: #023464; ring: 2px solid #023464; }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-inverse-surface w-full h-16 sticky top-0 z-50 border-b border-surface-border dark:border-outline-variant shadow-sm flex justify-between items-center px-page-desktop">
+<div class="flex items-center gap-8">
+<h1 class="text-headline-lg font-headline-lg text-primary dark:text-primary-fixed-dim tracking-tight">MoICT Staff Portal</h1>
+<div class="hidden md:flex relative items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-label-md focus:ring-2 focus:ring-primary w-64 transition-all" placeholder="Search security logs..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors cursor-pointer active:opacity-80">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors cursor-pointer active:opacity-80">help</button>
+</div>
+<div class="flex items-center gap-3 pl-6 border-l border-surface-border">
+<div class="text-right hidden sm:block">
+<p class="font-label-md text-label-md text-on-surface font-bold">Moses K. Okello</p>
+<p class="text-[11px] text-outline uppercase tracking-wider">IT Administrator</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-primary object-cover" data-alt="Professional studio portrait of a Ugandan government official in business attire, clean lighting, blurred office background, high-end photography style consistent with a corporate enterprise portal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzC4boqNC3aCjwfkWCTxeqNaXdfPxhBzw39htYvd-p8_uW5j31PQBf21ECFkbbv4cyBRnKrhI8FGO435DCxH8shHkyvMteppb-ygLBdj2-9SQRsmyA56joLidVOIXvFhZyBFrbsiz7gaC0ULT5-xUq7ETPlDqnMEJrsUrvqqHn1dKYygDc3LAedJH4-V60RyUP2IDFA5caAtiQJ_x3IolkKA-_blEGUs7TUQOvkLXUS6Rdt6PmLObHjw">
+</div>
+</div>
+</header>
+<div class="flex h-[calc(100vh-64px)] overflow-hidden">
+<!-- SideNavBar (Settings Context) -->
+<aside class="flex flex-col p-6 gap-4 bg-surface-container-low dark:bg-surface-container-highest h-full w-72 flex-shrink-0">
+<div class="mb-4 px-2">
+<h2 class="font-headline-md text-primary text-headline-lg">Profile Settings</h2>
+<p class="font-label-md text-label-md text-outline">Manage your account security</p>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline hover:text-primary transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">General</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-inverse-surface text-primary dark:text-primary-fixed-dim shadow-sm rounded-xl font-semibold scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">security</span>
+<span class="font-label-md text-label-md">Security</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline hover:text-primary transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="font-label-md text-label-md">Notifications</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline hover:text-primary transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined">help_center</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-surface-border pt-6 px-2">
+<div class="bg-primary-container p-4 rounded-xl text-on-primary-container space-y-2">
+<p class="text-label-sm font-bold uppercase tracking-widest opacity-80">Account Status</p>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-success-green animate-pulse"></span>
+<p class="font-label-md text-label-md text-white">Security Verified</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto custom-scrollbar p-page-desktop">
+<div class="max-w-container-max-width mx-auto space-y-gutter">
+<!-- Section Title -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h3 class="font-headline-xl text-headline-xl text-primary">Security &amp; Access</h3>
+<p class="text-body-md text-outline">Strengthen your account and monitor recent login activities.</p>
+</div>
+<div class="flex gap-3">
+<button class="bg-surface-container-high text-primary px-6 py-2.5 rounded-lg font-label-md text-label-md hover:bg-surface-container-highest transition-colors">Download Security Audit</button>
+</div>
+</div>
+<!-- Security Bento Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Change Password Card -->
+<section class="col-span-12 lg:col-span-4 bg-white rounded-xl border border-surface-border p-6 shadow-sm flex flex-col gap-6">
+<div class="flex items-center gap-3 border-b border-surface-border pb-4">
+<span class="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">lock</span>
+<h4 class="font-headline-lg text-primary text-[20px]">Change Password</h4>
+</div>
+<div class="space-y-4">
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Current Password</label>
+<input class="w-full bg-[#F1F5F9] border-none rounded-lg p-3 focus:ring-2 focus:ring-primary focus:bg-white transition-all" placeholder="••••••••" type="password">
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant">New Password</label>
+<input class="w-full bg-[#F1F5F9] border-none rounded-lg p-3 focus:ring-2 focus:ring-primary focus:bg-white transition-all" placeholder="Minimum 12 characters" type="password">
+<div class="flex gap-1 mt-2">
+<div class="h-1 flex-1 bg-success-green rounded-full"></div>
+<div class="h-1 flex-1 bg-success-green rounded-full"></div>
+<div class="h-1 flex-1 bg-outline-variant rounded-full"></div>
+<div class="h-1 flex-1 bg-outline-variant rounded-full"></div>
+</div>
+<p class="text-[11px] text-outline">Strength: Medium</p>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Confirm New Password</label>
+<input class="w-full bg-[#F1F5F9] border-none rounded-lg p-3 focus:ring-2 focus:ring-primary focus:bg-white transition-all" placeholder="••••••••" type="password">
+</div>
+</div>
+<button class="w-full bg-primary text-white py-3 rounded-lg font-label-md text-label-md font-semibold mt-auto hover:opacity-90 transition-opacity shadow-[0_1px_2px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.1)]">Update Password</button>
+</section>
+<!-- Two-Factor Authentication -->
+<section class="col-span-12 lg:col-span-8 bg-white rounded-xl border border-surface-border p-6 shadow-sm">
+<div class="flex items-center justify-between border-b border-surface-border pb-4 mb-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary bg-secondary-fixed p-2 rounded-lg">phonelink_lock</span>
+<h4 class="font-headline-lg text-primary text-[20px]">Two-Factor Authentication</h4>
+</div>
+<span class="bg-success-green/10 text-success-green px-3 py-1 rounded-full text-label-sm font-bold">ACTIVE</span>
+</div>
+<div class="grid md:grid-cols-2 gap-6">
+<div class="border border-surface-border p-5 rounded-xl hover:border-primary transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">apps</span>
+<input checked="" class="text-primary focus:ring-primary" name="2fa" type="radio">
+</div>
+<h5 class="font-label-md text-label-md text-primary font-bold mb-1">Authentication App</h5>
+<p class="text-label-sm text-outline leading-relaxed">Use apps like Google Authenticator or Microsoft Authenticator to generate verification codes.</p>
+<button class="mt-4 text-primary font-bold text-label-sm flex items-center gap-1 hover:underline">Manage App <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
+</div>
+<div class="border border-surface-border p-5 rounded-xl hover:border-primary transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">sms</span>
+<input class="text-primary focus:ring-primary" name="2fa" type="radio">
+</div>
+<h5 class="font-label-md text-label-md text-primary font-bold mb-1">SMS Verification</h5>
+<p class="text-label-sm text-outline leading-relaxed">Receive a unique 6-digit code via text message to your registered mobile number (+256 ••• ••• 42).</p>
+<button class="mt-4 text-primary font-bold text-label-sm flex items-center gap-1 hover:underline">Change Number <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
+</div>
+</div>
+<div class="mt-8 p-4 bg-surface-container-low rounded-lg flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-primary font-bold">Recovery Codes</p>
+<p class="text-label-sm text-outline">Generate backup codes to use if you lose access to your primary 2FA method.</p>
+</div>
+<button class="border border-outline text-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-white transition-colors">Generate Codes</button>
+</div>
+</section>
+<!-- Active Sessions -->
+<section class="col-span-12 bg-white rounded-xl border border-surface-border shadow-sm overflow-hidden">
+<div class="p-6 border-b border-surface-border flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">devices</span>
+<h4 class="font-headline-lg text-primary text-[20px]">Active Sessions</h4>
+</div>
+<button class="text-error font-bold text-label-md hover:bg-error-container/20 px-4 py-2 rounded-lg transition-colors">Log out of all other sessions</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-surface-border">
+<th class="px-6 py-4 font-label-sm text-label-sm text-outline uppercase tracking-wider">Device &amp; Browser</th>
+<th class="px-6 py-4 font-label-sm text-label-sm text-outline uppercase tracking-wider">Location</th>
+<th class="px-6 py-4 font-label-sm text-label-sm text-outline uppercase tracking-wider">IP Address</th>
+<th class="px-6 py-4 font-label-sm text-label-sm text-outline uppercase tracking-wider">Last Activity</th>
+<th class="px-6 py-4 font-label-sm text-label-sm text-outline uppercase tracking-wider">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-border">
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">laptop_mac</span>
+<div>
+<p class="font-label-md text-label-md text-primary font-bold">MacBook Pro 16"</p>
+<p class="text-label-sm text-outline">Chrome • macOS Sonoma</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-label-md text-label-md text-on-surface-variant">Kampala, Uganda</td>
+<td class="px-6 py-4 font-label-md text-label-md text-on-surface-variant">197.232.144.18</td>
+<td class="px-6 py-4">
+<span class="bg-success-green/10 text-success-green px-2 py-0.5 rounded text-[11px] font-bold">CURRENT SESSION</span>
+</td>
+<td class="px-6 py-4">
+<button class="text-outline hover:text-primary transition-colors material-symbols-outlined">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">smartphone</span>
+<div>
+<p class="font-label-md text-label-md text-primary font-bold">iPhone 15 Pro</p>
+<p class="text-label-sm text-outline">Safari • iOS 17.4</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-label-md text-label-md text-on-surface-variant">Entebbe, Uganda</td>
+<td class="px-6 py-4 font-label-md text-label-md text-on-surface-variant">41.210.158.33</td>
+<td class="px-6 py-4 font-label-md text-label-md text-on-surface-variant">2 hours ago</td>
+<td class="px-6 py-4">
+<button class="text-error font-label-md text-label-md hover:underline">Logout</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Trusted Devices & Login History -->
+<section class="col-span-12 lg:col-span-6 bg-white rounded-xl border border-surface-border p-6 shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h4 class="font-label-md text-label-md text-primary font-bold uppercase tracking-widest">Trusted Devices</h4>
+<button class="text-primary text-label-sm font-bold flex items-center gap-1">Add New Device <span class="material-symbols-outlined text-[18px]">add</span></button>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 border border-surface-border rounded-xl">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-container-high rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">desktop_windows</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-primary font-bold">Dell Latitude 5420</p>
+<p class="text-label-sm text-outline">Added on Mar 12, 2024</p>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-error transition-colors">delete</button>
+</div>
+<div class="flex items-center justify-between p-4 border border-surface-border rounded-xl">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-container-high rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">tablet_android</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-primary font-bold">iPad Air (5th Gen)</p>
+<p class="text-label-sm text-outline">Added on Feb 28, 2024</p>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-error transition-colors">delete</button>
+</div>
+</div>
+</section>
+<section class="col-span-12 lg:col-span-6 bg-white rounded-xl border border-surface-border p-6 shadow-sm flex flex-col">
+<div class="flex items-center justify-between mb-6">
+<h4 class="font-label-md text-label-md text-primary font-bold uppercase tracking-widest">Recent Login History</h4>
+<a class="text-primary text-label-sm font-bold" href="#">View Full Audit Log</a>
+</div>
+<div class="space-y-6 overflow-y-auto max-h-[300px] pr-2 custom-scrollbar">
+<div class="flex items-start gap-4">
+<div class="relative">
+<div class="w-2 h-2 bg-success-green rounded-full absolute -left-1 top-2 ring-4 ring-white"></div>
+<div class="w-0.5 h-12 bg-surface-border ml-[3px] mt-4"></div>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-primary font-bold">Successful Login</p>
+<p class="text-label-sm text-outline">Mar 24, 2024 • 08:32 AM • Chrome on macOS</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="relative">
+<div class="w-2 h-2 bg-error rounded-full absolute -left-1 top-2 ring-4 ring-white"></div>
+<div class="w-0.5 h-12 bg-surface-border ml-[3px] mt-4"></div>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-primary font-bold">Failed Login Attempt</p>
+<p class="text-label-sm text-outline">Mar 23, 2024 • 11:45 PM • Unknown Device from Unknown Location</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="relative">
+<div class="w-2 h-2 bg-success-green rounded-full absolute -left-1 top-2 ring-4 ring-white"></div>
+<div class="w-0.5 h-12 bg-surface-border ml-[3px] mt-4"></div>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-primary font-bold">Password Changed</p>
+<p class="text-label-sm text-outline">Mar 15, 2024 • 02:15 PM • Requested by User</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="relative">
+<div class="w-2 h-2 bg-tertiary-container rounded-full absolute -left-1 top-2 ring-4 ring-white"></div>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-primary font-bold">2FA Enabled</p>
+<p class="text-label-sm text-outline">Feb 20, 2024 • 09:00 AM • Verified via SMS</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Decorative Atmospheric Footer -->
+<footer class="pt-section-gap pb-8 text-center">
+<div class="flex items-center justify-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<p class="font-label-md text-label-md text-primary font-bold">Uganda National Cyber Security Standards Compliant</p>
+</div>
+<p class="text-label-sm text-outline">© 2026 Ministry of ICT &amp; National Guidance. All rights reserved.</p>
+</footer>
+</div>
+</main>
+</div>
+<!-- Micro-interaction Scripts -->
+<script>
+        // Simple interactive password strength meter simulation
+        const passwordInput = document.querySelector('input[placeholder="Minimum 12 characters"]');
+        const meterBars = document.querySelectorAll('.h-1.flex-1');
+        const strengthText = document.querySelector('.text-\\[11px\\].text-outline');
+
+        passwordInput.addEventListener('input', (e) => {
+            const val = e.target.value;
+            if (val.length === 0) {
+                meterBars.forEach(bar => bar.className = 'h-1 flex-1 bg-outline-variant rounded-full');
+                strengthText.textContent = 'Strength: -';
+            } else if (val.length < 6) {
+                meterBars[0].className = 'h-1 flex-1 bg-error rounded-full';
+                meterBars[1].className = meterBars[2].className = meterBars[3].className = 'h-1 flex-1 bg-outline-variant rounded-full';
+                strengthText.textContent = 'Strength: Weak';
+            } else if (val.length < 10) {
+                meterBars[0].className = meterBars[1].className = 'h-1 flex-1 bg-secondary-container rounded-full';
+                meterBars[2].className = meterBars[3].className = 'h-1 flex-1 bg-outline-variant rounded-full';
+                strengthText.textContent = 'Strength: Medium';
+            } else {
+                meterBars.forEach(bar => bar.className = 'h-1 flex-1 bg-success-green rounded-full');
+                strengthText.textContent = 'Strength: Strong';
+            }
+        });
+
+        // Toggle focus state aesthetics
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('scale-[1.01]');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('scale-[1.01]');
+            });
+        });
+    </script>
+</body></html>

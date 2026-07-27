@@ -1,0 +1,520 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Search Analytics | GovAI Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#eff1f3",
+                    "outline": "#737780",
+                    "surface-tint": "#3b5f92",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-border": "#E2E8F0",
+                    "on-tertiary-fixed-variant": "#004a79",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#7a9ed4",
+                    "primary-fixed": "#d4e3ff",
+                    "primary-container": "#023464",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-fixed": "#ffdbca",
+                    "secondary-container": "#fd761a",
+                    "outline-variant": "#c3c6d0",
+                    "surface-container-highest": "#e0e3e5",
+                    "background": "#f7f9fb",
+                    "on-secondary-container": "#5c2400",
+                    "tertiary-fixed": "#d0e4ff",
+                    "surface-container": "#eceef0",
+                    "primary": "#001f40",
+                    "primary-fixed-dim": "#a6c8ff",
+                    "on-background": "#191c1e",
+                    "inverse-surface": "#2d3133",
+                    "inverse-primary": "#a6c8ff",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb690",
+                    "on-tertiary-container": "#5ba1e4",
+                    "secondary": "#9d4300",
+                    "tertiary-container": "#00365b",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f7f9fb",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-variant": "#e0e3e5",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#001d34",
+                    "surface-dim": "#d8dadc",
+                    "success-green": "#10B981",
+                    "on-surface-variant": "#43474f",
+                    "on-primary-fixed": "#001c3b",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#783200",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#204778",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "tertiary": "#002039",
+                    "slate-dark": "#0F172A",
+                    "on-secondary-fixed": "#341100",
+                    "on-surface": "#191c1e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max-width": "1440px",
+                    "page-margin-desktop": "32px",
+                    "gutter": "24px",
+                    "section-gap": "64px",
+                    "page-margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-xl": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-xl": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #E2E8F0;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 10px; }
+        
+        @keyframes subtle-pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+        .pulse-node { animation: subtle-pulse 4s infinite ease-in-out; }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 flex flex-col fixed left-0 top-0 bg-surface-container-low border-r border-surface-border z-50">
+<div class="flex flex-col h-full py-6 px-4 gap-4">
+<div class="mb-6 px-2">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">Ministry of ICT</h1>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Enterprise AI Platform</p>
+</div>
+<nav class="flex flex-col gap-1 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 cursor-pointer active:scale-95 rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                    Dashboard
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 cursor-pointer active:scale-95 rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+                    AI Usage
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container font-bold rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="search_insights" style="font-variation-settings: 'FILL' 1;">search_insights</span>
+                    Search Analytics
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 cursor-pointer active:scale-95 rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+                    Reports
+                </a>
+</nav>
+<div class="mt-auto flex flex-col gap-1 border-t border-surface-border pt-4">
+<a class="flex items-center gap-3 px-4 py-2 text-outline-variant hover:translate-x-1 transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                    Help Center
+                </a>
+<a class="flex items-center gap-3 px-4 py-2 text-outline-variant hover:translate-x-1 transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+                    System Status
+                </a>
+<button class="mt-4 w-full bg-primary text-white py-3 rounded-xl font-label-md text-label-md hover:shadow-lg transition-shadow">
+                    Upgrade Analytics
+                </button>
+</div>
+</div>
+</aside>
+<main class="flex-1 ml-64 overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-page-margin-desktop h-16 w-full sticky top-0 z-40 bg-surface-container-lowest shadow-sm border-b border-surface-border">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-96 max-w-full">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-label-md focus:ring-2 focus:ring-primary/20" placeholder="Search analytics data..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors" data-icon="settings">settings</button>
+</div>
+<div class="h-8 w-px bg-surface-border"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right">
+<p class="font-label-md text-label-md text-primary font-bold">Admin</p>
+<p class="font-label-sm text-[10px] text-outline">Super User</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-primary-fixed object-cover" data-alt="A professional headshot of a government administrator in a navy blue suit, set against a clean, blurred office background with warm, professional lighting. The style is modern corporate photography, clean and authoritative, with a shallow depth of field highlighting the subject's friendly but focused expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqZcCXfuf_F8Z8fEeZYXfANZnBonMw70j0s6qHGD_w6-005kF2jTxEP3puKZLKmobsgwEbo4cld8bvGux-w85wNxW2uOM5JgN8yoIiFRq2-w7eescqmx4PNnXrm_N-bMEQgADmY0sE7j0uz74h1GyoMyU9SjtJcM7pj3072XXsB09pS0ZbbsfwRSlvflOiHz6iBGRKGqZKYdtqGx4qFKS7CCjIP3xGL40VKVRNv1JND6TEC8R_v8qKMQ">
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="p-page-margin-desktop space-y-gutter">
+<!-- Page Header & Filters -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="font-headline-xl text-headline-xl text-primary">Search Analytics</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Intelligent insights into citizen and inter-departmental search behaviors.</p>
+</div>
+<div class="flex gap-3">
+<div class="relative">
+<select class="appearance-none pl-4 pr-10 py-2.5 bg-white border border-surface-border rounded-xl font-label-md text-label-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+<option>All Departments</option>
+<option>Education</option>
+<option>Healthcare</option>
+<option>Infrastructure</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none pl-4 pr-10 py-2.5 bg-white border border-surface-border rounded-xl font-label-md text-label-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+<option>Last 30 Days</option>
+<option>Last 7 Days</option>
+<option>Custom Range</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">calendar_today</span>
+</div>
+<button class="bg-primary text-white px-5 py-2.5 rounded-xl font-label-md text-label-md flex items-center gap-2 hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+                        Export
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- KPI Card 1: Success Rate -->
+<div class="col-span-12 md:col-span-4 bg-white p-6 rounded-xl border border-surface-border flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider mb-1">Search Success Rate</p>
+<h3 class="font-headline-xl text-headline-xl text-primary">94.2%</h3>
+</div>
+<div class="bg-success-green/10 text-success-green px-2 py-1 rounded text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +2.1%
+                        </div>
+</div>
+<div class="mt-6 h-12 flex items-end gap-1">
+<!-- Tiny Sparkline Visualization -->
+<div class="flex-1 bg-primary/10 h-1/2 rounded-t-sm"></div>
+<div class="flex-1 bg-primary/10 h-2/3 rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-1/3 rounded-t-sm"></div>
+<div class="flex-1 bg-primary/10 h-3/4 rounded-t-sm"></div>
+<div class="flex-1 bg-primary h-full rounded-t-sm"></div>
+<div class="flex-1 bg-primary/30 h-2/3 rounded-t-sm"></div>
+<div class="flex-1 bg-primary/10 h-1/2 rounded-t-sm"></div>
+</div>
+</div>
+<!-- KPI Card 2: Avg Latency -->
+<div class="col-span-12 md:col-span-4 bg-white p-6 rounded-xl border border-surface-border flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider mb-1">Avg Search Latency</p>
+<h3 class="font-headline-xl text-headline-xl text-primary">184ms</h3>
+</div>
+<div class="bg-success-green/10 text-success-green px-2 py-1 rounded text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">arrow_downward</span> 12ms
+                        </div>
+</div>
+<p class="mt-4 font-label-md text-label-md text-on-surface-variant italic">98th percentile: 340ms</p>
+<div class="mt-2 w-full bg-surface-container h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[18%]"></div>
+</div>
+</div>
+<!-- KPI Card 3: Feedback Rating -->
+<div class="col-span-12 md:col-span-4 bg-white p-6 rounded-xl border border-surface-border flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider mb-1">User Satisfaction</p>
+<h3 class="font-headline-xl text-headline-xl text-primary">4.8<span class="text-on-surface-variant font-normal text-headline-lg">/5</span></h3>
+</div>
+<div class="flex gap-0.5 text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+</div>
+<p class="mt-4 font-label-md text-label-md text-on-surface-variant">Based on 12,403 feedbacks this month.</p>
+</div>
+<!-- Trending Queries - Large Card -->
+<div class="col-span-12 lg:col-span-8 bg-white rounded-xl border border-surface-border overflow-hidden flex flex-col">
+<div class="px-6 py-4 border-b border-surface-border flex justify-between items-center">
+<h4 class="font-headline-lg text-body-xl font-bold text-primary">Trending Search Queries</h4>
+<button class="text-primary font-label-md text-label-md hover:underline">View All</button>
+</div>
+<div class="p-0 overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low border-b border-surface-border">
+<tr>
+<th class="px-6 py-3 font-label-sm text-label-sm text-outline uppercase">Query String</th>
+<th class="px-6 py-3 font-label-sm text-label-sm text-outline uppercase">Volume</th>
+<th class="px-6 py-3 font-label-sm text-label-sm text-outline uppercase">Success Rate</th>
+<th class="px-6 py-3 font-label-sm text-label-sm text-outline uppercase">Trend</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-border">
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4 font-label-md text-label-md text-primary font-medium">"Business registration portal"</td>
+<td class="px-6 py-4 font-body-md text-body-md">4,821</td>
+<td class="px-6 py-4 font-body-md text-body-md text-success-green">99.1%</td>
+<td class="px-6 py-4"><span class="material-symbols-outlined text-success-green">trending_up</span></td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4 font-label-md text-label-md text-primary font-medium">"E-passport renewal fees 2026"</td>
+<td class="px-6 py-4 font-body-md text-body-md">3,950</td>
+<td class="px-6 py-4 font-body-md text-body-md text-success-green">97.4%</td>
+<td class="px-6 py-4"><span class="material-symbols-outlined text-success-green">trending_up</span></td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4 font-label-md text-label-md text-primary font-medium">"Digital ID verification API"</td>
+<td class="px-6 py-4 font-body-md text-body-md">2,105</td>
+<td class="px-6 py-4 font-body-md text-body-md text-on-surface-variant">88.2%</td>
+<td class="px-6 py-4"><span class="material-symbols-outlined text-secondary">trending_flat</span></td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4 font-label-md text-label-md text-primary font-medium">"Tax exemption for tech startups"</td>
+<td class="px-6 py-4 font-body-md text-body-md">1,840</td>
+<td class="px-6 py-4 font-body-md text-body-md text-error">42.1%</td>
+<td class="px-6 py-4"><span class="material-symbols-outlined text-success-green">trending_up</span></td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4 font-label-md text-label-md text-primary font-medium">"Kampala smart city initiatives"</td>
+<td class="px-6 py-4 font-body-md text-body-md">1,200</td>
+<td class="px-6 py-4 font-body-md text-body-md text-success-green">94.8%</td>
+<td class="px-6 py-4"><span class="material-symbols-outlined text-error">trending_down</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Semantic Clusters - Visual Card -->
+<div class="col-span-12 lg:col-span-4 bg-primary text-white rounded-xl overflow-hidden flex flex-col relative min-h-[400px]">
+<div class="p-6 relative z-10">
+<h4 class="font-headline-lg text-body-xl font-bold">Intent Semantic Clusters</h4>
+<p class="font-label-sm text-label-sm opacity-70 mt-1">AI-clustered thematic search groupings</p>
+</div>
+<!-- Abstract Visualization Area -->
+<div class="flex-1 relative overflow-hidden flex items-center justify-center p-6">
+<!-- Simulated Cluster Nodes -->
+<div class="pulse-node absolute top-1/4 left-1/4 w-32 h-32 bg-secondary-container/40 blur-2xl rounded-full"></div>
+<div class="pulse-node absolute bottom-1/4 right-1/4 w-40 h-40 bg-tertiary-fixed-dim/30 blur-3xl rounded-full"></div>
+<div class="relative z-10 space-y-4 w-full">
+<div class="flex items-center justify-between p-3 bg-white/10 rounded-lg border border-white/10 backdrop-blur-sm">
+<span class="font-label-md text-label-md">Government Services</span>
+<span class="font-label-sm text-label-sm bg-white/20 px-2 py-0.5 rounded-full">42%</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-white/10 rounded-lg border border-white/10 backdrop-blur-sm">
+<span class="font-label-md text-label-md">Technical Support</span>
+<span class="font-label-sm text-label-sm bg-white/20 px-2 py-0.5 rounded-full">28%</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-white/10 rounded-lg border border-white/10 backdrop-blur-sm">
+<span class="font-label-md text-label-md">Legislation/Policy</span>
+<span class="font-label-sm text-label-sm bg-white/20 px-2 py-0.5 rounded-full">15%</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-white/10 rounded-lg border border-white/10 backdrop-blur-sm">
+<span class="font-label-md text-label-md">Public Infrastructure</span>
+<span class="font-label-sm text-label-sm bg-white/20 px-2 py-0.5 rounded-full">10%</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-black/20 text-center relative z-10">
+<p class="font-label-sm text-label-sm">Updated 14 mins ago via GPT-4o Cluster Analysis</p>
+</div>
+</div>
+<!-- Latency Trends - Bottom Row -->
+<div class="col-span-12 bg-white rounded-xl border border-surface-border p-6">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h4 class="font-headline-lg text-body-xl font-bold text-primary">Latency Distribution &amp; Search Density</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Comparing query frequency vs. system response time.</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Density</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Latency</span>
+</div>
+</div>
+</div>
+<div class="h-64 w-full flex items-end justify-between gap-2 px-2 relative">
+<!-- Mock Axis -->
+<div class="absolute left-0 bottom-0 h-full w-px bg-surface-border"></div>
+<div class="absolute left-0 bottom-0 w-full h-px bg-surface-border"></div>
+<!-- Bars -->
+<div class="flex-1 group relative">
+<div class="w-full bg-primary/20 hover:bg-primary/40 rounded-t-sm h-[40%] transition-all"></div>
+<div class="absolute bottom-0 w-full h-1 bg-secondary rounded-full transform translate-y-4"></div>
+</div>
+<div class="flex-1 group relative">
+<div class="w-full bg-primary/20 hover:bg-primary/40 rounded-t-sm h-[55%] transition-all"></div>
+<div class="absolute bottom-0 w-full h-1 bg-secondary rounded-full transform translate-y-6"></div>
+</div>
+<div class="flex-1 group relative">
+<div class="w-full bg-primary/20 hover:bg-primary/40 rounded-t-sm h-[70%] transition-all"></div>
+<div class="absolute bottom-0 w-full h-1 bg-secondary rounded-full transform translate-y-3"></div>
+</div>
+<div class="flex-1 group relative">
+<div class="w-full bg-primary hover:bg-primary/90 rounded-t-sm h-[95%] transition-all"></div>
+<div class="absolute bottom-0 w-full h-1 bg-secondary rounded-full transform translate-y-2"></div>
+</div>
+<div class="flex-1 group relative">
+<div class="w-full bg-primary/20 hover:bg-primary/40 rounded-t-sm h-[60%] transition-all"></div>
+<div class="absolute bottom-0 w-full h-1 bg-secondary rounded-full transform translate-y-5"></div>
+</div>
+<div class="flex-1 group relative">
+<div class="w-full bg-primary/20 hover:bg-primary/40 rounded-t-sm h-[45%] transition-all"></div>
+<div class="absolute bottom-0 w-full h-1 bg-secondary rounded-full transform translate-y-7"></div>
+</div>
+<div class="flex-1 group relative">
+<div class="w-full bg-primary/20 hover:bg-primary/40 rounded-t-sm h-[30%] transition-all"></div>
+<div class="absolute bottom-0 w-full h-1 bg-secondary rounded-full transform translate-y-8"></div>
+</div>
+<div class="flex-1 group relative">
+<div class="w-full bg-primary/20 hover:bg-primary/40 rounded-t-sm h-[25%] transition-all"></div>
+<div class="absolute bottom-0 w-full h-1 bg-secondary rounded-full transform translate-y-6"></div>
+</div>
+</div>
+<div class="mt-12 flex justify-between px-2 font-label-sm text-label-sm text-outline">
+<span>08:00</span>
+<span>10:00</span>
+<span>12:00 (Peak)</span>
+<span>14:00</span>
+<span>16:00</span>
+<span>18:00</span>
+<span>20:00</span>
+<span>22:00</span>
+</div>
+</div>
+<!-- Feedback Comments - Sidebar pattern within bento -->
+<div class="col-span-12 lg:col-span-4 bg-white rounded-xl border border-surface-border p-6 h-full">
+<h4 class="font-headline-lg text-body-xl font-bold text-primary mb-4">Latest Feedback</h4>
+<div class="space-y-4 custom-scrollbar overflow-y-auto max-h-[400px] pr-2">
+<div class="p-4 bg-surface-container-low rounded-lg border-l-4 border-success-green">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-md text-label-md font-bold">Excellent Answer</span>
+<span class="text-[10px] text-outline">2 mins ago</span>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant">"The AI accurately pointed me to the correct tax exemption form for small businesses. Saved me hours!"</p>
+</div>
+<div class="p-4 bg-surface-container-low rounded-lg border-l-4 border-error">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-md text-label-md font-bold">Unhelpful</span>
+<span class="text-[10px] text-outline">1 hour ago</span>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant">"Search for 'passport tracking' returned a link to the 2024 policy document instead of the tracking tool."</p>
+</div>
+<div class="p-4 bg-surface-container-low rounded-lg border-l-4 border-primary">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-md text-label-md font-bold">Informative</span>
+<span class="text-[10px] text-outline">3 hours ago</span>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant">"Good summary of the new ICT infrastructure project in Gulu."</p>
+</div>
+</div>
+</div>
+<!-- System Utilization / Global Map Section -->
+<div class="col-span-12 lg:col-span-8 bg-white rounded-xl border border-surface-border overflow-hidden flex flex-col md:flex-row min-h-[464px]">
+<div class="p-6 flex-1">
+<h4 class="font-headline-lg text-body-xl font-bold text-primary mb-2">Regional Search Density</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Visualizing where search queries are originating across Uganda.</p>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between mb-1">
+<span class="font-label-md text-label-md">Kampala Metro</span>
+<span class="font-label-md text-label-md font-bold">64%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[64%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-1">
+<span class="font-label-md text-label-md">Gulu Regional City</span>
+<span class="font-label-md text-label-md font-bold">12%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[12%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-1">
+<span class="font-label-md text-label-md">Mbarara Regional City</span>
+<span class="font-label-md text-label-md font-bold">9%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[9%]"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full md:w-1/2 bg-surface-container relative">
+<div class="absolute inset-0 grayscale opacity-40 mix-blend-multiply" data-alt="A detailed map of Uganda showing provincial boundaries and major cities like Kampala, Gulu, and Mbarara. The map is designed in a minimalist, corporate aesthetic using shades of light gray and blue, highlighting high-density population areas with soft glowing hotspots. The lighting is clean and even, following a professional light-mode UI style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDFV2uYRGUCLrDe10Kcr22egjxF0mWHm44Nx2vaVTUO_oImcToALp0b0QFGg1UEugKoTvi1oclahVngsg84_la6jN4aF7olXPrR3vApSmRjx6brhGS6mwC86mSAsGAu0pzuXPMIux0CUbOKYZwKqbrBJROt4qryUe4EG1--IVttuaYuBTmS6MG0ydrqcuOcYPzN-2RAwTVh_8FIzgG0hONEJZ14P7CZUZx-plte6Fus3uAGYwps6Ddx8Q')"></div>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-4 h-4 bg-primary rounded-full pulse-node shadow-[0_0_20px_rgba(0,31,64,0.5)]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interactions for table rows
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', () => {
+                row.classList.toggle('bg-primary-container/10');
+            });
+        });
+
+        // Search highlight effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/20');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+        });
+    </script>
+</body></html>
