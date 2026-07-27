@@ -17,7 +17,7 @@ from backend import models
 from backend.security import get_current_user
 from backend.utils_logging import log_action
 from backend.document_processor import extract_document, infer_file_type
-from backend.llm_client import _call_ollama, LLMUnavailableError
+from backend.llm_client import _call_llm, LLMUnavailableError
 import requests
 
 router = APIRouter(prefix="/assistant", tags=["AI Document Assistant"])
@@ -62,7 +62,7 @@ def summarize_document(
     prompt = f"{MODE_PROMPTS[mode]}\n\nDocument:\n{full_text}\n\nResponse:"
 
     try:
-        result = _call_ollama(prompt)
+        result = _call_llm(prompt)
         if not result:
             raise LLMUnavailableError()
         mock_mode = False

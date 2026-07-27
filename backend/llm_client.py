@@ -17,6 +17,7 @@ unset), `generate_answer()` falls back to a simple extractive response
 built directly from the retrieved context, so the rest of the system
 (retrieval, citations, logging) still works before an LLM is wired up.
 """
+import re
 import requests
 
 from backend.config import settings
@@ -24,6 +25,24 @@ from backend.config import settings
 
 class LLMUnavailableError(Exception):
     pass
+
+
+_WORD_RE = re.compile(r"[A-Za-z0-9]{3,}")
+_SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])\s+")
+_STOPWORDS = {
+    "the", "and", "for", "are", "was", "were", "with", "that", "this", "from",
+    "what", "does", "say", "about", "have", "has", "had", "not", "but", "you",
+    "your", "can", "will", "would", "shall", "may", "its", "who", "how", "all",
+    "any", "our", "their", "such", "into", "under", "over", "than", "then",
+}
+
+
+def _split_sentences(text: str) -> list[str]:
+    return [s.strip() for s in _SENTENCE_SPLIT_RE.split(text.strip()) if s.strip()]
+
+
+def _keywords(text: str) -> set[str]:
+    return {w.lower() for w in _WORD_RE.findall(text)} - _STOPWORDS
 
 
 def _call_ollama(prompt: str) -> str:
@@ -72,14 +91,66 @@ def _call_llm(prompt: str) -> str:
 
 def _extractive_fallback(query: str, context_chunks: list[str]) -> str:
     """
-    Used only when Ollama can't be reached. Returns the most relevant
-    retrieved sentence(s) verbatim so the pipeline still produces a
-    grounded (if less fluent) answer instead of failing outright.
+    Used only when no LLM is reachable. Rather than dumping whole
+    retrieved chunks verbatim (which reads as a disjointed wall of
+    document text), search every retrieved chunk — not just the
+    top-ranked one, since FAISS ranks by embedding similarity to the
+    whole chunk and can rank a chunk highly (e.g. a title page matching
+    on "broadband") even when a lower-ranked chunk actually contains the
+    answer's specific facts — for the single sentence that best matches
+    the question, and return it with its immediate neighbors for
+    context. Still 100% extractive/grounded, but reads as a focused
+    excerpt instead of a raw paragraph (or title page) dump.
     """
     if not context_chunks:
         return "I couldn't find this in the indexed documents."
-    combined = " ".join(context_chunks[:2])
-    return combined
+
+    query_terms = _keywords(query)
+
+    best = None  # (adjusted_score, raw_score, chunk_sentences, index)
+    for rank, chunk in enumerate(context_chunks):
+        sentences = _split_sentences(chunk)
+        for i, sentence in enumerate(sentences):
+            if len(sentence.split()) < 6:
+                continue  # skip section-number headings and other short fragments
+            score = len(query_terms & _keywords(sentence))
+            # Prefer sentences from higher-ranked (more semantically similar per
+            # FAISS) chunks unless a lower-ranked chunk's keyword match is
+            # clearly stronger — a single lucky word overlap in an otherwise
+            # unrelated chunk shouldn't outrank the top-matched document.
+            adjusted = score - rank * 0.5
+            if best is None or adjusted > best[0]:
+                best = (adjusted, score, sentences, i)
+
+    if best is None:
+        # Nothing passed the length filter (e.g. only headings/labels) — lead
+        # with the start of the top-ranked chunk instead.
+        return " ".join(_split_sentences(context_chunks[0])[:3]).strip() or context_chunks[0].strip()
+
+    _, score, sentences, idx = best
+    if score == 0:
+        # No sentence anywhere shares a keyword with the question (a
+        # broad/generic ask) — lead with the start of the top chunk
+        # instead of an arbitrary pick.
+        window = _split_sentences(context_chunks[0])[:3]
+    else:
+        # Always keep the best-matching sentence itself; only *optionally*
+        # extend with the next sentence for a bit more context. Never
+        # extend backwards — the preceding "sentence" is frequently just
+        # the tail fragment of a heading or a chunk-boundary artifact (see
+        # regression test: "the broadband goals." preceding a real match).
+        window = [sentences[idx]]
+        if idx + 1 < len(sentences) and len(sentences[idx + 1].split()) >= 4:
+            window.append(sentences[idx + 1])
+
+    # Drop a trailing fragment with no terminal punctuation — it means the
+    # window was cut off by a chunk boundary mid-sentence. Only ever trims
+    # the appended *next* sentence, never the best match itself.
+    if len(window) > 1 and not window[-1].rstrip().endswith((".", "!", "?", '."', '!"', '?"')):
+        window = window[:-1]
+
+    excerpt = " ".join(window).strip()
+    return excerpt if len(excerpt) <= 700 else excerpt[:700].rsplit(" ", 1)[0] + "…"
 
 
 def generate_answer(query: str, context_chunks: list[str]) -> tuple[str, bool]:
@@ -101,9 +172,9 @@ Question: {query}
 Answer in 2-4 concise, professional sentences:"""
 
     try:
-        answer = _call_ollama(prompt)
+        answer = _call_llm(prompt)
         if not answer:
-            raise LLMUnavailableError("Empty response from Ollama")
+            raise LLMUnavailableError(f"Empty response from {settings.LLM_PROVIDER}")
         return answer, False
     except (requests.RequestException, LLMUnavailableError):
         return _extractive_fallback(query, context_chunks), True

@@ -34,10 +34,17 @@ class Settings(BaseSettings):
     # Retrieval
     TOP_K: int = 3
 
-    # Local LLM (Ollama)
+    # Text generation provider: "google" (Gemini API) or "ollama" (local, fully offline)
+    LLM_PROVIDER: str = "google"
+    LLM_TIMEOUT_SECONDS: int = 60
+
+    # Google Generative AI (Gemini) — used when LLM_PROVIDER=google
+    GOOGLE_API_KEY: str = ""
+    GOOGLE_MODEL: str = "gemini-2.0-flash"
+
+    # Local LLM (Ollama) — used when LLM_PROVIDER=ollama
     OLLAMA_BASE_URL: str = "http://localhost:11434"
     OLLAMA_MODEL: str = "llama3"
-    LLM_TIMEOUT_SECONDS: int = 60
 
     # CORS
     CORS_ORIGINS: str = "*"
