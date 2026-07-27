@@ -1,274 +1,398 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Ministry Knowledge Intelligence Assistant</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet"/>
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-          charcoal: "#14171c",
-          "charcoal-2": "#1b1f26",
-          "charcoal-3": "#242a33",
-          ink: "#0b0d10",
-          paper: "#f7f7f5",
-          gold: "#c9a227",
-          "gold-light": "#e0c15a",
-          green: "#1f6f4a",
-          "green-light": "#2f9d68",
-          muted: "#6b7280",
-        },
-        fontFamily: {
-          display: ["Space Grotesk", "sans-serif"],
-          body: ["Inter", "sans-serif"],
-          mono: ["IBM Plex Mono", "monospace"],
-        },
-      },
-    },
-  };
-</script>
-<link rel="stylesheet" href="styles.css"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ministry of ICT and National Guidance — Offline RAG Chatbot</title>
+<link rel="icon" href="img/ministry_logo.png" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" />
 </head>
-<body class="font-body bg-paper text-ink antialiased h-screen overflow-hidden">
+<body>
 
-<!-- ===================== LOGIN VIEW ===================== -->
-<div id="login-view" class="h-screen w-screen flex items-center justify-center bg-charcoal px-4">
-  <div class="w-full max-w-md">
-    <div class="flex items-center gap-3 justify-center mb-8">
-      <div class="w-11 h-11 rounded-xl bg-gold flex items-center justify-center text-charcoal font-display font-bold text-xl">M</div>
-      <div class="text-left">
-        <h1 class="font-display font-semibold text-lg text-white leading-tight">Ministry Knowledge<br/>Intelligence Assistant</h1>
-      </div>
+<header class="app-header">
+  <div class="brand" data-nav="landing">
+    <img src="img/ministry_logo.png" alt="Ministry of ICT and National Guidance logo" />
+    <div class="brand-text">
+      <span class="name">MINISTRY OF ICT</span>
+      <span class="sub">National Guidance — Offline RAG Chatbot</span>
     </div>
-    <form id="login-form" class="bg-charcoal-2 border border-white/10 rounded-2xl p-8 shadow-xl">
-      <h2 class="font-display text-xl text-white mb-1">Sign in</h2>
-      <p class="text-sm text-muted mb-6">Offline RAG platform for regulatory &amp; compliance standards.</p>
-      <div id="login-error" class="hidden mb-4 text-sm text-red-300 bg-red-500/10 border border-red-500/30 rounded-lg px-3 py-2"></div>
-      <label class="block text-xs font-medium uppercase tracking-wider text-muted mb-1.5">Email</label>
-      <input id="login-email" type="email" required autocomplete="username" class="w-full mb-4 bg-charcoal-3 border border-white/10 rounded-lg px-3 py-2.5 text-white placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-gold" placeholder="you@moict.go.ug"/>
-      <label class="block text-xs font-medium uppercase tracking-wider text-muted mb-1.5">Password</label>
-      <input id="login-password" type="password" required autocomplete="current-password" class="w-full mb-6 bg-charcoal-3 border border-white/10 rounded-lg px-3 py-2.5 text-white placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-gold" placeholder="••••••••••"/>
-      <button type="submit" id="login-submit" class="w-full bg-gold hover:bg-gold-light text-charcoal font-semibold rounded-lg py-2.5 transition-colors">Sign in</button>
-      <div class="mt-6 pt-5 border-t border-white/10 text-xs text-muted leading-relaxed">
-        <p class="font-semibold text-white/70 mb-1">Demo accounts</p>
-        <p>IT Officer: admin@moict.go.ug / ChangeMe123!</p>
-        <p>Staff: staff@moict.go.ug / StaffDemo123!</p>
-      </div>
-    </form>
-    <p id="backend-status" class="text-center text-xs text-muted mt-4"></p>
   </div>
-</div>
 
-<!-- ===================== APP SHELL ===================== -->
-<div id="app-shell" class="hidden h-screen w-screen flex">
-  <!-- Sidebar -->
-  <aside class="w-64 shrink-0 bg-charcoal flex flex-col h-full py-6 px-4">
-    <div class="flex items-center gap-3 px-2 mb-8">
-      <div class="w-9 h-9 rounded-lg bg-gold flex items-center justify-center text-charcoal font-display font-bold">M</div>
-      <div class="min-w-0">
-        <h1 class="text-sm font-display font-semibold text-white leading-tight truncate">MoICT Assistant</h1>
-        <p class="text-[11px] text-muted truncate">Offline RAG Platform</p>
+  <nav class="main-nav" id="main-nav"></nav>
+
+  <div class="header-actions">
+    <span class="status-pill"><span class="dot"></span> Offline · Secure</span>
+    <div id="header-auth-actions"></div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= LANDING ================= -->
+  <section id="view-landing" class="view">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="badge">Offline RAG Architecture</span>
+          <h1>Secure Intelligence for <span class="accent">National Guidance.</span></h1>
+          <p>An offline, RAG-powered AI assistant for the Ministry of ICT and National Guidance — built to streamline regulatory compliance and policy retrieval, entirely on Ministry infrastructure.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" data-nav="login">Staff Access →</a>
+            <a class="btn btn-outline" href="#features-anchor" data-scroll-features>See how it works</a>
+          </div>
+        </div>
+        <div class="hero-media">
+          <div class="hero-illustration"><span class="material-symbols-outlined">shield_person</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features-anchor" class="feature-grid">
+      <div class="card feature-card">
+        <div class="icon"><span class="material-symbols-outlined">search</span></div>
+        <h3>Instant Policy Retrieval</h3>
+        <p>Search indexed regulations in seconds. Semantic search understands intent, not just keywords.</p>
+      </div>
+      <div class="card feature-card">
+        <div class="icon"><span class="material-symbols-outlined">fact_check</span></div>
+        <h3>Verified Citations</h3>
+        <p>Every answer is backed by the official document, page, and section it came from — never a guess.</p>
+      </div>
+      <div class="card feature-card">
+        <div class="icon"><span class="material-symbols-outlined">lock</span></div>
+        <h3>100% Offline &amp; Secure</h3>
+        <p>Zero data leakage. All embedding, retrieval, and generation happen within the Ministry's own infrastructure.</p>
+      </div>
+    </section>
+
+    <section class="page-shell" style="text-align:center;">
+      <div class="card card-pad">
+        <h2 style="margin-top:0;">Ready to streamline ICT policy work?</h2>
+        <p style="color:var(--color-text-secondary);">Authorized personnel can access the chatbot using their Ministry credentials.</p>
+        <a class="btn btn-primary" data-nav="login">Sign In to Portal</a>
+      </div>
+    </section>
+  </section>
+
+  <!-- ================= LOGIN ================= -->
+  <section id="view-login" class="view hidden">
+    <div class="login-shell">
+      <div class="card card-pad login-card">
+        <h1>Offline RAG Chatbot</h1>
+        <p class="lede">Access the centralized AI knowledge base for departmental guidance.</p>
+
+        <div class="login-notice">
+          <span class="material-symbols-outlined" style="color:var(--color-primary);">shield</span>
+          <div>
+            <strong>Authorized Personnel Only</strong><br/>
+            <span style="color:var(--color-text-secondary);">Connection encrypted and logged via internal Ministry protocols.</span>
+          </div>
+        </div>
+
+        <div id="login-error" class="error-box hidden"></div>
+
+        <form id="login-form">
+          <label class="field-label" for="login-email">Government Email</label>
+          <input class="field-input" type="email" id="login-email" placeholder="name.surname@moict.go.ug" required autocomplete="username" style="margin-bottom:16px;" />
+
+          <label class="field-label" for="login-password">Password</label>
+          <input class="field-input" type="password" id="login-password" placeholder="••••••••••••" required autocomplete="current-password" style="margin-bottom:16px;" />
+
+          <button id="login-submit" type="submit" class="btn btn-primary" style="width:100%;">Sign In to Dashboard →</button>
+        </form>
+
+        <div class="login-help">
+          <button id="login-help-toggle" type="button" class="btn btn-outline btn-sm" style="margin-top:14px;">Can't log in?</button>
+          <div id="login-help-panel" class="login-help-panel hidden">
+            First, check that Caps Lock is off and your email is spelled correctly, then try again.
+            Still stuck? Contact your entity's <strong>System Administrator</strong>.
+          </div>
+        </div>
+
+        <div style="margin-top:20px;padding:12px 14px;background:var(--color-surface);border-radius:var(--radius-sm);font-size:12px;color:var(--color-text-secondary);">
+          <strong>Demo accounts</strong><br/>
+          IT Officer: admin@moict.go.ug / ChangeMe123!<br/>
+          Staff: staff@moict.go.ug / StaffDemo123!
+        </div>
+
+        <p style="margin-top:16px;font-size:11px;color:var(--color-text-muted);">
+          Data Protection &amp; Privacy Act 2019 Compliant · Node: UG-ENT-042
+        </p>
       </div>
     </div>
-    <nav class="flex-1 space-y-1 overflow-y-auto">
-      <button data-view="chat" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
-        <span class="material-symbols-outlined text-[20px]">chat</span> Chat
-      </button>
-      <button data-view="knowledge" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
-        <span class="material-symbols-outlined text-[20px]">database</span> Knowledge Base
-      </button>
-      <button data-view="assistant" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
-        <span class="material-symbols-outlined text-[20px]">description</span> Document Assistant
-      </button>
-      <button data-view="upload" data-admin-only class="nav-item hidden w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
-        <span class="material-symbols-outlined text-[20px]">upload_file</span> Upload Documents
-      </button>
-      <button data-view="admin" data-admin-only class="nav-item hidden w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
-        <span class="material-symbols-outlined text-[20px]">admin_panel_settings</span> Admin Panel
-      </button>
-    </nav>
-    <div class="mt-auto pt-4 border-t border-white/10">
-      <div class="flex items-center gap-3 px-2 py-2">
-        <div id="user-avatar" class="w-9 h-9 rounded-full bg-green/20 text-green-light flex items-center justify-center font-semibold text-sm shrink-0">?</div>
-        <div class="min-w-0 flex-1">
-          <p id="user-name" class="text-sm font-medium text-white truncate">—</p>
-          <p id="user-role" class="text-[11px] text-muted truncate">—</p>
+  </section>
+
+  <!-- ================= DASHBOARD ================= -->
+  <section id="view-dashboard" class="view hidden">
+    <div class="page-shell">
+      <h1 id="dashboard-greeting" style="margin-bottom:4px;">Welcome back</h1>
+      <p id="dashboard-role" style="color:var(--color-text-secondary);margin-top:0;"></p>
+
+      <div class="quick-actions">
+        <div class="card quick-action" data-nav="chat">
+          <span class="material-symbols-outlined">chat</span>
+          <h4>New Chat</h4>
+          <p>Ask a question about any Ministry policy or regulation.</p>
         </div>
-        <button id="logout-btn" title="Sign out" class="p-1.5 text-muted hover:text-white transition-colors">
-          <span class="material-symbols-outlined text-[20px]">logout</span>
-        </button>
+        <div class="card quick-action" data-nav="knowledge">
+          <span class="material-symbols-outlined">library_books</span>
+          <h4>Browse Knowledge Base</h4>
+          <p>Explore indexed documents by category.</p>
+        </div>
+        <div id="dashboard-upload-action" class="card quick-action" data-nav="upload">
+          <span class="material-symbols-outlined">upload_file</span>
+          <h4>Upload Document</h4>
+          <p>Add a new document to the knowledge base.</p>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <div class="card card-pad">
+          <h3 style="margin-top:0;">Recent Conversations</h3>
+          <div id="dashboard-recent-chats"></div>
+        </div>
+
+        <div class="card card-pad">
+          <h3 style="margin-top:0;">Knowledge Base Snapshot</h3>
+          <div class="health-metric"><span>Documents Indexed</span><span id="dashboard-doc-count" class="value">—</span></div>
+          <div class="health-metric"><span>Mode</span><span class="value">Offline RAG</span></div>
+          <h3>Recently Added Documents</h3>
+          <div id="dashboard-pinned-docs"></div>
+        </div>
       </div>
     </div>
-  </aside>
+  </section>
 
-  <!-- Main content -->
-  <main class="flex-1 min-w-0 h-full flex flex-col bg-paper">
-    <header class="h-16 px-6 flex items-center justify-between border-b border-black/10 bg-white shrink-0">
-      <h2 id="view-title" class="font-display font-semibold text-lg text-ink">Chat</h2>
-      <div id="mode-badge" class="hidden items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full border"></div>
-    </header>
-    <div class="flex-1 min-h-0 overflow-hidden relative">
+  <!-- ================= CHAT ================= -->
+  <section id="view-chat" class="view hidden">
+    <div class="chat-shell">
+      <aside class="chat-sidebar">
+        <button id="new-chat-btn" class="btn btn-primary btn-sm" style="width:100%;margin-bottom:16px;">+ New Chat</button>
+        <p style="font-size:12px;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:0.04em;">Recent</p>
+        <div id="session-list"></div>
+      </aside>
 
-      <!-- ---------- CHAT VIEW ---------- -->
-      <section id="view-chat" class="view h-full hidden flex">
-        <div class="w-64 border-r border-black/10 bg-white flex flex-col shrink-0">
-          <div class="p-3">
-            <button id="new-chat-btn" class="w-full flex items-center justify-center gap-2 bg-charcoal text-white text-sm font-medium py-2 rounded-lg hover:bg-charcoal-2 transition-colors">
-              <span class="material-symbols-outlined text-[18px]">add</span> New chat
-            </button>
-          </div>
-          <div id="session-list" class="flex-1 overflow-y-auto px-2 pb-3 space-y-1 text-sm"></div>
-        </div>
-        <div class="flex-1 min-w-0 flex flex-col">
-          <div id="chat-messages" class="flex-1 overflow-y-auto px-6 py-8 space-y-6"></div>
-          <div class="border-t border-black/10 bg-white p-4">
-            <form id="chat-form" class="max-w-3xl mx-auto flex items-end gap-2 bg-paper border border-black/10 rounded-2xl p-2 focus-within:ring-2 focus-within:ring-gold">
-              <textarea id="chat-input" rows="1" placeholder="Ask about ICT regulations, compliance requirements, policies…" class="flex-1 resize-none bg-transparent px-3 py-2 text-sm focus:outline-none max-h-40"></textarea>
-              <button type="submit" class="w-9 h-9 shrink-0 rounded-xl bg-gold hover:bg-gold-light text-charcoal flex items-center justify-center transition-colors">
-                <span class="material-symbols-outlined text-[20px]">arrow_upward</span>
-              </button>
-            </form>
-            <p class="text-center text-[11px] text-muted mt-2">Answers are generated from indexed ministry documents. Verify critical decisions against the source document.</p>
-          </div>
-        </div>
-      </section>
+      <div class="chat-main">
+        <div id="chat-thread" class="chat-thread"></div>
 
-      <!-- ---------- KNOWLEDGE BASE VIEW ---------- -->
-      <section id="view-knowledge" class="view h-full hidden overflow-y-auto p-6">
-        <div class="max-w-5xl mx-auto">
-          <div class="flex items-center justify-between mb-4">
-            <p class="text-sm text-muted">Documents indexed in the offline knowledge base, grouped by category.</p>
-            <button id="kb-refresh" class="text-sm text-muted hover:text-ink flex items-center gap-1">
-              <span class="material-symbols-outlined text-[18px]">refresh</span> Refresh
-            </button>
-          </div>
-          <div id="kb-groups" class="space-y-8"></div>
-        </div>
-      </section>
-
-      <!-- ---------- AI DOCUMENT ASSISTANT VIEW ---------- -->
-      <section id="view-assistant" class="view h-full hidden overflow-y-auto p-6">
-        <div class="max-w-3xl mx-auto">
-          <div class="bg-white border border-black/10 rounded-2xl p-6 mb-6">
-            <h3 class="font-display font-semibold text-base mb-1">Analyze a one-off document</h3>
-            <p class="text-sm text-muted mb-4">Upload a file to get a summary, compliance-risk scan, or plain-language explanation. This is <strong>not</strong> added to the permanent knowledge base.</p>
-            <form id="assistant-form" class="space-y-4">
-              <input id="assistant-file" type="file" required accept=".pdf,.doc,.docx,.xls,.xlsx" class="block w-full text-sm border border-black/10 rounded-lg px-3 py-2"/>
-              <div class="flex gap-2">
-                <label class="flex-1"><input type="radio" name="mode" value="summarize" checked class="peer sr-only"/><div class="peer-checked:border-gold peer-checked:bg-gold/10 border border-black/10 rounded-lg px-3 py-2 text-sm text-center cursor-pointer">Summarize</div></label>
-                <label class="flex-1"><input type="radio" name="mode" value="risks" class="peer sr-only"/><div class="peer-checked:border-gold peer-checked:bg-gold/10 border border-black/10 rounded-lg px-3 py-2 text-sm text-center cursor-pointer">Compliance risks</div></label>
-                <label class="flex-1"><input type="radio" name="mode" value="simplify" class="peer sr-only"/><div class="peer-checked:border-gold peer-checked:bg-gold/10 border border-black/10 rounded-lg px-3 py-2 text-sm text-center cursor-pointer">Plain language</div></label>
-              </div>
-              <button type="submit" id="assistant-submit" class="bg-charcoal hover:bg-charcoal-2 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors">Analyze document</button>
-            </form>
-          </div>
-          <div id="assistant-result" class="hidden bg-white border border-black/10 rounded-2xl p-6"></div>
-        </div>
-      </section>
-
-      <!-- ---------- UPLOAD VIEW (admin) ---------- -->
-      <section id="view-upload" class="view h-full hidden overflow-y-auto p-6">
-        <div class="max-w-2xl mx-auto">
-          <div class="bg-white border border-black/10 rounded-2xl p-6 mb-6">
-            <h3 class="font-display font-semibold text-base mb-1">Upload &amp; index a document</h3>
-            <p class="text-sm text-muted mb-4">PDF, DOCX, or XLSX. Re-uploading a file with the same title archives the previous version automatically.</p>
-            <form id="upload-form" class="space-y-4">
-              <input id="upload-file" type="file" required accept=".pdf,.doc,.docx,.xls,.xlsx" class="block w-full text-sm border border-black/10 rounded-lg px-3 py-2"/>
-              <div class="grid grid-cols-2 gap-3">
-                <input id="upload-department" placeholder="Department" class="border border-black/10 rounded-lg px-3 py-2 text-sm"/>
-                <input id="upload-author" placeholder="Author" class="border border-black/10 rounded-lg px-3 py-2 text-sm"/>
-                <input id="upload-category" placeholder="Category" class="border border-black/10 rounded-lg px-3 py-2 text-sm"/>
-                <input id="upload-date" type="date" class="border border-black/10 rounded-lg px-3 py-2 text-sm"/>
-              </div>
-              <button type="submit" id="upload-submit" class="bg-gold hover:bg-gold-light text-charcoal font-semibold text-sm px-4 py-2.5 rounded-lg transition-colors">Upload &amp; index</button>
-            </form>
-            <div id="upload-result" class="hidden mt-4 text-sm rounded-lg px-3 py-2"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ---------- ADMIN VIEW ---------- -->
-      <section id="view-admin" class="view h-full hidden overflow-y-auto p-6">
-        <div class="max-w-6xl mx-auto">
-          <div class="flex gap-2 mb-6 border-b border-black/10">
-            <button data-tab="stats" class="admin-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent">Overview</button>
-            <button data-tab="users" class="admin-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent">Users</button>
-            <button data-tab="logs" class="admin-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent">Audit Logs</button>
-            <button data-tab="insights" class="admin-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent">AI Insights</button>
-            <button data-tab="settings" class="admin-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent">Settings</button>
-          </div>
-
-          <div id="admin-panel-stats" class="admin-panel">
-            <div id="stats-cards" class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6"></div>
-            <button id="rebuild-index-btn" class="flex items-center gap-2 bg-charcoal hover:bg-charcoal-2 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors">
-              <span class="material-symbols-outlined text-[18px]">restart_alt</span> Rebuild knowledge base index
-            </button>
-            <span id="rebuild-status" class="ml-3 text-sm text-muted"></span>
-          </div>
-
-          <div id="admin-panel-users" class="admin-panel hidden">
-            <div class="bg-white border border-black/10 rounded-2xl overflow-hidden">
-              <table class="w-full text-sm">
-                <thead class="bg-paper text-left text-xs uppercase tracking-wider text-muted">
-                  <tr><th class="px-4 py-3">Name</th><th class="px-4 py-3">Email</th><th class="px-4 py-3">Role</th><th class="px-4 py-3">Status</th><th class="px-4 py-3">Actions</th></tr>
-                </thead>
-                <tbody id="users-table-body" class="divide-y divide-black/5"></tbody>
-              </table>
-            </div>
-          </div>
-
-          <div id="admin-panel-logs" class="admin-panel hidden">
-            <div class="bg-white border border-black/10 rounded-2xl overflow-hidden">
-              <table class="w-full text-sm">
-                <thead class="bg-paper text-left text-xs uppercase tracking-wider text-muted">
-                  <tr><th class="px-4 py-3">Time</th><th class="px-4 py-3">Action</th><th class="px-4 py-3">Tag</th></tr>
-                </thead>
-                <tbody id="logs-table-body" class="divide-y divide-black/5"></tbody>
-              </table>
-            </div>
-          </div>
-
-          <div id="admin-panel-insights" class="admin-panel hidden grid md:grid-cols-2 gap-6">
-            <div class="bg-white border border-black/10 rounded-2xl p-5">
-              <h4 class="font-display font-semibold text-sm mb-3">Most-asked questions</h4>
-              <div id="insights-top-questions" class="space-y-2 text-sm"></div>
-            </div>
-            <div class="bg-white border border-black/10 rounded-2xl p-5">
-              <h4 class="font-display font-semibold text-sm mb-3">Knowledge gaps</h4>
-              <div id="insights-gaps" class="space-y-2 text-sm"></div>
-            </div>
-            <div class="bg-white border border-black/10 rounded-2xl p-5 md:col-span-2">
-              <h4 class="font-display font-semibold text-sm mb-3">Recent activity</h4>
-              <div id="insights-activity" class="space-y-2 text-sm"></div>
-            </div>
-          </div>
-
-          <div id="admin-panel-settings" class="admin-panel hidden">
-            <div class="bg-white border border-black/10 rounded-2xl p-6 max-w-xl">
-              <h4 class="font-display font-semibold text-sm mb-4">External AI Gateway</h4>
-              <label class="flex items-center gap-3 mb-4">
-                <input id="settings-external-toggle" type="checkbox" class="w-4 h-4"/>
-                <span class="text-sm">Enable external AI gateway (off by default — ministry document content is never sent externally)</span>
-              </label>
-              <input id="settings-provider" placeholder="Provider name (optional)" class="w-full border border-black/10 rounded-lg px-3 py-2 text-sm mb-4"/>
-              <button id="settings-save-btn" class="bg-gold hover:bg-gold-light text-charcoal font-semibold text-sm px-4 py-2 rounded-lg transition-colors">Save settings</button>
-              <span id="settings-status" class="ml-3 text-sm text-muted"></span>
-            </div>
-          </div>
-        </div>
-      </section>
-
+        <form id="chat-form" class="chat-input-bar">
+          <input id="chat-input" type="text" placeholder="Ask about a policy, e.g. 'What does the Data Protection Act say about consent?'" autocomplete="off" />
+          <button id="chat-send-btn" type="submit" class="btn btn-primary" aria-label="Send">
+            <span class="material-symbols-outlined">send</span>
+          </button>
+        </form>
+      </div>
     </div>
-  </main>
-</div>
+  </section>
 
-<div id="toast" class="hidden fixed bottom-5 right-5 bg-charcoal text-white text-sm px-4 py-3 rounded-lg shadow-xl z-50 max-w-sm"></div>
+  <!-- ================= KNOWLEDGE BASE ================= -->
+  <section id="view-knowledge" class="view hidden">
+    <div class="page-shell">
+      <h1>Regulatory Knowledge Base</h1>
+      <p id="kb-summary" style="color:var(--color-text-secondary);"></p>
+
+      <div class="kb-layout">
+        <div class="card card-pad" style="height:fit-content;">
+          <h4 style="margin-top:0;">Categories</h4>
+          <div id="kb-categories"></div>
+        </div>
+        <div class="card">
+          <div id="kb-documents"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= UPLOAD (admin) ================= -->
+  <section id="view-upload" class="view hidden">
+    <div class="page-shell">
+      <h1>Upload Documents</h1>
+      <p style="color:var(--color-text-secondary);">Documents are extracted, chunked, embedded, and stored in the FAISS knowledge base automatically. Re-uploading a file with the same title archives the previous version.</p>
+
+      <div class="card card-pad" style="margin-bottom:20px;">
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;">
+          <div>
+            <label class="field-label" for="upload-department">Department</label>
+            <input id="upload-department" class="field-input" placeholder="e.g. ICT Policy Division" />
+          </div>
+          <div>
+            <label class="field-label" for="upload-author">Author</label>
+            <input id="upload-author" class="field-input" placeholder="e.g. J. Namutebi" />
+          </div>
+          <div>
+            <label class="field-label" for="upload-category">Category</label>
+            <input id="upload-category" class="field-input" placeholder="e.g. National Policies" />
+          </div>
+          <div>
+            <label class="field-label" for="upload-date">Date published</label>
+            <input id="upload-date" type="date" class="field-input" />
+          </div>
+        </div>
+        <div class="field-hint">Applied to the next file you upload below.</div>
+      </div>
+
+      <div id="dropzone" class="dropzone" style="margin-bottom:20px;">
+        <span class="material-symbols-outlined">upload_file</span>
+        <p style="font-weight:600;margin:10px 0 4px;">Drag &amp; drop a file here</p>
+        <p style="font-size:13px;color:var(--color-text-secondary);">or click to browse · PDF, DOC, DOCX, XLS, XLSX</p>
+        <input id="file-input" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx" class="hidden" />
+      </div>
+
+      <div class="card card-pad">
+        <h3 style="margin-top:0;">Upload Queue</h3>
+        <div id="upload-queue"><p class="empty-hint">No uploads yet this session.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= AI DOCUMENT ASSISTANT ================= -->
+  <section id="view-assistant" class="view hidden">
+    <div class="page-shell">
+      <h1>AI Document Assistant</h1>
+      <p style="color:var(--color-text-secondary);">Analyze a one-off document — summarize it, scan it for compliance risks, or explain it in plain language. This is <strong>not</strong> added to the permanent knowledge base.</p>
+
+      <div class="card card-pad" style="margin-bottom:20px;">
+        <div id="assistant-dropzone" class="dropzone">
+          <span class="material-symbols-outlined">description</span>
+          <p id="assistant-file-label" style="font-weight:600;margin:10px 0 4px;">Drag &amp; drop a document here</p>
+          <p style="font-size:13px;color:var(--color-text-secondary);">or click to browse · PDF, DOC, DOCX, XLS, XLSX</p>
+          <input id="assistant-file-input" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx" class="hidden" />
+        </div>
+
+        <div class="mode-grid">
+          <label class="mode-option"><input type="radio" name="assistant-mode" value="summarize" checked /><div class="mode-card">Summarize</div></label>
+          <label class="mode-option"><input type="radio" name="assistant-mode" value="risks" /><div class="mode-card">Compliance risks</div></label>
+          <label class="mode-option"><input type="radio" name="assistant-mode" value="simplify" /><div class="mode-card">Plain language</div></label>
+        </div>
+
+        <button id="assistant-submit" class="btn btn-primary" disabled>Analyze document</button>
+      </div>
+
+      <div id="assistant-result" class="card card-pad hidden"></div>
+    </div>
+  </section>
+
+  <!-- ================= ADMIN ================= -->
+  <section id="view-admin" class="view hidden">
+    <div class="page-shell">
+      <h1>Administration</h1>
+      <p style="color:var(--color-text-secondary);">User management, audit trail, AI insights, and platform settings.</p>
+
+      <div class="subtab-nav">
+        <button class="subtab" data-subtab="overview">Overview</button>
+        <button class="subtab" data-subtab="users">Users</button>
+        <button class="subtab" data-subtab="logs">Audit Logs</button>
+        <button class="subtab" data-subtab="insights">AI Insights</button>
+        <button class="subtab" data-subtab="settings">Settings</button>
+      </div>
+
+      <div id="admin-panel-overview" class="admin-panel">
+        <div id="stat-grid" class="stat-grid"></div>
+        <div class="card card-pad">
+          <h3 style="margin-top:0;">Knowledge Base Index</h3>
+          <p style="color:var(--color-text-secondary);font-size:13px;">Rebuild re-extracts, re-chunks, and re-embeds every active document from scratch.</p>
+          <button id="rebuild-index-btn" class="btn btn-outline">
+            <span class="material-symbols-outlined" style="font-size:18px;">restart_alt</span> Rebuild knowledge base index
+          </button>
+          <span id="rebuild-status" style="margin-left:10px;font-size:13px;color:var(--color-text-secondary);"></span>
+        </div>
+      </div>
+
+      <div id="admin-panel-users" class="admin-panel hidden">
+        <div class="card card-pad" style="margin-bottom:20px;">
+          <h3 style="margin-top:0;">Add User</h3>
+          <form id="add-user-form" style="display:grid;grid-template-columns:1.2fr 1.2fr 1fr 0.8fr auto;gap:10px;align-items:end;">
+            <div><label class="field-label">Full name</label><input id="new-user-name" class="field-input" required /></div>
+            <div><label class="field-label">Email</label><input id="new-user-email" type="email" class="field-input" required /></div>
+            <div><label class="field-label">Password</label><input id="new-user-password" type="password" class="field-input" required /></div>
+            <div>
+              <label class="field-label">Role</label>
+              <select id="new-user-role" class="field-input"><option value="staff">staff</option><option value="admin">admin</option></select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+        </div>
+        <div class="card">
+          <table class="table">
+            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="users-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="admin-panel-logs" class="admin-panel hidden">
+        <div class="card">
+          <div id="logs-list"></div>
+        </div>
+      </div>
+
+      <div id="admin-panel-insights" class="admin-panel hidden" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div class="card card-pad">
+          <h3 style="margin-top:0;">Most-asked questions</h3>
+          <div id="insights-top-questions"></div>
+        </div>
+        <div class="card card-pad">
+          <h3 style="margin-top:0;">Knowledge gaps</h3>
+          <div id="insights-gaps"></div>
+        </div>
+        <div class="card card-pad" style="grid-column:1 / -1;">
+          <h3 style="margin-top:0;">Recent activity</h3>
+          <div id="insights-activity"></div>
+        </div>
+      </div>
+
+      <div id="admin-panel-settings" class="admin-panel hidden">
+        <div class="card card-pad" style="max-width:520px;">
+          <h3 style="margin-top:0;">External AI Gateway</h3>
+          <p style="font-size:13px;color:var(--color-text-secondary);">Off by default. Ministry document content is never sent externally regardless of this setting — only the offline RAG pipeline touches indexed documents.</p>
+          <label style="display:flex;align-items:center;gap:10px;margin:16px 0;font-size:14px;">
+            <input id="settings-external-toggle" type="checkbox" />
+            Enable external AI gateway
+          </label>
+          <label class="field-label" for="settings-provider">Provider name (optional)</label>
+          <input id="settings-provider" class="field-input" style="margin-bottom:16px;" />
+          <button id="settings-save-btn" class="btn btn-primary">Save settings</button>
+          <span id="settings-status" style="margin-left:10px;font-size:13px;color:var(--color-text-secondary);"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="app-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="brand" style="margin-bottom:8px;cursor:default;">
+        <img src="img/ministry_logo.png" alt="Ministry logo" style="height:32px;" />
+      </div>
+      <p style="max-width:280px;color:#cfd8e3;">The official offline intelligence assistant of the Ministry of ICT &amp; National Guidance, Uganda.</p>
+      <span class="badge" style="background:rgba(255,255,255,0.12);color:#fff;">Data Protection &amp; Privacy Act 2019 Compliant</span>
+    </div>
+    <div>
+      <strong>Resources</strong><br/>
+      <a href="#">ICT Policy</a><br/>
+      <a href="#">E-Gov Services</a><br/>
+      <a href="https://edocs.go.ug" target="_blank" rel="noopener">eDocs+ (EDRMS)</a>
+    </div>
+    <div>
+      <strong>Support</strong><br/>
+      <a href="#">Contact System Administrator</a><br/>
+      <a href="#">Report an Issue</a><br/>
+      <a href="#">FAQ</a>
+    </div>
+    <div>
+      <strong>Follow the Ministry</strong>
+      <div class="socials">
+        <a href="https://twitter.com/MoICT_Ug" target="_blank" rel="noopener" aria-label="X (Twitter)">X</a>
+        <a href="https://www.facebook.com/MoICT.Ug" target="_blank" rel="noopener" aria-label="Facebook">Facebook</a>
+      </div>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:20px;color:#8fa0b8;">© 2026 Ministry of ICT &amp; National Guidance, Uganda. All Rights Reserved.</p>
+</footer>
 
 <script src="app.js"></script>
 </body>
